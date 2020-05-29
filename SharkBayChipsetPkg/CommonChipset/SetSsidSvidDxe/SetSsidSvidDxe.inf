@@ -1,0 +1,75 @@
+## @file
+#  Component description file for SetSsidSvidDxe driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SetSsidSvidDxe
+  FILE_GUID                      = 96BDEA61-C364-4513-B6B3-037E9AD54CE4
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SetSsidSvidEntryPoint
+
+[Sources]
+  SetSsidSvidDxe.c
+#[-start-130409-IB06720212-add]#
+#[-start-140115-IB07390124-remove]#
+#  ProgramSsidSvidFunction0x10DE.c
+#  ProgramSsidSvidFunction0x1002.c
+#[-end-140115-IB07390124-remove]#
+#[-end-130409-IB06720212-add]#
+ 
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+#[-start-130903-IB12360023-add]#
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-end-130903-IB12360023-add]#
+  
+[LibraryClasses]
+  IoLib
+  DebugLib
+  CommonPciLib
+  PciExpressLib
+  S3BootScriptLib
+#[-start-130409-IB06720212-remove]#
+#  PlatformSsidLib
+#[-end-130409-IB06720212-remove]#
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DxeOemSvcKernelLibDefault
+  DxeChipsetSvcLib
+#[-start-130903-IB12360023-add]#
+  PcdLib
+#[-end-130903-IB12360023-add]#
+
+[Protocols]
+#[-start-130429-IB10130047-add]#
+#[-start-131119-IB07390115-modify]#
+  gEfiPciEnumerationCompleteProtocolGuid
+#[-end-131119-IB07390115-modify]#
+#[-end-130429-IB10130047-add]#  
+
+[Pcd]
+#[-start-130903-IB12360023-add]#
+  gChipsetPkgTokenSpaceGuid.PcdNoBridgeDeviceSsid
+#[-end-130903-IB12360023-add]#
+#[-start-131008-IB06720235-modify]//
+  gInsydeTokenSpaceGuid.PcdDefaultSsidSvid
+#[-start-131008-IB06720235-modify]//
+
+[Depex]
+   gH2OChipsetServicesProtocolGuid

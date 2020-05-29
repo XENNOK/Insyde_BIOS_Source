@@ -1,0 +1,41 @@
+//;******************************************************************************
+//;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+
+//
+//  Form HARDWARE_MONITOR_FORM_ID: 
+//
+form
+  formid = HARDWARE_MONITOR_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+  subtitle  text = STRING_TOKEN (STR_HARDWARE_HEALTH_MONITOR_STRING);
+  subtitle  text = STRING_TOKEN (STR_BLANK_STRING);
+  
+  subtitle  text = STRING_TOKEN (STR_HARDWARE_MONITOR_TITLE_VOLTAGE);
+  grayoutif
+    TRUE; 
+    label VOLTAGE_LABEL;     
+    subtitle  text = STRING_TOKEN (STR_BLANK_STRING);
+  endif;
+  
+  subtitle  text = STRING_TOKEN (STR_HARDWARE_MONITOR_TITLE_TEMPERATURE);
+  grayoutif
+    TRUE;  
+    label TEMPERATURE_LABEL;
+    subtitle  text = STRING_TOKEN (STR_BLANK_STRING);
+  endif;
+    
+  subtitle  text = STRING_TOKEN (STR_HARDWARE_MONITOR_TITLE_FANSPEED);
+  grayoutif
+    TRUE;
+    label FAN_SPEED_LABEL;
+    subtitle  text = STRING_TOKEN (STR_BLANK_STRING);         
+  endif;
+
+endform; // end of form HARDWARE_MONITOR_FORM_ID

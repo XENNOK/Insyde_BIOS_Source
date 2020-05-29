@@ -1,0 +1,61 @@
+## @file
+#  Component description file for BootOptionPolicyDxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BootOptionPolicyDxe
+  FILE_GUID                      = 2D6BB83D-84A2-404a-B4CA-3E7AC0EFB3D2
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitBootOptionPolicy
+
+[Sources]
+  BootOptionPolicy.c
+  BootOptionPolicy.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  BaseMemoryLib
+  DebugLib
+  HiiLib
+  PrintLib
+  KernelConfigLib
+  VariableLib
+
+[Guids]
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiBootOptionPolicyProtocolGuid
+
+[FixedPcd]
+
+[Pcd]
+  gEfiIntelFrameworkModulePkgTokenSpaceGuid.PcdShellFile
+  gInsydeTokenSpaceGuid.PcdMiniShellFile
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid
+

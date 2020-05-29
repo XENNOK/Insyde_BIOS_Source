@@ -1,0 +1,148 @@
+## @file
+#  Component description file for VariableRuntimeDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = VariableRuntimeDxe
+  FILE_GUID                      = CBD2E4D5-7068-4FF5-B462-9822B4AD8D60
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = VariableServiceInitialize
+
+[Sources]
+  Reclaim.c
+  Reclaim.h
+  SecureBoot.c
+  SecureBoot.h
+  Variable.c
+  VariableRuntimeDxe.c
+  Variable.h
+  AuthService.c
+  AuthService.h
+  InsydeSecureVariable.c
+  InsydeSecureVariable.h
+  VariableLock.c
+  VariableLock.h
+  SensitiveVariable.c
+  SensitiveVariable.h
+
+[Sources.Ia32]
+  Ia32/CallSmmFunctions.asm
+  Ia32/CallSmmFunctions.S
+
+[Sources.X64]
+  X64/CallSmmFunctions.asm
+  X64/CallSmmFunctions.S
+
+[Sources.Arm]
+  Arm/CallSmmFunctions.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  DebugLib
+  UefiLib
+  PcdLib
+  HobLib
+  VariableSupportLib
+  PostCodeLib
+  ImageRelocationLib
+  DxeOemSvcKernelLibDefault
+  CacheMaintenanceLib
+  MultiConfigBaseLib
+
+[Guids]
+  gEfiAuthenticatedVariableGuid                 ## PRODUCES ## Configuration Table Guid
+  gEfiGlobalVariableGuid                        ## PRODUCES ## Variable Guid
+  gEfiEventVirtualAddressChangeGuid             ## PRODUCES ## Event
+  gEfiCertRsa2048Sha256Guid
+  gEfiImageSecurityDatabaseGuid
+  gEfiCertX509Guid
+  gEfiCertPkcs7Guid
+  gEfiCertRsa2048Guid
+  gEfiHashAlgorithmSha256Guid
+  gPlatformDisableSecureBootGuid
+  gEfiGenericVariableGuid
+  gEfiCertSha256Guid
+  gEfiCertTypeRsa2048Sha256Guid
+  gEfiCertSha1Guid
+  gEfiEventExitBootServicesGuid
+  gIbvCertTypeInsydeSecureGuid
+  gInsydeSecureFirmwarePasswordGuid
+  gSystemConfigurationGuid
+  gEfiAlternateFvBlockGuid
+  gBootOrderHookEnableGuid
+  gBootOrderHookDisableGuid
+  gEfiEndOfDxeEventGroupGuid                    ## CONSUMES ## Event
+  gReturnFromImageGuid
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase64
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopyBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+  gInsydeTokenSpaceGuid.PcdUseEcpVariableStoreHeader
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+  gInsydeTokenSpaceGuid.PcdDefaultVariableForReclaimFailTable
+  gInsydeTokenSpaceGuid.PcdUpdateSecureBootVariablesSupported
+  gInsydeTokenSpaceGuid.PcdRuntimeReclaimSupported
+  gInsydeTokenSpaceGuid.PcdOsIndicationsSupported
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdMultiConfigSupported
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiHashProtocolGuid
+  gCryptoServicesProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+  gEfiSmmRuntimeProtocolGuid
+  gEfiFirmwareVolumeBlockProtocolGuid           ## SOMETIMES_CONSUMES
+  gEfiVariableWriteArchProtocolGuid             ## ALWAYS_PRODUCES
+  gEfiVariableArchProtocolGuid                  ## ALWAYS_PRODUCES
+  gEfiFaultTolerantWriteLiteProtocolGuid        ## SOMETIMES_CONSUMES
+  gEfiSmmFtwProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmFwBlockServiceProtocolGuid
+  gEfiSmmCpuProtocolGuid
+  gEfiSmmVariableProtocolGuid
+  gEfiVariableDefaultUpdateProtocolGuid
+  gEfiNonVolatileVariableProtocolGuid
+  gEfiBdsArchProtocolGuid
+  gEdkiiVariableLockProtocolGuid                ## ALWAYS_PRODUCES
+
+[Depex]
+  <DXE_DEPEX>
+  gEfiFirmwareVolumeBlockProtocolGuid AND
+  gEfiAlternateFvBlockGuid AND
+  gEfiFaultTolerantWriteLiteProtocolGuid
+
+  <SMM_DEPEX>
+  gEfiNonVolatileVariableProtocolGuid AND
+  gEfiSmmFtwProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gEfiSmmCpuProtocolGuid

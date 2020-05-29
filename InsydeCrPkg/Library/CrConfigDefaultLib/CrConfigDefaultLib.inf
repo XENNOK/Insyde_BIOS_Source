@@ -1,0 +1,61 @@
+## @file
+# Implement for CrConfig variable load default setting 
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CrConfigDefaultLib
+  FILE_GUID                      = AFBAE7C0-2C51-4659-85E2-A6DF001AFBB2
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = CrConfigDefaultLib|DXE_DRIVER UEFI_DRIVER
+
+[Sources]
+  CrConfigDefaultLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  BaseLib
+  BaseMemoryLib
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  DebugLib
+  MemoryAllocationLib
+  DxeOemSvcKernelLibDefault
+  DevicePathLib
+  KernelConfigLib
+  HiiLib
+  DevicePathLib
+  
+
+[Guids]
+  gEfiGenericVariableGuid
+  gCrConfigurationGuid
+  
+[Protocols]
+ 
+  gEfiCRPolicyProtocolGuid
+  gCRBdsHookProtocolGuid
+  gConsoleRedirectionServiceProtocolGuid
+ 

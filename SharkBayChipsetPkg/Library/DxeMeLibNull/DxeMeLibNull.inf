@@ -1,0 +1,43 @@
+## @file
+# 
+#  Instance of ME Library without support.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeMeLibNull
+  FILE_GUID                      = 26C2AF79-B5CA-409d-85B6-F36DD555F754
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = MeLib
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  MeLib.c
+  HeciMsgLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  HobLib
+  
+[Guids]
+  
+[Protocols]
+  gDxePlatformMePolicyGuid
+
+[BuildOptions]  

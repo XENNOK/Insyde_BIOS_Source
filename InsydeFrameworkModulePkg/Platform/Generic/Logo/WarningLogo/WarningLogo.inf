@@ -1,0 +1,22 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+
+[defines]
+BASE_NAME            = WarningLogo
+FILE_GUID            = 771F77D1-13AF-48bf-2584-773D389E33CA
+COMPONENT_TYPE       = LOGO
+BUILD_TYPE           = CUSTOM_MAKEFILE
+FFS_EXT              = FFS
+
+[sources.common]
+
+[nmake.common]

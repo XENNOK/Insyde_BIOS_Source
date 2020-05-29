@@ -1,0 +1,43 @@
+## @file
+#  Component description file for TianoCompressSmm module
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = TianoCompressSmm
+  FILE_GUID                      = C7EA9F94-1547-44F0-863F-563EAE79E1C0
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = TianoCompressEntry
+
+[Sources]
+  TianoCompressSmm.c
+  TianoCompress.h
+  TianoCompress.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+
+[Protocols]
+  gTianoCompressProtocolGuid
+
+[Depex]
+  TRUE

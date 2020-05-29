@@ -1,0 +1,56 @@
+## @file
+#  Component description file for PEI OEM Services Chipset Lib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiOemSvcChipsetLib
+  FILE_GUID                      = A79B5B30-8CF0-4dc5-A526-E99BCD91BDC6
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PeiOemSvcChipsetLib|PEI_CORE PEIM
+
+[Sources]
+  OemSvcGetBoardInfo.c
+  OemSvcGetGpioTable.c
+#[-start-130424-IB05400400-add]#
+  OemSvcUpdateSaPlatformPolicy.c
+#[-end-130424-IB05400400-add]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(PROJECT_PKG)/Project.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+#[-start-130809-IB06720232-remove]#
+#  EcLib
+  CommonEcLib
+#[-end-130809-IB06720232-remove]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable1
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable2
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable3
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable4
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable5
+  gChipsetPkgTokenSpaceGuid.PcdCurrentBoardId
+#[-start-130424-IB05400400-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+#[-end-130424-IB05400400-add]#
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdDenlowServerSupported
+

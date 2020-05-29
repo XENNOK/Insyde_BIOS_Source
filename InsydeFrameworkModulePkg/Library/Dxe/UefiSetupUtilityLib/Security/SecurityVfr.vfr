@@ -1,0 +1,421 @@
+//;******************************************************************************
+//;* Copyright (c) 1983-2014, Insyde Software Corporation. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+//;
+//; Module Name:
+//;
+//;   SecurityVfr.vfr
+//;
+//; Abstract:
+//;
+//;   The Vfr component for Security menu
+//;
+
+//
+// Define this to include compiler fail-cases in the code
+//
+#include "UefiSetupUtilityLibStrDefs.h"
+#include "SetupConfig.h"
+
+//
+//          Form 3: Security Menu
+//
+
+formset
+  guid     = SYSTEM_CONFIGURATION_GUID,
+  title    = STRING_TOKEN(STR_SECURITY_TITLE),
+  help     = STRING_TOKEN(STR_BLANK_STRING),
+  class    = SETUP_UTILITY_CLASS,
+  subclass = EFI_USER_ACCESS_TWO,
+
+  varstore SYSTEM_CONFIGURATION,             // This is the data structure type
+    varid = CONFIGURATION_VARSTORE_ID,       // Optional VarStore ID
+    name  = SystemConfig,                    // Define referenced name in vfr
+    guid  = SYSTEM_CONFIGURATION_GUID;       // GUID of this buffer storage
+
+  varstore PASSWORD_CONFIGURATION,       
+    varid = PASSWORD_CONFIGURATION_VARSTORE_ID, 
+    name  = PasswordConfig,                  
+    guid  = PASSWORD_CONFIGURATION_GUID;     
+
+  namevaluevarstore PasswordNameValueVar,                      // Define storage reference name in vfr
+    name = STRING_TOKEN(STR_SUPERVISOR_PASSWORD_VAR_NAME),     // Define Name list of this storage, refer it by PasswordNameValueVar[0]
+    name = STRING_TOKEN(STR_USER_PASSWORD_VAR_NAME),           // Define Name list of this storage, refer it by PasswordNameValueVar[1]
+    name = STRING_TOKEN(STR_ALL_HDD_PASSWORD_VAR_NAME),        // Define Name list of this storage, refer it by PasswordNameValueVar[2]
+    name = STRING_TOKEN(STR_ALL_MASTER_HDD_PASSWORD_VAR_NAME), // Define Name list of this storage, refer it by PasswordNameValueVar[3]
+    guid = PASSWORD_CONFIGURATION_GUID;                        // GUID of this Name/Value storage
+
+  form
+    formid = ROOT_FORM_ID,
+
+    title = STRING_TOKEN(STR_SECURITY_TITLE);
+
+    subtitle
+      text = STRING_TOKEN(STR_BLANK_STRING);
+
+#if defined(TPM_SUPPORT) || defined(TPM2_SUPPORT)
+#if defined(TPM_AUTO_DETECTION)
+    grayoutif  TRUE;
+#endif
+      oneof
+        varid   = SystemConfig.TpmDevice,
+        questionid = KEY_TPM_SELECT,
+        prompt  = STRING_TOKEN(STR_TPM_DEVICE_PROMPT),
+        help    = STRING_TOKEN(STR_TPM_DEVICE_HELP),
+#if defined(TPM_AUTO_DETECTION)
+       	option text = STRING_TOKEN(STR_NOT_DETECTED_TEXT),   value = TPM_DEVICE_NULL, flags = 0;
+#endif
+#if defined(TPM_SUPPORT) && defined(TPM2_SUPPORT)
+        option text = STRING_TOKEN(STR_TPM_1_2_TEXT_STRING), value = TPM_DEVICE_1_2,  flags = 0 | INTERACTIVE;
+        option text = STRING_TOKEN(STR_TPM2_TEXT_STRING),    value = TPM_DEVICE_2_0,  flags = DEFAULT | INTERACTIVE;      
+#elif defined(TPM_SUPPORT)
+        option text = STRING_TOKEN(STR_TPM_1_2_TEXT_STRING), value = TPM_DEVICE_1_2,  flags = DEFAULT;
+#else
+        option text = STRING_TOKEN(STR_TPM2_TEXT_STRING),    value = TPM_DEVICE_2_0,  flags = DEFAULT;
+#endif
+      endoneof;
+#if defined(TPM_AUTO_DETECTION)
+    endif;
+#endif
+    grayoutif  TRUE;
+      label TPM_STATE_LABEL;
+    endif;
+#endif
+
+#ifdef TPM_SUPPORT
+    suppressif
+      NOT ideqval SystemConfig.TpmDevice == TPM_DEVICE_1_2
+      OR
+      ideqval SystemConfig.TpmDeviceOk == 0xFF;
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid   = SystemConfig.TpmHide,
+          questionid = KEY_TPM_HIDE,
+          prompt  = STRING_TOKEN(STR_TPM_AVAILABILITY_PROMPT),
+          help    = STRING_TOKEN(STR_TPM_AVAILABILITY_HELP),
+          option text = STRING_TOKEN(STR_TPM_AVAILABLE_TEXT), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN(STR_TPM_HIDDEN_TEXT),    value = 1, flags = 0 | INTERACTIVE;
+        endoneof;
+      endif;
+    endif;
+    
+    suppressif
+      NOT ideqval SystemConfig.TpmDevice == TPM_DEVICE_1_2
+      OR
+      ideqval SystemConfig.TpmDeviceOk == 0xFF
+      OR
+      ideqval SystemConfig.TpmHide == 1
+      OR
+      ideqval SystemConfig.SuppressTpmOperation == 1;
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid   = SystemConfig.TpmOperation,
+          prompt  = STRING_TOKEN(STR_TPM_OPERATION_STRING),
+          help    = STRING_TOKEN(STR_TPM_OPERATION_HELP),
+          option text = STRING_TOKEN(STR_NO_OPERATION_TEXT),            value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN(STR_DISABLE_AND_DEACTIVATE_TEXT),  value = 1, flags = 0;
+          option text = STRING_TOKEN(STR_ENABLE_AND_ACTIVATE_TEXT),     value = 2, flags = 0;
+        endoneof;
+      endif;
+    endif;
+
+    suppressif
+      NOT ideqval SystemConfig.TpmDevice == TPM_DEVICE_1_2
+      OR
+      ideqval SystemConfig.TpmDeviceOk == 0xFF
+      OR
+      ideqval SystemConfig.TpmHide == 1
+      OR
+      ideqval SystemConfig.SuppressTpmOperation == 1;   
+      grayoutif
+        (ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1)
+        OR
+        ideqval SystemConfig.GrayoutTpmClear == 1;
+        checkbox 
+          varid    = SystemConfig.TpmClear,
+          prompt   = STRING_TOKEN(STR_TPM_CLEAR_TEXT),
+          help     = STRING_TOKEN(STR_TPM_CLEAR_HELP),
+          flags    = INTERACTIVE,
+          key      = KEY_TPM_CLEAR,
+          default  = 0,
+        endcheckbox;
+      endif;        
+    endif;
+#endif
+
+#ifdef TPM2_SUPPORT
+    suppressif
+      NOT ideqval SystemConfig.TpmDevice == TPM_DEVICE_2_0
+      OR
+      ideqval SystemConfig.Tpm2DeviceOk == 0xFF;
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid   = SystemConfig.TpmHide,
+          questionid = KEY_TPM2_HIDE,
+          prompt  = STRING_TOKEN(STR_TPM_AVAILABILITY_PROMPT),
+          help    = STRING_TOKEN(STR_TPM_AVAILABILITY_HELP),
+          option text = STRING_TOKEN(STR_TPM_AVAILABLE_TEXT), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN(STR_TPM_HIDDEN_TEXT),    value = 1, flags = 0 | INTERACTIVE;
+        endoneof;
+      endif;
+    endif;
+    
+    suppressif
+      NOT ideqval SystemConfig.TpmDevice == TPM_DEVICE_2_0
+      OR
+      ideqval SystemConfig.Tpm2DeviceOk == 0xFF
+      OR
+      ideqval SystemConfig.TpmHide == 1
+      OR
+      ideqval SystemConfig.SuppressTpmOperation == 1;
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid   = SystemConfig.TpmOperation,
+          prompt  = STRING_TOKEN(STR_TPM_OPERATION_STRING),
+          help    = STRING_TOKEN(STR_TPM2_ENABLE_HELP),
+          option text = STRING_TOKEN(STR_NO_OPERATION_TEXT), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN(STR_DISABLE_TEXT),      value = 1, flags = 0;
+          option text = STRING_TOKEN(STR_ENABLE_TEXT),       value = 2, flags = 0;
+        endoneof;
+      endif;
+    endif;
+    
+    suppressif
+      NOT ideqval SystemConfig.TpmDevice == TPM_DEVICE_2_0
+      OR
+      ideqval SystemConfig.Tpm2DeviceOk == 0xFF
+      OR
+      ideqval SystemConfig.TpmHide == 1
+      OR
+      ideqval SystemConfig.SuppressTpmOperation == 1;
+      grayoutif
+        (ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1)
+        OR
+        ideqval SystemConfig.GrayoutTpmClear == 1;
+        checkbox 
+          varid    = SystemConfig.Tpm2Operation,
+          prompt   = STRING_TOKEN(STR_TPM_CLEAR_TEXT),
+          help     = STRING_TOKEN(STR_TPM_CLEAR_HELP),
+          flags    = INTERACTIVE,
+          key      = KEY_TPM2_CLEAR,
+          default  = 0,
+        endcheckbox;
+      endif;
+    endif;
+  
+    //
+    // Give Tpm2Enable default vaule 1
+    //
+    suppressif TRUE;
+      checkbox 
+        varid    = SystemConfig.Tpm2Enable,
+        prompt   = STRING_TOKEN(STR_BLANK_STRING),
+        help     = STRING_TOKEN(STR_BLANK_STRING),
+        default  = 1,
+      endcheckbox;
+    endif;
+#endif
+
+    grayoutif  vareqval var(VAR_EQ_GRAY_TEXT) == 0x1;
+      text
+        help   = STRING_TOKEN(STR_BLANK_STRING),
+        text   = STRING_TOKEN(STR_SUPERVISOR_PASSWORD_STRING),
+        text   = STRING_TOKEN(STR_SUPERVISOR_PASSWORD_STRING2),
+        flags  = 0,
+        key    = 0;
+#ifdef SUPPORT_USER_PASSWORD
+      text
+        help   = STRING_TOKEN(STR_BLANK_STRING),
+        text   = STRING_TOKEN(STR_USER_PASSWORD_STRING),
+        text   = STRING_TOKEN(STR_USER_PASSWORD_STRING2),
+        flags  = 0,
+        key    = 0;
+#endif
+    endif;
+
+    subtitle
+      text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // If Supervisor Password is set, display User Access Level and
+    // set supervisor password text is "Installed", else Hidden it.
+    //
+    suppressif
+      ideqvallist SystemConfig.UserAccessLevel == 1 3 4
+      OR
+      ideqval SystemConfig.SetUserPass == 0;
+      text
+        help   = STRING_TOKEN(STR_BLANK_STRING),
+        text   = STRING_TOKEN(STR_BLANK_STRING),
+        text   = STRING_TOKEN(STR_BLANK_STRING),
+        flags  = 0,
+        key    = 0;
+    endif;
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqvallist SystemConfig.UserAccessLevel == 3 4
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    password
+      varid    = PasswordNameValueVar[0],
+      prompt   = STRING_TOKEN(STR_SUPERVISOR_PASSWORD_PROMPT),
+      help     = STRING_TOKEN(STR_PASSWORD_HELP),
+      flags    = INTERACTIVE,
+      key      = KEY_SUPERVISOR_PASSWORD,
+      minsize  = MIN_PASSWORD_NUMBER,
+      maxsize  = SYS_PASSWORD_MAX_LENGTH,
+      encoding = 1,
+    endpassword;
+    endif;
+    endif;
+
+
+    //
+    //Power on password
+    //
+    suppressif
+      ideqval SystemConfig.SetUserPass == 1
+      OR
+      ideqval SystemConfig.SupervisorFlag == 0;
+    oneof
+      varid       = SystemConfig.PowerOnPassword,
+      prompt      = STRING_TOKEN(STR_PASSWORD_POWERON_STRING),
+      help        = STRING_TOKEN(STR_PASSWORD_POWERON_HELP),
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),    value = 2, flags = 0;
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),   value = 1, flags = DEFAULT;
+    endoneof;
+    endif;
+#ifdef SUPPORT_USER_PASSWORD
+    //
+    //User Access Level
+    //
+    suppressif
+      ideqval SystemConfig.SetUserPass == 1
+      OR
+      ideqval SystemConfig.SupervisorFlag == 0;
+    oneof
+      varid       = SystemConfig.UserAccessLevel,
+      prompt      = STRING_TOKEN(STR_USER_ACCESS_LEVEL_STRING),
+      help        = STRING_TOKEN(STR_USER_ACCESS_LEVEL_HELP),
+      option text = STRING_TOKEN(STR_VIEW_ONLY_TEXT),  value = 2, flags = 0;
+      option text = STRING_TOKEN(STR_LIMITED_TEXT),    value = 3, flags = 0;
+      option text = STRING_TOKEN(STR_FULL_TEXT),       value = 4, flags = DEFAULT;
+    endoneof;
+    endif;
+
+    //
+    //Set User password
+    //
+    grayoutif
+      ideqval SystemConfig.SupervisorFlag == 0;
+    password
+      varid    = PasswordNameValueVar[1],
+      prompt   = STRING_TOKEN(STR_USER_PASSWORD_PROMPT),
+      help     = STRING_TOKEN(STR_PASSWORD_HELP),
+      flags    = INTERACTIVE,
+      key      = KEY_USER_PASSWORD,
+      minsize  = MIN_PASSWORD_NUMBER,
+      maxsize  = SYS_PASSWORD_MAX_LENGTH,
+      encoding = 1,
+    endpassword;
+    endif;
+
+    //
+    //Clear User password
+    //
+    suppressif
+      ideqval SystemConfig.UserFlag == 0;
+      text
+        help   = STRING_TOKEN(STR_BLANK_STRING),
+        text   = STRING_TOKEN(STR_CLEAR_USER_PASSWORD_STRING),
+        text   = STRING_TOKEN(STR_BLANK_STRING),
+        flags  = INTERACTIVE,
+        key    = KEY_CLEAR_USER_PASSWORD;
+    endif;
+#endif
+    //
+    //Set All Hdd password
+    //
+    suppressif
+      ideqval PasswordConfig.HddPasswordSupport == 0;
+    grayoutif
+      ideqval SystemConfig.SetAllHddPasswordFlag == 0
+      OR
+      ideqval SystemConfig.SetUserPass == 1
+      AND
+      ideqval SystemConfig.UserAccessLevel == 3;
+    password
+      varid    = PasswordNameValueVar[2],
+      prompt   = STRING_TOKEN(STR_CHG_HDD_PASSWORD_PROMPT),
+      help     = STRING_TOKEN(STR_HDD_SECURITY_TITLE_HELP),
+      flags    = INTERACTIVE,
+      key      = KEY_LOCK_ALL_HDD_SECURITY,
+      minsize  = MIN_PASSWORD_NUMBER,
+      maxsize  = HDD_PASSWORD_MAX_LENGTH,
+      encoding = 2,
+    endpassword;
+    endif;
+    endif;
+
+    //
+    //Set All Msater Hdd password
+    //
+    suppressif
+      ideqval PasswordConfig.HddPasswordSupport == 0
+      OR
+      ideqval SystemConfig.UseMasterPassword == 0;
+    grayoutif
+      ideqval SystemConfig.SetAllHddPasswordFlag == 0
+      OR
+      ideqval SystemConfig.SetAllMasterHddPasswordFlag == 0
+      OR
+      ideqval SystemConfig.SetUserPass == 1
+      AND
+      ideqval SystemConfig.UserAccessLevel == 3;
+    password
+      varid    = PasswordNameValueVar[3],
+      prompt   = STRING_TOKEN(STR_CHG_MASTER_HDD_PASSWORD_PROMPT),
+      help     = STRING_TOKEN(STR_HDD_MASTER_SECURITY_TITLE_HELP),
+      flags    = INTERACTIVE,
+      key      = KEY_LOCK_ALL_MASTER_HDD_SECURITY,
+      minsize  = MIN_PASSWORD_NUMBER,
+      maxsize  = HDD_PASSWORD_MAX_LENGTH,
+     encoding = 2,
+    endpassword;
+    endif;
+    endif;
+
+    subtitle
+      text = STRING_TOKEN(STR_BLANK_STRING);
+
+
+
+  endform;
+
+endformset;

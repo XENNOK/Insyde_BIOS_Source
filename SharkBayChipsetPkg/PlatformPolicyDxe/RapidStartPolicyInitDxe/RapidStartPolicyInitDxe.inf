@@ -1,0 +1,71 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#/*++
+#  This file contains a 'Sample Driver' and is licensed as such
+#  under the terms of your license agreement with Intel or your
+#  vendor.  This file may be modified by the user, subject to  
+#  the additional terms of the license agreement               
+#--*/
+#/*++
+#
+#Copyright (c)  1999 - 2012 Intel Corporation. All rights reserved
+#This software and associated documentation (if any) is furnished
+#under a license and may only be used or copied in accordance
+#with the terms of the license. Except as permitted by such
+#license, no part of this software or documentation may be
+#reproduced, stored in a retrieval system, or transmitted in any
+#form or by any means without the express written consent of
+#Intel Corporation.
+#
+#Module Name:
+#
+#  RapidStartDxePolicyInit.inf
+#
+#Abstract:
+#
+#  Component description file for the RapidStartDxePolicyInit DXE driver.
+#
+#--*/
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = RapidStartPolicyInitDxe
+  FILE_GUID                      = DDB412A6-E3F3-4e9e-90A3-2A991270219C
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = RapidStartDxePolicyInitEntryPoint
+
+[Sources]
+  RapidStartDxePolicyInit.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  CmosLib
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+  gRapidStartPlatformPolicyProtocolGuid
+
+#[-start-121003-IB10820132-add]#
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdDxePlatformRapidStartPolicyRaidModeSataPortNumber
+  gChipsetPkgTokenSpaceGuid.PcdMeMiscConfigFviSmbiosType
+#[-end-121003-IB10820132-add]#
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid

@@ -1,0 +1,42 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = H2ODebugLib
+  FILE_GUID                      = 77B7BB82-CDEE-4832-A30F-1F506F0D7383
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = H2ODebugLib
+
+
+[Sources.Arm]
+  Arm/H2ODebugLib.c
+
+[Sources.IA32]
+  H2ODebugLib.c
+
+[Sources.X64]
+  H2ODebugLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeiServicesTablePointerLib
+
+[LibraryClasses.Arm]
+  HobLib
+
+[Ppis]
+  gH2ODebugCommPpiGuid

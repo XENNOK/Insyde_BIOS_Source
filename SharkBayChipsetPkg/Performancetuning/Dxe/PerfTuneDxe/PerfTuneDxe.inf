@@ -1,0 +1,62 @@
+## @file
+#
+#   Component description file for Heci SMM driver
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#* Copyright (c)  2005 - 2012 Intel Corporation. All rights reserved
+#* This software and associated documentation (if any) is furnished
+#* under a license and may only be used or copied in accordance
+#* with the terms of the license. Except as permitted by such
+#* license, no part of this software or documentation may be
+#* reproduced, stored in a retrieval system, or transmitted in any
+#* form or by any means without the express written consent of
+#* Intel Corporation.
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PerfTuneDxe
+  FILE_GUID                      = C2EF45B3-5463-4d1c-800C-2EFA99C8C4E8
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializePerfTuneServices
+
+[Sources]
+  PerfTuneDxe.c
+  PerfTuneDxe.h
+ 
+[Packages]
+  MdePkg/MdePkg.dec 
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  CmosLib
+  DevicePathLib
+ 
+[Protocols]
+  gDxePlatformXtuPolicyGuid
+  gEfiFirmwareVolumeProtocolGuid
+  gEfiSmmBaseProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  
+[Depex]
+  gEfiCpuIoProtocolGuid             AND
+  gEfiPciRootBridgeIoProtocolGuid   AND
+  gEfiAcpiSupportProtocolGuid       AND
+  gEfiSmmBaseProtocolGuid           AND
+  gEfiSetupUtilityProtocolGuid      

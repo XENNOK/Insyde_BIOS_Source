@@ -1,0 +1,39 @@
+## @file
+#
+#  Component description file for PEI/DXE SPS ME Chipset Lib
+#  Note: Only for SPS.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsMeChipsetLib
+  FILE_GUID                      = E542E5C1-D261-4a18-A5F9-8745CC55AB21
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SpsMeChipsetLib
+
+[Sources]
+  SpsMeChipsetLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  PciExpressLib
+  S3BootScriptLib
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+

@@ -1,0 +1,84 @@
+/** @file
+  This file contains a structure definition for the ACPI PCI Express
+  Description Table (MCFG).  Any changes to the MCFG table require updating the
+  respective structure count in mcfg.h and then adding the structure to the
+  MCFG defined in this file.  The table layout is defined in Mcfg.h and the
+  table contents are defined in Acpi1_0.h and Mcfg.h.
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+//
+// Statements that include other files
+//
+
+#include <Mcfg.h>
+
+//
+// PCI Express Description Table
+//
+
+  EFI_ACPI_MEMORY_MAPPED_CONFIGURATION_SPACE_ACCESS_DESCRIPTION_TABLE Mcfg = {
+  EFI_ACPI_3_0_PCI_EXPRESS_MEMORY_MAPPED_CONFIGURATION_SPACE_BASE_ADDRESS_DESCRIPTION_TABLE_SIGNATURE,
+  sizeof (EFI_ACPI_MEMORY_MAPPED_CONFIGURATION_SPACE_ACCESS_DESCRIPTION_TABLE),
+  EFI_ACPI_MEMORY_MAPPED_CONFIGURATION_SPACE_ACCESS_TABLE_REVISION,
+
+  //
+  // Checksum will be updated at runtime
+  //
+  0x00,
+
+  //
+  // It is expected that these values will be programmed at runtime
+  //
+  'I', 'N', 'S', 'Y', 'D', 'E',
+
+  // OEM table identification
+  ((((((((((((('N' << 8) + 'a') << 8) + 'p') << 8) + 'a') << 8) + ' ') << 8) + ' ') << 8) + ' ') << 8) + ' ',
+
+  EFI_ACPI_OEM_MCFG_REVISION,
+  ((((('M' << 8) + 'S') << 8) + 'F') << 8) + 'T',
+  1000000,              // ASL compiler revision number
+
+  0x0000000000000000,                    // IB0910010 ++
+  //
+  // MCFG specific fields
+  //
+
+  //
+  // Sample Base Address Structure
+  //
+  //0x0000000000000000,                                           // BaseAddress
+  //0x0000,                                                       // PciSegmentGroupNumber
+  //0x00,                                                         // StartBusNumber
+  //0x00,                                                         // EndBusNumber
+  //0x00000000,                                                   // Reserved
+
+// For resource issue, chipset team only reserved 64M for PCIe that means only support Bus 0 ~ Bus 63
+  PCIEXPRESS_BASE_ADDRESS,                                             // BaseAddress
+  0x0000,                                                         // PciSegmentGroupNumber
+  0x00,                                                           // StartBusNumber
+  PCIEXPRESS_END_BUS_NUMBER,                                           // EndBusNumber 
+  0x00000000                                                      // Reserved
+
+};
+
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&Mcfg;
+}

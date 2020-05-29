@@ -1,0 +1,55 @@
+## @file
+#  Component description file for FactoryCopyManagement module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FactoryCopyManagement
+  FILE_GUID                      = 830495EA-CB19-43FE-B1E0-67D216011282
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = IrsiLib
+  CONSTRUCTOR                    = IrsiFactoryCopyManagementInit
+
+[Sources]
+  FactoryCopyManagement.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  SecurityPkg/SecurityPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  PcdLib
+  UefiBootServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  IrsiRegistrationLib
+  FvRegionAccessLib
+  DebugLib
+
+  
+[Protocols]
+  gIrsiRegistrationProtocolGuid
+
+[Guids]
+  gIrsiServicesGuid
+  gEfiSystemNvDataFvGuid
+  gIrsiVariableImageGuid
+  gIrsiFactoryCopyImageGuid
+
+[FixedPcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdUseEcpVariableStoreHeader

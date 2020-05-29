@@ -1,0 +1,46 @@
+## @file
+#  Component description file for Power Management module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PowerMgmtS3
+  FILE_GUID                      = 8F0B5301-C79B-44f1-8FD3-26D73E316700
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = PowerMgmtS3SmmEntryPoint
+
+[sources]
+  PowerMgmtS3.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  PchPlatformLib
+  CpuPlatformLib
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gDxeCpuPlatformPolicyProtocolGuid
+
+[Depex]
+  gEfiSmmControlProtocolGuid  AND
+  gEfiPowerMgmtInitDoneProtocolGuid  AND
+  gEfiSaInfoProtocolGuid

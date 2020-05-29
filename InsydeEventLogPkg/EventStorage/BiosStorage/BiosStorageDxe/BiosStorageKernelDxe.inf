@@ -1,0 +1,73 @@
+## @file
+#  Implement the driver of BiosStorageKernelDxe.
+#  
+#  ***************************************************************************
+#  * Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#  *
+#  * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#  * transmit, broadcast, present, recite, release, license or otherwise exploit
+#  * any part of this publication in any form, by any means, without the prior
+#  * written permission of Insyde Software Corporation.
+#  *
+#  ******************************************************************************
+#  
+##
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = BiosStorageKernelDxe
+  FILE_GUID                 = 9CDA2EF0-EBCA-499c-A193-95B468625528
+  MODULE_TYPE               = DXE_DRIVER  
+  PI_SPECIFICATION_VERSION  = 0x0001000A
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = BiosStorageKernelEntryPoint
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[Sources]
+  BiosStorageKernelDxe.c
+
+[Sources.X64]
+  X64/CallSmmEventLog.asm   | MSFT
+  X64/CallSmmEventLog.jwasm | GCC
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  BaseLib
+  UefiLib
+  CmosLib
+  HobLib
+  FlashDevicesLib
+  IoLib
+
+[Protocols]
+  gEfiBiosEventLogProtocolGuid
+  gEfiNonVolatileVariableProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiVariableWriteArchProtocolGuid            # CONSUMED
+  
+[Guids]
+  gEfiHobListGuid
+  gEfiFlashMapHobGuid
+  gBiosEventLogHobGuid
+#[-start-140306-IB08400249-modify]#
+  gH2OEventLogVariableGuid                     # PRODUCED
+  gH2OEventStorageVariableGuid                 # PRODUCED
+#[-end-140306-IB08400249-modify]#
+  
+[Pcd]
+  gH2OEventLogPkgTokenSpaceGuid.PcdBiosEventStorageBase  
+  gH2OEventLogPkgTokenSpaceGuid.PcdBiosEventStorageSize
+
+[FeaturePcd]  
+  
+[Depex]
+  TRUE

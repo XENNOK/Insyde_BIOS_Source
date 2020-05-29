@@ -1,0 +1,53 @@
+## @file
+#  Component description file for InstallVerbTablePei PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2012-2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = InstallVerbTablePei
+  FILE_GUID            	         = A56FAD72-A264-4370-85C5-00584654DCE2
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeimInstallVerbTableInitEntry
+
+[Sources]
+  InstallVerbTablePei.c
+  InstallVerbTablePei.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  IoLib
+  DebugLib
+  PeimEntryPoint
+  PeiServicesLib
+  PeiOemSvcKernelLibDefault 
+  PeiChipsetSvcLib
+#[-start-130319-12360001-add]#
+  PcdLib
+#[-end-130319-12360001-add]#
+  
+[Ppis]
+  gEfiPeiStallPpiGuid
+  gPeiInstallVerbTablePpiGuid
+  
+[Depex]
+  gEfiPeiStallPpiGuid
+  
+#[-start-130319-12360001-add]#
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdHdaInitWaitTime
+#[-end-130319-12360001-add]#  

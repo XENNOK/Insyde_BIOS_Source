@@ -1,0 +1,38 @@
+## @file
+#  Library classes for enabling/disabling flash write access
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FlashWriteEnableLib
+  FILE_GUID                      = ED77F6ED-26F9-4631-85F2-9ED82DC479FF
+  MODULE_TYPE                    = BASE
+  LIBRARY_CLASS                  = FlashWriteEnableLib
+
+[Sources]
+  FlashWriteEnableLibNull.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+
+[Guids]
+
+[Ppis]
+
+
+
+

@@ -1,0 +1,206 @@
+## @file
+#  Implement the driver of DxeChipsetSvc.
+#  
+#  ***************************************************************************
+#  * Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#  *
+#  * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#  * transmit, broadcast, present, recite, release, license or otherwise exploit
+#  * any part of this publication in any form, by any means, without the prior
+#  * written permission of Insyde Software Corporation.
+#  *
+#  ******************************************************************************
+#  
+##
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = ChipsetSvcDxe
+  FILE_GUID                 = 9b0ff2c0-e245-11e1-8eff-d0df9a35c106
+  MODULE_TYPE               = DXE_DRIVER
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = ChipsetSvcDxeEntryPoint
+  UNLOAD_IMAGE              = ChipsetSvcDxeUnload
+
+[Packages]
+  MdePkg/MdePkg.dec
+##[-start-130424-12360003-add]#
+  MdeModulePkg/MdeModulePkg.dec
+##[-end-130424-12360003-add]#
+#[-start-121114-IB06720136-add]#
+  PerformancePkg/PerformancePkg.dec
+#[-end-121114-IB06720136-add]#
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+#[-start-121213-IB10820193-add]#
+  UefiCpuPkg/UefiCpuPkg.dec
+#[-end-121213-IB10820193-add]#
+#[-start-130808-IB06720232-add]#
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+#[-end-130808-IB06720232-add]#
+
+[Sources]
+  ChipsetSvcDxe.c
+  ComponentName.c
+  ComponentName.h
+#[-start-121210-IB08460021-add]#
+  SataComReset.c
+  EnableFdWrites.c
+  IoDecodeControl.c
+  LegacyRegionAccessCtrl.c
+  ProgramChipsetSsid.c
+  InstallPciRomSwitchTextMode.c
+  SetIsaInfo.c
+  SetSmbiosMemoryData.c
+  SkipGetPciRom.c
+  UpdateAcpiTable.c
+#[-end-121210-IB08460021-add]#
+#[-start-130422-IB06720225-add]#
+  IrqRoutingInformation.c
+#[-end-130422-IB06720225-add]#
+#[-start-130715-IB07390108-add]#
+#[-start-130724-IB07390110-modify]#
+  FvRecoveryInfo.c
+#[-start-130724-IB07390110-modify]#
+#[-end-130715-IB07390108-add]#
+#[-start-130424-12360003-add]#
+  GetBiosProtectTable.c
+#[-end-130424-12360003-add]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  BaseLib
+  UefiLib
+  DevicePathLib
+  DebugLib
+  PcdLib
+  IoLib
+  S3BootScriptLib
+  ChipsetCpuLib
+  AcpiPlatformLib
+#[-start-121130-IB10820179-add]#
+#[-start-130808-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcKernelLibDefault
+#[-end-130808-IB06720232-modify]#
+  PciExpressLib
+#[-end-121130-IB10820179-add]#
+#[-start-121218-IB10820203-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121218-IB10820203-add]#
+#[-start-130325-IB06720210-add]#
+  HobLib
+#[-end-130325-IB06720210-add]#
+
+[Protocols]
+  gEfiDriverSupportedEfiVersionProtocolGuid
+  gEfiComponentName2ProtocolGuid
+  gEfiComponentNameProtocolGuid
+  gH2OChipsetServicesProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  gEfiLegacy8259ProtocolGuid
+  gEfiCpuIo2ProtocolGuid
+  gFrameworkEfiMpServiceProtocolGuid
+  gMemInfoProtocolGuid
+  gEfiGlobalNvsAreaProtocolGuid
+#[-start-121130-IB10820179-add]#
+  gMemInfoProtocolGuid
+  gEfiAcpiSupportProtocolGuid
+  gSpttDataProtocolGuid
+  gEfiPlatformInfoProtocolGuid
+#[-end-121130-IB10820179-add]#
+#[-start-121222-IB11410036-add]#
+  gDxePchPlatformPolicyProtocolGuid
+#[-end-121222-IB11410036-add]#
+
+[Guids]
+#[-start-130325-IB06720210-add]#
+  gSlotStatusGuid
+#[-end-130325-IB06720210-add]#
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-121130-IB10820179-add]#
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+#[-end-121130-IB10820179-add]#
+#[-start-121213-IB10820193-add]#
+  gUefiCpuPkgTokenSpaceGuid.PcdCpuLocalApicBaseAddress
+#[-end-121213-IB10820193-add]#
+#[-start-121218-IB10820203-add]#
+  gChipsetPkgTokenSpaceGuid.PcdGlobalNvsAreaBatteryCapacity0
+  gChipsetPkgTokenSpaceGuid.PcdGlobalNvsAreaBatteryStatus0
+  gChipsetPkgTokenSpaceGuid.PcdGlobalNvsAreaPlatformFlavor
+  gChipsetPkgTokenSpaceGuid.PcdGlobalNvsAreaIdeREnable
+  gChipsetPkgTokenSpaceGuid.PcdGlobalNvsAreaPeciAccessMethod
+  gChipsetPkgTokenSpaceGuid.PcdGlobalNvsAreaRtd3P0dl
+  gChipsetPkgTokenSpaceGuid.PcdGlobalNvsAreaRtd3P3dl
+#[-end-121218-IB10820203-add]#
+#[-start-130410-IB05160433-add]#
+  gChipsetPkgTokenSpaceGuid.PcdBoardIdForAslCode
+#[-end-130410-IB05160433-add]#
+#[-start-130422-IB05400398-add]#
+  gChipsetPkgTokenSpaceGuid.PcdCurrentBoardId
+#[-end-130422-IB05400398-add]#
+#[-start-130422-IB06720225-add]#
+  gChipsetPkgTokenSpaceGuid.PcdVirtualBusTable
+  gChipsetPkgTokenSpaceGuid.PcdControllerDeviceIrqRoutingEntry
+  gChipsetPkgTokenSpaceGuid.PcdPirqPriorityTable
+  gChipsetPkgTokenSpaceGuid.PcdIrqPoolTable
+  gChipsetPkgTokenSpaceGuid.PcdPirqLinkValueArray
+#[-end-130422-IB06720225-add]#
+#[-start-130715-IB07390108-add]#
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+ #[-end-130715-IB07390108-add]#
+ #[-start-130424-12360003-add]#
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+  gInsydeTokenSpaceGuid.PcdFlashFvMainBase
+  gInsydeTokenSpaceGuid.PcdFlashFvMainSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageBvdtBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageBvdtSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopyBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gChipsetPkgTokenSpaceGuid.PcdFlashFvBackupBase
+  gChipsetPkgTokenSpaceGuid.PcdFlashFvBackupSize
+#[-end-130424-12360003-add]#
+
+#[-start-121130-IB10820179-add]#
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdEcSharedFlashSupported
+  gChipsetPkgTokenSpaceGuid.PcdEcIdlePerWriteBlockSupported
+#[-start-130218-IB07250301-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdSwitchableGraphicsSupported
+#[-end-130218-IB07250301-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+  gChipsetPkgTokenSpaceGuid.PcdXtuSupported
+  gChipsetPkgTokenSpaceGuid.PcdRapidStartSupported
+#[-end-121130-IB10820179-add]#
+#[-start-130204-IB10820229-add]#
+  gChipsetPkgTokenSpaceGuid.PcdDisableCacheSupportInEnableFdWrites
+#[-end-130204-IB10820229-add]#
+#[-start-140224-IB10920078-add]#
+  gChipsetPkgTokenSpaceGuid.PcdIntelSwitchableGraphicsSupported
+#[-end-140224-IB10920078-add]#
+[Depex]
+  TRUE

@@ -1,0 +1,39 @@
+## @file
+#  Base Timer Library which uses the CPU Architectural Protocol
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CpuTimerLib
+  FILE_GUID                      = f4731d79-537e-4505-bd52-c03f9b1f6b90
+  MODULE_TYPE                    = BASE
+  LIBRARY_CLASS                  = TimerLib
+
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[Sources]
+  TimerLib.c
+
+[Protocols]
+  gEfiCpuArchProtocolGuid
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+
+[LibraryClasses]
+  DebugLib
+

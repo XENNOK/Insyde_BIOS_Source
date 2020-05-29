@@ -1,0 +1,57 @@
+## @file
+#
+#  Component description file for MemoryStorageKernel DXE Driver.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#    
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MemoryStorageKernelDxe
+  FILE_GUID                      = 75C640C2-030E-4C57-81E2-532B1DD7339F
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MemoryStorageKernelDxeEntryPoint
+
+[Sources]
+  MemoryStorageKernelDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseMemoryLib
+  CmosLib
+  UefiDriverEntryPoint
+  UefiLib
+  
+[Protocols]
+  gEfiVariableWriteArchProtocolGuid            # CONSUMED
+  gEfiLegacyRegionProtocolGuid                 # CONSUMED
+  gEfiLegacyBiosProtocolGuid                   # CONSUMED
+  gH2OMemoryStorageProtocolGuid                # PRODUCED
+  
+[Guids]
+  gH2OMemoryStorageVariableGuid                # PRODUCED
+#[-start-140306-IB08400249-add]#
+  gH2OEventStorageVariableGuid                 # PRODUCED
+#[-end-140306-IB08400249-add]#
+
+[Depex]
+  TRUE 

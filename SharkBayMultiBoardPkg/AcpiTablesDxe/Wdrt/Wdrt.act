@@ -1,0 +1,107 @@
+//;******************************************************************************
+//;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+
+//
+// Statements that include other files
+//
+#include "WatchdogResourceTable.h"
+#include "Wdrt.h"
+
+//
+// Watchdog Resource Table
+//
+EFI_ACPI_WATCHDOG_RESOURCE_1_0_TABLE Wdrt = {
+  EFI_ACPI_3_0_WATCHDOG_RESOURCE_TABLE_SIGNATURE,
+  sizeof (EFI_ACPI_WATCHDOG_RESOURCE_1_0_TABLE),
+  EFI_ACPI_WATCHDOG_RESOURCE_1_0_TABLE_REVISION,
+
+  //
+  // Checksum will be updated at runtime
+  //
+  0x00,
+
+  //
+  // It is expected that these values will be programmed at runtime
+  //
+  ' ', ' ', ' ', ' ', ' ', ' ',
+  0,
+  0,
+  0,
+  0,
+
+  //
+  // Control Register Address (GAS Form)
+  //
+  0x01,
+  0x08,
+  0x00,
+  0x01,
+  //
+  // Offset address is unknown
+  //
+  0x46E,
+
+  //
+  // Count Register Address (GAS Form)
+  //
+  0x01,
+  0x10,
+  0x00,
+  0x02,
+  //
+  // Offset address is unknown
+  //
+  0x460,
+  //
+  // PciDeviceId
+  //
+  0xFFFF,
+  //
+  // PciVenderId
+  //
+  0xFFFF,
+  //
+  // PciBusNumber
+  //
+  0x00,
+  //
+  // PciDeviceNumber
+  //
+  0x00,
+  //
+  // PciFunctionNumber
+  //
+  0x00,
+  //
+  // PciSegment
+  //
+  0x0,
+  //
+  // MaxCount
+  //
+  65535,
+  //
+  // Units
+  //
+  0x2
+};
+
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&Wdrt;
+}
+

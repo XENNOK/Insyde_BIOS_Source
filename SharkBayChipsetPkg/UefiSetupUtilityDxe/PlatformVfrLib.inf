@@ -1,0 +1,120 @@
+## @file
+#  Component description file for PlatformVfrLib library
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PlatformVfrLib
+  FILE_GUID                      = DB424128-C5C8-4551-8BFA-1B22760B32D5
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PlatformVfrLib
+  STRGATHER_RESERVE_SIZE         = 0x1000
+
+[Sources]
+  Advance/AdvanceVfr.vfr
+  Power/PowerVfr.vfr
+  SetupVfrStrings.uni
+#[-start-130225-IB10920016-add]#
+!IF "$(HARDWARE_MONITOR_SUPPORT)" == "YES"
+  Advance/HardwareMonitor/HardwareMonitor.uni
+  Advance/HardwareMonitor/HardwareMonitor.hfr
+!ENDIF
+#[-end-130225-IB10920016-add]#
+
+#[-start-130617-IB04560405-add]#
+#[-start-140318-IB08400253-modify]#
+#[-start-131122-IB08400219-modify]#
+!IF "$(H2O_EVENT_LOG_SUPPORT)" == "YES"
+  Advance/BiosEventLog.hfr
+  Advance/BiosEventLog.uni
+!ENDIF
+#[-end-131122-IB08400219-modify]#
+
+!IF "$(H2O_POST_MESSAGE)" == "YES"
+  Advance/PostMessage.hfr
+  Advance/PostMessage.uni
+!ENDIF
+#[-end-140318-IB08400253-modify]#
+#[-end-130617-IB04560405-add]#
+
+#[-start-131225-IB08620313-add]#
+!IF "$(APEI_SUPPORT)" == "YES"
+  Advance/APEI/APEI.uni
+  Advance/APEI/APEI.hfr
+!ENDIF
+#[-end-131225-IB08620313-add]#
+
+#[-start-130625-IB11120016-add]#
+  Advance/IpmiConfig/IpmiConfig.hfr
+  Advance/IpmiConfig/IpmiConfig.uni
+#[-end-130625-IB11120016-add]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeCrPkg/InsydeCrPkg.dec
+#[-start-131225-IB08620313-add]#
+#!IF "$(APEI_SUPPORT)" == "YES"
+  InsydeApeiPkg/InsydeApeiPkg.dec
+#!ENDIF
+#[-end-131225-IB08620313-add]#
+#[-start-140318-IB08400253-add]#
+  InsydeEventLogPkg/InsydeEventLogPkg.dec
+#[-end-140318-IB08400253-add]#
+
+[LibraryClasses]
+
+[Guids]
+
+[Protocols]
+
+[Pcd]
+#[-start-130812-IB05670190-add]#
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLang
+  gChipsetPkgTokenSpaceGuid.PcdXtuSupported
+  gChipsetPkgTokenSpaceGuid.PcdTXTSupported
+  gChipsetPkgTokenSpaceGuid.PcdRapidStartSupported
+  gInsydeTokenSpaceGuid.PcdH2OTpmSupported
+  gChipsetPkgTokenSpaceGuid.PcdMeSupported
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+  gInsydeTokenSpaceGuid.PcdH2OUsbSupported
+  gInsydeTokenSpaceGuid.PcdH2OConsoleRedirectionSupported
+  gChipsetPkgTokenSpaceGuid.PcdAntiTheftSupported
+  gChipsetPkgTokenSpaceGuid.PcdSwitchableGraphicsSupported
+  gChipsetPkgTokenSpaceGuid.PcdDdr3lvSupported
+  gChipsetPkgTokenSpaceGuid.PcdAmdPowerXpressSupported
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+  gChipsetPkgTokenSpaceGuid.PcdPttSupport
+#[-start-140318-IB08400253-modify]#
+  gH2OEventLogPkgTokenSpaceGuid.PcdH2OEventLogSupport
+  gH2OEventLogPkgTokenSpaceGuid.PcdH2OPostMessageSupport
+  gH2OEventLogPkgTokenSpaceGuid.PcdH2OPostBeepSupport
+#[-end-140318-IB08400253-modify]#
+#[-end-130812-IB05670190-add]#
+#[-start-140224-IB10920078-add]#
+  gChipsetPkgTokenSpaceGuid.PcdIntelSwitchableGraphicsSupported
+#[-end-140224-IB10920078-add]#
+#[-start-131031-IB08520089-add]#
+  gInsydeTokenSpaceGuid.PcdHddPasswordMinLength
+  gInsydeTokenSpaceGuid.PcdHddPasswordMaxLength
+#[-end-131031-IB08520089-add]#
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserSupported
+#[-start-140523-IB10300110-add]#
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+#[-end-140523-IB10300110-add]#
+
+[BuildOptions]

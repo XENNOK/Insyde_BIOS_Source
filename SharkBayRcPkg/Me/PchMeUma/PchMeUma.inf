@@ -1,0 +1,67 @@
+## @file
+#
+#  Component description file for PchMeUma module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = PchMeUma
+  FILE_GUID            = B6A2AFF3-767C-5658-C37A-D1C82EF76543
+  MODULE_TYPE          = PEIM
+  VERSION_STRING       = 1.0  
+  ENTRY_POINT          = PchMeUmaEntry
+
+[Sources]
+  PchMeUma.c
+  PchMeUma.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  PerformanceLib
+  PchPlatformLib
+  BaseMemoryLib
+  IoLib
+#[-start-130416-IB10920021-add]#
+  PcdLib
+#[-end-130416-IB10920021-add]#
+
+[Pcd]
+#[-start-130416-IB10920021-add]#
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-end-130416-IB10920021-add]#
+
+[Guids]
+  gMeDataHobGuid
+  
+[Ppis]
+  gEfiPeiStallPpiGuid                            ## CONSUMES
+  gPchMeUmaPpiGuid                               ## CONSUMES
+  gWdtPpiGuid                                    ## CONSUMES
+
+[Depex]
+  gWdtPpiGuid AND
+#[-start-131204-IB05670214-modify]#
+!IF "$(PTT_SUPPORT)" == "YES"
+#[-end-131204-IB05670214-modify]#
+  gPeiMePlatformPolicyPpiGuid AND
+!ENDIF
+  gEfiPeiStallPpiGuid
+  
+[BuildOptions]
+

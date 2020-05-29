@@ -1,0 +1,47 @@
+## @file
+#  Component description file for GetVersion module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UpdateCapsule
+  FILE_GUID                      = DC7CE1E7-F172-4773-89C8-A6FCA8007EAF
+  MODULE_TYPE                    = DXE_RUNTIME_DRIVER
+  LIBRARY_CLASS                  = IrsiLib
+  CONSTRUCTOR                    = IrsiUpdateCapsuleInit
+
+[Sources]
+  UpdateCapsule.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  IrsiRegistrationLib
+  PcdLib
+
+  
+[Protocols]
+  gIrsiRegistrationProtocolGuid
+
+[Guids]
+  gIrsiServicesGuid
+  gEfiGlobalVariableGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdIrsiVersion

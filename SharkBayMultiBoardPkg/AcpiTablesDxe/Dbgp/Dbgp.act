@@ -1,0 +1,60 @@
+/** @file
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#include <Dbgp.h>
+
+//
+// Debug Port Table
+//
+EFI_ACPI_DEBUG_PORT_TABLE Dbgp = {
+  {
+    EFI_ACPI_2_0_DEBUG_PORT_TABLE_SIGNATURE,
+    sizeof(EFI_ACPI_DEBUG_PORT_TABLE),
+    EFI_ACPI_OEM_DBGP_TABLE_REVISION,
+    0,                          // to make sum of entire table == 0
+    EFI_ACPI_OEM_ID,            // OEMID is a 6 bytes long field
+    EFI_ACPI_OEM_TABLE_ID,      // OEM table identification(8 bytes long)
+    EFI_ACPI_OEM_REVISION,      // OEM revision
+    EFI_ACPI_CREATOR_ID,        // ASL compiler vendor ID
+    EFI_ACPI_CREATOR_REVISION   // ASL compiler revision number
+  },
+  EFI_ACPI_OEM_DBGP_INTERFACE_TYPE,
+  {
+    0,
+    0,
+    0
+  },
+  //
+  // Generic Address Structure BaseAddress
+  //
+  //
+  {
+    0x01,        // Address_Space_ID = System I/O
+    0x10,        // Register_Bit_Width = 16 bits
+    0x00,        // Register_Bit_offset
+    0x00,        // Reserved
+    0x3F8        // Base addresse of UART
+  }
+};
+
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&Dbgp;
+}

@@ -1,0 +1,71 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   AmtPolicy.inf
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AmtPolicyDxe
+  FILE_GUID                      = 28D46803-7646-4DFE-90ED-8575584ED6E6
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = AMTPolicyEntry
+
+[Sources]
+  AmtPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  HobLib
+  CmosLib
+#[-start-121219-IB10820205-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121219-IB10820205-add]#
+
+[Protocols]
+  gMeBiosPayloadDataProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  gDxePlatformAmtPolicyGuid 
+
+[Guids]
+  gSetupDefaultHobGuid
+  gEfiGenericVariableGuid  
+  gEfiMeBiosExtensionSetupGuid
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+  gChipsetPkgTokenSpaceGuid.PcdAntiTheftSupported
+
+#[-start-121003-IB10820132-add]#
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdAmtConfigManageabilityMode
+  gChipsetPkgTokenSpaceGuid.PcdAmtConfigUsbrEnabled
+  gChipsetPkgTokenSpaceGuid.PcdAmtConfigUsbLockingEnabled
+  gChipsetPkgTokenSpaceGuid.PcdAmtConfigCpuReplacementTimeout
+  gChipsetPkgTokenSpaceGuid.PcdAmtConfigMebxNonUiTextMode
+  gChipsetPkgTokenSpaceGuid.PcdAmtConfigMebxUiTextMode
+  gChipsetPkgTokenSpaceGuid.PcdAmtConfigMebxGraphicsMode
+#[-end-121003-IB10820132-add]#
+
+[Depex]
+  gMeBiosPayloadDataProtocolGuid AND
+  gEfiSetupUtilityProtocolGuid
+

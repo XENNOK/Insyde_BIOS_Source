@@ -1,0 +1,42 @@
+## @file
+#  Component description file for DebugDriverDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DebugDriverDxe
+  FILE_GUID                      = 7C380900-1B96-4615-978E-89E02E2C89D0
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = DxeDebugDriverEntryPoint
+
+[sources]
+  DebugDriver.c
+  DebugDriver.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  
+[LibraryClasses]
+  UefiDriverEntryPoint 
+  UefiBootServicesTableLib
+  DebugLib  
+  
+[Protocols]  
+  gEfiDevicePathToTextProtocolGuid
+  gEfiDriverBindingProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiComponentName2ProtocolGuid
+  gEfiComponentNameProtocolGuid
+  
+[Depex]
+  TRUE
+

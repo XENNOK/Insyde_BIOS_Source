@@ -1,0 +1,38 @@
+## @file
+#  
+#  Component description file for the ACPI tables
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#****************************************************************************** 
+#*
+#****************************************************************************** 
+#*Copyright (c)  1999 - 2012 Intel Corporation. All rights reserved
+#*This software and associated documentation (if any) is furnished
+#*under a license and may only be used or copied in accordance
+#*with the terms of the license. Except as permitted by such
+#*license, no part of this software or documentation may be
+#*reproduced, stored in a retrieval system, or transmitted in any
+#*form or by any means without the express written consent of
+#*Intel Corporation.
+#****************************************************************************** 
+
+[Defines]
+  INF_VERSION                   = 0x00010005
+  BASE_NAME                     = IsctAcpiTables
+  FILE_GUID                     = FA2DDC38-3F19-4218-B53E-D9D79D626767
+  MODULE_TYPE                   = USER_DEFINED
+  VERSION_STRING                = 1.0
+
+[Sources]
+  SSDT/Isct.asl
+
+[Packages]
+  MdePkg/MdePkg.dec
+

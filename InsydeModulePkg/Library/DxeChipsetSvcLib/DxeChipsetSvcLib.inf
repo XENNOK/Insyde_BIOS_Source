@@ -1,0 +1,67 @@
+## @file
+# Instance of DXE Chipset Services Library
+#
+# The DXE Chipset Services Library provides wrapper functions for the H2O 
+# Chipset Services protocol, which provides an interface into the Chipset layer
+# for the Kernel and Platform drivers and libraries.
+#
+# ***************************************************************************
+# * Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+# *
+# * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+# * transmit, broadcast, present, recite, release, license or otherwise exploit
+# * any part of this publication in any form, by any means, without the prior
+# * written permission of Insyde Software Corporation.
+# *
+# ******************************************************************************
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeChipsetSvcLib
+  FILE_GUID                      = 983b9276-d041-4842-9882-39aad6a56348
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeChipsetSvcLib|DXE_CORE DXE_DRIVER DXE_RUNTIME_DRIVER DXE_SAL_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER SMM_CORE
+  CONSTRUCTOR                    = DxeChipsetSvcLibConstructor
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  DxeChipsetSvcLib.c
+  DxeCsSvcEnableFdWrites.c
+  DxeCsSvcIoDecodeControl.c
+  DxeCsSvcLegacyRegionAccessCtrl.c
+  DxeCsSvcProgramChipsetSSID.c
+  DxeCsSvcSataComReset.c
+  DxeCsSvcInstallPciRomSwitchTextMode.c
+  DxeCsSvcSetIsaInfo.c
+  DxeCsSvcSetSmbiosMemoryData.c
+  DxeCsSvcSkipGetPciRom.c
+  DxeCsSvcUpdateAcpiTable.c
+  DxeCsSvcIrqRoutingInformation.c
+  DxeCsSvcFvRecoveryInfo.c
+  DxeCsSvcGetBiosProtectTable.c
+  DxeCsSvcUpdateAcpiVariableSet.c
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  DebugLib
+  
+[Guids]
+
+[Protocols]
+  gH2OChipsetServicesProtocolGuid                 ## CONSUMES
+
+[Pcd]
+
+[Depex]
+  gH2OChipsetServicesProtocolGuid
+

@@ -1,0 +1,42 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+   INF_VERSION                    = 0x00010005
+   BASE_NAME                      = PlatformInfoCollectDxe
+   FILE_GUID                      = 8126A9BC-83D5-44d4-AE8B-411D9804734D
+   MODULE_TYPE                    = DXE_DRIVER
+   ENTRY_POINT                    = PlatformInfoCollect
+
+[Sources]
+  PlatformInfoCollect.c
+
+[Packages]
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  HobLib
+  MemoryAllocationLib
+  DebugLib
+
+[Protocols]
+  gEfiPlatformInfoProtocolGuid
+
+[Guids]
+  gEfiHobListGuid
+  gBoardIDGuid
+
+[Depex]
+  TRUE

@@ -1,0 +1,52 @@
+## @file
+#  Component description file for SmmOemSvcKernelLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmOemSvcKernelLib
+  FILE_GUID                      = 9B96DBDD-979D-4cfa-AEC2-0D3730FA68EF
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SmmOemSvcKernelLib|DXE_SMM_DRIVER SMM_CORE
+
+[Sources]
+  OemSvcSmmInstallPnpGpnvTable.c
+#[-start-140120-IB07390125-remove]#
+#  OemSvcSmmInstallPnpStringTable.c
+#[-end-140120-IB07390125-remove]#
+  OemSvcVariablePreservedTable.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+#[-start-140115-IB07390124-add]#
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-end-140115-IB07390124-add]#
+
+[LibraryClasses]
+  BaseMemoryLib
+  UefiBootServicesTableLib
+
+#[-start-140115-IB07390124-add]#
+[Pcd]  
+#[-start-140219-IB04560464-add]#
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE0Base
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE0Size 
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE1Base
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE1Size   
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE2Base
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE2Size   
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE3Base
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE3Size   
+#[-end-140115-IB07390124-add]# 

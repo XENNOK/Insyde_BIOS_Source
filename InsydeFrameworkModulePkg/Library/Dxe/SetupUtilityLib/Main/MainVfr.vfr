@@ -1,0 +1,173 @@
+//;******************************************************************************
+//;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+//;
+//; Module Name:
+//;
+//;   MainVfr.vfr
+//;
+//; Abstract:
+//;
+//;   The Vfr component for Main menu
+//;
+
+#include "SetupUtilityLibStrDefs.h"
+#include "SetupConfig.h"
+
+//
+//          Form 1: Main Menu
+//
+formset
+  guid     = SYSTEM_CONFIGURATION_GUID,
+  title    = STRING_TOKEN(STR_MAIN_TITLE),
+  help     = STRING_TOKEN(STR_BLANK_STRING),
+  class    = SETUP_UTILITY_CLASS,
+  subclass = SETUP_UTILITY_SUBCLASS,
+
+  form
+    formid = ROOT_FORM_ID,
+
+    title = STRING_TOKEN(STR_MAIN_TITLE);
+
+    grayoutif  vareqval var(VAR_EQ_GRAY_TEXT) == 0x1;
+      text
+        help   = STRING_TOKEN(STR_BLANK_STRING),
+        text   = STRING_TOKEN(STR_BIOS_VERSION_STRING),
+        text   = STRING_TOKEN(STR_MISC_BIOS_VERSION),
+        flags  = 0,
+        key    = 0;
+    endif;
+
+    grayoutif  vareqval var(VAR_EQ_GRAY_TEXT) == 0x1;
+      label UPDATE_CPU_TYPE_LABEL;
+      label UPDATE_SYSTEM_BUS_SPEED_LABEL;
+
+      text
+        help   = STRING_TOKEN(STR_BLANK_STRING),
+        text   = STRING_TOKEN(STR_SYSTEM_MEMORY_SPEED_STRING),
+        text   = STRING_TOKEN(STR_SYSTEM_MEMORY_SPEED_STRING2),
+        flags  = 0,
+        key    = 0;
+    endif;
+
+    grayoutif  vareqval var(VAR_EQ_GRAY_TEXT) == 0x1;
+      label UPDATE_CACHE_RAM_LABEL;
+    endif;
+
+    grayoutif  vareqval var(VAR_EQ_GRAY_TEXT) == 0x1;
+      text
+        help   = STRING_TOKEN(STR_BLANK_STRING),
+        text   = STRING_TOKEN(STR_TOTAL_MEMORY_STRING),
+        text   = STRING_TOKEN(STR_TOTAL_MEMORY_STRING2),
+        flags  = 0,
+        key    = 0;
+
+    label UPDATE_INFO_RAM_SLOT_LABEL;
+    label MAIN_PAGE_PLATFORM_INFO_LABEL;
+    endif;
+
+    label SETUP_UTILITY_LANG_MENU;
+
+    grayoutif
+      ideqval SYSTEM_CONFIGURATION.UserAccessLevel == 2
+      AND
+      ideqval SYSTEM_CONFIGURATION.SetUserPass == 1;
+
+    time
+      hour
+        //
+        // Note that it is a member of NULL, so the RTC will be the system resource to retrieve and save from
+        //
+        varid       = Time.Hours,
+        prompt      = STRING_TOKEN(STR_TIME_PROMPT),
+        help        = STRING_TOKEN(STR_TIME_HOUR_HELP),
+        minimum     = 0,
+        maximum     = 23,
+        step        = 1,
+        default     = 0,
+
+      minute
+        //
+        // Note that it is a member of NULL, so the RTC will be the system resource to retrieve and save from
+        //
+        varid       = Time.Minutes,
+        prompt      = STRING_TOKEN(STR_TIME_PROMPT),
+        help        = STRING_TOKEN(STR_TIME_MINUTE_HELP),
+        minimum     = 0,
+        maximum     = 59,
+        step        = 1,
+        default     = 0,
+
+      second
+        //
+        // Note that it is a member of NULL, so the RTC will be the system resource to retrieve and save from
+        //
+        varid       = Time.Seconds,
+        prompt      = STRING_TOKEN(STR_TIME_PROMPT),
+        help        = STRING_TOKEN(STR_TIME_SECOND_HELP),
+        minimum     = 0,
+        maximum     = 59,
+        step        = 1,
+        default     = 0,
+    endtime;
+
+    date
+      year
+        //
+        // Note that it is a member of NULL, so the RTC will be the system resource to retrieve and save from
+        //
+        varid       = Date.Year,
+        prompt      = STRING_TOKEN(STR_DATE_PROMPT),
+        help        = STRING_TOKEN(STR_DATE_YEAR_HELP),
+
+        minimum     = 2000,
+        maximum     = 2099,
+        step        = 1,
+        default     = 2011,
+
+      month
+        //
+        // Note that it is a member of NULL, so the RTC will be the system resource to retrieve and save from
+        //
+        varid       = Date.Month,
+        prompt      = STRING_TOKEN(STR_DATE_PROMPT),
+        help        = STRING_TOKEN(STR_DATE_MONTH_HELP),
+        minimum     = 1,
+        maximum     = 12,
+        step        = 1,
+        default     = 5,
+
+      day
+        //
+        // Note that it is a member of NULL, so the RTC will be the system resource to retrieve and save from
+        //
+        varid       = Date.Day,
+        prompt      = STRING_TOKEN(STR_DATE_PROMPT),
+        help        = STRING_TOKEN(STR_DATE_DAY_HELP),
+        minimum     = 1,
+        maximum     = 31,
+        step        = 1,
+        default     = 1,
+    enddate;
+    endif;
+
+    suppressif
+      ideqvallist SYSTEM_CONFIGURATION.SetUserPass == 0 1;
+        oneof
+          varid       = SYSTEM_CONFIGURATION.ReclaimLongrunTest,
+          prompt      = STRING_TOKEN(STR_DEBUG_RECLAIM_STRING),
+          help        = STRING_TOKEN(STR_BLANK_STRING),
+          option text = STRING_TOKEN(STR_ENABLED_TEXT),    value = 1, flags = 0;
+          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT;
+        endoneof;
+      endif;
+
+  endform;
+
+endformset;

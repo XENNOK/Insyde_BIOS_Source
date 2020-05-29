@@ -1,0 +1,60 @@
+## @file
+#  Component description file for CpuS3Pei.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CpuS3Pei
+  FILE_GUID                      = C866BD71-7C79-4BF1-A93B-066B830D8F9A
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeCpu
+
+[Sources]
+  CpuS3Peim.c
+  MtrrSync.c
+  Microcode.c
+
+  MpFuncs.asm   | MSFT
+  MpFuncs.jwasm | GCC
+  CpuAsm.asm    | MSFT
+  CpuAsm.jwasm  | GCC
+ 
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  
+[LibraryClasses]
+  PeimEntryPoint
+  BaseLib 
+  SynchronizationLib
+  BootGuardLib
+  
+[Protocols]
+
+[Ppis]
+  gPeiCpuPlatformPolicyPpiGuid
+  gPeiSmmAccessPpiGuid
+  gEfiPeiStallPpiGuid
+  
+[Guids]
+  gSmramCpuDataHeaderGuid
+  
+[Pcd]
+
+[Depex]
+  gEfiPeiMasterBootModePpiGuid AND
+  gEfiPeiMemoryDiscoveredPpiGuid AND
+  gPeiSmmAccessPpiGuid
+  

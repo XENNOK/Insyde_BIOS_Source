@@ -1,0 +1,64 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PchAhciPei
+  FILE_GUID                      = CE248B77-1179-4BC6-B324-9D2EDC4B976E
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeimInitializePchAhci
+
+[Sources]
+  PchAhci.c
+#[-start-121102-IB10820148-remove]#
+#  PchAhci.h
+#[-end-121102-IB10820148-modify]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+
+[LibraryClasses]
+  PeimEntryPoint
+  DebugLib
+  BaseMemoryLib
+#[-start-121102-IB10820148-add]#
+  PeiServicesLib
+#[-end-121102-IB10820148-add]#
+
+[Ppis]
+  gPeiAhciControllerPpiGuid                       # PPI CONSUMED
+  gEfiEndOfPeiSignalPpiGuid                       # PPI CONSUMED
+  gEfiPeiStallPpiGuid                             # PPI CONSUMED
+  gPeiAhciControllerPpiGuid                       # PPI PRODUCES  
+
+#[-start-121102-IB10820148-add]#
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdAbarCapDefault
+  gChipsetPkgTokenSpaceGuid.PcdAhciMemBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdIchPcieBridgeAddress
+#[-end-121102-IB10820148-add]#
+
+[Depex]
+  gEfiPeiCpuIoPpiInstalledGuid AND
+  gEfiPciCfgPpiInServiceTableGuid AND 
+  gEfiPeiLoadFilePpiGuid AND
+  gEfiPeiBootInRecoveryModePpiGuid
+

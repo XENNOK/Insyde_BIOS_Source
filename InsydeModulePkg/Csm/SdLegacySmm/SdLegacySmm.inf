@@ -1,0 +1,62 @@
+#;******************************************************************************
+#;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name:
+#;
+#;   SdLegacySmm.inf
+#;
+#; Abstract:
+#;
+#;   Component description file for SdLegacySmm module
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SdLegacySmm
+  FILE_GUID                      = 61A72ECF-F7BF-444e-BE85-221339D0F00B
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  BINARY_VERSION                 = 02.12.14.0402.00
+
+[Binaries.Ia32]
+  PE32|Ia32/SdLegacySmm.efi|*
+
+[Binaries.X64]
+  PE32|X64/SdLegacySmm.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  DevicePathLib
+  PostCodeLib
+
+[Protocols]
+  gSdPassThruProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiLegacyRegion2ProtocolGuid
+  gEfiCpuArchProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmControl2ProtocolGuid
+  gEfiSmmCpuProtocolGuid
+  gEfiDevicePathToTextProtocolGuid
+
+[Depex]
+  <DXE_DEPEX>
+    gSdPassThruProtocolGuid
+  <SMM_DEPEX>
+    gSdPassThruProtocolGuid

@@ -1,0 +1,58 @@
+## @file
+#  Component description file for SystemFirmwareManagementRuntimeDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SystemFirmwareManagementRuntimeDxe
+  FILE_GUID                      = B795675E-7583-4F98-AC6A-F9DDBBCC32E8
+  MODULE_TYPE                    = DXE_RUNTIME_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InstallFirmwareManagement
+
+[sources.common]
+  FirmwareManagement.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  PcdLib
+  UefiBootServicesTableLib
+  UefiRuntimeLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  BvdtLib
+
+
+  
+[Protocols]
+  gEfiVariableArchProtocolGuid
+  gEfiFirmwareVolumeBlockProtocolGuid
+  gEfiFirmwareManagementProtocolGuid
+  gFvRegionInfoProtocolGuid
+
+[Guids]
+  gEfiEventVirtualAddressChangeGuid
+
+
+[Pcd]
+
+
+[Depex]
+  TRUE

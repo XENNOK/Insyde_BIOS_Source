@@ -1,0 +1,50 @@
+## @file
+#  This library abstract how to access TPM2 hardware device.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = Tpm2DeviceLibProtocolBased
+  FILE_GUID                      = 2CA85E39-F244-4ca9-B7A7-330FDB5A40D6
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = Tpm2DeviceLib|DXE_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER COMBINED_SMM_DXE
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF
+#
+
+[Sources]
+  DxeTpm2Tis.c
+  Tpm2DeviceLibProtocolBased.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  SecurityPkg/SecurityPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  IoLib
+  TimerLib
+  DebugLib
+  UefiBootServicesTableLib
+
+[Protocols]
+  gTpm2InterfaceGuid
+  gEfiSmmBase2ProtocolGuid
+
+[Depex]
+  gTpm2InterfaceGuid

@@ -1,0 +1,69 @@
+## @file
+# H2O IPMI SDR module build description file for DXE phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IpmiSdrDxe
+  FILE_GUID                      = 30B96290-6E4E-4026-9345-B3158C9EC061
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IpmiSdrDxeEntry
+
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES            = X64
+#
+
+[Sources]
+  IpmiSdrDxe.c
+  IpmiSdrCommon.c
+
+[Sources.X64]
+  IpmiSdrMath.c
+  IpmiSdrIeee754.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  PrintLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  PcdLib
+  DebugLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  IpmiInterfaceLib
+  TimerLib
+  DxeOemIpmiPackageLibDefault
+
+[Guids]
+
+[Protocols]
+  gH2OIpmiSdrProtocolGuid                    # Produce
+
+[FeaturePcd]
+
+[Depex]
+  gH2OIpmiInterfaceProtocolGuid
+
+[BuildOptions]
+  *_*_IA32_CC_FLAGS = -D H2OIPMI_IA32
+  *_*_X64_CC_FLAGS  = -D H2OIPMI_X64
+

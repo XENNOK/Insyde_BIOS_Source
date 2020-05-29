@@ -1,0 +1,145 @@
+## @file
+#  BdsDxe
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+##
+#
+#  BDSDxe module is core driver for BDS phase.
+#  When DxeCore dispatching all DXE driver, this module will produce architecture protocol gEfiBdsArchProtocolGuid.
+#  After DxeCore finish dispatching, DxeCore will invoke Entry interface of protocol gEfiBdsArchProtocolGuid, then BDS phase is entered.
+#
+#  Generally, this module take reposiblity to connect all necessary devices for platform boot,
+#  these boot device path are hold in PlatformBdsLib library instance produced by platform.
+#  For legacy boot, BDS will transfer control to legacy BIOS after legacy boot device is select.
+#  For EFI boot, BDS will load boot loader file EFI\BOOT\BOOTIA32.EFI, EFI\BOOT\BOOTX64.EFI,
+#  EFI\BOOT\BOOTIA64.EFI file from selected boot device and transfer control to boot loader.
+#
+#  BDSDxe also maintain the UI for "Boot Manager, Boot Maintaince Manager, Device Manager" which
+#  is used for user to configure boot option or maintain hardware device.
+#
+#  Copyright (c) 2008 - 2012, Intel Corporation. All rights reserved.<BR>
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License which accompanies this distribution.
+#  The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.php
+#
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BdsDxe
+  FILE_GUID                      = FC5C7020-1A48-4198-9BE2-EAD5ABC8CF2F
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = BdsInitialize
+
+[Sources]
+  Bds.h
+  String.h
+  Strings.uni
+
+  BdsEntry.c
+  String.c
+  Capsules.c
+  MemoryTest.c
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  PerformancePkg/PerformancePkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  DevicePathLib
+  BaseLib
+  HobLib
+  UefiRuntimeServicesTableLib
+  GenericBdsLib
+  PerformanceLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  DebugLib
+  PrintLib
+  HiiLib
+  UefiDriverEntryPoint
+  PlatformBdsLib
+  CapsuleLib
+  PcdLib
+  UefiHiiServicesLib
+  IoLib
+  CmosLib
+  OemGraphicsLib
+  GenericUtilityLib
+  KernelConfigLib
+  PostCodeLib
+  DxeOemSvcKernelLibDefault
+  VariableLib
+
+[Guids]
+  gEfiGlobalVariableGuid
+  gEfiMemorySubClassGuid
+  gEfiGenericVariableGuid
+  gSystemConfigurationGuid
+  gEfiEndOfDxeEventGroupGuid
+
+[Protocols]
+  gEfiBdsArchProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiSkipScanRemovableDevProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  gEfiDataHubProtocolGuid
+  gMemoryErrorEventGuid
+  gEfiHiiDatabaseProtocolGuid
+  gEfiVariableArchProtocolGuid
+  gEfiVariableWriteArchProtocolGuid
+  gEfiGenericMemTestProtocolGuid
+  gH2ODialogProtocolGuid
+  gEfiSmbiosProtocolGuid
+  gEndOfDisableQuietBootGuid
+  gEdkiiVariableLockProtocolGuid
+  gEfiTimerArchProtocolGuid
+  gEfiStartOfBdsDiagnosticsProtocolGuid
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdFrontPageSupported
+  gInsydeTokenSpaceGuid.PcdLoadDefaultSetupMenu
+  gInsydeTokenSpaceGuid.PcdEndOfDxeEventSupported
+  gInsydeTokenSpaceGuid.PcdWin8FastBootErrorMessageSupported
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPlatformBootTimeOut
+  gInsydeTokenSpaceGuid.PcdPlatformBootTimeOutMax
+  gInsydeTokenSpaceGuid.PcdBootState
+  gInsydeTokenSpaceGuid.PcdFirmwareVendor
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareRevision
+  gSetupConfigNameGuid
+  gSetupConfigOffsetSizeGuid
+
+[Depex]
+  gEfiHiiDatabaseProtocolGuid AND gEfiVariableArchProtocolGuid AND gEfiVariableWriteArchProtocolGuid
+
+#
+# [BootMode]
+#   BOOT_ON_FLASH_UPDATE    ## SOMETIMES_CONSUMES (Update Capsule Image)
+#
+#
+# [Hob]
+#   HOB                     ## SOMETIMES_CONSUMES  ## GUID EXTENSION Capsule Data Hob
+#
+#

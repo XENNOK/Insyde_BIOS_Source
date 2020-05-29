@@ -1,0 +1,168 @@
+/** @file
+
+  Post Message HFR implementation.
+
+;******************************************************************************
+;* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+  //
+  //  Form VFR_FORMID_POST_MESSAGE: Post Message Config
+  //
+  form
+    formid = VFR_FORMID_POST_MESSAGE, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+    subtitle text = STRING_TOKEN(STR_POST_MESSAGE_TITLE);
+
+    //
+    // Show Post Message
+    //
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    
+      oneof
+        varid       = SystemConfig.PostMessageEn,
+        prompt      = STRING_TOKEN(STR_POST_MESSAGE_CONFIG_STRING),
+        help        = STRING_TOKEN(STR_POST_MESSAGE_CONFIG_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),           value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLE_TEXT),             value = 1, flags = 0;
+      endoneof;
+      
+    endif;    
+    //
+    // Progress Code
+    //
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqvallist SystemConfig.PostMessageEn == 0;
+    
+      oneof
+        varid       = SystemConfig.ProgressCode,
+        prompt      = STRING_TOKEN(STR_PROGRESS_CODE_MESSAGE_STRING),
+        help        = STRING_TOKEN(STR_PROGRESS_CODE_MESSAGE_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),           value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLE_TEXT),             value = 1, flags = 0;
+      endoneof;
+
+    endif;
+    endif;
+    //
+    // Error Code
+    //
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqvallist SystemConfig.PostMessageEn == 0;
+    
+      oneof
+        varid       = SystemConfig.ErrorCode,
+        prompt      = STRING_TOKEN(STR_ERROR_CODE_MESSAGE_STRING),
+        help        = STRING_TOKEN(STR_ERROR_CODE_MESSAGE_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),           value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLE_TEXT),             value = 1, flags = 0;
+      endoneof;
+
+    endif;
+    endif; 
+    //
+    // Debug Code
+    //
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqvallist SystemConfig.PostMessageEn == 0;
+    
+      oneof
+        varid       = SystemConfig.DebugCode,
+        prompt      = STRING_TOKEN(STR_DEBUG_CODE_MESSAGE_STRING),
+        help        = STRING_TOKEN(STR_DEBUG_CODE_MESSAGE_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),                        value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLE_TEXT),                          value = 1, flags = 0;
+      endoneof;
+
+    endif;
+    endif; 
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // Log Post Message
+    //
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqvallist SystemConfig.PostMessageEn == 0;
+    
+      oneof
+        varid       = SystemConfig.LogPostMsg,
+        prompt      = STRING_TOKEN(STR_LOG_POST_MESSAGE_STRING),
+        help        = STRING_TOKEN(STR_LOG_POST_MESSAGE_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),                        value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLE_TEXT),                          value = 1, flags = 0;
+      endoneof;
+
+    endif;
+    endif;     
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqvallist SystemConfig.PostMessageEn == 0;
+    
+      oneof
+        varid       = SystemConfig.ShowPostMsg,
+        prompt      = STRING_TOKEN(STR_SHOW_POST_MESSAGE_STRING),
+        help        = STRING_TOKEN(STR_SHOW_POST_MESSAGE_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),                        value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLE_TEXT),                          value = 1, flags = 0;
+      endoneof;
+
+    endif;
+    endif;         
+
+#ifdef H2O_POST_BEEP
+//
+//#if FeaturePcdGet(PcdH2OPostBeepSupport)  // Kernel doesn't support PCD in HFR file currently.
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqvallist SystemConfig.PostMessageEn == 0;
+    
+      oneof
+        varid       = SystemConfig.BeepPostMsg,
+        prompt      = STRING_TOKEN(STR_BEEP_POST_MESSAGE_STRING),
+        help        = STRING_TOKEN(STR_BEEP_POST_MESSAGE_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),                        value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLE_TEXT),                          value = 1, flags = 0;
+      endoneof;
+
+    endif;
+    endif;  
+#endif
+    
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+  endform;// end of form VFR_FORMID_POST_MESSAGE

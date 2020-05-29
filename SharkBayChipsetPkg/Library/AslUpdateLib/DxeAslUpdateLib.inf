@@ -1,0 +1,40 @@
+## @file
+#  Component description file.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeAslUpdateLib
+  FILE_GUID                      = C9AD0505-2A7C-44bd-B6BA-6D7D405B920C
+#[-start-130416-IB10820284-modify]#
+  MODULE_TYPE                    = DXE_DRIVER
+#[-end-130416-IB10820284-modify]#
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = AslUpdateLib
+
+[sources]
+  DxeAslUpdateLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  MemoryAllocationLib
+
+[Protocols]
+  gEfiAcpiSupportProtocolGuid
+  gEfiAcpiTableProtocolGuid
+  

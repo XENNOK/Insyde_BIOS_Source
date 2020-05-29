@@ -1,0 +1,73 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   ICCPolicy.inf
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IccPolicyDxe
+  FILE_GUID                      = FBA14D8B-BE6F-0361-93E8-4CDF18E19EDE
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = ICCPolicyEntry
+
+[Sources]
+   IccPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  CmosLib
+#[-start-121031-IB10820146-add]#
+  PciExpressLib
+#[-end-121031-IB10820146-add]#
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+#[-start-121121-IB11410023-add]#
+  gEfiPlatformInfoProtocolGuid
+#[-end-121121-IB11410023-add]#
+
+[Guids]
+  gDxePlatformICCPolicyGuid
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-121003-IB10820132-add]#
+  gChipsetPkgTokenSpaceGuid.PcdIccPlatformPolicyIccDefaultProfile
+  gChipsetPkgTokenSpaceGuid.PcdIccPlatformPolicyFunctionEnablingFcim
+#[-end-121003-IB10820132-add]#
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid AND
+  #
+  # BUGBUG :
+  #
+  #   We hope it to be executed after PchInitRootPorts ().
+  #
+  #   EFI_PCH_INFO_PROTOCOL_GUID will be installed behind InitializePchDevice () which is calling PchInitRootPorts ().
+  #
+  #   It's not a component of PCI-E code after all.
+  #  
+#[-start-121121-IB11410023-modify]#
+  gEfiPchInfoProtocolGuid AND
+  gEfiPlatformInfoProtocolGuid
+#[-end-121121-IB11410023-modify]#

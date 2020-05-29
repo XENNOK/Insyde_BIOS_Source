@@ -1,0 +1,51 @@
+## @file
+#  Component description file for UsbTouchPanel Dxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbTouchPanelDxe
+  FILE_GUID                      = 47F48C99-CB23-4cf8-9D7D-CE7C86EF22A3
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UsbTouchPanelDriverBindingEntryPoint
+
+[Sources]
+  UsbTouchPanel.c
+  UsbTouchPanel.h
+  ComponentName.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  DebugLib
+  ReportStatusCodeLib
+  HidDescriptorLib
+  PostCodeLib
+
+[Guids]
+  gEfiEventExitBootServicesGuid
+
+[Protocols]
+  gEfiUsbCoreProtocolGuid
+  gEfiAbsolutePointerProtocolGuid
+  gEfiUsbIoProtocolGuid
+
+[Depex]
+  gEfiUsbCoreProtocolGuid

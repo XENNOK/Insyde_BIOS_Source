@@ -1,0 +1,63 @@
+## @file
+#  Component description file for CrPolicy driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = CrPolicyDxe
+  FILE_GUID            = DF25A013-3D50-4fae-B3F2-BB97BB2401B5
+  MODULE_TYPE          = DXE_DRIVER
+  VERSION_STRING       = 1.0
+  ENTRY_POINT          = CRPolicyEntryPoint
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  CrPolicyDxe.h
+  CrPolicyDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+  
+[LibraryClasses]
+  UefiDriverEntryPoint
+  BaseLib
+  BaseMemoryLib
+  UefiLib
+  UefiBootServicesTableLib
+  DebugLib
+  MemoryAllocationLib
+  DxeOemSvcKernelLibDefault
+  DevicePathLib
+  KernelConfigLib
+
+[Guids]
+  gCrConfigurationGuid
+  
+[Protocols]
+  gEfiCRPolicyProtocolGuid
+
+[FeaturePcd]
+  gInsydeCrTokenSpaceGuid.PcdCRSrvManagerSupported
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid

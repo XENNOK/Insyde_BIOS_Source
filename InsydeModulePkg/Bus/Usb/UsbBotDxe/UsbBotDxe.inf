@@ -1,0 +1,45 @@
+## @file
+#  Component description file for UsbBot Dxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbBotDxe
+  FILE_GUID                      = B40612B9-A063-11d4-9A3A-0090273FC14D
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UsbMassBotDriverEntryPoint
+
+[Sources]
+  UsbMassBot.c
+  UsbMassBot.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  DebugLib
+
+[Protocols]
+  gEfiUsbCoreProtocolGuid
+
+[Depex]
+  <DXE_DEPEX>
+  gEfiUsbCoreProtocolGuid
+  
+  <SMM_DEPEX>
+  gUsbMassTransportProtocolGuid

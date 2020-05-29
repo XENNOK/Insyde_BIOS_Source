@@ -1,0 +1,41 @@
+## @file
+#   List all of the microcode updates that you want included at build time.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#* Copyright (c)  2005 - 2012 Intel Corporation. All rights reserved
+#* This software and associated documentation (if any) is furnished
+#* under a license and may only be used or copied in accordance
+#* with the terms of the license. Except as permitted by such
+#* license, no part of this software or documentation may be
+#* reproduced, stored in a retrieval system, or transmitted in any
+#* form or by any means without the express written consent of
+#* Intel Corporation.
+#
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = OverclockingLib
+  FILE_GUID                      = 0BD3D2BE-8DAE-4b95-88C9-7FBA108FFA78
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = OverclockingLib 
+
+[Sources]
+  OverclockingLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]  
+  BaseMemoryLib
+  CpuPlatformLib
+  BaseLib
+  

@@ -1,0 +1,70 @@
+## @file
+#  Component description file for Console Redirection Bios Flash driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = CrBiosFlashDxe
+  FILE_GUID            = E108DBEC-58D6-4f5c-8754-6E74BBD92311
+  MODULE_TYPE          = DXE_DRIVER
+  BINARY_VERSION       = 10.02
+
+
+[Binaries.Ia32]
+  PE32|Ia32/CrBiosFlashDxe.efi
+
+
+[Binaries.X64]
+  PE32|X64/CrBiosFlashDxe.efi
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+  
+[LibraryClasses]
+  UefiDriverEntryPoint
+  BaseLib
+  BaseMemoryLib
+  UefiLib
+  UefiBootServicesTableLib
+  DebugLib
+  MemoryAllocationLib
+  DxeOemSvcKernelLibDefault
+  DevicePathLib
+  HiiLib
+  PrintLib
+  ConsoleLib
+  
+[Guids]
+  gEfiIfrTianoGuid
+
+[Protocols]
+  gEfiHiiConfigAccessProtocolGuid
+  gTerminalEscCodeProtocolGuid
+  gConsoleRedirectionServiceProtocolGuid
+  gEfiCRPolicyProtocolGuid
+  gCrSrvManagerProtocolGuid
+  gCrFileTransferProtocolGuid
+  gFileSelectUIProtocolGuid
+  
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdDevNullScreenPtr
+  gInsydeTokenSpaceGuid.PcdDevNullAttributes
+
+[Depex]
+  gEfiHiiDatabaseProtocolGuid        AND
+  gEfiVariableArchProtocolGuid       AND
+  gEfiVariableWriteArchProtocolGuid  AND
+  gEfiFormBrowser2ProtocolGuid       AND
+  gEfiHiiConfigRoutingProtocolGuid   AND
+  gCrSrvManagerProtocolGuid

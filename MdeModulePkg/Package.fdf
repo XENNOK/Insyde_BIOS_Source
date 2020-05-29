@@ -1,0 +1,47 @@
+## @file
+# Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[FV.RECOVERYFV]
+INF MdeModulePkg/Core/Pei/PeiMain.inf
+INF APRIORI MdeModulePkg/Universal/PCD/Pei/Pcd.inf
+
+INF APRIORI MdeModulePkg/Universal/ReportStatusCodeRouter/Pei/ReportStatusCodeRouterPei.inf
+!if gEfiMdeModulePkgTokenSpaceGuid.PcdStatusCodeUseSerial == 1 || gEfiMdeModulePkgTokenSpaceGuid.PcdStatusCodeUseMemory == 1
+INF APRIORI MdeModulePkg/Universal/StatusCodeHandler/Pei/StatusCodeHandlerPei.inf
+!endif
+INF MdeModulePkg/Universal/PcatSingleSegmentPciCfg2Pei/PcatSingleSegmentPciCfg2Pei.inf
+INF MdeModulePkg/Universal/Acpi/FirmwarePerformanceDataTablePei/FirmwarePerformancePei.inf
+INF MdeModulePkg/Universal/CapsulePei/CapsulePei.inf
+
+[FV.DXEFV]
+INF MdeModulePkg/Core/Dxe/DxeMain.inf
+INF APRIORI MdeModulePkg/Universal/ReportStatusCodeRouter/RuntimeDxe/ReportStatusCodeRouterRuntimeDxe.inf
+!if gEfiMdeModulePkgTokenSpaceGuid.PcdStatusCodeUseSerial == 1 || gEfiMdeModulePkgTokenSpaceGuid.PcdStatusCodeUseMemory == 1
+INF APRIORI MdeModulePkg/Universal/StatusCodeHandler/RuntimeDxe/StatusCodeHandlerRuntimeDxe.inf
+!endif
+INF MdeModulePkg/Universal/Metronome/Metronome.inf
+INF MdeModulePkg/Core/RuntimeDxe/RuntimeDxe.inf
+INF MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf
+INF MdeModulePkg/Universal/Acpi/FirmwarePerformanceDataTableDxe/FirmwarePerformanceDxe.inf
+INF MdeModulePkg/Universal/DevicePathDxe/DevicePathDxe.inf
+INF MdeModulePkg/Universal/EbcDxe/EbcDxe.inf
+INF MdeModulePkg/Core/PiSmmCore/PiSmmIpl.inf
+INF MdeModulePkg/Core/PiSmmCore/PiSmmCore.inf
+INF MdeModulePkg/Universal/StatusCodeHandler/Smm/StatusCodeHandlerSmm.inf
+INF MdeModulePkg/Universal/Acpi/FirmwarePerformanceDataTableSmm/FirmwarePerformanceSmm.inf
+INF MdeModulePkg/Universal/Acpi/S3SaveStateDxe/S3SaveStateDxe.inf
+INF MdeModulePkg/Universal/LockBox/SmmLockBox/SmmLockBox.inf
+INF MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf
+INF MdeModulePkg/Universal/PrintDxe/PrintDxe.inf
+INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf

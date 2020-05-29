@@ -1,0 +1,51 @@
+## @file
+#
+#  Component description file for Alert Standard Format driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AlertStandardFormatPei
+  FILE_GUID                      = 3E4817FD-2742-4351-B59F-91493280329C
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0  
+  ENTRY_POINT                    = AlertStandardFormatDriverPeiEntryPoint
+
+[Sources]
+  AlertStandardFormatPei.c
+  AlertStandardFormatPei.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  BaseMemoryLib
+  PeiAmtLib
+  HobLib
+
+[Guids]
+  gAmtForcePushPetPolicyGuid
+  gAmtForcePushPetHobGuid
+  gAmtPetQueueHobGuid
+
+[Ppis]
+  gEfiPeiHeciPpiGuid
+  gPeiAmtStatusCodePpiGuid
+  
+[Depex]
+  gEfiPeiHeciPpiGuid AND
+  gPeiAmtPlatformPolicyPpiGuid
+  
+[BuildOptions]

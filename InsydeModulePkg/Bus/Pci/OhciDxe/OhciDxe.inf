@@ -1,0 +1,35 @@
+## @file
+#  Component description file for Ohci Dxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = OhciDxe
+  FILE_GUID                      = E80DE38B-6D52-48d5-8BA2-52828AEE6221
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  BINARY_VERSION                 = 02.02.03.0117.00
+
+[Binaries.Ia32]
+  PE32|Ia32/OhciDxe.efi|*
+
+[Binaries.X64]
+  PE32|X64/OhciDxe.efi|*
+
+[Binaries.Arm]
+  PE32|Arm/OhciDxe.efi|*
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[Depex]
+  gEfiUsbCoreProtocolGuid
+

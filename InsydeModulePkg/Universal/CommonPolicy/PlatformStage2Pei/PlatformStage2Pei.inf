@@ -1,0 +1,85 @@
+## @file
+#  Component description file for PlatformStage2Pei PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PlatformStage2Pei
+  FILE_GUID                      = 1191BBF5-DCB9-44F4-827E-95359744C987
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeiInitPlatformStage2EntryPoint
+
+[Sources]
+  PlatformStage2Pei.c
+  PlatformStage2NotifyCallback.c
+  Recovery.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  PeimEntryPoint
+  PeiServicesLib
+  BaseMemoryLib
+  HobLib
+  PostCodeLib
+  PeiOemSvcKernelLibDefault
+  PeiChipsetSvcLib
+  MemoryAllocationLib
+  KernelConfigLib
+  VariableLib
+
+[Guids]
+  gRecoveryOnFatIdeDiskGuid
+  gRecoveryOnDataCdGuid
+  gRecoveryOnFatUsbDiskGuid
+  gEfiSupervisorPwGuid
+  gEfiUserPwGuid
+  gEfiSupervisorPwHobGuid
+  gEfiFirmwareFileSystemGuid
+  gEfiFirmwareFileSystem2Guid
+  gEfiUserPwHobGuid
+  gEfiPowerOnPwSCUHobGuid
+  gSystemConfigurationGuid
+  gInsydeSecureFirmwarePasswordGuid
+  gInsydeSecureFirmwarePasswordHobGuid
+
+[Ppis]
+  gEmuPeiPpiGuid
+  gPeiRomCorruptPpiGuid
+  gEfiPeiMemoryDiscoveredPpiGuid
+  gEfiPeiRecoveryModulePpiGuid
+  gEfiPeiDeviceRecoveryModulePpiGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+  gInsydeTokenSpaceGuid.PcdMemorySpaceSize
+  gInsydeTokenSpaceGuid.PcdIoSpaceSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdSecureSysPasswordSupported
+
+[Depex]
+  gH2OChipsetServicesPpiGuid
+

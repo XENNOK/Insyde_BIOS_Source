@@ -1,0 +1,61 @@
+## @file
+#  Component description file for BadgingSupportLib.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BadgingSupportLib
+  FILE_GUID                      = 12AEDBEA-392D-4e2a-8789-5F6DC6B23661
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = BadgingSupportLib|DXE_DRIVER UEFI_DRIVER
+
+[Sources]
+  BadgingSupportLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  HobLib
+  HiiLib
+  DxeServicesLib
+  DxeOemSvcKernelLibDefault
+  BaseCryptLib
+  VariableLib
+
+[Guids]
+  gEfiGenericVariableGuid
+  gEfiGlobalVariableGuid
+  gSystemConfigurationGuid
+
+[Protocols]
+  gEfiOEMBadgingSupportProtocolGuid                     #PRODUCES
+  gEfiSetupUtilityProtocolGuid
+  gEfiFirmwareVolumeProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSecureFlashCertificateFile
+  gInsydeTokenSpaceGuid.PcdWarningLogoFile
+  gInsydeTokenSpaceGuid.PcdH2OAcpiBgrtSupported
+
+[Depex]
+  gEfiVariableArchProtocolGuid AND
+  gEfiVariableWriteArchProtocolGuid

@@ -1,0 +1,53 @@
+## @file
+# Component description file for the CMOS library.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiKernelConfigLib
+  FILE_GUID                      = 78C65E38-6242-41B5-B6A1-51A6759602C4
+  MODULE_TYPE                    = PEIM
+  LIBRARY_CLASS                  = KernelConfigLib
+  CONSTRUCTOR                    = KernelConfigLibInit
+
+[Sources]
+  PeiKernelConfigLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  PcdLib
+  PeiServicesLib
+  BaseMemoryLib
+  DebugLib
+  HobLib
+#[-start-130709-IB05160465-add]#
+  MemoryAllocationLib
+#[-end-130709-IB05160465-add]#
+
+[Guids]
+  gSystemConfigurationGuid
+  gSetupDefaultHobGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSetupDataInvalid
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid
+

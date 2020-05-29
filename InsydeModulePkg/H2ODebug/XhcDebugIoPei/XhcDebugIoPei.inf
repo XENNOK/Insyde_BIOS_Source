@@ -1,0 +1,26 @@
+## @file
+#  Component description file for DebugIo PEI module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = XhcDebugIoPei
+  FILE_GUID            = CE6644C6-80AE-4f0b-84AF-A30A8B993D29
+  MODULE_TYPE          = PEIM
+
+
+[Binaries.Ia32]
+  PE32|Ia32/XhcDebugIoPei.efi|*
+
+[Depex]
+  TRUE
+

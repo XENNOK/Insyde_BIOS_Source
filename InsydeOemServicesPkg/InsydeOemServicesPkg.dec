@@ -1,0 +1,37 @@
+## @file
+#  OemServices Package Declaration file
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = InsydeOemServicesPkg
+  PACKAGE_GUID                   = 6071df9b-ffff-45aa-ac37-2de197710d23
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+  PeiOemSvcKernelLibDefault|Include/Library/PeiOemSvcKernelLib.h              
+  DxeOemSvcKernelLibDefault|Include/Library/DxeOemSvcKernelLib.h
+  SmmOemSvcKernelLibDefault|Include/Library/SmmOemSvcKernelLib.h
+
+[Guids]
+  gPeiOemServicesInfoHobGuid    = {0x7e0044ac, 0x879f, 0x830f, {0x66, 0x60, 0xbb, 0xdf, 0x7f, 0x99, 0x5f, 0x50 } }
+
+[Ppis]
+  gOemServicesPpiGuid           = {0xa8e61b3f, 0x7675, 0x4323, {0x87, 0xb5, 0x69, 0xa4, 0x9c, 0xd0, 0x3b, 0x55} }
+  
+[Protocols]
+  gOemServicesProtocolGuid      = {0x64fbe01a, 0xdbe8, 0x4932, {0x9f, 0x7b, 0x6c, 0x3d, 0xd0, 0xd6, 0x10, 0xe5 }}
+  gSmmOemServicesProtocolGuid   = {0xa03b8f9b, 0x1de4, 0x4d1a, {0x80, 0x49, 0x54, 0x22, 0x99, 0x7e, 0xa6, 0xd2 }}
+

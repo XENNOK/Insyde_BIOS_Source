@@ -1,0 +1,1140 @@
+
+PAGE VBT Information 
+
+PAGE General platform Configuration
+$FDI_RX_POL 00
+$Embedded_Platform 00
+
+PAGE UEFI GOP Driver Configuration
+$Hotplug_Support_Enb 00
+
+PAGE Child Device List
+$ChildDevice1Primary 08
+$ChildDevice1Secondary 01
+$ChildDevice2Primary 08
+$ChildDevice2Secondary 04
+$ChildDevice3Primary 08
+$ChildDevice3Secondary 40
+$ChildDevice4Primary 08
+$ChildDevice4Secondary 20
+$ChildDevice5Primary 01
+$ChildDevice5Secondary 04
+$ChildDevice6Primary 01
+$ChildDevice6Secondary 40
+$ChildDevice7Primary 01
+$ChildDevice7Secondary 20
+$ChildDevice8Primary 04
+$ChildDevice8Secondary 40
+$ChildDevice9Primary 04
+$ChildDevice9Secondary 20
+$ChildDevice10Primary 40
+$ChildDevice10Secondary 20
+$ChildDevice11Primary 08
+$ChildDevice11Secondary 00
+$ChildDevice12Primary 01
+$ChildDevice12Secondary 00
+$ChildDevice13Primary 04
+$ChildDevice13Secondary 00
+$ChildDevice14Primary 40
+$ChildDevice14Secondary 00
+$ChildDevice15Primary 20
+$ChildDevice15Secondary 00
+$ChildDevice16Primary 00
+$ChildDevice16Secondary 00
+
+PAGE Windows Graphics driver Configuration
+
+PAGE General Features
+$VBT_Customization_Version 00
+$Driver_Boot_Device 00
+$Allow_FDOS_Disp_Switch 00
+$Enable_LFP_Primary 00
+$Use_110h_for_LFP 00
+$DVD_Sprite_Clone 01
+$GTF_Mode_Pruning 00
+$bmp_Display_Detect 00
+$CUIHotK_Static_Display 00
+
+PAGE Display Features
+$CUI_Maintain_Aspect 01
+$Preserve_Aspect_Ratio 00
+$Legacy_Monitor_Max_X 00 00
+$Legacy_Monitor_Max_Y 00 00
+$Legacy_Monitor_Max_RR 55
+$Rot_Enable 01
+$Driver_Boot_Mode_X 00 04
+$Driver_Boot_Mode_Y 00 03
+$Driver_Boot_Mode_BPP 08
+$Driver_Boot_Mode_RR 3C
+$Under_Over_Scan_Via_YPrPb 00
+$Under_Over_Scan_Via_DVI 00
+$Add_Overscan_Mode 00
+
+PAGE Power Conservation
+$SDVO_Device_Power_Down 00
+$PC_Fields_Enable 01
+$PM_RMPM_Enable 01
+$PM_S2DDT_Enable 01
+$PM_DPST_Enable 01
+$BIA_Aggress_Level 04
+$PM_BLC_Enable 01
+$PM_ADB_Enable 01
+$PM_DRRS_Enable 01
+$PM_RS_Enable 01
+$PM_GPMT_Enable 01
+$PM_Turbo_Enable 01
+$Panel_Self_Refresh 01
+$Inter_Pixel_Storage 01
+$Dynamic_FPS_Enable 01
+$DMRRS 00
+
+PAGE ADB Response Data (Mobile only)
+TABLE $ALS_Response_Data 46 00 00 00 49 00 0A 00 55 00 50 00 64 00 2C 01 96 00 E8 03
+
+PAGE Driver Persistence (Mobile only)
+$Driver_Persist_PM 00
+$Driver_Persist_Lid_Switch 00
+$Driver_Persist_Hotkey 00
+$Driver_Persist_Docking 00
+$PersistHotkeyRestoreCloneMDS 01
+$PersistHotkeyRestoreRefreshrate 01
+$PersistHotkeyRestorePipe 01
+$PersistHotkeyRestoreMode 01
+$PersistEDIDRestoreMode 00
+$PersistHotPlugRestoreMode 00
+$PersistMaxConfig 0A
+
+PAGE Integrated Display configuration
+
+PAGE Integrated CRT configuration
+$Int_CRT_Support 01
+$CRT_DDC_GMBUS_Pin 02
+$Hot_Plug_CRT 01
+$Single_DVI_I 00
+
+PAGE LFP Configuration
+$LVDS_Config 03
+$Int_eDP_Port 0A
+$Int_LFP_AUX_Channel 40
+$bmp_Panel_type 02
+$bmp_Panel_EDID 01
+
+PAGE Panel #1 
+STRING $Panel_Name_01 LFP_PanelName
+$Panel_Width_01 80 02
+$Panel_Height_01 E0 01
+$eDP_Panel_Color_Depth_01 00
+$Enable_SSC01 00
+$edp_S3D_Feature_01 00
+$DPS_Panel_Type_01 00
+$Blt_Control_01 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_01 01
+TABLE $eDP_Pwr_Seq_01 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_01 D6 09 80 90 20 E0 1D 10 08 60 22 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_01 36 7F 01 00 01 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_1 02
+$BLC_Inv_Polarity_1 00
+$BLC_Min_Brightness_1 00
+$POST_BL_Brightness_01 FF
+$PWM_Frequency_1 10 27
+
+PAGE Chromaticity Control
+$Chromacity_Enable_1 00
+$Override_EDID_Data_1 00
+$Red_Green_1 88
+$Blue_White_1 88
+$Red_x_1 88
+$Red_y_1 88
+$Green_x_1 88
+$Green_y_1 88
+$Blue_x_1 88
+$Blue_y_1 88
+$White_x_1 88
+$White_y_1 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_01 00
+$eDP_Link_LaneCount_01 00
+$eDP_Link_PreEmp_01 00
+$eDP_Link_Vswing_01 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_01 00
+$PSR_Require_AUX2Wakeup_01 00
+$PSR_Lines2Wait_B4LinkS3_01 00
+$PSR_IdleFrames2Wait_01 00
+$PSR_TP1_WaitTime_01 32 00
+$PSR_TP_2_3_WaitTime_01 32 00
+
+PAGE Panel #2 
+STRING $Panel_Name_02 LFP_PanelName
+$Panel_Width_02 20 03
+$Panel_Height_02 58 02
+$eDP_Panel_Color_Depth_02 00
+$Enable_SSC02 00
+$edp_S3D_Feature_02 00
+$DPS_Panel_Type_02 00
+$Blt_Control_02 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_02 01
+TABLE $eDP_Pwr_Seq_02 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_02 A0 0F 20 00 31 58 1C 20 28 80 14 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_02 36 7F 02 00 02 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_2 02
+$BLC_Inv_Polarity_2 00
+$BLC_Min_Brightness_2 00
+$POST_BL_Brightness_02 FF
+$PWM_Frequency_2 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_2 00
+$Override_EDID_Data_2 00
+$Red_Green_2 88
+$Blue_White_2 88
+$Red_x_2 88
+$Red_y_2 88
+$Green_x_2 88
+$Green_y_2 88
+$Blue_x_2 88
+$Blue_y_2 88
+$White_x_2 88
+$White_y_2 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_02 00
+$eDP_Link_LaneCount_02 00
+$eDP_Link_PreEmp_02 00
+$eDP_Link_Vswing_02 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_02 00
+$PSR_Require_AUX2Wakeup_02 00
+$PSR_Lines2Wait_B4LinkS3_02 00
+$PSR_IdleFrames2Wait_02 00
+$PSR_TP1_WaitTime_02 32 00
+$PSR_TP_2_3_WaitTime_02 32 00
+
+PAGE Panel #3 
+STRING $Panel_Name_03 LFP_PanelName
+$Panel_Width_03 00 04
+$Panel_Height_03 00 03
+$eDP_Panel_Color_Depth_03 00
+$Enable_SSC03 00
+$edp_S3D_Feature_03 00
+$DPS_Panel_Type_03 00
+$Blt_Control_03 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_03 01
+TABLE $eDP_Pwr_Seq_03 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_03 64 19 00 40 41 00 26 30 18 88 36 00 00 00 00 00 00 18
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_03 36 7F 03 00 03 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_3 02
+$BLC_Inv_Polarity_3 00
+$BLC_Min_Brightness_3 00
+$POST_BL_Brightness_03 FF
+$PWM_Frequency_3 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_3 00
+$Override_EDID_Data_3 00
+$Red_Green_3 88
+$Blue_White_3 88
+$Red_x_3 88
+$Red_y_3 88
+$Green_x_3 88
+$Green_y_3 88
+$Blue_x_3 88
+$Blue_y_3 88
+$White_x_3 88
+$White_y_3 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_03 00
+$eDP_Link_LaneCount_03 00
+$eDP_Link_PreEmp_03 00
+$eDP_Link_Vswing_03 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_03 00
+$PSR_Require_AUX2Wakeup_03 00
+$PSR_Lines2Wait_B4LinkS3_03 00
+$PSR_IdleFrames2Wait_03 00
+$PSR_TP1_WaitTime_03 32 00
+$PSR_TP_2_3_WaitTime_03 32 00
+
+PAGE Panel #4 
+STRING $Panel_Name_04 LFP_PanelName
+$Panel_Width_04 00 05
+$Panel_Height_04 00 04
+$eDP_Panel_Color_Depth_04 00
+$Enable_SSC04 00
+$edp_S3D_Feature_04 00
+$DPS_Panel_Type_04 00
+$Blt_Control_04 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_04 01
+TABLE $eDP_Pwr_Seq_04 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_04 30 2A 00 98 51 00 30 40 30 70 13 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_04 36 7F 05 00 04 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_4 02
+$BLC_Inv_Polarity_4 00
+$BLC_Min_Brightness_4 00
+$POST_BL_Brightness_04 FF
+$PWM_Frequency_4 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_4 00
+$Override_EDID_Data_4 00
+$Red_Green_4 88
+$Blue_White_4 88
+$Red_x_4 88
+$Red_y_4 88
+$Green_x_4 88
+$Green_y_4 88
+$Blue_x_4 88
+$Blue_y_4 88
+$White_x_4 88
+$White_y_4 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_04 00
+$eDP_Link_LaneCount_04 00
+$eDP_Link_PreEmp_04 00
+$eDP_Link_Vswing_04 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_04 00
+$PSR_Require_AUX2Wakeup_04 00
+$PSR_Lines2Wait_B4LinkS3_04 00
+$PSR_IdleFrames2Wait_04 00
+$PSR_TP1_WaitTime_04 32 00
+$PSR_TP_2_3_WaitTime_04 32 00
+
+PAGE Panel #5 
+STRING $Panel_Name_05 LFP_PanelName
+$Panel_Width_05 78 05
+$Panel_Height_05 1A 04
+$eDP_Panel_Color_Depth_05 00
+$Enable_SSC05 00
+$edp_S3D_Feature_05 00
+$DPS_Panel_Type_05 00
+$Blt_Control_05 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_05 01
+TABLE $eDP_Pwr_Seq_05 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_05 30 2A 78 20 51 1A 10 40 10 70 13 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_05 36 7F 01 90 05 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_5 02
+$BLC_Inv_Polarity_5 00
+$BLC_Min_Brightness_5 00
+$POST_BL_Brightness_05 FF
+$PWM_Frequency_5 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_5 00
+$Override_EDID_Data_5 00
+$Red_Green_5 88
+$Blue_White_5 88
+$Red_x_5 88
+$Red_y_5 88
+$Green_x_5 88
+$Green_y_5 88
+$Blue_x_5 88
+$Blue_y_5 88
+$White_x_5 88
+$White_y_5 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_05 00
+$eDP_Link_LaneCount_05 00
+$eDP_Link_PreEmp_05 00
+$eDP_Link_Vswing_05 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_05 00
+$PSR_Require_AUX2Wakeup_05 00
+$PSR_Lines2Wait_B4LinkS3_05 00
+$PSR_IdleFrames2Wait_05 00
+$PSR_TP1_WaitTime_05 32 00
+$PSR_TP_2_3_WaitTime_05 32 00
+
+PAGE Panel #6 
+STRING $Panel_Name_06 LFP_PanelName
+$Panel_Width_06 78 05
+$Panel_Height_06 1A 04
+$eDP_Panel_Color_Depth_06 00
+$Enable_SSC06 00
+$edp_S3D_Feature_06 00
+$DPS_Panel_Type_06 00
+$Blt_Control_06 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_06 01
+TABLE $eDP_Pwr_Seq_06 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_06 A8 2F 78 E0 51 1A 26 40 58 98 13 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_06 36 7F 01 90 06 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_6 02
+$BLC_Inv_Polarity_6 00
+$BLC_Min_Brightness_6 00
+$POST_BL_Brightness_06 FF
+$PWM_Frequency_6 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_6 00
+$Override_EDID_Data_6 00
+$Red_Green_6 88
+$Blue_White_6 88
+$Red_x_6 88
+$Red_y_6 88
+$Green_x_6 88
+$Green_y_6 88
+$Blue_x_6 88
+$Blue_y_6 88
+$White_x_6 88
+$White_y_6 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_06 00
+$eDP_Link_LaneCount_06 00
+$eDP_Link_PreEmp_06 00
+$eDP_Link_Vswing_06 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_06 00
+$PSR_Require_AUX2Wakeup_06 00
+$PSR_Lines2Wait_B4LinkS3_06 00
+$PSR_IdleFrames2Wait_06 00
+$PSR_TP1_WaitTime_06 32 00
+$PSR_TP_2_3_WaitTime_06 32 00
+
+PAGE Panel #7 
+STRING $Panel_Name_07 LFP_PanelName
+$Panel_Width_07 40 06
+$Panel_Height_07 B0 04
+$eDP_Panel_Color_Depth_07 00
+$Enable_SSC07 00
+$edp_S3D_Feature_07 00
+$DPS_Panel_Type_07 00
+$Blt_Control_07 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_07 01
+TABLE $eDP_Pwr_Seq_07 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_07 48 3F 40 30 62 B0 32 40 40 C0 13 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_07 36 7F 06 00 07 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_7 02
+$BLC_Inv_Polarity_7 00
+$BLC_Min_Brightness_7 00
+$POST_BL_Brightness_07 FF
+$PWM_Frequency_7 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_7 00
+$Override_EDID_Data_7 00
+$Red_Green_7 88
+$Blue_White_7 88
+$Red_x_7 88
+$Red_y_7 88
+$Green_x_7 88
+$Green_y_7 88
+$Blue_x_7 88
+$Blue_y_7 88
+$White_x_7 88
+$White_y_7 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_07 00
+$eDP_Link_LaneCount_07 00
+$eDP_Link_PreEmp_07 00
+$eDP_Link_Vswing_07 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_07 00
+$PSR_Require_AUX2Wakeup_07 00
+$PSR_Lines2Wait_B4LinkS3_07 00
+$PSR_IdleFrames2Wait_07 00
+$PSR_TP1_WaitTime_07 32 00
+$PSR_TP_2_3_WaitTime_07 32 00
+
+PAGE Panel #8 
+STRING $Panel_Name_08 LFP_PanelName
+$Panel_Width_08 56 05
+$Panel_Height_08 00 03
+$eDP_Panel_Color_Depth_08 00
+$Enable_SSC08 00
+$edp_S3D_Feature_08 00
+$DPS_Panel_Type_08 00
+$Blt_Control_08 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_08 01
+TABLE $eDP_Pwr_Seq_08 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_08 66 21 56 AA 51 00 1E 30 46 90 14 00 00 00 00 00 00 18
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_08 36 7F 03 90 08 00 00 00 00 01
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_8 02
+$BLC_Inv_Polarity_8 00
+$BLC_Min_Brightness_8 00
+$POST_BL_Brightness_08 FF
+$PWM_Frequency_8 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_8 00
+$Override_EDID_Data_8 00
+$Red_Green_8 88
+$Blue_White_8 88
+$Red_x_8 88
+$Red_y_8 88
+$Green_x_8 88
+$Green_y_8 88
+$Blue_x_8 88
+$Blue_y_8 88
+$White_x_8 88
+$White_y_8 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_08 00
+$eDP_Link_LaneCount_08 00
+$eDP_Link_PreEmp_08 00
+$eDP_Link_Vswing_08 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_08 00
+$PSR_Require_AUX2Wakeup_08 00
+$PSR_Lines2Wait_B4LinkS3_08 00
+$PSR_IdleFrames2Wait_08 00
+$PSR_TP1_WaitTime_08 32 00
+$PSR_TP_2_3_WaitTime_08 32 00
+
+PAGE Panel #9 
+STRING $Panel_Name_09 LFP_PanelName
+$Panel_Width_09 90 06
+$Panel_Height_09 1A 04
+$eDP_Panel_Color_Depth_09 00
+$Enable_SSC09 00
+$edp_S3D_Feature_09 00
+$DPS_Panel_Type_09 00
+$Blt_Control_09 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_09 01
+TABLE $eDP_Pwr_Seq_09 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_09 7C 2E 90 A0 60 1A 1E 40 30 20 36 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_09 36 7F 04 90 09 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_9 02
+$BLC_Inv_Polarity_9 00
+$BLC_Min_Brightness_9 00
+$POST_BL_Brightness_09 FF
+$PWM_Frequency_9 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_9 00
+$Override_EDID_Data_9 00
+$Red_Green_9 88
+$Blue_White_9 88
+$Red_x_9 88
+$Red_y_9 88
+$Green_x_9 88
+$Green_y_9 88
+$Blue_x_9 88
+$Blue_y_9 88
+$White_x_9 88
+$White_y_9 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_09 00
+$eDP_Link_LaneCount_09 00
+$eDP_Link_PreEmp_09 00
+$eDP_Link_Vswing_09 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_09 00
+$PSR_Require_AUX2Wakeup_09 00
+$PSR_Lines2Wait_B4LinkS3_09 00
+$PSR_IdleFrames2Wait_09 00
+$PSR_TP1_WaitTime_09 32 00
+$PSR_TP_2_3_WaitTime_09 32 00
+
+PAGE Panel #10 
+STRING $Panel_Name_10 LFP_PanelName
+$Panel_Width_10 80 07
+$Panel_Height_10 B0 04
+$eDP_Panel_Color_Depth_10 00
+$Enable_SSC10 00
+$edp_S3D_Feature_10 00
+$DPS_Panel_Type_10 00
+$Blt_Control_10 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_10 01
+TABLE $eDP_Pwr_Seq_10 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_10 28 3C 80 A0 70 B0 23 40 30 20 2A 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_10 36 7F 05 90 0A 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_10 02
+$BLC_Inv_Polarity_10 00
+$BLC_Min_Brightness_10 00
+$POST_BL_Brightness_10 FF
+$PWM_Frequency_10 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_10 00
+$Override_EDID_Data_10 00
+$Red_Green_10 88
+$Blue_White_10 88
+$Red_x_10 88
+$Red_y_10 88
+$Green_x_10 88
+$Green_y_10 88
+$Blue_x_10 88
+$Blue_y_10 88
+$White_x_10 88
+$White_y_10 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_10 00
+$eDP_Link_LaneCount_10 00
+$eDP_Link_PreEmp_10 00
+$eDP_Link_Vswing_10 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_10 00
+$PSR_Require_AUX2Wakeup_10 00
+$PSR_Lines2Wait_B4LinkS3_10 00
+$PSR_IdleFrames2Wait_10 00
+$PSR_TP1_WaitTime_10 32 00
+$PSR_TP_2_3_WaitTime_10 32 00
+
+PAGE Panel #11 
+STRING $Panel_Name_11 LFP_PanelName
+$Panel_Width_11 A0 05
+$Panel_Height_11 84 03
+$eDP_Panel_Color_Depth_11 00
+$Enable_SSC11 00
+$edp_S3D_Feature_11 00
+$DPS_Panel_Type_11 00
+$Blt_Control_11 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_11 01
+TABLE $eDP_Pwr_Seq_11 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_11 9A 29 A0 D0 51 84 22 30 50 99 17 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_11 36 7F 03 00 0B 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_11 02
+$BLC_Inv_Polarity_11 00
+$BLC_Min_Brightness_11 00
+$POST_BL_Brightness_11 FF
+$PWM_Frequency_11 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_11 00
+$Override_EDID_Data_11 00
+$Red_Green_11 88
+$Blue_White_11 88
+$Red_x_11 88
+$Red_y_11 88
+$Green_x_11 88
+$Green_y_11 88
+$Blue_x_11 88
+$Blue_y_11 88
+$White_x_11 88
+$White_y_11 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_11 00
+$eDP_Link_LaneCount_11 00
+$eDP_Link_PreEmp_11 00
+$eDP_Link_Vswing_11 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_11 00
+$PSR_Require_AUX2Wakeup_11 00
+$PSR_Lines2Wait_B4LinkS3_11 00
+$PSR_IdleFrames2Wait_11 00
+$PSR_TP1_WaitTime_11 32 00
+$PSR_TP_2_3_WaitTime_11 32 00
+
+PAGE Panel #12 
+STRING $Panel_Name_12 LFP_PanelName
+$Panel_Width_12 40 06
+$Panel_Height_12 84 03
+$eDP_Panel_Color_Depth_12 00
+$Enable_SSC12 00
+$edp_S3D_Feature_12 00
+$DPS_Panel_Type_12 00
+$Blt_Control_12 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_12 01
+TABLE $eDP_Pwr_Seq_12 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_12 30 2A 40 C8 60 84 64 30 18 51 04 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_12 36 7F 03 00 0C 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_12 02
+$BLC_Inv_Polarity_12 00
+$BLC_Min_Brightness_12 00
+$POST_BL_Brightness_12 FF
+$PWM_Frequency_12 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_12 00
+$Override_EDID_Data_12 00
+$Red_Green_12 88
+$Blue_White_12 88
+$Red_x_12 88
+$Red_y_12 88
+$Green_x_12 88
+$Green_y_12 88
+$Blue_x_12 88
+$Blue_y_12 88
+$White_x_12 88
+$White_y_12 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_12 00
+$eDP_Link_LaneCount_12 00
+$eDP_Link_PreEmp_12 00
+$eDP_Link_Vswing_12 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_12 00
+$PSR_Require_AUX2Wakeup_12 00
+$PSR_Lines2Wait_B4LinkS3_12 00
+$PSR_IdleFrames2Wait_12 00
+$PSR_TP1_WaitTime_12 32 00
+$PSR_TP_2_3_WaitTime_12 32 00
+
+PAGE Panel #13 
+STRING $Panel_Name_13 LFP_PanelName
+$Panel_Width_13 00 04
+$Panel_Height_13 00 03
+$eDP_Panel_Color_Depth_13 00
+$Enable_SSC13 00
+$edp_S3D_Feature_13 00
+$DPS_Panel_Type_13 00
+$Blt_Control_13 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_13 01
+TABLE $eDP_Pwr_Seq_13 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_13 64 19 00 40 41 00 26 30 18 88 36 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_13 36 7F 03 00 0D 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_13 02
+$BLC_Inv_Polarity_13 00
+$BLC_Min_Brightness_13 00
+$POST_BL_Brightness_13 FF
+$PWM_Frequency_13 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_13 00
+$Override_EDID_Data_13 00
+$Red_Green_13 88
+$Blue_White_13 88
+$Red_x_13 88
+$Red_y_13 88
+$Green_x_13 88
+$Green_y_13 88
+$Blue_x_13 88
+$Blue_y_13 88
+$White_x_13 88
+$White_y_13 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_13 00
+$eDP_Link_LaneCount_13 00
+$eDP_Link_PreEmp_13 00
+$eDP_Link_Vswing_13 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_13 00
+$PSR_Require_AUX2Wakeup_13 00
+$PSR_Lines2Wait_B4LinkS3_13 00
+$PSR_IdleFrames2Wait_13 00
+$PSR_TP1_WaitTime_13 32 00
+$PSR_TP_2_3_WaitTime_13 32 00
+
+PAGE Panel #14 
+STRING $Panel_Name_14 LFP_PanelName
+$Panel_Width_14 00 05
+$Panel_Height_14 20 03
+$eDP_Panel_Color_Depth_14 00
+$Enable_SSC14 00
+$edp_S3D_Feature_14 00
+$DPS_Panel_Type_14 00
+$Blt_Control_14 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_14 01
+TABLE $eDP_Pwr_Seq_14 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_14 EA 1A 00 A0 50 20 17 30 0C 30 43 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_14 36 7F 03 90 0E 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_14 02
+$BLC_Inv_Polarity_14 00
+$BLC_Min_Brightness_14 00
+$POST_BL_Brightness_14 FF
+$PWM_Frequency_14 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_14 00
+$Override_EDID_Data_14 00
+$Red_Green_14 88
+$Blue_White_14 88
+$Red_x_14 88
+$Red_y_14 88
+$Green_x_14 88
+$Green_y_14 88
+$Blue_x_14 88
+$Blue_y_14 88
+$White_x_14 88
+$White_y_14 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_14 00
+$eDP_Link_LaneCount_14 00
+$eDP_Link_PreEmp_14 00
+$eDP_Link_Vswing_14 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_14 00
+$PSR_Require_AUX2Wakeup_14 00
+$PSR_Lines2Wait_B4LinkS3_14 00
+$PSR_IdleFrames2Wait_14 00
+$PSR_TP1_WaitTime_14 32 00
+$PSR_TP_2_3_WaitTime_14 32 00
+
+PAGE Panel #15 
+STRING $Panel_Name_15 LFP_PanelName
+$Panel_Width_15 80 07
+$Panel_Height_15 38 04
+$eDP_Panel_Color_Depth_15 00
+$Enable_SSC15 00
+$edp_S3D_Feature_15 00
+$DPS_Panel_Type_15 00
+$Blt_Control_15 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_15 01
+TABLE $eDP_Pwr_Seq_15 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_15 02 3A 80 18 71 38 2D 40 58 2D 36 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_15 36 7F 03 00 0F 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_15 02
+$BLC_Inv_Polarity_15 00
+$BLC_Min_Brightness_15 00
+$POST_BL_Brightness_15 FF
+$PWM_Frequency_15 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_15 00
+$Override_EDID_Data_15 00
+$Red_Green_15 88
+$Blue_White_15 88
+$Red_x_15 88
+$Red_y_15 88
+$Green_x_15 88
+$Green_y_15 88
+$Blue_x_15 88
+$Blue_y_15 88
+$White_x_15 88
+$White_y_15 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_15 00
+$eDP_Link_LaneCount_15 00
+$eDP_Link_PreEmp_15 00
+$eDP_Link_Vswing_15 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_15 00
+$PSR_Require_AUX2Wakeup_15 00
+$PSR_Lines2Wait_B4LinkS3_15 00
+$PSR_IdleFrames2Wait_15 00
+$PSR_TP1_WaitTime_15 32 00
+$PSR_TP_2_3_WaitTime_15 32 00
+
+PAGE Panel #16 
+STRING $Panel_Name_16 LFP_PanelName
+$Panel_Width_16 00 08
+$Panel_Height_16 00 06
+$eDP_Panel_Color_Depth_16 00
+$Enable_SSC16 00
+$edp_S3D_Feature_16 00
+$DPS_Panel_Type_16 00
+$Blt_Control_16 02
+
+PAGE Panel Power Sequencing
+$eDP_T3_Optimization_16 01
+TABLE $eDP_Pwr_Seq_16 D0 07 0A 00 D0 07 F4 01 88 13
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_16 29 40 00 60 80 00 13 60 10 10 11 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_16 36 7F 03 00 10 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_16 02
+$BLC_Inv_Polarity_16 00
+$BLC_Min_Brightness_16 00
+$POST_BL_Brightness_16 FF
+$PWM_Frequency_16 C8 00
+
+PAGE Chromaticity Control
+$Chromacity_Enable_16 00
+$Override_EDID_Data_16 00
+$Red_Green_16 88
+$Blue_White_16 88
+$Red_x_16 88
+$Red_y_16 88
+$Green_x_16 88
+$Green_y_16 88
+$Blue_x_16 88
+$Blue_y_16 88
+$White_x_16 88
+$White_y_16 88
+
+PAGE eDP Link Parameters
+$eDP_Link_DataRate_16 00
+$eDP_Link_LaneCount_16 00
+$eDP_Link_PreEmp_16 00
+$eDP_Link_Vswing_16 00
+
+PAGE PSR feature
+$PSR_FullLink_Enable_16 00
+$PSR_Require_AUX2Wakeup_16 00
+$PSR_Lines2Wait_B4LinkS3_16 00
+$PSR_IdleFrames2Wait_16 00
+$PSR_TP1_WaitTime_16 32 00
+$PSR_TP_2_3_WaitTime_16 32 00
+
+PAGE Integrated DisplayPort/HDMI Configuration with External Connectors
+$DP_SSC_Enb 00
+$DP_SSC_Dongle_Enb 00
+
+PAGE Device 1 (EFP1)
+$Int_EFP1_Type D6 60
+$Int_EFP1_Port 07
+$Int_EFP1_DDC_Pin 05
+$Int_EFP1_AUX_Channel 10
+$Int_EFP1_HDMI_LS_Type 06
+$Int_EFP1_Port_Dockable 00
+
+PAGE DisplayPort Redriver Configuration
+$Int_EFP1_OnBoard_Redriver_Present 00
+$Int_EFP1_OnBoard_Pre_emphasis 00
+$Int_EFP1_OnBoard_Voltage_swing 02
+$Int_EFP1_Dock_Redriver_Present 00
+$Int_EFP1_Dock_Pre_emphasis 00
+$Int_EFP1_Dock_Voltage_swing 02
+
+PAGE Device 2 (EFP2)
+$Int_EFP2_Type D2 60
+$Int_EFP2_Port 02
+$Int_EFP2_DDC_Pin 04
+$Int_EFP2_AUX_Channel 00
+$Int_EFP2_HDMI_LS_Type 06
+$Int_EFP2_Port_Dockable 00
+
+PAGE DisplayPort Redriver Configuration
+$Int_EFP2_OnBoard_Redriver_Present 00
+$Int_EFP2_OnBoard_Pre_emphasis 00
+$Int_EFP2_OnBoard_Voltage_swing 02
+$Int_EFP2_Dock_Redriver_Present 00
+$Int_EFP2_Dock_Pre_emphasis 00
+$Int_EFP2_Dock_Voltage_swing 02
+
+PAGE Device 3 (EFP3)
+$Int_EFP3_Type D6 60
+$Int_EFP3_Port 09
+$Int_EFP3_DDC_Pin 06
+$Int_EFP3_AUX_Channel 30
+$Int_EFP3_HDMI_LS_Type 06
+$Int_EFP3_Port_Dockable 00
+
+PAGE DisplayPort Redriver Configuration
+$Int_EFP3_OnBoard_Redriver_Present 00
+$Int_EFP3_OnBoard_Pre_emphasis 00
+$Int_EFP3_OnBoard_Voltage_swing 02
+$Int_EFP3_Dock_Redriver_Present 00
+$Int_EFP3_Dock_Pre_emphasis 00
+$Int_EFP3_Dock_Voltage_swing 02
+
+PAGE Display Device Toggle Lists (Mobile only)
+
+PAGE Display Toggle List 1
+TABLE $Toggle_List1 01 00 09 00 08 00 02 00 05 00 04 00 0C 00 40 00 44 00 48 00 41 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE Display Toggle List 2
+TABLE $Toggle_List2 01 00 21 00 41 00 48 00 08 00 04 00 0C 00 40 00
+
+PAGE Display Toggle List 3
+TABLE $Toggle_List3 01 00 48 00 44 00 60 00 24 00 28 00 20 00 40 00
+
+PAGE Display Toggle List 4
+TABLE $Toggle_List4 01 00 04 00 08 00 40 00 20 00 09 00 28 00 05 00
+
+PAGE Modes Removal Table
+TABLE $Mode_Rem_Table 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF
+
+PAGE Display Configuration Removal Table (Mobile only)
+TABLE $Dev_Removed_Table 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Customizable Modes
+
+PAGE OEM Mode #1
+$OEM_Mode_Flags1 00
+$OEM_Display_Flags1 00
+$OEM_Mode_X1 00 00
+$OEM_Mode_Y1 00 00
+$OEM_Mode_Color1 07
+$OEM_Mode_RRate1 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD1 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Mode #2
+$OEM_Mode_Flags2 00
+$OEM_Display_Flags2 00
+$OEM_Mode_X2 00 00
+$OEM_Mode_Y2 00 00
+$OEM_Mode_Color2 07
+$OEM_Mode_RRate2 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD2 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Mode #3
+$OEM_Mode_Flags3 00
+$OEM_Display_Flags3 00
+$OEM_Mode_X3 00 00
+$OEM_Mode_Y3 00 00
+$OEM_Mode_Color3 07
+$OEM_Mode_RRate3 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Mode #4
+$OEM_Mode_Flags4 00
+$OEM_Display_Flags4 00
+$OEM_Mode_X4 00 00
+$OEM_Mode_Y4 00 00
+$OEM_Mode_Color4 07
+$OEM_Mode_RRate4 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD4 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Mode #5
+$OEM_Mode_Flags5 00
+$OEM_Display_Flags5 00
+$OEM_Mode_X5 00 00
+$OEM_Mode_Y5 00 00
+$OEM_Mode_Color5 07
+$OEM_Mode_RRate5 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD5 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Mode #6
+$OEM_Mode_Flags6 00
+$OEM_Display_Flags6 00
+$OEM_Mode_X6 00 00
+$OEM_Mode_Y6 00 00
+$OEM_Mode_Color6 07
+$OEM_Mode_RRate6 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD6 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00

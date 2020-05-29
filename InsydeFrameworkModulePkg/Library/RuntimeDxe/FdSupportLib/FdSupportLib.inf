@@ -1,0 +1,57 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+[defines]
+  BASE_NAME       = FdSupportLib
+  COMPONENT_TYPE  = LIBRARY
+
+[sources.common]
+  FdSupportLib.c
+  FWH_LPC\Recognize.c
+  FWH_LPC\Erase.c
+  FWH_LPC\Program.c
+  FWH_LPC\Init.c
+  FWH_LPC\ConvertPointer.c
+  FWH_LPC\Read.c
+
+[includes.common]
+  $(EFI_SOURCE)\Framework
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  .
+  .\FWH_LPC
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Chipset
+  $(EFI_SOURCE)\$(CHIPSET_ROOT)\Library\Include
+  $(EFI_SOURCE)\Library\RuntimeDxe\FdSupportLib
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EFI_SOURCE)\$(PROJECT_FAMILY)\$(PROJECT_NAME)\OemServices\ROM
+  $(EFI_SOURCE)\$(PROJECT_FAMILY)\$(PROJECT_NAME)\OemServices\ROM\SpiDevice
+  $(EFI_SOURCE)\$(PROJECT_FAMILY)\$(PROJECT_NAME)\OemServices\ROM\FWH_LPC
+  $(EFI_SOURCE)\Library\Include
+
+[libraries.common]
+  ProtocolLib
+  EdkFrameworkProtocolLib
+  EdkProtocolLib
+  EfiRuntimeLib
+  ChipsetLib
+  FwhLpcLib
+
+[nmake.common]
+  C_STD_INCLUDE=
+

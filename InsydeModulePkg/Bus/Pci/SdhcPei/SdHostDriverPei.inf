@@ -1,0 +1,46 @@
+## @file
+#  Component description file for SDHC peim.                              
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SdHostDriver
+  FILE_GUID                      = CB077E14-EBD8-4ac2-986F-82F3CD4E717E
+  MODULE_TYPE                    = PEIM
+  BINARY_VERSION                 = 02.12.27.0708.00
+
+[Binaries.Ia32]
+  PE32|Ia32/SdHostDriver.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  BaseMemoryLib
+  TimerLib
+
+[Ppis]
+  gPeiSdControllerPpiGuid
+  gH2OSdHostIoPpiGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdH2OSdhcSdCardSupported
+  gInsydeTokenSpaceGuid.PcdH2OSdhcEmmcSupported
+
+[Depex]
+  gEfiPeiMemoryDiscoveredPpiGuid AND
+  gEfiPeiBootInRecoveryModePpiGuid AND
+  gPeiSdControllerPpiGuid  

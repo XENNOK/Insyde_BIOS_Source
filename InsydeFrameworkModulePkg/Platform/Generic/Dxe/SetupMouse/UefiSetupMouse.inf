@@ -1,0 +1,54 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+[defines]
+BASE_NAME            = SetupMouse
+FILE_GUID            = 06B5947E-FF53-457d-98BC-C5ABC777FD5A
+COMPONENT_TYPE       = BS_DRIVER
+
+[sources.common]
+  SetupMouse.c
+  SetupMouse.h
+  SetupMouseFuncs.c
+  SetupMouseCursor.c
+  KeyboardLayout.c
+  SetupMouseKeyboard.c
+  SetupMouseScreen.c
+
+  Picture\SetupMouseKeyboard.ani
+  Picture\KB_Background.gif
+  Picture\KB_Normal.gif
+  Picture\KB_Hover.gif
+  Picture\KB_Press.gif
+  Picture\arrow.gif
+
+[libraries.common]
+  EfiDriverLib
+  ProtocolLib
+
+[includes.common]
+  .
+  $(DEST_DIR)
+  $(BIN_DIR)
+  $(EFI_SOURCE)
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Efi\Include\
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Framework\Include\
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=InitializeSetupMouse
+  DPX_SOURCE=SetupMouse.dxs
+

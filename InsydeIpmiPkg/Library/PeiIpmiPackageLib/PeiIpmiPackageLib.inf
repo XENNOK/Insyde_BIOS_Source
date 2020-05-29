@@ -1,0 +1,55 @@
+## @file
+#  Component description file for PeiIpmiPackageLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiIpmiPackageLib
+  FILE_GUID                      = 1AAA03BB-781B-414c-B7BC-DAC3536932E1
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PeiIpmiPackageLib|PEI_CORE PEIM
+
+[Sources]
+  IpmiWaitBmc.c
+  IpmiUpdatePolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(PROJECT_PKG)/Project.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  IoLib
+  PeiServicesLib
+  PcdLib
+
+[Guids]
+  gSystemConfigurationGuid
+
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid                # PPI CONSUMED
+
+[Pcd]
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiEnable
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWarmupTime
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtEnable
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtAction
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtTimeout
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSpmiEnable
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSetBiosVersion
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiBootOption
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiConfigInDeviceManager
+

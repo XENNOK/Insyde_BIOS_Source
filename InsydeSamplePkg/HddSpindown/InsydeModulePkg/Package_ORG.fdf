@@ -1,0 +1,323 @@
+## @file
+# Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[FV.RECOVERYFV]
+!if gInsydeTokenSpaceGuid.PcdInsydeDebugger
+INF APRIORI=0xC000 InsydeModulePkg/H2ODebug/$(H2O_DDT_DEBUG_IO)DebugIoPei/$(H2O_DDT_DEBUG_IO)DebugIoPei.inf
+INF APRIORI=0xC000 InsydeModulePkg/H2ODebug/DebugEnginePei/DebugEnginePei.inf
+!if gInsydeTokenSpaceGuid.PcdStatusCodeUseDdt
+INF APRIORI InsydeModulePkg/Universal/StatusCode/DdtStatusCodePei/DdtStatusCodePei.inf
+!endif
+!endif
+!if gInsydeTokenSpaceGuid.PcdStatusCodeUseUsb
+INF APRIORI InsydeModulePkg/Universal/StatusCode/UsbStatusCodePei/UsbStatusCodePei.inf
+!endif
+!if gInsydeTokenSpaceGuid.PcdStatusCodeUseCmos
+INF APRIORI InsydeModulePkg/Universal/StatusCode/CmosStatusCodePei/CmosStatusCodePei.inf
+!endif
+INF InsydeModulePkg/Universal/StatusCode/DebugMaskPei/DebugMaskPei.inf
+INF InsydeModulePkg/Universal/Variable/VariablePei/VariablePei.inf
+INF InsydeModulePkg/Universal/Misc/FirmwareRevisionSyncPei/FirmwareRevisionSyncPei.inf
+!if gInsydeTokenSpaceGuid.PcdSecureFlashSupported
+INF InsydeModulePkg/Universal/Security/SecureFlash/SecureFlashPei/SecureFlashPei.inf
+!endif
+INF InsydeModulePkg/Universal/Variable/SetupDataProviderPei/SetupDataProviderPei.inf
+INF InsydeModulePkg/Universal/CommonPolicy/PlatformStage1Pei/PlatformStage1Pei.inf
+INF InsydeModulePkg/Universal/CommonPolicy/PlatformStage2Pei/PlatformStage2Pei.inf
+INF InsydeModulePkg/Bus/Smbus/ProgClkGenPeim/ProgClkGenPeim.inf
+INF InsydeModulePkg/Bus/Isa/Ps2KeyboardPei/Ps2KeyboardPei.inf
+INF InsydeModulePkg/Universal/Acpi/S3RestoreAcpiPei/S3RestoreAcpiPei.inf
+
+!if gInsydeTokenSpaceGuid.PcdTpmSupported == 1 || gInsydeTokenSpaceGuid.PcdTpm2Supported == 1
+INF  InsydeModulePkg/Universal/Security/Tcg/TrEEConfig/TrEEConfigPei.inf
+!endif
+!if gInsydeTokenSpaceGuid.PcdTpmSupported
+INF SecurityPkg/Tcg/PhysicalPresencePei/PhysicalPresencePei.inf
+INF InsydeModulePkg/Universal/Security/Tcg/TcgPei/TcgPei.inf
+!endif
+!if gInsydeTokenSpaceGuid.PcdTpm2Supported
+INF InsydeModulePkg/Universal/Security/Tcg/TisPei/TisPei.inf
+INF InsydeModulePkg/Universal/Security/Tcg/TrEEPei/TrEEPei.inf
+!endif
+
+INF InsydeModulePkg/Universal/Acpi/S3Resume2Pei/S3Resume2Pei.inf
+INF InsydeModulePkg/Core/DxeIplPeim/DxeIpl.inf
+
+!if gInsydeTokenSpaceGuid.PcdCrisisRecoverySupported
+!if gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+INF InsydeModulePkg/Universal/Recovery/EmuSecPei/EmuSecPei.inf
+!endif
+FILE FV_IMAGE = E446E797-96E1-47CD-A3B5-0061B404243F {
+       SECTION PEI_DEPEX_EXP = {gEfiPeiMemoryDiscoveredPpiGuid AND gEfiPeiBootInRecoveryModePpiGuid}
+       SECTION GUIDED EE4E5898-3914-4259-9D6E-DC7BD79403CF PROCESSING_REQUIRED = TRUE {  # LzmaCompress
+          SECTION FV_IMAGE = BACKUPFV
+       }
+     }
+!endif
+
+[FV.BACKUPFV]
+!if gInsydeTokenSpaceGuid.PcdCrisisRecoverySupported
+!if gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+INF RuleOverride=LzmaCompress InsydeModulePkg/Universal/Recovery/EmuPeiHelperPei/EmuPeiHelperPei.inf
+!else
+INF RuleOverride=LzmaCompress InsydeModulePkg/Universal/Recovery/CrisisRecoveryPei/CrisisRecoveryPei.inf
+!endif
+INF RuleOverride=LzmaCompress InsydeModulePkg/Bus/Pci/IdeBusPei/IdeBusPei.inf
+INF RuleOverride=LzmaCompress InsydeModulePkg/Bus/Pci/AhciBusPei/AhciBusPei.inf
+!if gInsydeTokenSpaceGuid.PcdSeamlessUsbSupported
+INF RuleOverride=LzmaCompress InsydeModulePkg/Bus/Pci/EhciPei/EhciPei.inf
+INF RuleOverride=LzmaCompress InsydeModulePkg/Bus/Pci/XhciPei/XhciPei.inf
+INF RuleOverride=LzmaCompress InsydeModulePkg/Bus/Usb/UsbBusPei/UsbBusPei.inf
+INF RuleOverride=LzmaCompress InsydeModulePkg/Bus/Usb/UsbMassStoragePei/UsbMassStoragePei.inf
+!endif
+!if gInsydeTokenSpaceGuid.PcdSeamlessSdhcSupported
+INF RuleOverride=LzmaCompress InsydeModulePkg/Bus/Pci/SdhcPei/SdHostDriverPei.inf
+INF RuleOverride=LzmaCompress InsydeModulePkg/Bus/Sdhc/SdMmcPei/SdMmcDevicePei.inf
+!endif
+INF RuleOverride=LzmaCompress InsydeModulePkg/Universal/Recovery/FatPei/FatPei.inf
+INF RuleOverride=LzmaCompress InsydeModulePkg/Universal/Recovery/CdExpressPei/CdExpressPei.inf
+INF RuleOverride=LzmaCompress InsydeModulePkg/Universal/Security/SecureFlash/FirmwareAuthenticationPei/FirmwareAuthenticationPei.inf
+FILE RAW = PCD (gInsydeTokenSpaceGuid.PcdSecureFlashPublicKeyFile) {
+   $(OUTPUT_DIRECTORY)/$(TARGET)_$(TOOL_CHAIN_TAG)/IA32/SecureFlashPublicKey.bin
+}
+!endif
+
+[FV.DXEFV]
+!if gInsydeTokenSpaceGuid.PcdInsydeDebugger
+INF  APRIORI=0xC000 InsydeModulePkg/H2ODebug/$(H2O_DDT_DEBUG_IO)DebugIoDxe/$(H2O_DDT_DEBUG_IO)DebugIoDxe.inf
+INF  APRIORI=0xC000 InsydeModulePkg/H2ODebug/DebugEngineDxe/DebugEngineDxe.inf
+!if gInsydeTokenSpaceGuid.PcdStatusCodeUseDdt
+INF  APRIORI=0xA000 InsydeModulePkg/Universal/StatusCode/DdtStatusCodeRuntimeDxe/DdtStatusCodeRuntimeDxe.inf
+!endif
+!endif
+INF APRIORI=0xC000 InsydeModulePkg/Universal/PcdSmmDxe/Pcd.inf
+!if gInsydeTokenSpaceGuid.PcdStatusCodeUseUsb
+INF APRIORI=0xA000 InsydeModulePkg/Universal/StatusCode/UsbStatusCodeRuntimeDxe/UsbStatusCodeRuntimeDxe.inf
+!endif
+!if gInsydeTokenSpaceGuid.PcdStatusCodeUseCmos
+INF PRIORITY=0xA000 InsydeModulePkg/Universal/StatusCode/CmosStatusCodeRuntimeDxe/CmosStatusCodeRuntimeDxe.inf
+!endif
+INF InsydeModulePkg/Universal/StatusCode/ReportStatusCodeRouterSmm/ReportStatusCodeRouterSmm.inf
+INF InsydeModulePkg/Bus/Isa/PcRtcRuntimeDxe/PcRtcRuntimeDxe.inf
+!if gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+INF APRIORI=0x9FFF InsydeModulePkg/Universal/Recovery/EmuPeiGateDxe/EmuPeiGateDxe.inf
+!endif
+!if gInsydeTokenSpaceGuid.PcdTpmSupported == 1 || gInsydeTokenSpaceGuid.PcdTpm2Supported == 1
+INF InsydeModulePkg/Universal/Security/Tcg/MemoryOverwriteControl/TcgMor.inf
+!endif
+!if gInsydeTokenSpaceGuid.PcdTpmSupported
+FILE FREEFORM = 4B8D2F76-D9E7-46dc-B5ED-EFEF9476AF4A {
+    SECTION RAW = InsydeModulePkg/Csm/Tpm12/TpmMp.bin
+  }
+INF InsydeModulePkg/Universal/Security/Tcg/TcgDxe/TcgDxe.inf
+INF InsydeModulePkg/Universal/Security/Tcg/PhysicalPresenceDxe/PhysicalPresenceDxe.inf
+INF RuleOverride = DRIVER_ACPITABLE InsydeModulePkg/Universal/Security/Tcg/TcgSmm/TcgSmm.inf
+!endif
+!if gInsydeTokenSpaceGuid.PcdTpm2Supported
+INF InsydeModulePkg/Universal/Security/Tcg/TisDxe/TisDxe.inf
+INF InsydeModulePkg/Universal/Security/Tcg/TrEEDxe/TrEEDxe.inf
+INF InsydeModulePkg/Universal/Security/Tcg/TrEEPhysicalPresenceDxe/TrEEPhysicalPresenceDxe.inf
+INF RuleOverride = DRIVER_ACPITABLE InsydeModulePkg/Universal/Security/Tcg/TrEESmm/TrEESmm.inf
+!endif
+
+INF InsydeModulePkg/Universal/Console/JpegDecoderDxe/JpegDecoderDxe.inf
+INF InsydeModulePkg/Universal/Console/TgaDecoderDxe/TgaDecoderDxe.inf
+INF InsydeModulePkg/Universal/Console/PcxDecoderDxe/PcxDecoderDxe.inf
+INF InsydeModulePkg/Universal/Console/GifDecoderDxe/GifDecoderDxe.inf
+INF InsydeModulePkg/Universal/BdsDxe/BdsDxe.inf
+INF InsydeModulePkg/Universal/CommonPolicy/BootOptionPolicyDxe/BootOptionPolicyDxe.inf
+INF InsydeModulePkg/Universal/FirmwareVolume/FtwLiteRuntimeDxe/FtwLiteRuntimeDxe.inf
+INF InsydeModulePkg/Universal/Variable/VariableRuntimeDxe/VariableRuntimeDxe.inf
+!if gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+INF InsydeModulePkg/Universal/Variable/EmuVariableRuntimeDxe/EmuVariableRuntimeDxe.inf
+!endif
+INF InsydeModulePkg/Universal/Variable/VariableDefaultUpdateDxe/VariableDefaultUpdateDxe.inf
+INF MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
+INF InsydeModulePkg/Universal/MonotonicCounterRuntimeDxe/MonotonicCounterRuntimeDxe.inf
+INF InsydeModulePkg/Universal/Acpi/AcpiSupportDxe/AcpiSupportDxe.inf
+INF InsydeModulePkg/Universal/Acpi/AcpiPlatformDxe/AcpiPlatformDxe.inf
+INF InsydeModulePkg/Universal/Acpi/BootScriptExecutorDxe/BootScriptExecutorDxe.inf
+INF InsydeModulePkg/Universal/Acpi/BootGraphicsResourceTableDxe/BootGraphicsResourceTableDxe.inf
+INF InsydeModulePkg/Universal/Acpi/WpbtDxe/WpbtDxe.inf
+INF InsydeModulePkg/Universal/Acpi/Msdm/InstallMsdm.inf
+INF InsydeModulePkg/Bus/Isa/Ps2KeyboardDxe/Ps2keyboardDxe.inf
+INF InsydeModulePkg/Bus/Isa/Ps2MouseDxe/Ps2MouseDxe.inf
+INF InsydeModulePkg/Bus/Pci/IdeBusDxe/IdeBusDxe.inf
+INF InsydeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf
+!if gInsydeTokenSpaceGuid.PcdConsoleRedirectionSupported != 1
+INF InsydeModulePkg/Bus/Isa/IsaSerialDxe/IsaSerialDxe.inf
+INF InsydeModulePkg/Universal/Console/TerminalDxe/TerminalDxe.inf
+!endif
+
+INF InsydeModulePkg/Bus/Pci/AhciBusDxe/AhciBusDxe.inf
+
+!if gInsydeTokenSpaceGuid.PcdSeamlessUsbSupported
+INF InsydeModulePkg/Bus/Pci/EhciDxe/EhciDxe.inf
+INF InsydeModulePkg/Bus/Pci/XhciDxe/XhciDxe.inf
+INF InsydeModulePkg/Bus/Usb/UsbCoreDxe/UsbCoreDxe.inf
+INF InsydeModulePkg/Bus/Usb/UsbBusDxe/UsbBusDxe.inf
+INF InsydeModulePkg/Bus/Usb/UsbBotDxe/UsbBotDxe.inf
+INF InsydeModulePkg/Bus/Usb/UsbCbiDxe/UsbCbiDxe.inf
+INF InsydeModulePkg/Bus/Usb/UsbMassStorageDxe/UsbMassStorageDxe.inf
+INF InsydeModulePkg/Bus/Usb/UsbKbDxe/UsbKbDxe.inf
+INF InsydeModulePkg/Bus/Usb/UsbMouseDxe/UsbMouseDxe.inf
+INF InsydeModulePkg/Csm/UsbLegacySmm/UsbLegacySmm.inf
+!endif
+
+INF InsydeModulePkg/Universal/Acpi/AcpiS3SaveDxe/AcpiS3SaveDxe.inf
+INF InsydeModulePkg/Universal/FirmwareVolume/FvbServicesRuntimeDxe/FvbServicesRuntimeDxe.inf
+INF InsydeModulePkg/Universal/FirmwareVolume/FwBlockServiceSmm/FwBlockServiceSmm.inf
+INF InsydeModulePkg/Universal/FirmwareVolume/FlashDeviceFvbRuntimeDxe/FlashDeviceFvbRuntimeDxe.inf
+INF InsydeModulePkg/Universal/CommonPolicy/PciHotPlugDxe/PciHotPlugDxe.inf
+INF InsydeModulePkg/Universal/Acpi/AcpiCallBacksSmm/AcpiCallBacksSmm.inf
+INF InsydeModulePkg/Universal/UserInterface/SetupMouseDxe/SetupMouseDxe.inf
+INF InsydeModulePkg/Universal/Console/MonitorKeyDxe/MonitorKeyDxe.inf
+INF InsydeModulePkg/Universal/Smbios/PnpRuntimeDxe/PnpRuntimeDxe.inf
+INF InsydeModulePkg/Universal/Smbios/PnpSmm/PnpSmm.inf
+INF InsydeModulePkg/Universal/CommonPolicy/CommonSmiCallBackSmm/CommonSmiCallBackSmm.inf
+INF InsydeModulePkg/Universal/Smbios/SmbiosDxe/SmbiosDxe.inf
+
+INF InsydeModulePkg/Universal/UserInterface/HiiDatabaseDxe/HiiDatabaseDxe.inf
+INF InsydeModulePkg/Universal/Security/SysPasswordDxe/SysPasswordDxe.inf
+INF InsydeModulePkg/Universal/Security/StorageSecurityCommandDxe/StorageSecurityCommandDxe.inf
+INF InsydeModulePkg/Universal/Security/CryptoServiceRuntimeDxe/CryptoServiceRuntimeDxe.inf
+INF InsydeModulePkg/Universal/Security/RngDxe/RngDxe.inf
+!if gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+INF InsydeModulePkg/Universal/UserInterface/SetupBrowserDxe/GraphicsSetupBrowserDxe.inf
+!else
+INF InsydeModulePkg/Universal/UserInterface/SetupBrowserDxe/SetupBrowserDxe.inf
+!endif
+INF InsydeModulePkg/Universal/UserInterface/UnicodeCollationDxe/UnicodeCollationDxe.inf
+INF InsydeModulePkg/Universal/IsaAcpiDxe/IsaAcpi.inf
+
+INF InsydeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf
+INF InsydeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf
+INF InsydeModulePkg/Universal/Console/VgaDriverPolicyDxe/VgaDriverPolicyDxe.inf
+INF InsydeModulePkg/Universal/Console/EdidOverrideDxe/EdidOverrideDxe.inf
+INF InsydeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
+INF InsydeModulePkg/Universal/MemoryTest/GenericMemoryTestDxe/GenericMemoryTestDxe.inf
+INF InsydeModulePkg/Universal/CommonPolicy/CommonPciPlatformDxe/CommonPciPlatformDxe.inf
+!if gInsydeTokenSpaceGuid.PcdSnapScreenSupported
+INF InsydeModulePkg/Universal/Console/SnapScreenDxe/SnapScreenDxe.inf
+!endif
+
+!if gInsydeTokenSpaceGuid.PcdUefiNetworkSupported
+INF InsydeModulePkg/Universal/Network/NetworkLockerDxe/NetworkLockerDxe.inf
+INF InsydeModulePkg/Universal/Network/DhcpDummyDxe/DhcpDummyDxe.inf
+INF InsydeModulePkg/Universal/Network/SnpDxe/SnpDxe.inf
+INF InsydeModulePkg/Universal/Network/DpcDxe/DpcDxe.inf
+INF InsydeModulePkg/Universal/Network/MnpDxe/MnpDxe.inf
+INF InsydeModulePkg/Universal/Network/Ip4Dxe/Ip4Dxe.inf
+INF InsydeModulePkg/Universal/Network/Ip4ConfigDxe/Ip4ConfigDxe.inf
+INF InsydeModulePkg/Universal/Network/Udp4Dxe/Udp4Dxe.inf
+INF InsydeModulePkg/Universal/Network/Dhcp4Dxe/Dhcp4Dxe.inf
+INF InsydeModulePkg/Universal/Network/Mtftp4Dxe/Mtftp4Dxe.inf
+INF InsydeModulePkg/Universal/Network/ArpDxe/ArpDxe.inf
+
+!if gInsydeTokenSpaceGuid.PcdDualNetworkEnable
+INF InsydeModulePkg/Universal/Network/Ip6Dxe/Ip6Dxe.inf
+INF InsydeModulePkg/Universal/Network/Udp6Dxe/Udp6Dxe.inf
+INF InsydeModulePkg/Universal/Network/Dhcp6Dxe/Dhcp6Dxe.inf
+INF InsydeModulePkg/Universal/Network/Mtftp6Dxe/Mtftp6Dxe.inf
+!endif
+
+INF InsydeModulePkg/Universal/Network/UefiPxeBcDxe/UefiPxeBcDxe.inf
+
+!if gInsydeTokenSpaceGuid.PcdIscsiBootSupported
+INF MdeModulePkg/Bus/Scsi/ScsiBusDxe/ScsiBusDxe.inf
+INF MdeModulePkg/Bus/Scsi/ScsiDiskDxe/ScsiDiskDxe.inf
+INF InsydeModulePkg/Universal/Network/TcpDxe/TcpDxe.inf
+INF InsydeModulePkg/Universal/Network/IScsiDxe/IScsiDxe.inf
+!endif
+!endif
+
+INF InsydeModulePkg/Csm/LegacyBiosDxe/LegacyBiosDxe.inf
+INF InsydeModulePkg/Csm/BiosThunk/KeyboardDxe/KeyboardDxe.inf
+INF InsydeModulePkg/Csm/BiosThunk/BlockIoDxe/BlockIoDxe.inf
+INF InsydeModulePkg/Csm/BiosThunk/Int15ServiceSmm/Int15ServiceSmm.inf
+INF InsydeModulePkg/Csm/BiosThunk/VideoDxe/VideoDxe.inf
+INF InsydeModulePkg/Universal/CommonPolicy/LegacyBiosPlatformDxe/LegacyBiosPlatformDxe.inf
+!if gInsydeTokenSpaceGuid.PcdSeamlessAhciSupported == 1 || gInsydeTokenSpaceGuid.PcdSeamlessIdeSupported == 1
+INF InsydeModulePkg/Csm/AtaLegacySmm/AtaLegacySmm.inf
+!endif
+
+!if gInsydeTokenSpaceGuid.PcdSeamlessSdhcSupported
+INF InsydeModulePkg/Bus/Pci/SdhcDxe/SdHostDriverDxe.inf
+INF InsydeModulePkg/Bus/Sdhc/SdMmcDxe/SdMmcDeviceDxe.inf
+INF InsydeModulePkg/Csm/SdLegacySmm/SdLegacySmm.inf
+!endif
+
+INF InsydeModulePkg/Universal/Security/BiosProtectDxe/BiosProtectDxe.inf
+
+!if gInsydeTokenSpaceGuid.PcdSecureFlashSupported
+INF InsydeModulePkg/Universal/Misc/TianoCompressSmm/TianoCompressSmm.inf
+INF InsydeModulePkg/Universal/Security/SecureFlash/SecurityErrorHandlingDxe/SecurityErrorHandlingDxe.inf
+INF InsydeModulePkg/Universal/Security/SecureFlash/SecureFlashDxe/SecureFlashDxe.inf
+FILE FREEFORM = PCD (gInsydeTokenSpaceGuid.PcdSecureFlashCertificateFile) {
+  SECTION RAW = $(SECURE_FLASH_CERTIFICATE_FILE_PATH)
+}
+!endif
+
+INF InsydeModulePkg/Universal/Irsi/IrsiRegistrationRuntimeDxe/IrsiRegistrationRuntimeDxe.inf
+INF InsydeModulePkg/Universal/Irsi/IrsiRuntimeDxe/IrsiRuntimeDxe.inf
+INF InsydeModulePkg/Universal/FirmwareVolume/FirmwareManagementRuntimeDxe/FirmwareManagementRuntimeDxe.inf
+!if gInsydeTokenSpaceGuid.PcdWindowsUefiFirmwareUpdateSupported
+INF InsydeModulePkg/Universal/CapsuleUpdate/CapsuleRuntimeDxe/CapsuleRuntimeDxe.inf
+INF InsydeModulePkg/Universal/CapsuleUpdate/CapsuleLoaderTriggerDxe/CapsuleLoaderTriggerDxe.inf
+!else
+INF MdeModulePkg/Universal/CapsuleRuntimeDxe/CapsuleRuntimeDxe.inf
+!endif
+INF InsydeModulePkg/Universal/FirmwareVolume/VariableRegionInfoDxe/VariableRegionInfoDxe.inf
+INF InsydeModulePkg/Universal/CommonPolicy/DataHubRecordPolicyDxe/DataHubRecordPolicyDxe.inf
+
+INF InsydeModulePkg/Universal/Disk/DelayUefiRaidOprom/DelayUefiRaidOprom.inf
+
+FILE FREEFORM = PCD (gInsydeTokenSpaceGuid.PcdInt15ServiceSmmRomFile) {
+  SECTION RAW = InsydeModulePkg/Csm/BiosThunk/Int15ServiceSmm/Int15Rom/Int15Rom.bin
+}
+
+FILE FREEFORM = 1547B4F3-3E8A-4FEF-81C8-328ED647AB1A {
+  SECTION RAW = InsydeModulePkg/Csm/Legacy16/$(CSM_VERSION)/Legacy16.bin
+}
+
+FILE FREEFORM = 931F77D1-10FE-48bf-AB72-773D389E3FAA {
+  SECTION RAW = InsydeModulePkg/Universal/Console/Logo/InsydeBoot/InsydeBoot.bmp
+}
+
+FILE FREEFORM = PCD (gInsydeTokenSpaceGuid.PcdWarningLogoFile) {
+  SECTION RAW = InsydeModulePkg/Universal/Console/Logo/WarningLogo/WarningLogo.jpg
+}
+
+FILE FREEFORM = 96DCE314-3628-4256-A02E-3B10C61D85FD {
+ SECTION RAW = InsydeModulePkg/Universal/Console/Logo/Insyde/InsydeLogo.tga
+}
+FILE FREEFORM = 931F00D1-10FE-48bf-AB72-773D389E3FDA {
+  SECTION RAW = InsydeModulePkg/Universal/Console/Logo/Intel/A7N8IMBW/A7N8IMBW.bmp
+}
+FILE FREEFORM = gH2OHiiFontFileGuid {
+  SECTION RAW = $(WORKSPACE)/Build/$(PROJECT_PKG)/$(TARGET)_$(TOOL_CHAIN_TAG)/FV/Font.hpk
+}
+!if gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+FILE FREEFORM = gTtfFontFileGuid {
+   SECTION RAW = InsydeModulePkg/Universal/UserInterface/Fonts/TtfDxe/DFPSc_Sans.TTF
+}
+!endif
+
+[FV.UNSIGNEDFV]
+!if gInsydeTokenSpaceGuid.PcdUnsignedFvSupported
+FILE FREEFORM = PCD (gInsydeTokenSpaceGuid.PcdUnsignedFvKeyFile) {
+  SECTION RAW = InsydeModulePkg/Universal/Security/SecureFlash/UnsignedFvKey/UnsignedFvKey.bin
+}
+!endif
+

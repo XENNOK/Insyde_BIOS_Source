@@ -1,0 +1,62 @@
+## @file
+#  Component description file for DxeIpmiSetupUtilityLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeIpmiSetupUtilityLib
+  FILE_GUID                      = 29ED49A4-389E-4886-A497-EE2B06F5F4A8
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeIpmiSetupUtilityLib|DXE_DRIVER
+
+[Sources]
+  IpmiSyncWithBmc.c
+  IpmiConfig.c
+  IpmiExecuteIpmiUtility.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  PrintLib
+  HiiLib
+  PcdLib
+  IpmiHobLib
+  IpmiCommonLib
+
+[Guids]
+  gEfiIfrTianoGuid
+  gH2OIpmiHobGuid
+  gSystemConfigurationGuid
+
+[Protocols]
+  gH2OIpmiInterfaceProtocolGuid
+  gH2OIpmiUtilityProtocolGuid
+  gH2OIpmiSdrProtocolGuid
+
+[Pcd]
+
+[Depex]
+  gH2OIpmiInterfaceProtocolGuid AND
+  gH2OIpmiUtilityProtocolGuid
+

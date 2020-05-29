@@ -1,0 +1,33 @@
+//;******************************************************************************
+//;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+
+#include "EfiDepex.h"
+
+#include EFI_PROTOCOL_DEFINITION (SmmBase)
+#include EFI_PROTOCOL_DEPENDENCY (SmmAccess)
+#include EFI_PROTOCOL_DEFINITION (SmmSwDispatch)
+#include EFI_PROTOCOL_DEFINITION (SmmRtProtocol)
+#include EFI_PROTOCOL_DEFINITION (SmmVariable)
+#include EFI_PROTOCOL_DEFINITION (SmmFwBlockService)
+//[-start-110830-IB04320164-remove]//
+//#include EFI_PROTOCOL_DEFINITION (SmmTdt)
+//[-end-110830-IB04320164-remove]//
+
+DEPENDENCY_START
+//[-start-110830-IB04320164-remove]//
+//  EFI_SMM_TDT_PROTOCOL_GUID AND
+//[-end-110830-IB04320164-remove]//
+  EFI_SMM_BASE_PROTOCOL_GUID AND
+  EFI_SMM_ACCESS_PROTOCOL_GUID AND
+  EFI_SMM_SW_DISPATCH_PROTOCOL_GUID AND
+  EFI_SMM_RUNTIME_PROTOCOL_GUID AND
+  EFI_SMM_VARIABLE_PROTOCOL_GUID AND
+  EFI_SMM_FW_BLOCK_SERVICE_PROTOCOL_GUID
+DEPENDENCY_END

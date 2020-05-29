@@ -1,0 +1,21 @@
+Device(WCAM)
+{
+  Name(_ADR, 0x05)
+  Method(_UPC, 0, Serialized) {
+    Name(UPCP, Package() { 0x00,0xFF,0x00,0x00 }) // Not connectable, Proprietary connector
+    Return(UPCP)
+  }
+
+  Method(_PLD, 0, Serialized) {
+    Name(PLDP, Package(1)
+    {
+      Buffer(0x14)
+      {
+        0x82, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Revision 2
+        0x24, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Not visible, Center
+        0xC8, 0x00, 0xA0, 0x00
+      }
+    })
+    Return (PLDP)
+  }
+}

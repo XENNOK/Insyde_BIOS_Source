@@ -1,0 +1,46 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiFlashRegionLib
+  FILE_GUID                      = 4D44A886-EC98-4b4d-9C2D-FD5668DB0FEF
+  MODULE_TYPE                    = PEIM
+  LIBRARY_CLASS                  = FlashRegionLib
+
+
+[Sources]
+  PeiFlashRegionLib.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeFlashDevicePkg/InsydeFlashDevicePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  BaseCryptLib
+
+
+[Guids]
+  gInsydeTokenSpaceGuid
+
+
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdH2OFlashDeviceMapStart
+  gInsydeTokenSpaceGuid.PcdH2OFlashDeviceMapSize
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+

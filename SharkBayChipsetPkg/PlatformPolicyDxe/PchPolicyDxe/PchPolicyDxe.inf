@@ -1,0 +1,290 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PchPolicyDxe
+  FILE_GUID                      = 3BC42C6D-ABEC-41ba-8CCB-D8E0EF1CEF85
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = PCHPolicyEntry
+
+[Sources]
+  PchPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  HobLib
+  UefiLib
+  PchPlatformLib
+#[-start-121031-IB10820146-add]#
+  IoLib
+  PciExpressLib
+#[-end-121031-IB10820146-add]#
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+
+[Protocols]
+  gEfiGlobalNvsAreaProtocolGuid 
+  gDxePchPlatformPolicyProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+#[-start-130110-IB11410040-add]#
+  gEfiPlatformInfoProtocolGuid
+#[-end-130110-IB11410040-add]#
+
+[Guids]
+  gPlatformHardwareSwitchGuid
+  gEfiHobListGuid
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+
+#[-start-121003-IB10820132-add]#
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-121031-IB10820146-modify]#
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings0Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings0Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings1Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings1Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings2Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings2Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings3Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings3Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings4Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings4Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings5Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings5Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings6Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings6Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings7Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings7Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings8Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings8Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings9Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings9Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings10Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings10Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings11Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings11Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings12Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings12Dock
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings13Panel
+#  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings13Dock
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings0Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings1Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings2Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings3Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings4Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings5Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings6Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings7Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings8Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings9Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings10Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings11Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings12Location
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigPortSettings13Location
+#[-end-121031-IB10820146-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins0
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins1
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins2
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins3
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins4
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins5
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins6
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins7
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins8
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins9
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins10
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins11
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins12
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20OverCurrentPins13
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30OverCurrentPins0
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30OverCurrentPins1
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30OverCurrentPins2
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30OverCurrentPins3
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30OverCurrentPins4
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30OverCurrentPins5
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength0
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength1
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength2
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength3
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength4
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength5
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength6
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength7
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength8
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength9
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength10
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength11
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength12
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb20PortLength13
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsbPrecondition
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualMode
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute0
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute1
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute2
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute3
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute4
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute5
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute6
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute7
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute8
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute9
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute10
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute11
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute12
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRoute13
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb30PerPinEnable0
+  gChipsetPkgTokenSpaceGuid.PcdPchLockDownConfigBiosInterface
+  gChipsetPkgTokenSpaceGuid.PcdPchLockDownConfigGlobalSmi
+  gChipsetPkgTokenSpaceGuid.PcdPchLockDownConfigBiosLock
+  gChipsetPkgTokenSpaceGuid.PcdPchLockDownConfigPchBiosLockIoTrapAddress
+  gChipsetPkgTokenSpaceGuid.PcdPchDeviceEnablingSmbus
+  gChipsetPkgTokenSpaceGuid.PcdPchDeviceEnablingDisplay
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings0InterlockSw
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings1InterlockSw
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings2InterlockSw
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings3InterlockSw
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings4InterlockSw
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings5InterlockSw
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings0External
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings1External
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings2External
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings3External
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings4External
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings5External
+#[-start-130130-IB05280043-remove]#
+##[-start-121031-IB10820146-add]#
+#  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings0DevSlp
+#  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings1DevSlp
+#  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings2DevSlp
+#  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings3DevSlp
+#  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings4DevSlp
+#  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettings5DevSlp
+##[-end-121031-IB10820146-add]#
+#[-end-130130-IB05280043-remove]#
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigTestMode
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigSpeedSupport
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigLegacyMode
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigSmartStorage
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigOromUiDelay
+#[-start-121222-IB11410036-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettingsDmVal
+  gChipsetPkgTokenSpaceGuid.PcdPchSataConfigPortSettingsDitoVal
+#[-end-121222-IB11410036-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchWakeConfigPmeB0S5Dis
+  gChipsetPkgTokenSpaceGuid.PcdPchWakeConfigGp27WakeFromDeepSx
+  gChipsetPkgTokenSpaceGuid.PcdPchPowerResetStatusClearMeWakeSts
+  gChipsetPkgTokenSpaceGuid.PcdPchPowerResetStatusClearMeHrstColdSts
+  gChipsetPkgTokenSpaceGuid.PcdPchPowerResetStatusClearMeHrstWarmSts
+  gChipsetPkgTokenSpaceGuid.PcdPchPowerResetStatusClearMeHostPowerDn
+  gChipsetPkgTokenSpaceGuid.PcdPchPowerResetStatusClearWolOvrWkSts
+  gChipsetPkgTokenSpaceGuid.PcdPchSlpS3MinAssert
+  gChipsetPkgTokenSpaceGuid.PcdPchSlpS4MinAssert
+  gChipsetPkgTokenSpaceGuid.PcdPchSlpSusMinAssert
+  gChipsetPkgTokenSpaceGuid.PcdPchSlpAMinAssert
+  gChipsetPkgTokenSpaceGuid.PcdSlpStrchSusUp
+  gChipsetPkgTokenSpaceGuid.PcdPchIoApicConfigBdfValid
+  gChipsetPkgTokenSpaceGuid.PcdPchIoApicConfigBusNumber
+  gChipsetPkgTokenSpaceGuid.PcdPchIoApicConfigDeviceNumber
+  gChipsetPkgTokenSpaceGuid.PcdPchIoApicConfigFunctionNumber
+  gChipsetPkgTokenSpaceGuid.PcdPchIoApicConfigIoApicEntry24_39
+  gChipsetPkgTokenSpaceGuid.PcdPchDefaultSvidSidSubSystemId
+  gChipsetPkgTokenSpaceGuid.PcdPchDefaultSvidSidSubSystemVendorId
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingTTLevelsT0Level
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingTTLevelsT1Level
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingTTLevelsT2Level
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingTTLevelsTTEnable
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingTTLevelsTTState13Enable
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingTTLevelsTTLock
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingTTLevelsSuggestedSetting
+#[-start-121123-IB11410024-add]#
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingTTLevelsPchCrossThrottling
+#[-end-121123-IB11410024-add]#
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingDmiHaAWCDmiTsawEn
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingDmiHaAWCTS0TW
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingDmiHaAWCTS1TW
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingDmiHaAWCTS2TW
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingDmiHaAWCTS3TW
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingDmiHaAWCSuggestedSetting
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP0T1M
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP0T2M
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP0T3M
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP0TDisp
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP1T1M
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP1T2M
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP1T3M
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP1TDisp
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP0Tinact
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP0TDispFinit
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP1Tinact
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTP1TDispFinit
+  gChipsetPkgTokenSpaceGuid.PcdThermalThrottlingSataTTSuggestedSetting
+  gChipsetPkgTokenSpaceGuid.PcdPchHotLevel
+  gChipsetPkgTokenSpaceGuid.PcdSerialIrqConfigSirqEnable
+  gChipsetPkgTokenSpaceGuid.PcdSerialIrqConfigSirqMode
+  gChipsetPkgTokenSpaceGuid.PcdSerialIrqConfigStartFramePulse
+  gChipsetPkgTokenSpaceGuid.PcdPchDmiConfigDmiIot
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigPchPwrOptDmi
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigPchPwrOptGbe
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigPchPwrOptXhci
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigPchPwrOptEhci
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigPchPwrOptSata
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigMemCloseStateEn
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigInternalObffEn 
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigExternalObffEn
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigNumOfDevLtrOverride
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigPchPwrOptPcieLtrEnable
+  gChipsetPkgTokenSpaceGuid.PcdPchPwrOptConfigPchPwrOptPcieObffEnable
+  gChipsetPkgTokenSpaceGuid.PcdPchHpetConfigBdfValid
+  gChipsetPkgTokenSpaceGuid.PcdPchHpetConfigBusNumber
+  gChipsetPkgTokenSpaceGuid.PcdPchHpetConfigDeviceNumber
+  gChipsetPkgTokenSpaceGuid.PchPchHpetConfigFunctionNumber
+#[-start-121114-IB11410022-remove]#
+#  gChipsetPkgTokenSpaceGuid.PcdAudioDspConfigAudioDspD3PowerGating
+#[-start-121031-IB10820146-add]#
+#  gChipsetPkgTokenSpaceGuid.PcdAudioDspConfigAudioDspBluetoothSupport
+#[-end-121031-IB10820146-add]#
+#  gChipsetPkgTokenSpaceGuid.PcdAudioDspConfigAudioDspAcpiMode
+#  gChipsetPkgTokenSpaceGuid.PcdAudioDspConfigAudioDspSafeMode
+#[-end-121114-IB11410022-remove]#
+#[-start-121123-IB11410024-add]#
+  gChipsetPkgTokenSpaceGuid.PcdAudioDspConfigAudioDspAcpiInterruptMode
+#[-end-121123-IB11410024-add]#
+#[-start-121222-IB11410036-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdSerialIoConfigI2C0VoltageSelect
+  gChipsetPkgTokenSpaceGuid.PcdSerialIoConfigI2C1VoltageSelect
+#[-end-121222-IB11410036-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdMeMiscConfigFviSmbiosType
+  gChipsetPkgTokenSpaceGuid.PcdPchPciExpressConfigTempRootPortBusNumMin
+  gChipsetPkgTokenSpaceGuid.PcdPchPciExpressConfigTempRootPortBusNumMax
+  gChipsetPkgTokenSpaceGuid.PcdPchPciExpressConfigPchPcieSbdePort
+  gChipsetPkgTokenSpaceGuid.PcdPchPciExpressConfigEnableSubDecode
+#[-end-121003-IB10820132-add]#
+#[-start-130131-IB05280043-add]#
+  gChipsetPkgTokenSpaceGuid.PcdL1Substates
+#[-end-130131-IB05280043-add]#
+#[-start-130714-IB10930039-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRouteAllPinsXhci
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb20PerPinRouteElse
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb30PerPinEnableAllPinEnable
+  gChipsetPkgTokenSpaceGuid.PcdPchUsbConfigUsb30SettingsManualModeUsb30PerPinEnableElse
+#[-end-130714-IB10930039-add]#
+[Depex]
+  gEfiSetupUtilityProtocolGuid 

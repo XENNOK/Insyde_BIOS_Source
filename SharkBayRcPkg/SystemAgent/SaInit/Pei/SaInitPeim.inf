@@ -1,0 +1,111 @@
+## @file
+#
+#  Component description file for the SA Init PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SaInitPeim
+  FILE_GUID                      = FD236AE7-0791-48c4-B29E-29BDEEE1A811
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SaInitPeiEntryPoint
+
+
+[Sources]
+  SaInitPeim.h
+  SaInitPeim.c
+  GraphicsInit.h
+  GraphicsInit.c
+  SaDmiPeim.h
+  SaDmiPeim.c
+  PciExpressInit.h
+  PciExpressInit.c
+#[-start-140218-IB10920078-modify]#
+#[-start-120717-IB10040004-remove]#
+  SwitchableGraphicsInit.c
+  SwitchableGraphicsInit.h
+#[-end-120717-IB10040004-remove]#
+#[-end-140218-IB10920078-modify]#
+  PcieTraining.h
+  PcieTraining.c
+  PcieTrainingEqSettings.c
+  PcieTrainingErrorCount.c
+  PcieTrainingMargining.c
+  PcieTrainingLinkRecovery.c
+  PcieTrainingPhase3.c
+  SaOcInit.h
+  SaOcInit.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  BaseLib
+  HobLib
+  PcdLib
+  IoLib
+
+  OverclockingLib
+  CpuPlatformLib
+  PostCodeLib
+  
+[Guids]
+  gSaDataHobGuid                                 ## PRODUCE
+  
+[Ppis]
+  gSaPeiInitPpiGuid                              ## PRODUCES IN PEI
+  gEfiEndOfPeiSignalPpiGuid                      ## CONSUMES ## Notify
+  gRapidStartPpiGuid                             ## CONSUMES ## Notify
+  gSaPlatformPolicyPpiGuid                       ## CONSUMES
+  gPeiCpuPlatformPolicyPpiGuid                   ## CONSUMES
+  gPchDmiTcVcMapPpiGuid                          ## CONSUMES
+  gPchInitPpiGuid                                ## CONSUMES
+  gPchPlatformPolicyPpiGuid                      ## CONSUMES
+  gWdtPpiGuid                                    ## CONSUMES
+  gEfiPeiStallPpiGuid                            ## CONSUMES
+  gPchMeUmaPpiGuid                               ## CONSUMES
+  gPchResetPpiGuid                               ## CONSUMES
+  gH2OSwitchableGraphicsPpiGuid                  ## CONSUMES
+[Protocols]
+  
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-130709-IB05400426-add]#
+  gChipsetPkgTokenSpaceGuid.PcdBestToludExist
+  gChipsetPkgTokenSpaceGuid.PcdAdjustTolud
+#[-end-130709-IB05400426-add]#
+#[-start-140227-IB10920078-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSgGpioDataSgDgpuEdidSelValue
+  gChipsetPkgTokenSpaceGuid.PcdSgGpioDataSgDgpuEdidSelExist
+  gChipsetPkgTokenSpaceGuid.PcdSgGpioDataSgDgpuSelValue
+  gChipsetPkgTokenSpaceGuid.PcdSgGpioDataSgDgpuSelExist
+  gChipsetPkgTokenSpaceGuid.PcdSgGpioDataSgDgpuPwmSelValue
+  gChipsetPkgTokenSpaceGuid.PcdSgGpioDataSgDgpuPwmSelExist
+#[-end-140227-IB10920078-add]#
+
+[Depex]
+  gSaPlatformPolicyPpiGuid AND
+  gPchInitPpiGuid AND
+  gEfiPeiStallPpiGuid AND
+  gPeiCpuPlatformPolicyPpiGuid
+!IF "$(ME_SUPPORT)" == "YES"
+  AND gPchMeUmaPpiGuid
+!ENDIF
+!IF "$(SWITCHABLE_GRAPHICS_SUPPORT)" == "YES"
+  AND gH2OSwitchableGraphicsPpiGuid
+!ENDIF

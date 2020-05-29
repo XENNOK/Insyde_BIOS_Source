@@ -1,0 +1,84 @@
+## @file
+#  Component description file for DxeOemServicesThunk module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeOemServicesThunk
+  FILE_GUID                      = 0F43CAAB-A14D-463b-BFF2-185CC0D5AEA5
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = DxeOemSvcThunkEntryPoint
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[Sources]
+  DxeOemServicesThunk.c
+  DxeOemServicesThunk.h
+  OemSvcBootDisplayDeviceReplaceThunk.c
+  OemSvcCalculateWriteCmosChecksumThunk.c
+  OemSvcCheckPasswordFailCallBackThunk.c
+  OemSvcCheckVgaOrderThunk.c
+  OemSvcCsm16ReferSwitchThunk.c
+  OemSvcDisplayLogoThunk.c
+  OemSvcDisplaySpiNotSupportThunk.c
+  OemSvcGetHotplugBridgeInfoThunk.c
+  OemSvcGetMaxCheckPasswordCountThunk.c
+  OemSvcGetOa30MsdmDataThunk.c
+  OemSvcGetSioResourceTableThunk.c
+  OemSvcGetSlp20PubkeyAndMarkerRomThunk.c
+  OemSvcGetSsidSvidInfoThunk.c
+  OemSvcInstallBootMangerKeyTableThunk.c
+  OemSvcInstallDmiSwitchTableThunk.c
+  OemSvcInstallIrqRoutingTableThunk.c
+  OemSvcInstallLegacyBiosOemSlpThunk.c
+  OemSvcInstallMultiSuperIoTableThunk.c
+  OemSvcInstallOptionRomTableThunk.c
+  OemSvcInstallPciRomSwitchTextModeThunk.c
+  OemSvcInstallPciSkipTableThunk.c
+  OemSvcInstallPnpGpnvTableThunk.c
+  OemSvcInstallPnpStringTableThunk.c
+  OemSvcInstallPostKeyTableThunk.c
+  OemSvcLoadDefaultSetupMenuThunk.c
+  OemSvcLogoResolutionThunk.c
+  OemSvcUpdateFormLenThunk.c
+  OemSvcPasswordEntryCallBackThunk.c
+  OemSvcPrepareInstallMpTableThunk.c
+  OemSvcScuCallbackFunctionThunk.c
+  OemSvcUnLoadPciOptionRomThunk.c
+  OemSvcUnSkipPciDeviceThunk.c
+  OemSvcUpdateBbsTableThunk.c
+  OemSvcUpdateScuSystemInfoThunk.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  EdkCompatibilityPkg/EdkCompatibilityPkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  DxeOemSvcKernelLibDefault
+  DxeChipsetSvcLib
+
+[Protocols]
+  gOemServicesProtocolGuid          ## PRODUCES
+
+[Depex]
+  TRUE

@@ -1,0 +1,99 @@
+## @file
+#  Component description file for ProgramGpioPei PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = ProgramGPIOPei
+  FILE_GUID                      = 34E5798E-F44F-4526-A08C-39BCA6E8D7D5
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = ProgramGPIOEntryPoint
+
+[Sources]
+  ProgramGpioPei.c  
+#[-start-121029-IB05280007-remove]#
+#  ProgramGpio.c
+#[-end-121029-IB05280007-remove]#
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec 
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  IoLib
+  PciCf8Lib
+  PeimEntryPoint
+#[-start-130809-IB06720232-remove]#
+#  EcLib
+#[-end-130809-IB06720232-remove]#
+#[-start-121023-IB05280006-add]#
+#[-start-121107-IB10820153-modify]#
+  PeiOemSvcChipsetLibDefault
+#[-end-121107-IB10820153-modify]#
+  MemoryAllocationLib
+  BaseMemoryLib
+#[-end-121023-IB05280006-add]#
+#[-start-121031-IB10820146-add]#
+  PciExpressLib
+#[-end-121031-IB10820146-add]#
+
+#[-start-121121-IB11410023-add]#
+[Guids]
+  gBoardIDGuid
+#[-end-121121-IB11410023-add]#
+
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-121031-IB05280007-modify]#
+#[-start-121122-IB05280018-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable1
+#[-end-121122-IB05280018-modify]#
+#[-start-130118-IB05280035-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable2
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable3
+#[-end-130118-IB05280035-add]#
+#[-start-130201-IB05280044-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable4
+  gChipsetPkgTokenSpaceGuid.PcdPeiGpioTable5
+#[-end-130201-IB05280044-add]#
+  gChipsetPkgTokenSpaceGuid.PcdGpioUseSel
+  gChipsetPkgTokenSpaceGuid.PcdGpioIoSel
+  gChipsetPkgTokenSpaceGuid.PcdGpioLvl
+  gChipsetPkgTokenSpaceGuid.PcdGpioBlink
+  gChipsetPkgTokenSpaceGuid.PcdGpioInv
+#[-end-121031-IB05280007-modify]#
+#[-start-121217-IB11410032-add]#
+  gChipsetPkgTokenSpaceGuid.PcdDefaultBoardId
+#[-start-130109-IB11410039-remove]#
+#  gChipsetPkgTokenSpaceGuid.PcdDefaultUltBoardId
+#[-end-130109-IB11410039-remove]#
+#[-end-121217-IB11410032-add]#
+#[-start-130421-IB05400398-add]#
+  gChipsetPkgTokenSpaceGuid.PcdCurrentBoardId 
+  gChipsetPkgTokenSpaceGuid.PcdCurrentFabId
+#[-end-130421-IB05400398-add]#
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+  gChipsetPkgTokenSpaceGuid.PcdDenlowServerSupported
+
+[Depex]
+  TRUE

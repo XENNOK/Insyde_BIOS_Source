@@ -1,0 +1,42 @@
+## @file
+#  Component description file for Performance Measure driver
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PerfDxe
+  FILE_GUID                      = 912E59DC-3A1E-4f21-81B3-E347FE045377
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializePerfDxe
+
+[Sources]
+  PerfDxe.c
+
+[Packages]
+  InsydeSetupPkg/InsydeSetupPkg.dec
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  BaseLib
+  TimerLib
+
+[Protocols]
+  gEfiCpuArchProtocolGuid
+  gPerformanceMeasureProtocolGuid
+
+[Depex]
+  TRUE
+

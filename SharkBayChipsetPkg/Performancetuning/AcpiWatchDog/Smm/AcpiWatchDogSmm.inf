@@ -1,0 +1,50 @@
+## @file
+#
+#   
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AcpiWatchDogSmm
+  FILE_GUID                      = 50C44578-DE25-4bf6-83E3-C54F06DF28F0
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeAcpiWatchDog
+  
+[Sources]
+  AcpiWatchDogSmm.c
+  AcpiWatchDogSmm.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  IoLib
+  UefiLib
+ 
+[Protocols]
+  gEfiSmmIchnDispatchProtocolGuid
+  gDxePlatformXtuPolicyGuid
+  
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress  
+
+[Depex]
+  gEfiSmmIchnDispatchProtocolGuid AND
+  gDxePlatformXtuPolicyGuid      

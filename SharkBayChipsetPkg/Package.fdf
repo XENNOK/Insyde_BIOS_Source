@@ -1,0 +1,465 @@
+## @file
+#  Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[FV.RECOVERYFV]
+#[-start-130326-IB10930027-add]#
+!disable InsydeModulePkg/Universal/Variable/VariablePei/VariablePei.inf
+!disable MdeModulePkg/Universal/PCD/Pei/Pcd.inf
+INF APRIORI=0xC001 InsydeModulePkg/Universal/Variable/VariablePei/VariablePei.inf
+INF APRIORI 0xC001 MdeModulePkg/Universal/PCD/Pei/Pcd.inf
+INF APRIORI=0xC001 $(CHIPSET_PKG)/SioInitPei/SioInitPei.inf
+#[-end-130326-IB10930027-add]#
+#[-start-130419-IB05400398-add]#
+INF APRIORI=0xC001 $(CHIPSET_PKG)/GetBoardInfoPei/GetBoardInfoPei.inf
+#[-start-131226-IB04560452-add]#
+INF APRIORI=0xC000 $(CHIPSET_PKG)/CommonChipset/SpeakerPei/LegacySpeakerPei.inf
+#[-end-131226-IB04560452-add]#
+
+#[-end-130419-IB05400398-add]#
+#[-start-130115-IB10040020-remove]#
+#INF APRIORI $(CHIPSET_PKG)/ChipsetPlatformLibServicesPei/ChipsetPlatformLibServicesPei.inf
+#[-end-130115-IB10040020-remove]#
+#[-start-140318-IB08400253-add]#
+INF $(CHIPSET_PKG)/InsydeEventLogPolicyPei/InsydeEventLogPolicyPei.inf
+#[-end-140318-IB08400253-add]#
+INF $(CHIPSET_PKG)/ProgramGpioPei/ProgramGpioPei.inf
+INF $(CHIPSET_PKG)/MemoryTestNullPei/MemoryTestNullPei.inf
+INF $(CHIPSET_PKG)/PlatformPolicyPei/PolicyClass1Pei/PolicyClass1Pei.inf
+INF $(CHIPSET_PKG)/SmmControlPei/SmmControlPei.inf
+!if gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+INF $(CHIPSET_PKG)/ThunderboltPei/ThunderboltPei.inf
+!endif
+INF $(CHIPSET_PKG)/AzaliaControllerPei/AzaliaInitPei.inf
+#[-start-130417-IB02960526-remove]#
+#INF $(CHIPSET_PKG)/PlatformMemorySizeHookPei/PlatformMemorySizeHookPei.inf
+#[-end-130417-IB02960526-remove]#
+
+INF $(CHIPSET_PKG)/ChipsetSvcPei/ChipsetSvcPei.inf
+
+INF $(CHIPSET_PKG)/CommonChipset/InstallVerbTablePei/InstallVerbTablePei.inf
+#[-start-130205-IB11410051-modify]#
+!if $(ANC_FEATURE_ENABLE) == YES
+!if $(REMOVE_ANCHOR_COVE_ACM_SUPPORT) == NO
+  FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdBootGuardAcmFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/BootGuardAcm/$(BOOT_GUARD_ACM_VERSION)/BootGuardAcm.bin
+  }
+!endif
+!endif
+#[-end-130205-IB11410051-modify]#
+
+#[-start-130218-IB07250301-add]#
+!if $(SWITCHABLE_GRAPHICS_SUPPORT) == YES
+INF $(CHIPSET_PKG)/SwitchableGraphicsPei/SwitchableGraphicsPei.inf
+!endif
+#[-end-130218-IB07250301-add]#
+
+#
+# iSCT PEI
+#
+INF $(CHIPSET_PKG)/IsctPei/IsctPei.inf
+#[-start-130322-IB10310017-add]#
+!if gChipsetPkgTokenSpaceGuid.PcdSpsMeSupported
+INF $(CHIPSET_PKG)/SpsMe/Sample/SpsPolicyPei/SpsPolicyPei.inf
+INF $(CHIPSET_PKG)/SpsMe/SpsPei/SpsPei.inf
+INF $(CHIPSET_PKG)/SpsHeci/SpsHeciPei/SpsHeciPei.inf
+!endif
+#[-end-130322-IB10310017-add]#
+
+#[-start-140205-IB05670227-add]#
+!disable InsydeFrameworkModulePkg/Compatibility/PeiOemServicesThunk/PeiOemServicesThunk.inf
+!disable InsydeFrameworkModulePkg/Compatibility/FvFileLoaderOnLoadFileThunk/FvFileLoaderOnLoadFileThunk.inf
+#[-end-140205-IB05670227-add]#
+
+#[-start-140522-IB10300110-add]#
+!if gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+INF $(CHIPSET_PKG)/WatchDogReportStatusCodePei/WatchDogReportStatusCodePei.inf
+!endif
+#[-end-140522-IB10300110-add]#
+
+#[-start-121016-IB10820138-add]#
+[FV.BACKUPFV]
+!if gInsydeTokenSpaceGuid.PcdCrisisRecoverySupported
+#[-start-131226-IB04560452-remove]#
+#INF RuleOverride=LzmaCompress $(CHIPSET_PKG)/CommonChipset/SpeakerPei/LegacySpeakerPei.inf
+#[-end-131226-IB04560452-remove]#
+INF RuleOverride=LzmaCompress $(CHIPSET_PKG)/PchAhciPei/PchAhciPei.inf
+#[-start-140812-IB14090001-remove]#
+#INF RuleOverride=LzmaCompress $(CHIPSET_PKG)/PchXhciPei/PchXhciPei.inf
+#[-end-140812-IB14090001-remove]#
+INF RuleOverride=LzmaCompress $(CHIPSET_PKG)/PchUfsPei/PchUfsPei.inf
+!endif
+#[-end-121016-IB10820138-add]#
+
+#[-start-140812-IB14090001-add]#
+!if gInsydeTokenSpaceGuid.PcdH2OUsbPeiSupported
+INF RuleOverride=LzmaCompress $(CHIPSET_PKG)/PchXhciPei/PchXhciPei.inf
+!endif
+#[-end-140812-IB14090001-add]#
+
+!if $(XTU_SUPPORT) == YES
+INF $(CHIPSET_PKG)/Performancetuning/AcpiWatchDog/Pei/WdttPei.inf
+!endif
+
+[FV.DXEFV]
+#[-start-130830-IB05160485-add]#
+INF $(CHIPSET_PKG)/SmramSaveInfoHandlerSmm/SmramSaveInfoHandlerSmm.inf
+#[-end-130830-IB05160485-add]#
+#[-start-130115-IB10040020-remove]#
+#INF $(CHIPSET_PKG)/ChipsetPlatformLibServicesDxe/ChipsetPlatformLibServicesDxe.inf
+#[-end-130115-IB10040020-remove]#
+#[-start-130709-IB05400426-add]#
+INF $(CHIPSET_PKG)/ChipsetGcdHookDxe/ChipsetGcdHookDxe.inf
+#[-end-130709-IB05400426-add]#
+INF $(CHIPSET_PKG)/XhciSmiDispatcher/XhciSmiDispatcher.inf
+
+INF $(CHIPSET_PKG)/RestoreMtrrDxe/RestoreMtrrDxe.inf
+INF $(CHIPSET_PKG)/SaveMemoryConfigDxe/SaveMemoryConfigDxe.inf
+INF $(CHIPSET_PKG)/PlatformInfoCollectDxe/PlatformInfoCollectDxe.inf
+INF $(CHIPSET_PKG)/UsbLegacyControlSmm/UsbLegacyControlSmm.inf
+INF $(CHIPSET_PKG)/UefiSetupUtilityDxe/SetupUtilityDxe.inf
+
+#[-start-130403-IB05330413-remove]#
+#[-start-130422-IB10930028-add]#
+#INF $(CHIPSET_PKG)/MemoryThermal/MemoryThermal.inf
+#[-end-130422-IB10930028-add]#
+#[-end-130403-IB05330413-remove]#
+
+INF $(CHIPSET_PKG)/PlatformDxe/PlatformDxe.inf
+INF $(CHIPSET_PKG)/PciPlatformDxe/PciPlatformDxe.inf
+INF $(CHIPSET_PKG)/PlatformSmm/PlatformSmm.inf
+INF $(CHIPSET_PKG)/Int15MicrocodeSmm/Int15MicrocodeSmm.inf
+INF $(CHIPSET_PKG)/BbstableHookDxe/BbstableHookDxe.inf
+
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdPtOpRomFile) {
+    SECTION RAW = $(CHIPSET_PKG)/CsmInt10BlockDxe/PTOpRom/PTOpRom.bin
+  }
+INF $(CHIPSET_PKG)/CsmInt10BlockDxe/CsmInt10BlockDxe.inf
+
+INF $(CHIPSET_PKG)/BiosWriteProtectSmm/PchBiosWriteProtectSmm.inf
+INF $(CHIPSET_PKG)/BiosRegionLockDxe/BiosRegionLockDxe.inf
+
+INF RuleOverride=BINARY USE=X64 $(CHIPSET_PKG)/Binary/UefiGop/$(VIDEO_UEFI_DRIVER_VERSION)/IntelGopDriver.inf
+!if $(DENLOW_SERVER_SUPPORT) == YES
+INF RuleOverride=BINARY $(CHIPSET_PKG)/Binary/UefiBmcGop/$(BMC_VIDEO_UEFI_DRIVER_VERSION)/BmcGopDriver.inf
+!endif
+FILE RAW = PCD(gChipsetPkgTokenSpaceGuid.PcdVbtFile) {
+    $(CHIPSET_PKG)/Binary/UefiGop/$(VIDEO_UEFI_DRIVER_VERSION)/VBT/vbt.bin
+}
+
+INF $(CHIPSET_PKG)/Binary/UefiLan/$(LAN_UEFI_DRIVER_VERSION)/UefiLan.inf
+
+INF $(CHIPSET_PKG)/Binary/Icc/$(ICC_SDK_VERSION)/IccOverClocking.inf
+
+INF $(CHIPSET_PKG)/ChipsetSvcDxe/ChipsetSvcDxe.inf
+INF $(CHIPSET_PKG)/ChipsetSvcSmm/ChipsetSvcSmm.inf
+INF $(CHIPSET_PKG)/OemBadgingSupportDxe/OEMBadgingSupportDxe.inf
+INF $(CHIPSET_PKG)/Binary/UefiRaid/$(RAID_UEFI_DRIVER_VERSION)/UefiRaid.inf
+#[-start-130905-IB08620307-add]#
+INF $(CHIPSET_PKG)/Binary/UefiRaid/$(RAID_SV_UEFI_DRIVER_VERSION)/UefiRaid.inf
+#[-end-130905-IB08620307-add]#
+!if gChipsetPkgTokenSpaceGuid.PcdUltFlag
+INF $(CHIPSET_PKG)/I2cBusDxe/I2cBusDxe.inf
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/I2cPolicyDxe/I2cPolicyDxe.inf
+!endif
+INF $(CHIPSET_PKG)/CommonChipset/SetSsidSvidDxe/SetSsidSvidDxe.inf
+INF $(CHIPSET_PKG)/CommonChipset/AspmOverrideDxe/AspmOverrideDxe.inf
+#[-start-130227-IB06720162-add]#
+INF $(CHIPSET_PKG)/CommonChipset/SpeakerDxe/LegacySpeakerDxe.inf
+#[-end-130227-IB06720162-add]#
+#[-start-140522-IB10300110-add]#
+!if gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+INF $(CHIPSET_PKG)/WatchDogHook/WatchDogHook.inf
+INF $(CHIPSET_PKG)/WatchDogLegacyHook/WatchDogLegacyHook.inf
+INF $(CHIPSET_PKG)/WatchDogReportStatusCodeDxe/WatchDogReportStatusCodeDxe.inf
+INF $(CHIPSET_PKG)/WatchDogReportStatusCodeSmm/WatchDogReportStatusCodeSmm.inf
+!endif
+#[-end-140522-IB10300110-add]#
+
+#
+#  Policy
+#
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/GopPolicyDxe/GopPolicyDxe.inf
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/SaPolicyDxe/SaPolicyDxe.inf
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/PchPolicyDxe/PchPolicyDxe.inf
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/CpuPolicyDxe/CpuPolicyDxe.inf
+!if gChipsetPkgTokenSpaceGuid.PcdMeSupported
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/MePolicyDxe/MePolicyDxe.inf
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/AmtPolicyDxe/AmtPolicyDxe.inf
+!endif
+!if gChipsetPkgTokenSpaceGuid.PcdRapidStartSupported
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/RapidStartPolicyInitDxe/RapidStartPolicyInitDxe.inf
+!endif
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/IccPolicyDxe/IccPolicyDxe.inf
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/AcpiPolicyInitDxe/AcpiPolicyInitDxe.inf
+!if gChipsetPkgTokenSpaceGuid.PcdAntiTheftSupported
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/AtPolicyDxe/AtPolicyDxe.inf
+!endif
+!if gChipsetPkgTokenSpaceGuid.PcdXtuSupported
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/XtuPolicyDxe/XtuPolicyDxe.inf
+!endif
+!if gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+INF $(CHIPSET_PKG)/ThunderboltDxe/ThunderboltDxe.inf
+INF $(CHIPSET_PKG)/ThunderboltSmm/ThunderboltSmm.inf
+!endif
+#[-start-130911-IB08620310-add]#
+INF $(CHIPSET_PKG)/PlatformPolicyDxe/SrIovPolicyDxe/SrIovPolicyDxe.inf
+#[-end-130911-IB08620310-add]#
+
+#
+# On-board USB 3.0 SMI dispatcher driver
+#
+
+
+#[-start-140714-IB12740058-remove]#
+#!if gInsydeTokenSpaceGuid.PcdH2OTpmSupported == 1 || gInsydeTokenSpaceGuid.PcdH2OTpm2Supported == 1
+#INF $(CHIPSET_PKG)/Tpm/PhysicalPresence/TpmDriverDxe.inf
+#!endif
+#[-end-140714-IB12740058-remove]#
+
+INF $(CHIPSET_PKG)/OemModifyOpRegionDxe/OemModifyOpRegionDxe.inf
+INF $(CHIPSET_PKG)/OemAcpiPlatformDxe/OemAcpiPlatformDxe.inf
+INF $(CHIPSET_PKG)/MemInfoDxe/MemInfoDxe.inf
+INF $(CHIPSET_PKG)/VbiosHookSmm/VbiosHookSmm.inf
+INF $(CHIPSET_PKG)/PlatformResetRunTimeDxe/PlatformResetRunTimeDxe.inf
+#[-start-130225-IB08520070-remove]#
+#INF $(CHIPSET_PKG)/CheckRaidDxe/CheckRaidDxe.inf
+#[-end-130225-IB08520070-remove]#
+INF $(CHIPSET_PKG)/SavePegConfigDxe/SavePegConfigDxe.inf
+
+
+INF $(CHIPSET_PKG)/IhisiSmm/IhisiSmm.inf
+
+
+#[-start-130218-IB07250301-add]#
+!if $(SWITCHABLE_GRAPHICS_SUPPORT) == YES
+INF $(CHIPSET_PKG)/SwitchableGraphicsDxe/SwitchableGraphicsDxe.inf
+INF $(CHIPSET_PKG)/SwitchableGraphicsSmm/SwitchableGraphicsSmm.inf
+!if $(AMD_POWERXPRESS_SUPPORT) == YES
+INF RuleOverride = ACPITABLE $(CHIPSET_PKG)/SwitchableGraphicsAcpi/AmdDiscreteSsdt.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_PKG)/SwitchableGraphicsAcpi/AmdPowerXpressSsdt.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_PKG)/SwitchableGraphicsAcpi/AmdUltPowerXpressSsdt.inf
+!endif
+!if $(NVIDIA_OPTIMUS_SUPPORT) == YES
+INF RuleOverride = ACPITABLE $(CHIPSET_PKG)/SwitchableGraphicsAcpi/NvidiaDiscreteSsdt.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_PKG)/SwitchableGraphicsAcpi/NvidiaOptimusSsdt.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_PKG)/SwitchableGraphicsAcpi/NvidiaUltOptimusSsdt.inf
+FILE FREEFORM = 6135A10D-9126-4a7f-B07C-E157ADE9ACE1 {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/SwitchableGraphics/MasterMxm30.bin
+}
+!endif
+!endif
+#[-end-130218-IB07250301-add]#
+
+!if gChipsetPkgTokenSpaceGuid.PcdMeSupported
+INF $(CHIPSET_PKG)/IccDxe/IccDxe.inf
+INF $(CHIPSET_PKG)/MdesStatusCodeDxe/MdesStatusCodeDxe.inf
+!endif
+INF $(CHIPSET_PKG)/ChipsetSmmThunk/ChipsetSmmThunk.inf
+INF $(CHIPSET_PKG)/TxtOneTouchDxe/TxtOneTouchDxe.inf
+
+!if $(XTU_SUPPORT) == YES
+INF $(CHIPSET_PKG)/Performancetuning/AcpiWatchDog/Smm/AcpiWatchDogSmm.inf
+INF $(CHIPSET_PKG)/Performancetuning/AcpiWatchDog/Dxe/AcpiWatchDogDxe.inf
+INF $(CHIPSET_PKG)/Performancetuning/Dxe/PerfTuneCore/PerfTuneCoredrv.inf
+INF $(CHIPSET_PKG)/Performancetuning/Dxe/BiosSettingDevices/BiosSpttDrv.inf
+INF $(CHIPSET_PKG)/Performancetuning/Dxe/RealtimeControlDevices/RealtimeSpttDrv.inf
+INF $(CHIPSET_PKG)/Performancetuning/Smm/PerfTuneSmm/PerfTuneSmm.inf
+INF $(CHIPSET_PKG)/Performancetuning/Dxe/PerfTuneDxe/PerfTuneDxe.inf
+!endif
+
+#
+# iSCT Driver
+#
+INF $(CHIPSET_PKG)/IsctAcpiDxe/IsctAcpiDxe.inf
+INF $(CHIPSET_PKG)/IsctSmm/IsctSmm.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_PKG)/IsctAcpiTables/IsctAcpiTables.inf
+
+#
+# Hardware Monitor Driver by EC
+#
+INF $(CHIPSET_PKG)/HwMonitorEcDxe/HwMonitorEcDxe.inf 
+
+#[-start-130531-IB10930032-add]#
+
+#[-start-130322-IB10310017-add]#
+!if gChipsetPkgTokenSpaceGuid.PcdSpsMeSupported
+INF $(CHIPSET_PKG)/SpsMe/Sample/SpsPolicyDxe/SpsPolicyDxe.inf
+
+INF $(CHIPSET_PKG)/SpsMe/SpsDxe/SpsDxe.inf
+INF $(CHIPSET_PKG)/SpsHeci/SpsHeciDxe/SpsHeciDxe.inf
+INF $(CHIPSET_PKG)/SpsHeci/SpsHeciSmm/SpsHeciSmm.inf
+
+INF $(CHIPSET_PKG)/SpsMe/SpsMeFwUpgradeDxe/SpsMeFwUpgradeDxe.inf
+INF $(CHIPSET_PKG)/SpsMe/SpsMeFwUpgradeSmm/SpsMeFwUpgradeSmm.inf
+
+!endif
+#[-end-130322-IB10310017-add]#
+
+#
+# Variable Edit
+#
+INF $(CHIPSET_PKG)/VariableEditDxe/VariableEditDxe.inf
+INF $(CHIPSET_PKG)/VariableEditSmm/VariableEditSmm.inf
+#[-end-130531-IB10930032-add]#
+
+#[-start-140402-IB13080003-add]#
+!if gInsydeTokenSpaceGuid.PcdDynamicHotKeySupported
+INF $(CHIPSET_PKG)/DynamicHotKeyDxe/DynamicHotKeyDxe.inf
+!endif
+#[-end-140402-IB13080003-add]#
+#[-start-130830-IB05160485-add]#
+!disable InsydeFrameworkModulePkg/Compatibility/ChipsetLibServices/Dxe/ChipsetLibServicesDxe.inf
+!disable InsydeFrameworkModulePkg/Compatibility/ChipsetLibServices/Smm/ChipsetLibServicesSmm.inf
+#[-end-130830-IB05160485-add]#
+
+#[-start-140205-IB05670227-add]#
+!disable InsydeFrameworkModulePkg/Compatibility/SmmRuntime/SmmRuntime.inf
+!disable InsydeFrameworkModulePkg/Compatibility/PiSmmStatusCodeThunk/PiSmmStatusCodeThunk.inf
+!disable InsydeFrameworkModulePkg/Compatibility/DxeOemServicesThunk/DxeOemServicesThunk.inf
+!disable InsydeFrameworkModulePkg/Compatibility/SmmOemServicesThunk/SmmOemServicesThunk.inf
+#[-end-140205-IB05670227-add]#
+#[-start-140811-IB05400545-add]#
+!disable EdkCompatibilityPkg/Compatibility/MpServicesOnFrameworkMpServicesThunk/MpServicesOnFrameworkMpServicesThunk.inf
+#[-end-140811-IB05400545-add]#
+
+#[-start-130903-IB10920045-add]#
+!disable INF InsydeModulePkg/Universal/Console/VgaDriverPolicyDxe/VgaDriverPolicyDxe.inf
+INF InsydeModulePkg/Universal/Console/VgaDriverPolicyDxe/VgaDriverPolicyDxe.inf
+#[-end-130903-IB10920045-add]#
+#[-start-140321-IB10300105-add]#
+INF $(CHIPSET_PKG)/FileSelectUIDxe/FileSelectUIDxe.inf
+INF $(CHIPSET_PKG)/Ramdisk/Ramdisk.inf
+INF  $(CHIPSET_PKG)/InternalFlashBios/InternalFlashBios.inf
+INF  $(CHIPSET_PKG)/BiosFlashUI/BiosFlashUI.inf
+#[-end-140321-IB10300105-add]#
+
+#########################################################################
+# FILE statements are provided so that a platform integrator can include
+# complete EFI FFS files
+#########################################################################
+
+#
+# SLP2.0 supported
+#
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdSlp20PubkeyFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/SLP20Pubkey/SLP20Pubkey.bin
+  }
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdSlpP20MarkerFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/SLP20Marker/SLP20Marker.bin
+  }
+#
+# OA3.0 supported
+#
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdOa30MsdmDataFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/Oa30MsdmData/Oa30MsdmData.bin
+  }
+
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdLegacyVideoRomFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/LegacyVideoRom/$(VIDEO_ROM_VERSION)/hsw_$(VIDEO_ROM_VERSION).dat
+  }
+
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdLegacyRaidRomFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/LegacyRaidRom/$(RAID_ROM_VERSION)/SataOrom.bin
+  }
+
+#[-start-130905-IB08620307-add]#
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdLegacyRaidSvRomFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/LegacyRaidRom/$(RAID_SV_ROM_VERSION)/SataOromRSTe.bin
+  }
+#[-end-130905-IB08620307-add]#
+
+#[-start-130905-IB08620307-modify]#
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdLegacyPxeRomFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/LegacyPxeRom/$(LAN_PXE_ROM_VERSION)/LegacyPxeRom_153A.bin
+  }
+
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdLegacyPxeI210RomFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/LegacyPxeRom/$(LAN_PXE_ROM_VERSION)/LegacyPxeRom_1533.bin
+  }
+
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdLegacyPxeI218RomFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/LegacyPxeRom/$(LAN_PXE_ROM_VERSION)/LegacyPxeRom_155A.bin
+  }
+#[-end-130905-IB08620307-modify]#
+
+!if $(SEAMLESS_AHCI_SUPPORT) == NO
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdLegacyAhciRomFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/LegacyAhciRom/$(AHCI_ROM_VERSION)/AHCIOR.bin
+  }
+!endif
+
+!if $(PFAT_SUPPORT) == YES
+FILE FREEFORM = PCD (gChipsetPkgTokenSpaceGuid.PcdBiosGuardAcmFile) {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/BiosGuardAcm/$(BIOS_GUARD_ACM_VERSION)/BiosGuardAcm.bin
+  }
+!endif
+
+!if $(DENLOW_SERVER_SUPPORT) == YES
+FILE FREEFORM = 5264D44A-7C8C-4289-BB5D-D1B5CE4257B2 {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/LegacyBmcVRom/$(BMC_VIDEO_ROM_VERSION)/$(BMC_VIDEO_ROM_VERSION).bin
+  }
+!endif
+
+FILE FREEFORM = 6F0CF054-AE6A-418c-A7CE-3C7A7CD74EC0 {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/OEMLogo/OemLogo1024x768.pcx
+  }
+
+FILE FREEFORM = 346B4547-FEF7-49d4-9A4A-F666825E25B7 {
+    SECTION RAW = $(CHIPSET_PKG)/Binary/ActiveManagement/Sol/OpromLegacy/Dxe/VgaRedir.bin
+  }
+
+#[-start-130826-IB10920042-add]#
+!disable SECTION RAW = InsydeModulePkg/Universal/Console/Logo/InsydeBoot/InsydeBoot.bmp
+!disable SECTION RAW = InsydeModulePkg/Universal/Console/Logo/WarningLogo/WarningLogo.jpg
+!disable SECTION RAW = InsydeModulePkg/Universal/Console/Logo/Insyde/InsydeLogo.tga
+!disable SECTION RAW = InsydeModulePkg/Universal/Console/Logo/Intel/A7N8IMBW/A7N8IMBW.bmp
+
+!if $(UNSIGNED_FV_SUPPORT) == NO
+FILE FREEFORM = 931F77D1-10FE-48bf-AB72-773D389E3FAA {
+  SECTION RAW = InsydeModulePkg/Universal/Console/Logo/InsydeBoot/InsydeBoot.bmp
+}
+
+FILE FREEFORM = PCD (gInsydeTokenSpaceGuid.PcdWarningLogoFile) {
+  SECTION RAW = InsydeModulePkg/Universal/Console/Logo/WarningLogo/WarningLogo.jpg
+}
+
+FILE FREEFORM = 96DCE314-3628-4256-A02E-3B10C61D85FD {
+  SECTION RAW = InsydeModulePkg/Universal/Console/Logo/Insyde/InsydeLogo.tga
+}
+
+FILE FREEFORM = 931F00D1-10FE-48bf-AB72-773D389E3FDA {
+  SECTION RAW = InsydeModulePkg/Universal/Console/Logo/Intel/A7N8IMBW/A7N8IMBW.bmp
+}
+!endif
+#[-end-130826-IB10920042-add]#
+
+[FV.UNSIGNEDFV]
+#[-start-130826-IB10920042-add]#
+!if $(UNSIGNED_FV_SUPPORT) == YES
+FILE FREEFORM = 931F77D1-10FE-48bf-AB72-773D389E3FAA {
+  SECTION RAW = $(CHIPSET_PKG)/Override/InsydeModulePkg/Universal/Console/Logo/InsydeBoot/InsydeBoot.jpg
+}
+
+FILE FREEFORM = PCD (gInsydeTokenSpaceGuid.PcdWarningLogoFile) {
+  SECTION RAW = $(CHIPSET_PKG)/Override/InsydeModulePkg/Universal/Console/Logo/WarningLogo/WarningLogo.jpg
+}
+
+FILE FREEFORM = 96DCE314-3628-4256-A02E-3B10C61D85FD {
+  SECTION RAW = $(CHIPSET_PKG)/Override/InsydeModulePkg/Universal/Console/Logo/Insyde/InsydeLogo.jpg
+}
+
+FILE FREEFORM = 931F00D1-10FE-48bf-AB72-773D389E3FDA {
+  SECTION RAW = $(CHIPSET_PKG)/Override/InsydeModulePkg/Universal/Console/Logo/Intel/A7N8IMBW/A7N8IMBW.jpg
+}
+!endif
+#[-end-130826-IB10920042-add]#  

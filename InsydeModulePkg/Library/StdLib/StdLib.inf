@@ -1,0 +1,36 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = StdLib
+  FILE_GUID                      = 3D55DC26-E08C-4cf5-B300-8A315ECA6FAC
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = StdLib
+
+[Sources.common]
+  ../../Include/StdLib/stdio.h
+  baselib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS = /Oi-
+  ARMGCC:*_*_*_CC_FLAGS = -fno-builtin
+
+

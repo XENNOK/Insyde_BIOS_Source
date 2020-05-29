@@ -1,0 +1,54 @@
+## @file
+#  Component description file for PeCoffExtraActionLib library used for H2ODDT
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeCoffExtraActionLib
+  FILE_GUID                      = 14E78E33-2A64-4a1a-AE8F-7AAA6F3347C5
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 0.7
+  LIBRARY_CLASS                  = PeCoffExtraActionLib
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[Sources.Arm]
+  Arm/PeCoffExtraActionLib.c
+
+[Sources.Ia32]
+  PeCoffExtraActionLib.c
+
+[Sources.X64]
+  PeCoffExtraActionLib.c
+
+[Sources.Ia32]
+  Ia32/AsmFuncs.asm   | MSFT
+  Ia32/AsmFuncs.jwasm | GCC
+
+[Sources.X64]
+  X64/AsmFuncs.asm    | MSFT
+  X64/AsmFuncs.jwasm  | GCC
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[Packages.Arm]
+  MdePkg/MdePkg.dec
+  ArmPkg/ArmPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses.Arm]
+  PeiServicesTablePointerLib

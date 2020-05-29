@@ -1,0 +1,32 @@
+## @file
+#  Component description file for PEI OEM Services Chipset Lib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SecOemSvcChipsetLib
+  FILE_GUID                      = 560CAD9F-0D89-4adf-B8FA-CB38F5EC24B4
+  MODULE_TYPE                    = SEC
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SecOemSvcChipsetLib|SEC
+
+[Sources.IA32]
+#[-start-121218-IB10820202-modify]#
+  OemHookBeforePeiCoreEntryPoint.asm
+#[-end-121218-IB10820202-modify]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+

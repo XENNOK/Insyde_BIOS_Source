@@ -1,0 +1,54 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+[defines]
+BASE_NAME            = CommonSmiCallBack
+FILE_GUID            = 6069277B-246B-45d5-BD6D-81820E10C11F
+COMPONENT_TYPE       = RT_DRIVER
+BUILD_TYPE           = RT_DRIVER_EFI
+
+
+[sources.common]
+  CommonSmiCallBack.c
+  CommonSmiCallBack.h
+
+[libraries.common]
+  EfiGuidLib
+  ProtocolLib
+  EdkProtocolLib
+  EdkFrameworkProtocolLib
+  EfiProtocolLib
+  EfiRuntimeLib
+  EfiSmmDriverLib
+  CmosLib
+  IoAccessLib
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EFI_SOURCE)\Framework
+  $(EDK_SOURCE)\Foundation
+  .
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Include
+  $(EFI_SOURCE)\Include\OemServices
+  $(EFI_SOURCE)\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EFI_SOURCE)\Library\Include  
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=CommonSmiInitialize
+  DPX_SOURCE=CommonSmiCallBack.dxs

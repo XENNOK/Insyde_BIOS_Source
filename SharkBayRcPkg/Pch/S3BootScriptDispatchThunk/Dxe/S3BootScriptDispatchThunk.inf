@@ -1,0 +1,81 @@
+## @file
+#  To implement Framework Boot Script Save protocol based on PI S3 Save State protocol
+# 
+#  Intel's Framework Boot Script Save Protocol is replaced by S3 Save State Protocol in PI.
+#  This module produces Framework Boot Script Save protocol by consuming PI S3 Save State protocol
+#  
+#;******************************************************************************
+#;* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#;******************************************************************************
+#;* Copyright (c)  1999 - 2012 Intel Corporation. All rights reserved
+#;*
+#;* This software and associated documentation (if any) is furnished
+#;* under a license and may only be used or copied in accordance
+#;* with the terms of the license. Except as permitted by such
+#;* license, no part of this software or documentation may be
+#;* reproduced, stored in a retrieval system, or transmitted in any
+#;* form or by any means without the express written consent of
+#;* Intel Corporation.
+#;******************************************************************************
+#
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = S3BootScriptDispatchThunk
+  FILE_GUID                      = DD182AD9-5997-4714-AAD4-31849B5ADDFC
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeS3BootScriptDispatch
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[Sources]
+  S3BootScriptDispatchThunk.c
+  S3BootScriptDispatchThunk.h
+
+[Sources.X64]
+  X64/AsmDispatchExecute.asm
+  X64/AsmDispatchExecute.S
+  X64/DispatchExecute.c
+
+[Sources.Ia32]  
+  IA32/DispatchExecute.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  BaseLib
+  PeCoffLib
+  DxeServicesLib
+  CacheMaintenanceLib
+  LockBoxLib
+
+[Protocols]
+  gEfiS3BootScriptDispatchProtocolGuid    ## PRODUCES
+  gEfiS3SaveStateProtocolGuid             ## CONSUMES
+
+[Depex]
+  gEfiS3SaveStateProtocolGuid

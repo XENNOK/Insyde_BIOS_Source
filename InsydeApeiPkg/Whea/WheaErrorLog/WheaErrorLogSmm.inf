@@ -1,0 +1,56 @@
+## @file
+#
+#  Component description file for Whea Error log driver
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WheaErrorLogSmm
+  FILE_GUID                      = CF2FF61B-19C5-40ee-80FF-8042151F9015
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 0.1
+  ENTRY_POINT                    = InsydeWheaErrorLogSmm
+
+[Sources.common]
+  WheaErrorLogSmm.c
+  WheaErrorLogSmm.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_APEI_PKG)/$(INSYDE_APEI_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  SmmServicesTableLib
+
+[Protocols]
+  gEfiWheaSupportProtocolGuid                    ## CONSUMES 
+  gEfiFirmwareVolumeBlockProtocolGuid            ## CONSUMES
+  gEfiSmmBase2ProtocolGuid                       ## CONSUMES
+  gEfiSmmSwDispatch2ProtocolGuid                 ## CONSUMES
+  gEfiSmmFwBlockServiceProtocolGuid              ## CONSUMES
+
+[Pcd]
+  gEfiApeiPkgTokenSpaceGuid.PcdFlashApeiStoreBase
+  gEfiApeiPkgTokenSpaceGuid.PcdFlashApeiStoreSize
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiDefrag
+
+[Depex]
+  gEfiWheaSupportProtocolGuid AND
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gEfiSmmFwBlockServiceProtocolGuid
+
+[BuildOptions]

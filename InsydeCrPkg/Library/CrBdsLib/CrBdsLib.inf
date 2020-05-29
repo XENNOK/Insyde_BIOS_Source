@@ -1,0 +1,69 @@
+## @file
+#  CrBdsLib defines and produce general interfaces for CRHook driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CrBdsLib
+  FILE_GUID                      = 037DE6F3-F942-4f08-8169-CA012713A4DB
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = CrBdsLib|DXE_DRIVER UEFI_DRIVER
+
+[Sources]
+  CrBdsConsole.c
+  CrBdsConnect.c
+  CrBdsMisc.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  BaseLib
+  BaseMemoryLib
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  DebugLib
+  MemoryAllocationLib
+  DxeOemSvcKernelLibDefault
+  DevicePathLib
+  KernelConfigLib
+  HiiLib
+  DevicePathLib
+  
+
+[Guids]
+  gEfiGenericVariableGuid
+
+[Protocols]
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gTerminalEscCodeProtocolGuid
+  gEfiLegacyBiosPlatformProtocolGuid
+  gEfiCRPolicyProtocolGuid
+  gEfiSmmAccess2ProtocolGuid
+  gCRBdsHookProtocolGuid
+  gConsoleRedirectionServiceProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiSerialIoProtocolGuid
+  gEfiIsaAcpiProtocolGuid
+

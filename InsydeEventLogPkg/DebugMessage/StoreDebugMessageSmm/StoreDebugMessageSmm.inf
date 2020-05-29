@@ -1,0 +1,73 @@
+#/** @file
+#
+#  Component description file for Store DEBUG Message SMM driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = StoreDebugMessageSmm
+  FILE_GUID                      = EDC47D93-E5CA-42CD-B60A-0CA19BF32BB8
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = StoreDebugMessageSmmEntry
+
+[Sources]
+  StoreDebugMessageSmm.c
+  StoreDebugMessageSmm.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  HobLib
+  UefiLib
+  PrintLib
+  SmmServicesTableLib
+  
+[Protocols]
+  gEfiVariableWriteArchProtocolGuid            # CONSUMED
+  gEfiSmmRscHandlerProtocolGuid                # CONSUMED
+
+[Guids]
+  gEfiEventExitBootServicesGuid                # CONSUMED
+  gEfiStatusCodeDataTypeDebugGuid              # CONSUMED
+  gH2ODebugMessageVariableGuid                 # CONSUMED
+#[-start-140326-IB08400258-add]#
+  gEfiStatusCodeDataTypeStringGuid             # CONSUMED
+#[-end-140326-IB08400258-add]#
+
+[Pcd]
+  gH2OEventLogPkgTokenSpaceGuid.PcdStoreDebugMsgEn
+  gH2OEventLogPkgTokenSpaceGuid.PcdStoreDebugMsgSize
+  gH2OEventLogPkgTokenSpaceGuid.PcdStoreDebugMsgEntryPei
+#[-start-140512-IB08400265-add]#
+  gH2OEventLogPkgTokenSpaceGuid.PcdMaxStoreDebugMsgSize
+  gH2OEventLogPkgTokenSpaceGuid.PcdStoreDebugMsgMemAddress
+#[-end-140512-IB08400265-add]#
+
+[Depex]
+  TRUE
+
+[BuildOptions]
+   

@@ -1,0 +1,44 @@
+## @file
+#
+#  Component description file for SPS Policy functionality in PEI.
+#  Note: Only for SPS.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiSpsPolicyLib
+  FILE_GUID                      = F1C39FEC-91E3-470D-A1BD-AE5A40995D87
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SpsPolicyLib | PEIM
+
+[Sources]
+  SpsPolicyLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  PeiServicesLib
+
+[Guids]
+
+[Ppis]
+  gSpsPolicyPpiGuid
+
+[Protocols]
+
+[BuildOptions]
+
+

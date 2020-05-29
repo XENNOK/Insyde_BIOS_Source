@@ -1,0 +1,25 @@
+//;******************************************************************************
+//;* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+//; 
+//; Module Name:
+//; 
+//;   GenericUtilityLibImage.idf
+//; 
+//; Abstract:
+//; 
+//;   Images for GenericUtilityLib library
+//; 
+
+!if gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+#image IMAGE_BOOT_MANAGER_MENU       "ImageBootManagerMenu.png"
+#image IMAGE_DEVICE_MANAGER_MENU     "ImageDeviceManagerMenu.png"
+#image IMAGE_BOOT_FROM_FILE_MENU     "ImageBootFromFileMenu.png"
+#image IMAGE_SECURE_BOOT_MENU        "ImageSecureBootMenu.png"
+!endif

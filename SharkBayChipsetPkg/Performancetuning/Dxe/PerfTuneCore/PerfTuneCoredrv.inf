@@ -1,0 +1,67 @@
+## @file
+#
+#   Component description file for PerfTure DXE driver
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+#******************************************************************************
+#* Copyright (c)  2007-2009 Intel Corporation. All rights reserved
+#*  This software and associated documentation (if any) is furnished
+#*  under a license and may only be used or copied in accordance
+#*  with the terms of the license. Except as permitted by such
+#*  license, no part of this software or documentation may be
+#*  reproduced, stored in a retrieval system, or transmitted in any
+#*  form or by any means without the express written consent of
+#*  Intel Corporation.
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PerfTuneCoreDrv
+  FILE_GUID                      = C3A4A6AD-D8D7-4c69-A292-02CBF9554013
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializePerfTuneTableServices
+
+
+[Sources]
+  PerfTuneCore.h
+  PerfTuneCore.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  
+[Guids]
+  gSystemConfigurationGuid
+  
+[Protocols]
+  gSpttTableServicesProtocolGuid
+
+[Pcd]
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+  
+[Depex]
+  gEfiCpuIoProtocolGuid AND
+  gEfiPciRootBridgeIoProtocolGuid

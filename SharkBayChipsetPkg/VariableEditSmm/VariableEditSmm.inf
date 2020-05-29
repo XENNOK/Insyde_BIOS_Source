@@ -1,0 +1,63 @@
+#/** @file
+#
+#  Component description file for Variable Editor Callback Sync Smm
+#  
+#;******************************************************************************
+#;* Copyright (c) 1983 - 2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = VariableEditSmm
+  FILE_GUID                 = 84945A3D-49C8-4059-8F34-6A4532D32A47
+  MODULE_TYPE               = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION  = 0x0001000A
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = SetupCallbackSyncEntryPoint
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[Sources]
+  VariableEditSmm.h
+  VariableEditSmm.c
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  PostCodeLib
+  
+[Protocols]
+  gEfiSmmSwDispatch2ProtocolGuid    #always consume
+  gSetupCallbackSyncGuid            #always consume
+  gEfiSmmVariableProtocolGuid       #always consume
+  gEfiSmmCpuProtocolGuid            #always consume
+
+[Pcd]
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Guids]
+#[-start-140721-IB08620401-add]#
+  gVarableEditFunctionDisableGuid
+#[-end-140721-IB08620401-add]#
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid            AND
+  gEfiSmmAccess2ProtocolGuid          AND
+  gEfiSmmSwDispatch2ProtocolGuid      AND
+  gEfiSmmVariableProtocolGuid         AND
+  gSetupCallbackSyncGuid
+

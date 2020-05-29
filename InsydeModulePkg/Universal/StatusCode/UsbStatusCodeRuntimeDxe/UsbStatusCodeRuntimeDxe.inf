@@ -1,0 +1,73 @@
+## @file
+#  Component description file for UsbStatusCodeRuntimeDxe driver
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbStatusCodeRuntimeDxe
+  FILE_GUID                      = 38D499CA-7175-40FC-869A-CC7F28FB96F1
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UsbStatusCodeRuntimeDxeEntry
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  UsbStatusCodeRuntimeDxe.c
+  UsbDebug.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  PcdLib
+  PrintLib
+  ReportStatusCodeLib
+  DebugLib
+  BaseMemoryLib
+  H2ODebugLib
+  ImageRelocationLib
+  PciLib
+  IoLib
+  TimerLib
+  
+[Guids]
+  gEfiEventVirtualAddressChangeGuid             ## CONSUMES ## Event
+  gEfiEventExitBootServicesGuid                 ## CONSUMES ## Event
+  gEfiStatusCodeDataTypeStringGuid              ## CONSUMES
+
+[Protocols]
+  gEfiRscHandlerProtocolGuid                    ## CONSUMES
+  gEfiSmmRscHandlerProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdH2ODdtSupported
+  gInsydeTokenSpaceGuid.PcdStatusCodeUseUsb
+  gInsydeTokenSpaceGuid.PcdDdtStatusCodeReportsProgressCode
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdUsbDebugEhciControl
+  gInsydeTokenSpaceGuid.PcdUsbDebugEhciBaseAddress
+
+[Depex]
+  TRUE

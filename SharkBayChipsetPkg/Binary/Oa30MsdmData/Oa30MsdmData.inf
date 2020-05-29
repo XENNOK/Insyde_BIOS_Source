@@ -1,0 +1,28 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2012-2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  BASE_NAME            = Oa30MsdmData
+#
+# If you change this, the file names used in UpdateMsdm.c modules must be updated.
+#
+  FILE_GUID            = a9943829-a25a-4b94-ac0b-99dd37099f76
+  COMPONENT_TYPE       = BINARY
+
+[Sources.Common]
+  Oa30MsdmData.bin
+
+[Nmake.Common]
+
+[Depex]
+	TRUE

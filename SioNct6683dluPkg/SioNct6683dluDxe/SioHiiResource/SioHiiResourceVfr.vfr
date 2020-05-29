@@ -1,0 +1,147 @@
+/** @file
+  VFR file used by the SIO configuration component.
+
+;******************************************************************************
+;* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+**/
+
+#include <SioHiiResourceNvData.h>
+
+formset
+  guid     = SIO_NCT6683DLU_SETUP00_FORMSET_GUID,
+  title    = STRING_TOKEN(STR_SIO_NUVOTON6683DLU_TITLE),
+  help     = STRING_TOKEN(STR_SIO_TITLE_HELP),
+
+  //
+  // Define a Buffer Storage (EFI_IFR_VARSTORE)
+  //
+  varstore SIO_CONFIGURATION,                      // This is the data structure type
+    varid = SIO_CONFIGURATION_VARSTORE_ID,         // Optional VarStore ID
+    name  = SioNct6683dluSetup00,                    // Define referenced name in vfr
+    guid  = SIO_NCT6683DLU_SETUP00_FORMSET_GUID;     // GUID of this buffer storage
+
+  form formid = SIO_CONFIGURATION_FORM_ID,
+       title  = STRING_TOKEN(STR_SIO_NUVOTON6683DLU_TITLE);
+
+    suppressif 
+      NOT ideqval SioNct6683dluSetup00.DeviceA.Device == COM; 
+      oneof name = DeviceA,                                    // Define reference name for Question
+        varid   = SioNct6683dluSetup00.DeviceA.DeviceEnable,     // Use "DataStructure.Member" to reference Buffer Storage
+        prompt  = STRING_TOKEN(STR_SIO_SERIAL_PORTA),
+        help    = STRING_TOKEN(STR_SIO_SERIAL_HELP),
+        //
+        // Define an option (EFI_IFR_ONE_OF_OPTION)
+        //
+        option text = STRING_TOKEN(STR_SIO_SELECT_DISABLE), value = 0x0, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_SELECT_ENABLE), value = 0x1, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_SELECT_AUTO), value = 0x2, flags = 0 | DEFAULT;
+      endoneof;
+    endif;
+    
+    suppressif 
+      NOT ideqval SioNct6683dluSetup00.DeviceA.DeviceEnable == 1
+      OR
+      NOT ideqval SioNct6683dluSetup00.DeviceA.Device == COM; 
+      oneof 
+        varid = SioNct6683dluSetup00.DeviceA.DeviceBaseAdr,    
+        prompt  = STRING_TOKEN(STR_SIO_BASEIO_STRING),
+        help    = STRING_TOKEN(STR_SIO_EMPTY),           
+        option text = STRING_TOKEN(STR_SIO_2E8_TEXT), value = 0x02E8, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_2F8_TEXT), value = 0x02F8, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_3E8_TEXT), value = 0x03E8, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_3F8_TEXT), value = 0x03F8, flags = 0 | DEFAULT;
+      endoneof;
+ 
+      oneof
+        varid       = SioNct6683dluSetup00.DeviceA.DeviceIrq,
+        prompt      = STRING_TOKEN(STR_SIO_INTERRUPT_STRING),
+        help        = STRING_TOKEN(STR_SIO_EMPTY),
+        option text = STRING_TOKEN(STR_PCI_IRQ3_TEXT), value = 3,  flags = 0;
+        option text = STRING_TOKEN(STR_PCI_IRQ4_TEXT), value = 4,  flags = 0 | DEFAULT;
+      endoneof;
+    endif;
+    
+
+    suppressif 
+      NOT ideqval SioNct6683dluSetup00.DeviceB.Device == COM;        
+      oneof name = DeviceB,                                    // Define reference name for Question
+        varid   = SioNct6683dluSetup00.DeviceB.DeviceEnable,     // Use "DataStructure.Member" to reference Buffer Storage
+        prompt  = STRING_TOKEN(STR_SIO_SERIAL_PORTB),
+        help    = STRING_TOKEN(STR_SIO_SERIAL_HELP),
+        //
+        // Define an option (EFI_IFR_ONE_OF_OPTION)
+        //
+        option text = STRING_TOKEN(STR_SIO_SELECT_DISABLE), value = 0x0, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_SELECT_ENABLE), value = 0x1, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_SELECT_AUTO), value = 0x2, flags = 0 | DEFAULT;
+      endoneof;
+    endif;
+    
+    suppressif 
+      NOT ideqval SioNct6683dluSetup00.DeviceB.DeviceEnable == 1
+      OR
+      NOT ideqval SioNct6683dluSetup00.DeviceB.Device == COM; 
+      oneof 
+        varid = SioNct6683dluSetup00.DeviceB.DeviceBaseAdr,    
+        prompt  = STRING_TOKEN(STR_SIO_BASEIO_STRING),
+        help    = STRING_TOKEN(STR_SIO_EMPTY),       
+        option text = STRING_TOKEN(STR_SIO_2E8_TEXT), value = 0x02E8, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_2F8_TEXT), value = 0x02F8, flags = 0 | DEFAULT;
+        option text = STRING_TOKEN(STR_SIO_3E8_TEXT), value = 0x03E8, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_3F8_TEXT), value = 0x03F8, flags = 0;
+      endoneof;
+ 
+      oneof
+        varid       = SioNct6683dluSetup00.DeviceB.DeviceIrq,
+        prompt      = STRING_TOKEN(STR_SIO_INTERRUPT_STRING),
+        help        = STRING_TOKEN(STR_SIO_EMPTY),
+        option text = STRING_TOKEN(STR_PCI_IRQ3_TEXT), value = 3,  flags = 0 | DEFAULT;
+        option text = STRING_TOKEN(STR_PCI_IRQ4_TEXT), value = 4,  flags = 0;
+      endoneof;
+    endif;
+    
+    suppressif 
+      NOT ideqval SioNct6683dluSetup00.DeviceC.Device == LPT; 
+      oneof name = DeviceC,                                    // Define reference name for Question
+        varid   = SioNct6683dluSetup00.DeviceC.DeviceEnable,      // Use "DataStructure.Member" to reference Buffer Storage
+        prompt  = STRING_TOKEN(STR_SIO_LPT_PORTA),
+        help    = STRING_TOKEN(STR_SIO_LPT_HELP),
+        //
+        // Define an option (EFI_IFR_ONE_OF_OPTION)
+        //
+        option text = STRING_TOKEN(STR_SIO_SELECT_DISABLE), value = 0x0, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_SELECT_ENABLE), value = 0x1, flags = 0;
+        option text = STRING_TOKEN(STR_SIO_SELECT_AUTO), value = 0x2, flags = 0 | DEFAULT;
+      endoneof;    
+    endif;
+    
+    suppressif 
+      NOT ideqval SioNct6683dluSetup00.DeviceC.DeviceEnable == 1
+      OR
+      NOT ideqval SioNct6683dluSetup00.DeviceC.Device == LPT; 
+      oneof 
+        varid = SioNct6683dluSetup00.DeviceC.DeviceBaseAdr,    
+        prompt  = STRING_TOKEN(STR_SIO_BASEIO_STRING),
+        help    = STRING_TOKEN(STR_SIO_EMPTY),            
+        option text = STRING_TOKEN(STR_SIO_378_TEXT), value = 0x0378, flags = 0 | DEFAULT;
+        option text = STRING_TOKEN(STR_SIO_388_TEXT), value = 0x0388, flags = 0;
+      endoneof;
+   
+      oneof
+        varid       = SioNct6683dluSetup00.DeviceC.DeviceIrq,
+        prompt      = STRING_TOKEN(STR_SIO_INTERRUPT_STRING),
+        help        = STRING_TOKEN(STR_SIO_EMPTY),
+        option text = STRING_TOKEN(STR_PCI_IRQ6_TEXT), value = 6,  flags = 0;
+        option text = STRING_TOKEN(STR_PCI_IRQ7_TEXT), value = 7,  flags = 0 | DEFAULT;
+      endoneof;
+    endif;
+    
+  endform;
+endformset;

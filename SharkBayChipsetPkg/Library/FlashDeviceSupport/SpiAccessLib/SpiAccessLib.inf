@@ -1,0 +1,78 @@
+## @file
+#  Flash Device Support Library Class
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpiAccessLib
+  FILE_GUID                      = BE0248D7-A861-4FF8-B7E9-878945CBDEDE
+  MODULE_TYPE                    = BASE
+  LIBRARY_CLASS                  = SpiAccessLib
+  CONSTRUCTOR                    = SpiAccessLibInit
+  DESTRUCTOR                     = SpiAccessLibDestruct
+
+[Sources]
+  SpiAccessLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  PcdLib
+  TimerLib
+  S3BootScriptLib
+  FdSupportLib
+  SpiAccessInitLib
+  IrsiRegistrationLib
+#[-start-120419-IB10820037-add]#
+  IoLib
+#[-end-120419-IB10820037-add]#
+#[-start-130708-IB10920031-remove]#
+#  UefiBootServicesTableLib
+#[-end-130708-IB10920031-remove]#
+#[-start-140103-IB05160535-remove]#
+##[-start-130808-IB10300050-add]#
+#  UefiBootServicesTableLib
+#  UefiRuntimeServicesTableLib
+##[-end-130808-IB10300050-add]#
+#[-end-140103-IB05160535-remove]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+#[-start-120820-IB10820110-add]#
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+#[-end-120820-IB10820110-add]#
+#[-start-120925-IB10820124-add]#
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+#[-end-120925-IB10820124-add]#
+  gChipsetPkgTokenSpaceGuid.PcdRcbaBaseAddress
+
+[Guids]
+#[-start-130808-IB10300050-add]#
+  gCheckFlashAccessGuid
+#[-end-130808-IB10300050-add]#
+
+#[-start-120925-IB10820124-add]#
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdPfatSupport
+#[-end-120925-IB10820124-add]#
+
+[Protocols]
+  gSmmPfatProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+

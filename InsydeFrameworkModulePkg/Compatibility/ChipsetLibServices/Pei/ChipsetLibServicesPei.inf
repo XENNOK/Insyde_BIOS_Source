@@ -1,0 +1,60 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+#/*++
+#
+#  Module Name:
+#
+#    ChipsetLibServicesPei.inf
+#
+#  Abstract:
+#
+#    ChipsetLibServices Ppi provider.
+#
+#--*/
+
+[defines]
+BASE_NAME            = ChipsetLibServicesPei
+FILE_GUID            = 689C7998-7DC9-4350-B19D-0EECA6CA64AB
+COMPONENT_TYPE       = PE32_PEIM
+
+[sources.common]
+  ChipsetLibServicesPei.c
+
+[includes.common]
+  $(EFI_SOURCE)
+  $(EDK_SOURCE)/Foundation
+  $(EDK_SOURCE)/Foundation/Include
+  $(EDK_SOURCE)/Foundation/Efi
+  $(EDK_SOURCE)/Foundation/Efi/Include
+  $(EDK_SOURCE)/Foundation/Framework
+  $(EDK_SOURCE)/Foundation/Framework/Include
+  $(EDK_SOURCE)/Foundation/Library/Pei/Include
+  $(EDK_SOURCE)/Foundation/Include/IndustryStandard
+  $(EDK_SOURCE)/Foundation/Include/Pei
+  $(EDK_SOURCE)/Foundation/Cpu/Pentium/Include
+  $(EFI_SOURCE)/Include/IndustryStandard
+  $(EFI_SOURCE)/Platform/Insyde/Common/Library/Include
+  $(EFI_SOURCE)/Chipset
+  $(EFI_SOURCE)/Chipset/Common
+  $(EFI_SOURCE)/Include/Oemservices
+  $(EFI_SOURCE)/H2ODebug
+
+[libraries.common]
+  ChipsetLib
+  PeiLib
+  PpiLib
+  EdkFrameworkPpiLib
+
+
+[nmake.common]
+  IMAGE_ENTRY_POINT = ChipsetLibServicesPeiEntry
+  DPX_SOURCE = ChipsetLibServicesPei.dxs
+

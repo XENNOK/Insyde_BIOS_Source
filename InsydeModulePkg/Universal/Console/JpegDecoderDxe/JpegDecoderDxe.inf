@@ -1,0 +1,47 @@
+## @file
+#  Component description file for JpegDecoder module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+--*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = JpegDecoderDxe
+  FILE_GUID                      = 2707E46D-DBD7-41c2-9C04-C9FDB8BAD86C
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = JpegDecoderInstall
+
+[Sources]
+  JpegDecoder.c
+  JpegDecoder.h
+  JfifDecode.c
+  JfifDecode.h
+  McuDecode.c
+  McuDecode.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  MemoryAllocationLib
+  
+[Protocols]
+  gEfiJpegDecoderProtocolGuid
+
+[Depex]
+  TRUE

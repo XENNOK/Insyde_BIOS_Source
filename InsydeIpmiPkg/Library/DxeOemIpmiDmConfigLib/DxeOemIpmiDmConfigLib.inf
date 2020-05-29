@@ -1,0 +1,54 @@
+## @file
+#  Component description file for DxeOemIpmiDmConfigLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeOemIpmiDmConfigLib
+  FILE_GUID                      = 32EE1F23-E50D-4bf9-A571-544C397A9D3E
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeOemIpmiDmConfigLib|DXE_DRIVER
+
+[Sources]
+  OemIpmiDmGetConfigDataSize.c
+  OemIpmiDmInitConfigData.c
+  OemIpmiDmInitHiiData.c
+  OemIpmiDmConfigAccessExtract.c
+  OemIpmiDmConfigAccessRoute.c
+  OemIpmiDmConfigAccessCallback.c
+  OemIpmiDmConfigLoadDefault.c
+  OemIpmiDmConfigLanChannelCallback.c
+  OemIpmiDmConfigIpv4Callback.c
+  OemIpmiDmConfigIpv6Callback.c
+
+  OemIpmiDmSyncIpv4Source.c
+  OemIpmiDmSyncIpv4IpAddr.c
+  OemIpmiDmSyncIpv4SubnetMask.c
+  OemIpmiDmSyncIpv4GatewayAddr.c
+  OemIpmiDmGetFrontPanelButton.c
+  OemIpmiDmSetFrontPanelButton.c
+  OemIpmiDmSetPowerCycleTime.c
+
+  OemIpmiDmUpdateSdrList.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  HiiLib
+  IpmiInterfaceLib
+
+[Guids]
+  gEfiIfrTianoGuid

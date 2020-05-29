@@ -1,0 +1,53 @@
+## @file
+#  Component description file for CommonPciPlatformDxe driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CommonPciPlatformDxe
+  FILE_GUID                      = B7358BEB-6A52-4D50-98F9-7EDD70B4B320
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = CommonPciPlatformDriverEntryPoint
+
+[Sources]
+  CommonPciPlatformDxe.c
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  
+[LibraryClasses]
+  DebugLib
+  CommonPciLib
+  PciExpressLib
+  DxeServicesLib
+  S3BootScriptLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DxeOemSvcKernelLibDefault
+  DxeChipsetSvcLib
+  
+[Protocols]
+  gEfiPciIoProtocolGuid
+  gPciPolicyProtocolGuid
+  gEfiBdsArchProtocolGuid
+  gEfiPciPlatformProtocolGuid
+  
+[Pcd]
+
+[Depex]
+  gH2OChipsetServicesProtocolGuid

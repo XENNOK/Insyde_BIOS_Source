@@ -1,0 +1,32 @@
+## @file
+# Component description file for the CMOS library.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CmosLib
+  FILE_GUID                      = 67BC494B-C56F-4A99-BBCA-2A8E0003395F
+  MODULE_TYPE                    = BASE
+  LIBRARY_CLASS                  = CmosLib
+
+[Sources]
+  CmosLib.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+

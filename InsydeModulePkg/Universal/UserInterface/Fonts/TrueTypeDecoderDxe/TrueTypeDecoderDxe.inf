@@ -1,0 +1,41 @@
+## @file
+# Component description file for TTF font driver
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = TrueTypeDecoderDxe
+  FILE_GUID                      = 531AED6E-3DEE-45eb-8DF1-B70ADB1F885D
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  BINARY_VERSION                 = 02.02.22.0604.00
+
+[Binaries.Ia32]
+  PE32|Ia32/TrueTypeDecoderDxe.efi|*
+
+[Binaries.X64]
+  PE32|X64/TrueTypeDecoderDxe.efi|*
+
+[Binaries.Arm]
+  PE32|Arm/TrueTypeDecoderDxe.efi|*
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[Depex]
+  TRUE
+

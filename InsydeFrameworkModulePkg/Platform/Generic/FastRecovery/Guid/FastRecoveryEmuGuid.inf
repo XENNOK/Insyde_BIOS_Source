@@ -1,0 +1,45 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#  Module Name:
+#
+#    FastRecoveryEmuGuid.inf
+#
+#  Abstract:
+#
+#    Fast recovery using GUID definition
+#
+[defines]
+BASE_NAME       =   FastRecoveryEmuGuidLib
+COMPONENT_TYPE  =   LIBRARY
+
+[sources.common]
+  EmuPeiMark\EmuPeiMark.h
+  EmuPeiMark\EmuPeiMark.c
+  EmuSecFileName\EmuSecFileName.h
+  EmuSecFileName\EmuSecFileName.c
+
+[includes.common]
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Include
+  $(EFI_SOURCE)\Include\Pei
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Include\Pei
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\FrameWork
+  $(EDK_SOURCE)\Foundation\FrameWork\Include
+  $(EDK_SOURCE)\Foundation\Library\Pei\Include
+  $(EFI_SOURCE)\Include\IndustryStandard
+  ..
+
+[nmake.common]
+C_STD_INCLUDE=

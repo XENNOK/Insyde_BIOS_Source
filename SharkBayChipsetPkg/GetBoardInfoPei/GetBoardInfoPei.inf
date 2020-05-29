@@ -1,0 +1,50 @@
+## @file
+#  Component description file for GetBoardInfoPei PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = GetBoardInfoPei
+  FILE_GUID                      = F09042C4-90ED-4d79-88ED-B1DDF8FBD7DE
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = GetBoardInfoEntryPoint
+
+[Sources]
+  GetBoardInfoPei.c  
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec 
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiOemSvcChipsetLibDefault
+  PcdLib
+  IoLib
+
+[Guids]
+
+[Ppis]
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdCurrentBoardId
+  gChipsetPkgTokenSpaceGuid.PcdCurrentFabId
+  gChipsetPkgTokenSpaceGuid.PcdDefaultBoardId
+
+[FeaturePcd]
+
+[Depex]
+  TRUE

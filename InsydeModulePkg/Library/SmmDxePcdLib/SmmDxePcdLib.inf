@@ -1,0 +1,81 @@
+## @file
+# Instance of PCD Library using PCD Protocol at runtime and in SMM mode
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+# There are two PCD PROTOCOLs as follows:
+#   1) PCD_PROTOCOL
+#      It is EDKII implementation which support Dynamic/DynamicEx Pcds.
+#   2) EFI_PCD_PROTOCOL
+#      It is defined by PI specification 1.2, Vol 3 which only support dynamicEx
+#      type Pcd.
+#
+# For dynamicEx type PCD, it is compatible between PCD_PROTOCOL and EFI_PCD_PROTOCOL.
+#
+# This library instance uses the PCD_PROTOCOL to handle dynamic PCD request and use
+# EFI_PCD_PROTOCOL to handle dynamicEx type PCD.
+#
+# Copyright (c) 2007 - 2013, Intel Corporation. All rights reserved.<BR>
+#
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License
+#  which accompanies this distribution. The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.php.
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmDxePcdLib
+  FILE_GUID                      = 29991E49-48E5-454B-B2EC-5BA5BBA165EE
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PcdLib|DXE_SMM_DRIVER COMBINED_SMM_DXE UEFI_DRIVER DXE_DRIVER DXE_RUNTIME_DRIVER
+  CONSTRUCTOR                    = SmmDxePcdLibInit
+  DESTRUCTOR                     = SmmDxePcdLibDestruct
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  SmmDxePcdLib.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+
+[LibraryClasses]
+  BaseMemoryLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+
+[Guids]
+  gEfiEventVirtualAddressChangeGuid
+
+[Protocols]
+  gPcdProtocolGuid                              ## CONSUMES
+  gEfiPcdProtocolGuid                           ## CONSUMES
+  gGetPcdInfoProtocolGuid                       ## SOMETIMES_CONSUMES
+  gEfiGetPcdInfoProtocolGuid                    ## SOMETIMES_CONSUMES
+  gEfiSmmBase2ProtocolGuid                      ## CONSUMES
+  gEfiSmmReadyToLockProtocolGuid                ## CONSUMES
+  gEfiLoadedImageProtocolGuid                   ## SOMETIMES_CONSUMES
+
+[Depex]
+  gEfiPcdProtocolGuid
+
+[BuildOptions]
+  *_*_*_CC_FLAGS = -DMDEPKG_NDEBUG

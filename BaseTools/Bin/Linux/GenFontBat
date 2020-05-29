@@ -1,0 +1,9 @@
+
+Param="--hpkdir ${PWD} $@"
+
+
+if [ -e $WORKSPACE/$PROJECT_PKG/Project.fif ]; then
+  Param="$Param --fif $WORKSPACE/$PROJECT_PKG/Project.fif"
+fi
+
+GenFont $Param

@@ -1,0 +1,571 @@
+/** @file
+ VFR file used by the IPMI BMC Config in Device Manager menu module.
+
+;******************************************************************************
+;* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+
+*/
+
+
+#include <IpmiDmConfigForm.h>
+
+//
+// Include OemIpmiDmConfigForm.h in $(PROJECT_PKG)/Include if OEM add additional data in OEM_IPMI_DM_CONFIG struct.
+//
+//#include <OemIpmiDmConfigForm.h>
+
+
+formset
+  guid      = IPMI_DM_CONFIG_FORMSET_GUID,
+  title     = STRING_TOKEN(STR_IPMI_CONFIG_FORM_TITLE),
+  help      = STRING_TOKEN(STR_IPMI_CONFIG_FORM_HELP),
+  classguid = EFI_HII_PLATFORM_SETUP_FORMSET_GUID,
+
+  //
+  // Select IPMI_DM_CONFIG or OEM_IPMI_DM_CONFIG struct for general or OEM require.
+  //
+  varstore IPMI_DM_CONFIG,
+  //varstore OEM_IPMI_DM_CONFIG,
+    varid = IPMI_BMC_CONFIG_VARSTORE_ID,
+    name  = IpmiConfigData,
+    guid  = IPMI_DM_CONFIG_FORMSET_GUID;
+
+
+  form
+    formid = IPMI_BMC_CONFIG_FORM_ID,
+    title  = STRING_TOKEN(STR_IPMI_CONFIG_FORM_TITLE);
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // Enable/Disable IPMI Support
+    //
+    oneof
+      varid       = IpmiConfigData.IpmiEnable,
+      prompt      = STRING_TOKEN(STR_IPMI_SUPPORT),
+      help        = STRING_TOKEN(STR_IPMI_SUPPORT_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = 0;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = DEFAULT;
+    endoneof;
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    suppressif
+      ideqval IpmiConfigData.IpmiEnable == 0;
+
+      grayoutif
+        TRUE;
+
+        //
+        // IPMI Interface Type
+        //
+        text
+          help  = STRING_TOKEN(STR_BLANK_STRING),
+          text  = STRING_TOKEN(STR_IPMI_INTERFACE_TYPE),
+          text  = STRING_TOKEN(STR_CURRENT_IPMI_INTERFACE_TYPE),
+          flags = 0,
+          key   = 0;
+
+        //
+        // Three Base Address (OS, FW, SMM)
+        //
+        text
+          help  = STRING_TOKEN(STR_BLANK_STRING),
+          text  = STRING_TOKEN(STR_IPMI_OS_BASE_ADDRESS),
+          text  = STRING_TOKEN(STR_CURRENT_IPMI_OS_BASE_ADDRESS),
+          flags = 0,
+          key   = 0;
+
+        text
+          help  = STRING_TOKEN(STR_BLANK_STRING),
+          text  = STRING_TOKEN(STR_IPMI_POST_BASE_ADDRESS),
+          text  = STRING_TOKEN(STR_CURRENT_IPMI_POST_BASE_ADDRESS),
+          flags = 0,
+          key   = 0;
+
+        text
+          help  = STRING_TOKEN(STR_BLANK_STRING),
+          text  = STRING_TOKEN(STR_IPMI_SMM_BASE_ADDRESS),
+          text  = STRING_TOKEN(STR_CURRENT_IPMI_SMM_BASE_ADDRESS),
+          flags = 0,
+          key   = 0;
+
+        subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+        //
+        // BMC Status
+        //
+        text
+          help  = STRING_TOKEN(STR_BLANK_STRING),
+          text  = STRING_TOKEN(STR_BMC_STATUS),
+          text  = STRING_TOKEN(STR_CURRENT_BMC_STATUS),
+          flags = 0,
+          key   = 0;
+
+        //
+        // BMC Firmware Version
+        //
+        text
+          help  = STRING_TOKEN(STR_BLANK_STRING),
+          text  = STRING_TOKEN(STR_BMC_FIRMWARE_VERSION),
+          text  = STRING_TOKEN(STR_CURRENT_BMC_FIRMWARE_VERSION),
+          flags = 0,
+          key   = 0;
+
+        //
+        // BMC Support IPMI Version
+        //
+        text
+          help  = STRING_TOKEN(STR_BLANK_STRING),
+          text  = STRING_TOKEN(STR_IPMI_SPEC_VERSION),
+          text  = STRING_TOKEN(STR_CURRENT_IPMI_SPEC_VERSION),
+          flags = 0,
+          key   = 0;
+
+        //
+        // BMC MAC Address
+        //
+        text
+          help  = STRING_TOKEN(STR_BLANK_STRING),
+          text  = STRING_TOKEN(STR_BMC_MAC_ADDRESS),
+          text  = STRING_TOKEN(STR_CURRENT_BMC_MAC_ADDRESS),
+          flags = 0,
+          key   = 0;
+
+      endif;
+
+      subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+      //
+      // BMC Warmup time in seconds
+      //
+      numeric
+        varid   = IpmiConfigData.BmcWarmupTime,
+        prompt  = STRING_TOKEN(STR_BMC_WARMUP_TIME),
+        help    = STRING_TOKEN(STR_BMC_WARMUP_TIME_HELP),
+        minimum = 0,
+        maximum = 240,
+        step    = 3,
+        default = 0,
+      endnumeric;
+
+    endif;
+
+    suppressif
+      ideqvallist IpmiConfigData.BmcStatus == 0 2 3 4
+      OR
+      ideqval IpmiConfigData.IpmiEnable == 0;
+
+      //
+      // ACPI SPMI Enable/Disable
+      //
+      oneof
+        varid       = IpmiConfigData.IpmiSpmiEnable,
+        prompt      = STRING_TOKEN(STR_IPMI_SPMI_TABLE),
+        help        = STRING_TOKEN(STR_IPMI_SPMI_TABLE_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = DEFAULT;
+      endoneof;
+
+      //
+      // Boot Option Support
+      //
+      oneof
+        varid       = IpmiConfigData.IpmiBootOption,
+        prompt      = STRING_TOKEN(STR_IPMI_BOOT_OPTION),
+        help        = STRING_TOKEN(STR_IPMI_BOOT_OPTION_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = 0;
+      endoneof;
+
+      //
+      // Set BIOS Version to BMC option
+      //
+      oneof
+        varid       = IpmiConfigData.IpmiSetBiosVersion,
+        prompt      = STRING_TOKEN(STR_IPMI_SEND_BIOS_VERSION),
+        help        = STRING_TOKEN(STR_IPMI_SEND_BIOS_VERSION_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = 0;
+      endoneof;
+
+      subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+      //
+      // BMC Configuration Subform
+      //
+      goto BMC_CONFIG_SUBFORM_FORM_ID,
+        prompt = STRING_TOKEN(STR_BMC_CONFIG_FORM_TITLE),
+        help   = STRING_TOKEN(STR_BMC_CONFIG_FORM_HELP);
+
+      //
+      // SDR List Subform
+      //
+      goto IPMI_BMC_SDR_LIST_FORM_ID,
+        prompt = STRING_TOKEN(STR_IPMI_SDR_LIST_TITLE),
+        help   = STRING_TOKEN(STR_IPMI_SDR_LIST_HELP);
+
+      subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+      //
+      // "Execute IPMI Utiltiy" Option
+      //
+      text
+        help  = STRING_TOKEN(STR_EXECUTE_IPMI_UTILITY_HELP),
+        text  = STRING_TOKEN(STR_EXECUTE_IPMI_UTILITY),
+        text  = STRING_TOKEN(STR_BLANK_STRING),
+        flags = INTERACTIVE,
+        key   = KEY_DM_EXECUTE_IPMI_UTILITY;
+
+      subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+      //
+      // "Load IPMI Config Optimal Defaults" Option
+      //
+      text
+        help  = STRING_TOKEN(STR_IPMI_LOAD_OPTIMAL_DEFAULT_HELP),
+        text  = STRING_TOKEN(STR_IPMI_LOAD_OPTIMAL_DEFAULT),
+        text  = STRING_TOKEN(STR_BLANK_STRING),
+        flags = INTERACTIVE,
+        key   = KEY_DM_IPMI_LOAD_OPTIMAL_DEFAULT;
+
+    endif;
+
+  endform;
+
+
+  //
+  // BMC Configuration Page
+  //
+  form
+    formid = BMC_CONFIG_SUBFORM_FORM_ID,
+    title  = STRING_TOKEN(STR_BMC_CONFIG_FORM_TITLE);
+
+    subtitle text = STRING_TOKEN(STR_BMC_CONFIG_FORM_TITLE);
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // Watchdog Timer Support
+    //
+    oneof
+      varid       = IpmiConfigData.BmcWdtEnable,
+      prompt      = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER),
+      help        = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = 0;
+    endoneof;
+
+    grayoutif
+      ideqval IpmiConfigData.BmcWdtEnable == 0;
+
+      //
+      // Watchdog Timer Timeout
+      //
+      numeric
+        varid   = IpmiConfigData.BmcWdtTimeout,
+        prompt  = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_TIMEOUT),
+        help    = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_TIMEOUT_HELP),
+        minimum = 2,
+        maximum = 8,
+        step    = 1,
+        default = 5,
+      endnumeric;
+
+      //
+      // Watchdog Timer Expire Action
+      //
+      oneof
+        varid       = IpmiConfigData.BmcWdtAction,
+        prompt      = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_ACTION),
+        help        = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_ACTION_HELP),
+        option text = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_NO_ACTION),   value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_HARD_RESET),  value = 1, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_POWER_DOWN),  value = 2, flags = 0;
+        option text = STRING_TOKEN(STR_BMC_WATCHDOG_TIMER_POWER_CYCLE), value = 3, flags = 0;
+      endoneof;
+
+    endif;
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // Power Cycle Time Support
+    //
+    oneof
+      varid       = IpmiConfigData.BmcPowerCycleTimeEnable,
+      prompt      = STRING_TOKEN(STR_BMC_POWER_CYCLE_SUPPORT),
+      help        = STRING_TOKEN(STR_BMC_POWER_CYCLE_SUPPORT_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = 0;
+    endoneof;
+
+    grayoutif
+      ideqval IpmiConfigData.BmcPowerCycleTimeEnable == 0;
+
+      //
+      // Power Cycle Time Value
+      //
+      numeric
+        varid   = IpmiConfigData.BmcPowerCycleTime,
+        prompt  = STRING_TOKEN(STR_BMC_POWER_CYCLE_TIME),
+        help    = STRING_TOKEN(STR_BMC_POWER_CYCLE_TIME_HELP),
+        minimum = 0,
+        maximum = 255,
+        step    = 1,
+        default = 10,
+      endnumeric;
+
+    endif;
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // Power Button Disable/Enable
+    //
+    oneof
+      varid       = IpmiConfigData.BmcFrontPanelPwrBtn,
+      prompt      = STRING_TOKEN(STR_BMC_FRONTPANEL_POWER_BUTTON),
+      help        = STRING_TOKEN(STR_BMC_FRONTPANEL_POWER_BUTTON_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = 0;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = DEFAULT;
+    endoneof;
+
+    //
+    // Reset Button Disable/Enable
+    //
+    oneof
+      varid       = IpmiConfigData.BmcFrontPanelRstBtn,
+      prompt      = STRING_TOKEN(STR_BMC_FRONTPANEL_RESET_BUTTON),
+      help        = STRING_TOKEN(STR_BMC_FRONTPANEL_RESET_BUTTON_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = 0;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = DEFAULT;
+    endoneof;
+
+    //
+    // NMI Button Disable/Enable
+    //
+    oneof
+      varid       = IpmiConfigData.BmcFrontPanelNmiBtn,
+      prompt      = STRING_TOKEN(STR_BMC_FRONTPANEL_NMI_BUTTON),
+      help        = STRING_TOKEN(STR_BMC_FRONTPANEL_NMI_BUTTON_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = 0;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = DEFAULT;
+    endoneof;
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // Create "BMC Lan port config"
+    //
+    oneof
+      varid       = IpmiConfigData.BmcLanPortConfig,
+      prompt      = STRING_TOKEN(STR_BMC_LAN_PORT_CONFIG),
+      help        = STRING_TOKEN(STR_BMC_LAN_PORT_CONFIG_HELP),
+      option text = STRING_TOKEN(STR_BMC_LAN_PORT_DEDICATED), value = 2, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_BMC_LAN_PORT_SHARED),    value = 3, flags = 0;
+    endoneof;
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // Create "BMC LAN Channel" option
+    //
+    numeric
+      varid   = IpmiConfigData.BmcLanChannel,
+      prompt  = STRING_TOKEN(STR_BMC_LAN_CHANNEL),
+      help    = STRING_TOKEN(STR_BMC_LAN_CHANNEL_HELP),
+      flags   = INTERACTIVE,
+      key     = KEY_DM_SET_BMC_LAN_CHANNEL_NUM,
+      minimum = 0,
+      maximum = 15,
+      step    = 0,
+      default = 1,
+    endnumeric;
+
+    //
+    // Create "BMC DHCP enable/disable" option
+    //
+    oneof
+      varid       = IpmiConfigData.BmcIpv4Source,
+      prompt      = STRING_TOKEN(STR_BMC_IPV4_SOURCE),
+      help        = STRING_TOKEN(STR_BMC_IPV4_SOURCE_HELP),
+      option text = STRING_TOKEN(STR_BMC_IPV4_SOURCE_STATIC), value = 1, flags = 0;
+      option text = STRING_TOKEN(STR_BMC_IPV4_SOURCE_DHCP),   value = 2, flags = DEFAULT;
+    endoneof;
+
+    //
+    // If DHCP is enabled, grayout the manual IP configuration
+    //
+    grayoutif
+      ideqval IpmiConfigData.BmcIpv4Source == 2;
+
+      //
+      // Create "Set BMC Ip Address"
+      //
+      string
+        varid   = IpmiConfigData.BmcIpv4IpAddressString,
+        prompt  = STRING_TOKEN(STR_BMC_IPV4_IP_ADDRESS),
+        help    = STRING_TOKEN(STR_BMC_IPV4_IP_ADDRESS_HELP),
+        flags   = INTERACTIVE,
+        key     = KEY_DM_SET_BMC_IPV4_IP_ADDRESS,
+        minsize = 7,
+        maxsize = 15,
+      endstring;
+
+      //
+      // Create "Set BMC Subnet Mask"
+      //
+      string
+        varid   = IpmiConfigData.BmcIpv4SubnetMaskString,
+        prompt  = STRING_TOKEN(STR_BMC_IPV4_SUBNET_MASK),
+        help    = STRING_TOKEN(STR_BMC_IPV4_SUBNET_MASK_HELP),
+        flags   = INTERACTIVE,
+        key     = KEY_DM_SET_BMC_IPV4_SUBNET_MASK,
+        minsize = 7,
+        maxsize = 15,
+      endstring;
+
+      //
+      // Create "Set BMC Default gateway"
+      //
+      string
+        varid   = IpmiConfigData.BmcIpv4GatewayAddressString,
+        prompt  = STRING_TOKEN(STR_BMC_IPV4_GATEWAY_ADDRESS),
+        help    = STRING_TOKEN(STR_BMC_IPV4_GATEWAY_ADDRESS_HELP),
+        flags   = INTERACTIVE,
+        key     = KEY_DM_SET_BMC_IPV4_GATEWAY_ADDRESS,
+        minsize = 7,
+        maxsize = 15,
+      endstring;
+
+    endif;
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // IPv6 Disable/Enable Option
+    //
+    oneof
+      varid       = IpmiConfigData.BmcIpv6Mode,
+      prompt      = STRING_TOKEN(STR_BMC_IPV6_MODE),
+      help        = STRING_TOKEN(STR_BMC_IPV6_MODE_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = 0;
+    endoneof;
+
+    grayoutif
+      ideqval IpmiConfigData.BmcIpv6Mode == 0;
+
+      //
+      // IPv6 AutoConfig
+      //
+      oneof
+        varid       = IpmiConfigData.BmcIpv6AutoConfig,
+        prompt      = STRING_TOKEN(STR_BMC_IPV6_AUTOCONFIG),
+        help        = STRING_TOKEN(STR_BMC_IPV6_AUTOCONFIG_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = DEFAULT;
+      endoneof;
+
+    endif;
+
+    //
+    // If IPv6 AutoConfig is enabled, grayout the manual IP configuration
+    //
+    grayoutif
+      ideqval IpmiConfigData.BmcIpv6AutoConfig == 1
+      OR
+      ideqval IpmiConfigData.BmcIpv6Mode == 0;
+
+      //
+      // IPv6 Prefix Length
+      //
+      numeric
+        varid   = IpmiConfigData.BmcIpv6PrefixLength,
+        prompt  = STRING_TOKEN(STR_BMC_IPV6_PREFIX_LENGTH),
+        help    = STRING_TOKEN(STR_BMC_IPV6_PREFIX_LENGTH_HELP),
+        minimum = 0,
+        maximum = 255,
+        step    = 1,
+        default = 0,
+      endnumeric;
+
+      //
+      // IPv6 IP Address
+      //
+      string
+        varid   = IpmiConfigData.BmcIpv6IpAddressString,
+        prompt  = STRING_TOKEN(STR_BMC_IPV6_IP_ADDRESS),
+        help    = STRING_TOKEN(STR_BMC_IPV6_IP_ADDRESS_HELP),
+        flags   = INTERACTIVE,
+        key     = KEY_DM_SET_BMC_IPV6_IP_ADDRESS,
+        minsize = 4,
+        maxsize = 45,
+      endstring;
+
+      //
+      // IPv6 GateWay Address
+      //
+      string
+        varid   = IpmiConfigData.BmcIpv6GatewayAddressString,
+        prompt  = STRING_TOKEN(STR_BMC_IPV6_GATEWAY_ADDRESS),
+        help    = STRING_TOKEN(STR_BMC_IPV6_GATEWAY_ADDRESS_HELP),
+        flags   = INTERACTIVE,
+        key     = KEY_DM_SET_BMC_IPV6_GATEWAY_ADDRESS,
+        minsize = 4,
+        maxsize = 45,
+      endstring;
+
+    endif;
+
+  endform;
+
+
+  //
+  // SDR List Page
+  //
+  form
+    formid = IPMI_BMC_SDR_LIST_FORM_ID,
+    title  = STRING_TOKEN(STR_IPMI_SDR_LIST_TITLE);
+
+    subtitle text = STRING_TOKEN(STR_IPMI_SDR_LIST_TITLE);
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // "SDR List Support" Option
+    //
+    oneof
+      varid       = IpmiConfigData.IpmiSdrListEnable,
+      questionid  = KEY_DM_IPMI_SDR_LIST_SUPPORT,
+      prompt      = STRING_TOKEN(STR_IPMI_SDR_LIST_SUPPORT),
+      help        = STRING_TOKEN(STR_IPMI_SDR_LIST_SUPPORT_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 0, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = INTERACTIVE;
+    endoneof;
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    suppressif
+      ideqval IpmiConfigData.IpmiSdrListEnable == 0;
+
+      subtitle text = STRING_TOKEN(STR_IPMI_SDR_LIST_FIELD_TITLE);
+
+      label IPMI_BMC_SDR_LIST_LABEL;
+
+      label IPMI_BMC_SDR_LIST_END_LABEL;
+
+    endif;
+
+  endform;
+
+endformset;
+

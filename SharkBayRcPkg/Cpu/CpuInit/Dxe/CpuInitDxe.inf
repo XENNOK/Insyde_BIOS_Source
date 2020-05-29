@@ -1,0 +1,121 @@
+## @file
+#  Component description file for CpuInitDxe Driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CpuInitDxe
+  FILE_GUID                      = 62D171CB-78CD-4480-8678-C6A2A797A8DE
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeCpu
+
+[Sources]
+  x64/Cpu.asm       | MSFT
+  x64/Cpu.jwasm     | GCC
+  x64/MpFuncs.asm   | MSFT
+  x64/MpFuncs.jwasm | GCC
+  x64/MemoryOperation.c
+  x64/Exception.c
+  x64/MpCpu.c
+  x64/CpuLib.h
+  x64/ProcessorDef.h
+  x64/VirtualMemory.h
+
+  CacheData.h
+  CacheData.c
+  CpuInitDxe.c
+  CpuInitDxe.h
+  Exception.h
+  MachineCheck.c
+  MachineCheck.h
+  MemoryAttribute.c
+  MemoryAttribute.h
+  Microcode.c
+  MpCommon.c
+  MpCommon.h
+  MpService.c
+  MpService.h
+  PiMpService.c
+  PiMpService.h
+  MtrrSync.c
+  Features.c
+  Features.h
+  ProcessorData.c
+  ProcessorData.h
+  CpuInitDxeStrings.uni
+  CpuFvi.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  IA32FamilyCpuPkg/IA32FamilyCpuPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  BaseLib
+  MemoryAllocationLib
+  HiiLib
+  RcFviDxeLib
+  IoLib
+  ReportStatusCodeLib
+  SynchronizationLib
+  UefiLib
+  HobLib
+  BootGuardLib
+  BootGuardRevocationLib
+  
+[Protocols]
+  gEfiMpServiceProtocolGuid  ## CONSUMES
+  gEfiSmmBaseProtocolGuid    ## CONSUMES
+  gExitPmAuthProtocolGuid    ## CONSUMES
+  gDxeCpuPlatformPolicyProtocolGuid  ## CONSUMES
+  gEfiDataHubProtocolGuid    ## CONSUMES
+  gEfiMetronomeArchProtocolGuid      ## CONSUMES
+  gDxeCpuCacheProtocolGuid   ## CONSUMES
+  gEfiCpuArchProtocolGuid    ## CONSUMES
+  gEfiSmmControlProtocolGuid ## CONSUMES
+  gEfiStartOfBdsDiagnosticsProtocolGuid ## CONSUMES
+  gFrameworkEfiMpServiceProtocolGuid  ## CONSUMES 
+  gDxeCpuInfoProtocolGuid    ## CONSUMES
+  
+[Ppis]
+  
+[Guids]
+  gProcessorProducerGuid     ## CONSUMES
+  gSmramCpuDataVariableGuid  ## CONSUMES
+  gSmramCpuDataHeaderGuid    ## CONSUMES
+  gEfiHtBistHobGuid          ## CONSUMES
+  gEfiStatusCodeSpecificDataGuid  ## CONSUMES
+  gPowerOnHobGuid            ## CONSUMES
+  gEfiHobListGuid            ## CONSUMES 
+  gEfiCacheSubClassGuid      ## CONSUMES 
+  gEfiMiscSubClassGuid       ## CONSUMES 
+  gMiscProducerGuid          ## CONSUMES
+  gEfiProcessorSubClassGuid  ## CONSUMES
+  
+[Pcd]
+
+[Depex]
+  gEfiMetronomeArchProtocolGuid AND
+  gEfiCpuIoProtocolGuid AND
+  gEfiHiiDatabaseProtocolGuid AND
+  gDxeCpuPlatformPolicyProtocolGuid
+  

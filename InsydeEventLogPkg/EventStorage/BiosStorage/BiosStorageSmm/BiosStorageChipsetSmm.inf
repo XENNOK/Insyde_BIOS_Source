@@ -1,0 +1,47 @@
+#/** @file
+#
+#  Component description file for BiosStorageChipset SMM driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BiosStorageChipsetSmm
+  FILE_GUID                      = 26942B3A-B873-49FF-A36D-E76D11F0C1FF
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = BiosStorageChipsetSmmEntryPoint
+  
+[Sources]
+  BiosStorageChipsetSmm.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  SmmServicesTableLib
+  
+[Protocols]
+  gEfiSmmBase2ProtocolGuid                     # CONSUMED
+  gEfiBiosSmmEventLogProtocolGuid              # CONSUMED
+
+  gH2OSmmEventStorageProtocolGuid              # PRODUCED
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiBiosSmmEventLogProtocolGuid 

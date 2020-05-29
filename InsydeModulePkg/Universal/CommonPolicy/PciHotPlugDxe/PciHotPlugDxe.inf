@@ -1,0 +1,46 @@
+## @file
+#  Component description file for PciHotPlug module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PciHotPlugDxe
+  FILE_GUID                      = 1967DD9B-B72C-4328-8C80-D4ACFC83FDF8
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PciHotPlugEntryPoint
+
+[Sources]
+  PciHotPlugDxe.c
+  PciHotPlugDxe.h
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  
+[LibraryClasses]
+  DebugLib
+  BaseMemoryLib
+  DevicePathLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DxeOemSvcKernelLibDefault
+
+[Protocols]
+  gEfiPciHotPlugInitProtocolGuid
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid

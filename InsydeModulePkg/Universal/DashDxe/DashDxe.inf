@@ -1,0 +1,75 @@
+## @file
+#  Component description file for DASH module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DashDxe
+  FILE_GUID                      = 213A595C-F512-4935-90E3-2CEAD077C721
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = DashEntry
+
+[Sources]
+  DashDxe.h
+  DashDxe.c
+  MctpBus.h
+  MctpBus.c
+  Mctp.h
+  Mctp.c
+  Pldm.h
+  Pldm.c
+  PldmSmbios.h
+  PldmSmbios.c
+  PldmBios.h
+  PldmBios.c
+  PldmPlatformMonitor.h
+  PldmPlatformMonitor.c  
+  PushManagementData.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  UefiLib
+  DebugLib
+  PrintLib
+
+[Protocols]
+  gEfiCpuArchProtocolGuid
+  gEfiCpuIoProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiSmbusHcProtocolGuid
+  gDashIoCfgProtocolGuid
+  gMctpSmbusProtocolGuid
+  gMctpBusProtocolGuid
+  gMctpProtocolGuid
+  gPldmProtocolGuid
+  gSmbiosSensorExtensionProtocolGuid
+  
+[Guids]
+  gEfiSmbiosTableGuid
+  gEfiGlobalVariableGuid
+
+[Depex]
+  gEfiCpuIoProtocolGuid AND
+  gEfiPciRootBridgeIoProtocolGuid AND
+  gEfiSmbusHcProtocolGuid AND
+  gDashIoCfgProtocolGuid
+  

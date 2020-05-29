@@ -1,0 +1,33 @@
+## @file
+#  Platform Package Declaration file
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = SioDummyPkg
+  PACKAGE_GUID                   = 3D1AD0F1-2F5B-4d61-913F-AFE3F38F5528
+  PACKAGE_VERSION                = 0.2
+
+[Includes]
+  Include
+
+[LibraryClasses]  
+  
+[Guids]
+    
+[Protocols]
+
+[PcdsFeatureFlag]
+
+[PcdsFixedAtBuild,PcdsPatchableInModule,PcdsDynamic]
+  gSioGuid.PcdSioDummyCfg|{0}|VOID*|0x00048000
+

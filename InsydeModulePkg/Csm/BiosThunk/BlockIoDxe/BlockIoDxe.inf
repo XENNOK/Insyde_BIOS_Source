@@ -1,0 +1,80 @@
+## @file
+#  Component description file for BlockIoDxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+## 
+#  Component description file for BIOS Block IO module.
+#
+# Copyright (c) 1999 - 2010, Intel Corporation. All rights reserved.<BR>
+#
+# This program and the accompanying materials
+# are licensed and made available under the terms and conditions
+# of the BSD License which accompanies this distribution.  The
+# full text of the license may be found at
+# http://opensource.org/licenses/bsd-license.php
+#
+# THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+# WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BlockIoDxe
+  FILE_GUID                      = 4495E47E-42A9-4007-8c17-B6664F909D04
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+
+  ENTRY_POINT                    = BiosBlockIoDriverEntryPoint
+
+[Sources]
+  BiosBlkIo.h
+  Edd.h
+  BiosBlkIo.c
+  BiosInt13.c
+  ComponentName.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PcdLib
+  UefiDriverEntryPoint
+  DebugLib
+  BaseMemoryLib
+  UefiBootServicesTableLib
+  UefiLib
+  DevicePathLib
+  MemoryAllocationLib
+
+[Protocols]
+  gEfiBlockIoProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiLegacyRegion2ProtocolGuid
+  gEfiDiskInfoProtocolGuid
+  
+[Guids]
+  gEfiLegacyBiosGuid
+  gBlockIoVendorGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+
+[Depex]
+  gEfiLegacyBiosProtocolGuid AND
+  gEfiSataControllerInitGuid OR
+  gEfiIdeControllerInitProtocolGuid

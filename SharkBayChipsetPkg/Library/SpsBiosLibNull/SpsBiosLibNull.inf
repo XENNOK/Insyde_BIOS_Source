@@ -1,0 +1,40 @@
+## @file
+#
+#  Component description file for Server Platform Services ME Null Library
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsBiosLibNull
+  FILE_GUID                      = 5FC2D112-20A1-4ee7-9553-1CA837839042
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SpsBiosLib
+
+[Sources]
+  SpsBiosLibNull.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+
+[Guids]
+
+[Protocols]
+
+[Pcd]
+
+[BuildOptions]
+

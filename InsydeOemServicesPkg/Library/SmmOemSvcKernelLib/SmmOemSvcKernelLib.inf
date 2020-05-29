@@ -1,0 +1,67 @@
+## @file
+#  Component description file for SmmOemSvcKernelLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmOemSvcKernelLib
+  FILE_GUID                      = 9B96DBDD-979D-4cfa-AEC2-0D3730FA68EF
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SmmOemSvcKernelLib|DXE_SMM_DRIVER SMM_CORE
+
+[Sources]
+  OemSvcDisableAcpiCallback.c
+  OemSvcEnableAcpiCallback.c
+  OemSvcGetAspmOverrideInfo.c
+  OemSvcSmmInstallPnpGpnvTable.c
+  OemSvcSmmInstallPnpStringTable.c
+  OemSvcPowerButtonCallback.c
+  OemSvcRestoreAcpiCallback.c
+  OemSvcS1Callback.c
+  OemSvcS3Callback.c
+  OemSvcS4Callback.c
+  OemSvcS5AcLossCallback.c
+  OemSvcS5Callback.c
+  OemSvcOsResetCallback.c
+  OemSvcVariablePreservedTable.c
+  OemSvcIhisiGetWholeBiosRomMap.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gInsydeTokenSpaceGuid.PcdFlashFvMainBase
+  gInsydeTokenSpaceGuid.PcdFlashFvMainSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMsdmDataBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMsdmDataSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageBvdtBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageBvdtSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopyBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize

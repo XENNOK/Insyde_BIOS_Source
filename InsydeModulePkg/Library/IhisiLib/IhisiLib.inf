@@ -1,0 +1,94 @@
+## @file
+#  Component description file for IhisiLib library instance
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IhisiLib
+  FILE_GUID                      = 35DB0706-E778-4a32-A6DB-843F6F17856F
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = IhisiLib
+  CONSTRUCTOR                    = IhisiLibConstructor
+  DESTRUCTOR                     = IhisiLibDestructor
+
+[Sources]
+  IhisiLib.c
+  VatsLib.c
+  FbtsLib.c
+  FactoryDefaultLib.c
+  SecureFlashLib.c              ||||gInsydeTokenSpaceGuid.PcdSecureFlashSupported
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  VariableSupportLib
+  SmmServicesTableLib
+  PcdLib
+  BvdtLib
+  FlashDevicesLib
+  SmmOemSvcKernelLibDefault
+  SeamlessRecoveryLib
+  LockBoxLib
+  VariableLib
+  UefiBootServicesTableLib
+
+[Guids]
+  gSecureFlashInfoGuid
+
+[Protocols]
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmCpuProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmFwBlockServiceProtocolGuid
+
+  gTianoCompressProtocolGuid
+  gEfiSmmAccess2ProtocolGuid    ## CONSUMES
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdSecureFlashSupported
+  gInsydeTokenSpaceGuid.PcdKeepVariableInList
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gInsydeTokenSpaceGuid.PcdFlashFvMainBase
+  gInsydeTokenSpaceGuid.PcdFlashFvMainSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMsdmDataBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMsdmDataSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageBvdtBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageBvdtSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopyBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase64
+  gInsydeTokenSpaceGuid.PcdDefaultPreservedVariableList
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashUnsignedFvRegionBase
+  gInsydeTokenSpaceGuid.PcdEndOfFlashUnsignedFvRegionTotalSize
+

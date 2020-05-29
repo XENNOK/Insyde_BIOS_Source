@@ -1,0 +1,61 @@
+## @file
+#  This PEIM provides Setup variable default values if Setup variable does not exist
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SetupDataProviderPei
+  FILE_GUID                      = B937BAC9-B41B-4914-BC32-72410400F9DE
+  MODULE_TYPE                    = PEIM
+  ENTRY_POINT                    = SetupDataProviderEntryPoint
+
+[Sources]
+  SetupDataProviderPei.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+
+[LibraryClasses]
+   PeimEntryPoint
+   PeiServicesLib
+   HobLib
+   PeiOemSvcKernelLibDefault
+   KernelConfigLib
+   BaseSetupDefaultLib
+   KernelVfrLib
+   PlatformVfrLib
+   SeamlessRecoveryLib
+   VariableLib
+
+
+[Guids]
+  gSystemConfigurationGuid
+  gSetupDefaultHobGuid
+  gPeiDefaultSetupProviderGuid
+
+
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid
+  gEmuPeiPpiGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+  gInsydeTokenSpaceGuid.PcdSetupDataInvalid
+  gSetupConfigNameGuid
+  gSetupConfigOffsetSizeGuid
+
+[Depex]
+  TRUE

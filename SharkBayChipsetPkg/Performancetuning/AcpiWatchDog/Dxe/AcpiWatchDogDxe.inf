@@ -1,0 +1,52 @@
+## @file
+#
+#   
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AcpiWatchDogDxe
+  FILE_GUID                      = 13688172-9E0C-4bad-A646-3554A961AEAD
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeAcpiWatchDog
+  
+[Sources]
+  AcpiWatchDogDxe.c
+  AcpiWatchDogDxe.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  CmosLib
+  IoLib
+  UefiLib
+ 
+[Protocols]
+  gEfiAcpiSupportProtocolGuid
+  gDxePlatformXtuPolicyGuid  
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress  
+  
+[Depex]
+  gDxePlatformXtuPolicyGuid       AND
+  gEfiAcpiSupportProtocolGuid

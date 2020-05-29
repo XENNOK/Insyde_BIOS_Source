@@ -1,0 +1,38 @@
+## @file
+#  Component description file for UsbLegacy Smm module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbLegacySmm
+  FILE_GUID                      = EF33C296-F64C-4146-AD04-347899702C84
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  BINARY_VERSION                 = 02.02.21.0522.00
+
+[Binaries.Ia32]
+  PE32|Ia32/UsbLegacySmm.efi|*
+
+[Binaries.X64]
+  PE32|X64/UsbLegacySmm.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiLegacyBiosProtocolGuid AND
+  gEfiUsbCoreProtocolGuid
+

@@ -1,0 +1,101 @@
+## @file
+#  Component description file for TXTDXE module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+#++
+# This file contains a 'Sample Driver' and is licensed as such
+# under the terms of your license agreement with Intel or your
+# vendor.  This file may be modified by the user, subject to  
+# the additional terms of the license agreement               
+#--
+#++
+#
+#  Copyright (c)  1999 - 2011 Intel Corporation. All rights reserved
+#  This software and associated documentation (if any) is furnished
+#  under a license and may only be used or copied in accordance
+#  with the terms of the license. Except as permitted by such
+#  license, no part of this software or documentation may be
+#  reproduced, stored in a retrieval system, or transmitted in any
+#  form or by any means without the express written consent of
+#  Intel Corporation.
+#
+#  Module Name:
+#
+#   TxtDxe.inf
+#
+#  Abstract:
+#
+#   Component description file for TXTDXE module
+#
+#--
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = TxtDxe
+  FILE_GUID                      = FF917E22-A228-448d-BDAA-68EFCCDDA5D3
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = DriverEntry
+
+[sources]
+  TxtDxe.c
+  TxtDxeLib.c
+#[-start-130120-IB06690094-add]#
+  TxtAcmLib.c
+#[-end-130120-IB06690094-add]#
+  TxtDxeOem.c
+  x64/TxtDxeBsp.asm
+  x64/TxtDxeAp.asm
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DebugLib
+  UefiLib
+  BaseLib
+  IoLib
+  HobLib
+  PcdLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  DxeServicesTableLib
+  S3BootScriptLib
+  PciLib
+  
+[Guids]
+  gTxtInfoHobGuid
+  gTxtBiosAcmPeiFileGuid
+  gTxtSinitAcmPeiFileGuid
+  
+[Protocols]
+  gDxeCpuPlatformPolicyProtocolGuid
+  gEfiCpuIoProtocolGuid
+  gFrameworkEfiMpServiceProtocolGuid
+  gEfiFirmwareVolumeProtocolGuid
+  
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[Depex]
+//[-start-110216-IB06690094-add]//
+  gEfiFirmwareVolumeProtocolGuid      AND
+//[-end-110216-IB06690094-add]//
+  gFrameworkEfiMpServiceProtocolGuid  AND
+  gDxeCpuPlatformPolicyProtocolGuid   AND
+  gEfiCpuIoProtocolGuid AND
+  gEfiSmmBase2ProtocolGuid

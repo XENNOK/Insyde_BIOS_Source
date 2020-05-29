@@ -1,0 +1,50 @@
+## @file
+#  Component description file for DxeIpmiPackageLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeIpmiPackageLib
+  FILE_GUID                      = CD4CD33D-BFBF-4ea8-BFED-C7EB8B834028
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeIpmiPackageLib|DXE_DRIVER
+
+[Sources]
+  IpmiEnterSetup.c
+  IpmiSetAcpiKeyboard.c
+  IpmiUpdateNvsVariable.c
+  IpmiUpdatePolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(PROJECT_PKG)/Project.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiLib
+  DevicePathLib
+
+[Guids]
+
+[Protocols]
+  gEfiGlobalNvsAreaProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid  AND
+  gEfiGlobalNvsAreaProtocolGuid
+

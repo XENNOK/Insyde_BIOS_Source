@@ -1,0 +1,63 @@
+#/** @file
+#
+#  Component description file for PowerManagementDxe driver
+#
+#;******************************************************************************
+#;* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#;******************************************************************************
+#;* Copyright (c)  1999 - 2010 Intel Corporation. All rights reserved
+#;*
+#;* This software and associated documentation (if any) is furnished
+#;* under a license and may only be used or copied in accordance
+#;* with the terms of the license. Except as permitted by such
+#;* icense, no part of this software or documentation may be
+#;* reproduced, stored in a retrieval system, or transmitted in any
+#;* form or by any means without the express written consent of
+#;* Intel Corporation.
+#;*
+#;******************************************************************************   
+#
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IsctSmm
+  FILE_GUID                      = 6F130082-3A2E-4AC0-8861-5503F5930EF4
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = InstallIsctSmm
+
+[Sources]
+  IsctSmm.c
+  IsctSmm.h
+
+[Packages]
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+   UefiBootServicesTableLib
+   UefiDriverEntryPoint
+   DebugLib
+   IoLib
+   BaseLib
+   PciLib
+   
+[Protocols]
+  gEfiSmmSxDispatchProtocolGuid
+
+[Depex]
+  gEfiSmmSxDispatchProtocolGuid AND
+  gEfiSmmControlProtocolGuid    AND
+  gIsctNvsAreaProtocolGuid

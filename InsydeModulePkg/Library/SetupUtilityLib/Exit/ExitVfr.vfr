@@ -1,0 +1,120 @@
+/** @file
+  The Vfr component for Exit menu
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#include "KernelSetupConfig.h"
+
+formset
+#if FeaturePcdGet(PcdH2OFormBrowserSupported)
+  guid     = FORMSET_ID_GUID_EXIT,
+#else
+  guid     = SYSTEM_CONFIGURATION_GUID,
+#endif
+  title    = STRING_TOKEN(STR_EXIT_TITLE),
+  help     = STRING_TOKEN(STR_BLANK_STRING),
+  classguid = SETUP_UTILITY_FORMSET_CLASS_GUID,
+  class    = SETUP_UTILITY_CLASS,
+  subclass = SETUP_UTILITY_SUBCLASS,
+#if defined(SETUP_IMAGE_SUPPORT) && FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+  image     = IMAGE_TOKEN(IMAGE_EXIT);
+#endif
+
+  varstore KERNEL_CONFIGURATION,            // This is the data structure type
+    varid = CONFIGURATION_VARSTORE_ID,      // Optional VarStore ID
+    name  = SystemConfig,                    // Define referenced name in vfr
+    guid  = SYSTEM_CONFIGURATION_GUID;      // GUID of this buffer storage
+
+  form
+    formid = ROOT_FORM_ID,
+
+    title = STRING_TOKEN(STR_EXIT_TITLE);
+
+    subtitle
+      text = STRING_TOKEN(STR_BLANK_STRING);
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      text
+        help   = STRING_TOKEN(STR_EXIT_SAVING_CHANGES_HELP),
+        text   = STRING_TOKEN(STR_EXIT_SAVING_CHANGES_STRING),
+        text   = STRING_TOKEN(STR_BLANK_STRING),
+        flags  = INTERACTIVE,
+        key    = KEY_SAVE_EXIT;
+    endif;
+
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      text
+        help   = STRING_TOKEN(STR_SAVE_CHANGE_WITHOUT_EXIT_HELP),
+        text   = STRING_TOKEN(STR_SAVE_CHANGE_WITHOUT_EXIT_STRING),
+        text   = STRING_TOKEN(STR_BLANK_STRING),
+        flags  = INTERACTIVE,
+        key    = KEY_SAVE_WITHOUT_EXIT;
+    endif;
+
+    text
+      help   = STRING_TOKEN(STR_EXIT_DISCARDING_CHANGES_HELP),
+      text   = STRING_TOKEN(STR_EXIT_DISCARDING_CHANGES_STRING),
+      text   = STRING_TOKEN(STR_BLANK_STRING),
+      flags  = INTERACTIVE,
+      key    = KEY_EXIT_DISCARD;
+
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+
+      text
+        help   = STRING_TOKEN(STR_LOAD_OPTIMAL_DEFAULTS_HELP),
+        text   = STRING_TOKEN(STR_LOAD_OPTIMAL_DEFAULTS_STRING),
+        text   = STRING_TOKEN(STR_BLANK_STRING),
+        flags  = INTERACTIVE,
+        key    = KEY_LOAD_OPTIMAL;
+
+      text
+        help   = STRING_TOKEN(STR_LOAD_CUSTOM_DEFAULTS_HELP),
+        text   = STRING_TOKEN(STR_LOAD_CUSTOM_DEFAULTS_STRING),
+        text   = STRING_TOKEN(STR_BLANK_STRING),
+        flags  = INTERACTIVE,
+        key    = KEY_LOAD_CUSTOM;
+    endif;
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+
+      text
+        help   = STRING_TOKEN(STR_SAVE_CUSTOM_DEFAULTS_HELP),
+        text   = STRING_TOKEN(STR_SAVE_CUSTOM_DEFAULTS_STRING),
+        text   = STRING_TOKEN(STR_BLANK_STRING),
+        flags  = INTERACTIVE,
+        key    = KEY_SAVE_CUSTOM;
+    endif;
+
+    text
+      help   = STRING_TOKEN(STR_DISCARD_CHANGES_HELP),
+      text   = STRING_TOKEN(STR_DISCARD_CHANGES_STRING),
+      text   = STRING_TOKEN(STR_BLANK_STRING),
+      flags  = INTERACTIVE,
+      key    = KEY_DISCARD_CHANGE;
+
+    label TRIGGER_BROWSER_REFRESH_LABEL;
+  endform;
+
+endformset;
+

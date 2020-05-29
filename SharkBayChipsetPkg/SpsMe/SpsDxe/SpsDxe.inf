@@ -1,0 +1,59 @@
+## @file
+#
+#  Component description file for Server Platform Services ME Driver in DXE phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsDxe
+  FILE_GUID                      = CA5B0FA3-5009-466e-9497-C77DA34903A7
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SpsMeDxeEntry
+
+[Sources]
+  SpsDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  PciLib
+  HobLib
+
+  AcpiPlatformLib
+  SpsMeLib
+
+[Guids]
+  gSpsInfoHobGuid                                ## CONSUMES  ## Hob
+
+[Protocols]
+  gSpsInfoProtocolGuid                           ## PRODUCES
+  gEfiAcpiSupportProtocolGuid                    ## CONSUMES
+
+[Pcd]
+
+[FixedPcd]
+  gChipsetPkgTokenSpaceGuid.PcdOemId
+  gChipsetPkgTokenSpaceGuid.PcdOemTableId
+
+[Depex]
+  gSpsDxeHeciProtocolGuid
+
+[BuildOptions]
+
+

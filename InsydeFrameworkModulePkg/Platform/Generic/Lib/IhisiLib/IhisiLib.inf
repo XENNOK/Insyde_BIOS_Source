@@ -1,0 +1,52 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name:
+#;
+#;   IhisiLib.inf
+#;
+
+[defines]
+BASE_NAME            = IhisiLib
+COMPONENT_TYPE       = LIBRARY
+
+[sources.common]
+  IhisiLib.c
+  VatsLib.c
+  FbtsLib.c
+  FactoryDefaultLib.c
+!IF "$(SECURE_FLASH_SUPPORT)" == "YES"
+  SecureFlashLib.c
+!ENDIF
+
+[libraries.common]
+  EdkFrameworkProtocolLib
+  EfiProtocolLib
+  EfiSmmDriverLib
+  EfiCommonLib
+  FdSupportLib
+  ChipsetLib
+  BvdtLib
+  VariableSupportLib
+
+[includes.common]
+  $(DEST_DIR)
+  $(BUILD_DIR)
+  $(BUILD_DIR)\$(PROCESSOR)
+
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Library\Include
+  $(EFI_SOURCE)\Library\Dxe\Include
+  $(EFI_SOURCE)\Include\OemServices
+  $(EFI_SOURCE)\Platform\Generic\Lib\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+
+[nmake.common]
+

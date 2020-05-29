@@ -1,0 +1,33 @@
+## @file
+#  Component description file for CrVfrConfigLibNull instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                     = 0x00010005
+  BASE_NAME                       = CrVfrConfigLibNull
+  FILE_GUID                       = 41D3E4B8-4971-4952-A0F1-B74888B33A51
+  MODULE_TYPE                     = DXE_DRIVER
+  VERSION_STRING                  = 1.0
+  LIBRARY_CLASS                   = CrVfrConfigLib|DXE_DRIVER
+
+[Sources]
+  CrVfrString.uni
+  CrVfrConfigLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec

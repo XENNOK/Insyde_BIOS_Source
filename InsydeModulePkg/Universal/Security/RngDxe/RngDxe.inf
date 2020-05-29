@@ -1,0 +1,52 @@
+## @file
+#  Component description file for Rng interpreter.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = RngDxe
+  FILE_GUID            = 40155DB7-F2F6-4f7e-8BA8-A3466D4EF5FE
+  MODULE_TYPE          = DXE_DRIVER
+  VERSION_STRING       = 1.0
+  ENTRY_POINT          = RngDriverEntryPoint
+  UNLOAD_IMAGE         = RngDriverUnload
+
+[Sources]
+  RngDxe.c
+  RngDxe.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  DebugLib
+
+[Guids]
+  gEfiRngAlgorithmSp80090Hash256Guid
+  gEfiRngAlgorithmSp80090Hmac256Guid
+  gEfiRngAlgorithmSp80090Ctr256Guid
+  gEfiRngAlgorithmX9313DesGuid
+  gEfiRngAlgorithmX931AesGuid
+  gEfiRngAlgorithmRaw
+
+[Protocols]
+  gEfiRngProtocolGuid
+  gCryptoServicesProtocolGuid           # ALWAYS CONSUME
+
+[depex]
+  gCryptoServicesProtocolGuid
+

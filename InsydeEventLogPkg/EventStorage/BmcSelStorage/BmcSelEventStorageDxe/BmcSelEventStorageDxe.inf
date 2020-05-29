@@ -1,0 +1,53 @@
+#/** @file
+#
+#  Component description file for BmcSelEventStorage DXE driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BmcSelEventStorageDxe
+  FILE_GUID                      = 2DA99E67-07F8-417B-BA59-F2049D57BDF2
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = BmcSelEventStorageDxeEntryPoint
+
+[Sources]
+  BmcSelEventStorageDxe.c
+  BmcSelEventStorageDxe.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  IoLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+
+[Protocols]
+  gH2OIpmiInterfaceProtocolGuid                # CONSUMED
+  gH2OEventStorageProtocolGuid                 # PRODUCED
+  gH2OEventLogStringProtocolGuid               # PRODUCED
+#[-start-140213-IB08400246-add]#
+  gH2OEventLogStringProtocolGuid               # PRODUCED 
+#[-end-140213-IB08400246-add]#
+
+[Depex]
+  gH2OIpmiInterfaceProtocolGuid
+  

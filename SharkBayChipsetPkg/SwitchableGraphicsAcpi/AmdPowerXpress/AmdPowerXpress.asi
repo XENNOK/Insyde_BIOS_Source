@@ -1,0 +1,140 @@
+/** @file
+
+;******************************************************************************
+;* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#ifndef _AMD_POWERXPRESS_ASI_
+#define _AMD_POWERXPRESS_ASI_
+
+//
+// ASL code common define about device and bridge
+//
+#define DGPU_BRIDGE_SCOPE                     \_SB.PCI0.PEG0
+#define DGPU_DEVICE                           PEGP
+#define DGPU_AUDIO_DEVICE                     PEGA
+#define DGPU_SCOPE                            DGPU_BRIDGE_SCOPE.DGPU_DEVICE
+#define DGPU_AUDIO_SCOPE                      DGPU_BRIDGE_SCOPE.DGPU_AUDIO_DEVICE
+#define IGPU_SCOPE                            \_SB.PCI0.GFX0
+
+//
+// ATI GFX Interface function define
+//
+#define ATIF_VERIFY_INTERFACE                 0x0
+#define ATIF_GET_SYSTEM_PARAMETERS            0x1
+#define ATIF_GET_SBIOS_REQUESTS               0x2
+#define ATIF_SELECT_ACTIVE_DISPLAY            0x3
+
+//
+// ATI PowerXpress function define
+//
+#define PX_VERIFY_POWERXPRESS_INTERFACE       0x0
+#define PX_GET_POWERXPRESS_PARAMETERS         0x1
+#define PX_POWER_CONTROL                      0x2
+#define PX_DISPLAY_MULTIPLEXER_CONTROL        0x3
+#define PX_MONITOR_I2C_CONTROL                0x4
+#define PX_GFX_SWITCH_START_NOTIFICATION      0x5
+#define PX_GFX_SWITCH_END_NOTIFICATION        0x6
+#define PX_GET_DISPLAY_CONNECTORS_MAPPING     0x8
+
+// 
+// The display combinations in the list...
+//   bit0: LCD1,  bit1: CRT1,  bit2: TV1,  bit3: DFP1,  bit7: DFP2
+//   Bit9: DFP3,  Bit10: DFP4, Bit11: DFP5
+//
+// 1  - LCD1 (LCD)
+#define TOGGLE_LIST_ENTRIES_LCD1              0x0002
+// 2  - CRT1 (CRT)
+#define TOGGLE_LIST_ENTRIES_CRT1              0x0001
+// 3  - DFP1 (DVI)
+#define TOGGLE_LIST_ENTRIES_DFP1              0x0008
+// 4  - DFP2 (HDMI)
+#define TOGGLE_LIST_ENTRIES_DFP2              0x0080
+// 5  - DFP3
+#define TOGGLE_LIST_ENTRIES_DFP3              0x0200
+// 6  - DFP4
+#define TOGGLE_LIST_ENTRIES_DFP4              0x0400
+// 7  - DFP5
+#define TOGGLE_LIST_ENTRIES_DFP5              0x0800
+// 8  - CRT1 + LCD1
+#define TOGGLE_LIST_ENTRIES_CRT1_LCD1         0x0003
+// 9  - CRT1 + DFP1
+#define TOGGLE_LIST_ENTRIES_CRT1_DFP1         0x0009
+// 10 - CRT1 + DFP2
+#define TOGGLE_LIST_ENTRIES_CRT1_DFP2         0x0081
+// 11 - CRT1 + DFP3
+#define TOGGLE_LIST_ENTRIES_CRT1_DFP3         0x0201
+// 12 - CRT1 + DFP4
+#define TOGGLE_LIST_ENTRIES_CRT1_DFP4         0x0401
+// 13 - CRT1 + DFP5
+#define TOGGLE_LIST_ENTRIES_CRT1_DFP5         0x0801
+// 14 - NULL
+#define TOGGLE_LIST_ENTRIES_NULL              0x0000
+// Total number of toggle list entries
+#define TOGGLE_LIST_ENTRIES_NUMBER            15
+#define TOGGLE_LIST_ENTRIES_01                TOGGLE_LIST_ENTRIES_LCD1
+#define TOGGLE_LIST_ENTRIES_02                TOGGLE_LIST_ENTRIES_CRT1
+#define TOGGLE_LIST_ENTRIES_03                TOGGLE_LIST_ENTRIES_DFP1
+#define TOGGLE_LIST_ENTRIES_04                TOGGLE_LIST_ENTRIES_DFP2
+#define TOGGLE_LIST_ENTRIES_05                TOGGLE_LIST_ENTRIES_DFP3
+#define TOGGLE_LIST_ENTRIES_06                TOGGLE_LIST_ENTRIES_DFP4
+#define TOGGLE_LIST_ENTRIES_07                TOGGLE_LIST_ENTRIES_DFP5
+#define TOGGLE_LIST_ENTRIES_08                TOGGLE_LIST_ENTRIES_CRT1_LCD1
+#define TOGGLE_LIST_ENTRIES_09                TOGGLE_LIST_ENTRIES_CRT1_DFP1
+#define TOGGLE_LIST_ENTRIES_10                TOGGLE_LIST_ENTRIES_CRT1_DFP2
+#define TOGGLE_LIST_ENTRIES_11                TOGGLE_LIST_ENTRIES_CRT1_DFP3
+#define TOGGLE_LIST_ENTRIES_12                TOGGLE_LIST_ENTRIES_CRT1_DFP4
+#define TOGGLE_LIST_ENTRIES_13                TOGGLE_LIST_ENTRIES_CRT1_DFP5
+#define TOGGLE_LIST_ENTRIES_14                TOGGLE_LIST_ENTRIES_NULL
+#define TOGGLE_LIST_ENTRIES_15                TOGGLE_LIST_ENTRIES_NULL
+
+//
+// You need to set this when on an AMD Muxed project. The "Port Type" table is shown below,
+// and it should be set by project. It is used by IGPU_SCOPE.ATPX function 8.
+//
+// SG MUX DID format
+//  MUX: 1 = iGPU Only, 2 = dGPU Only, 3 = Shared
+//  <HPD MUX>      <Aux MUX>      <Display MUX>   <Port Type>
+//  Bit 31 to 24   Bit 23 to 16   Bit 15 to 8     Bit 7 to 0
+//
+//  <Port ID>      <Port Type>
+//  0x0            Reserved
+//  0x1            Analog VGA
+//  0x2            LVDS
+//  0x3            Reserved
+//  0x4            HDMI/DVI_B
+//  0x5            HDMI/DVI_C
+//  0x6            HDMI/DVI_D
+//  0x7            DisplayPort_A
+//  0x8            DisplayPort_B
+//  0x9            DisplayPort_C
+//  0xA            DisplayPort_D
+//  0x0E           INTEL Wireless Display
+//
+// CRT
+#define SG_MUX_DID_1                          0x00030301
+// eDP
+#define SG_MUX_DID_2                          0x00030307
+// DisplayPort_B
+#define SG_MUX_DID_3                          0x03030308
+// HDMI_B
+#define SG_MUX_DID_4                          0x03030304
+// HDMI_C
+#define SG_MUX_DID_5                          0x03030305
+// DisplayPort_D
+#define SG_MUX_DID_6                          0x0303030A
+// HDMI_D
+#define SG_MUX_DID_7                          0x03030306
+// LFP
+#define SG_MUX_DID_8                          0x00030302
+// Unused
+#define SG_MUX_DID_9                          0x00000000
+
+#endif

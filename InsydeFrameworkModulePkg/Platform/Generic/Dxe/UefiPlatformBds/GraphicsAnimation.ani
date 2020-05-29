@@ -1,0 +1,7 @@
+#animation ANI_CONTINUE            "GraphicsContinue.gif"
+#animation ANI_SCU                 "GraphicsSCU.gif"
+#animation ANI_BOOT_MANAGER        "GraphicsBootManager.gif"
+#animation ANI_DEVICE_MANGER       "GraphicsDeviceManagement.gif"
+#animation ANI_BOOT_FROM_FILE      "GraphicsBootFromFile.gif"
+#animation ANI_SECURE_BOOT_OPTION  "GraphicsSecureBootOption.gif"
+#animation ANI_BACKGROUND          "GraphicsBackground.gif"

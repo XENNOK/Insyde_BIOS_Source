@@ -1,0 +1,123 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SwitchableGraphicsPei
+  FILE_GUID                      = E3E8BA35-541F-4ef1-BFB8-75F02A26CC75
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SwitchableGraphicsPeiInitEntry
+
+[Sources]
+  SwitchableGraphicsPei.c
+  SwitchableGraphicsPei.h
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  PerformancePkg/PerformancePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+
+[LibraryClasses]
+  BaseMemoryLib
+  CpuPlatformLib
+  IoLib
+  PcdLib
+  PeimEntryPoint
+  PeiOemSvcChipsetLibDefault
+  PeiServicesLib
+
+[Guids]
+  gSystemConfigurationGuid
+  gH2OSgInformationDataHobGuid
+
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid
+  gH2OSwitchableGraphicsPpiGuid
+  gSaPlatformPolicyPpiGuid
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdSgGpioSupport
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPwrOkGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPwrOkGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuHoldRstGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuHoldRstGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuEdidSelGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuEdidSelGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuEdidSelGpioPinExist
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuSelGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuSelGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuSelGpioPinExist
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPwmSelGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPwmSelGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPwmSelGpioPinExist
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPwrEnableGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPwrEnableGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPrsntGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPrsntGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgDgpuPrsntGpioPinExist
+  gChipsetPkgTokenSpaceGuid.PcdSgActiveDgpuPwrEnableDelay
+  gChipsetPkgTokenSpaceGuid.PcdSgActiveDgpuHoldRstDelay
+  gChipsetPkgTokenSpaceGuid.PcdSgInactiveDgpuHoldRstDelay
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveMxmGpuSupport
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuPwrOkGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuPwrOkGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuHoldRstGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuHoldRstGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuPwrEnableGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuPwrEnableGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuPrsntGpioPinValue
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuPrsntGpioPinActive
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuPrsntGpioPinExist
+  gChipsetPkgTokenSpaceGuid.PcdSgPegBridgeBus
+  gChipsetPkgTokenSpaceGuid.PcdSgPegBridgeDevice
+  gChipsetPkgTokenSpaceGuid.PcdSgPegBridgeFunction
+  gChipsetPkgTokenSpaceGuid.PcdSgPcieBridgeBus
+  gChipsetPkgTokenSpaceGuid.PcdSgPcieBridgeDevice
+  gChipsetPkgTokenSpaceGuid.PcdSgPcieBridgeFunction
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuBridgeBus
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuBridgeDevice
+  gChipsetPkgTokenSpaceGuid.PcdSgSlaveDgpuBridgeFunction
+  gChipsetPkgTokenSpaceGuid.PcdSgModeMxmBinaryGuid
+  gChipsetPkgTokenSpaceGuid.PcdPegModeMasterMxmBinaryGuid
+  gChipsetPkgTokenSpaceGuid.PcdPegModeSlaveMxmBinaryGuid
+  gChipsetPkgTokenSpaceGuid.PcdAmdDiscreteSsdtGuid
+  gChipsetPkgTokenSpaceGuid.PcdAmdPowerXpressSsdtGuid
+  gChipsetPkgTokenSpaceGuid.PcdAmdUltPowerXpressSsdtGuid
+  gChipsetPkgTokenSpaceGuid.PcdNvidiaDiscreteSsdtGuid
+  gChipsetPkgTokenSpaceGuid.PcdNvidiaOptimusSsdtGuid
+  gChipsetPkgTokenSpaceGuid.PcdNvidiaUltOptimusSsdtGuid
+  gChipsetPkgTokenSpaceGuid.PcdAmdSecondaryGrcphicsCommandRegister
+  gChipsetPkgTokenSpaceGuid.PcdNvidiaSecondaryGrcphicsCommandRegister
+  gChipsetPkgTokenSpaceGuid.PcdSgNvidiaOptimusDgpuHotPlugSupport
+  gChipsetPkgTokenSpaceGuid.PcdSgNvidiaOptimusDgpuPowerControlSupport
+  gChipsetPkgTokenSpaceGuid.PcdSgNvidiaGpsFeatureSupport
+  gChipsetPkgTokenSpaceGuid.PcdSgNvidiaVenturaFeatureSupport
+  gChipsetPkgTokenSpaceGuid.PcdSgNvidiaOptimusGc6FeatureSupport
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdSwitchableGraphicsSupported
+
+#[BuildOptions]
+#  DEBUG_*_IA32_CC_FLAGS = /Od
+
+[Depex]
+  gEfiPeiReadOnlyVariable2PpiGuid AND
+  gSaPlatformPolicyPpiGuid

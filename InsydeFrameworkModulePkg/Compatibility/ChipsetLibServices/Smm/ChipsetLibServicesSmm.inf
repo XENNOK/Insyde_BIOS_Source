@@ -1,0 +1,57 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name:
+#;
+#;   ChipsetLibServicesSmm.inf
+#;
+#; Abstract:
+#;
+#;   Driver module to install chipset lib interface.
+#;
+
+[defines]
+BASE_NAME            = ChipsetLibServicesSmm
+FILE_GUID            = 78270D5E-9450-4FAE-8818-B91EA39864CD
+COMPONENT_TYPE       = RT_DRIVER
+
+[sources.common]
+  ChipsetLibServicesSmm.c
+  ChipsetLibServicesSmm.h
+
+[libraries.common]
+  ProtocolLib
+  EdkProtocolLib
+  EfiProtocolLib
+  EdkGuidLib
+  EfiRuntimeLib
+  EfiSmmDriverLib
+  ChipsetLib  
+
+[includes.common]
+  $(EDK_SOURCE)/Foundation/Framework
+  $(EDK_SOURCE)/Foundation/Efi
+  $(EFI_SOURCE)/Framework
+  $(EDK_SOURCE)/Foundation
+  $(EDK_SOURCE)/Foundation/Include
+  $(EDK_SOURCE)/Foundation/Efi/Include
+  $(EDK_SOURCE)/Foundation/Framework/Include
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)/Include
+  $(EFI_SOURCE)/Library/Dxe/Include
+  $(EDK_SOURCE)/Foundation/Core/Dxe
+  $(EDK_SOURCE)/Foundation/Library/Dxe/Include
+  $(EFI_SOURCE)/Library/Include
+  $(EFI_SOURCE)/Chipset/Library/Include
+  $(DEST_DIR)
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=ChipsetLibServicesEntryPoint
+  DPX_SOURCE=ChipsetLibServicesSmm.dxs

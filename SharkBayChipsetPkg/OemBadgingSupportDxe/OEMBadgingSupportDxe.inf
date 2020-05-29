@@ -1,0 +1,57 @@
+## @file
+#  Component description file for OemBadgingSupportDxe driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = OemBadgingSupportDxe
+  FILE_GUID                      = 12AEDBEA-392D-4e2a-8789-5F6DC6B23661
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = OEMBadgingEntryPoint
+
+[Sources]
+   ./OEMBadgingString/OEMBadgingString.h
+   ./OEMBadgingString/OEMBadgingString.c
+   ./OEMBadgingString/OEMBadgingString.uni
+   OEMBadgingSupportDxe.h
+   OEMBadgingSupportDxe.c
+   
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-start-121115-IB10820164-add]#
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec 
+#[-end-121115-IB10820164-add]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib 
+  MemoryAllocationLib
+  BadgingSupportLib
+  BaseLib
+  HiiLib
+#[-start-121115-IB10820164-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121115-IB10820164-add]#
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid
+

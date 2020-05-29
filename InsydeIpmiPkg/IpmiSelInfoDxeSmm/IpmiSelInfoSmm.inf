@@ -1,0 +1,60 @@
+## @file
+# H2O IPMI SEL Info module build description file for SMM phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IpmiSelInfoSmm
+  FILE_GUID                      = F3F0E25C-9674-473A-9A86-B49CA4519070
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IpmiSelInfoSmmEntry
+
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  IpmiSelInfoSmm.c
+  IpmiSelInfoCommon.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  PcdLib
+  DebugLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  IpmiSdrLib
+  IpmiCommonLib
+  BaseLib
+  SmmOemIpmiPackageLibDefault
+
+[Guids]
+
+[Protocols]
+  gH2OSmmIpmiSelInfoProtocolGuid                 # Produce
+
+[FeaturePcd]
+
+[Depex]
+  gH2OSmmIpmiInterfaceProtocolGuid

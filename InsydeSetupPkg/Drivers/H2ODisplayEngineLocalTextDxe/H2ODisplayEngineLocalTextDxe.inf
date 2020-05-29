@@ -1,0 +1,75 @@
+## @file
+#  Component description file for H2O Display Engine Local Text DXE driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = H2ODisplayEngineLocalTextDxe
+  FILE_GUID                      = F1C50D3A-58E4-4104-9176-00CDF8BC4BB2
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = H2ODisplayEngineLocalTextEntryPoint
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  H2ODisplayEngineLocalText.c
+  LTDESupport.c
+  LTDEControl.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeSetupPkg/InsydeSetupPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  BaseLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  UefiLib
+  DebugLib
+  DevicePathLib
+  PcdLib
+  DELib
+  LayoutLib
+  RectLib
+  ConsoleLib
+
+[Guids]
+  gH2ODisplayEngineLocalTextGuid
+  gBootManagerFormSetGuid
+  gBootMaintFormSetGuid
+  gFileExploreFormSetGuid
+
+[Protocols]
+  gH2ODisplayEngineProtocolGuid     ## PRODUCED
+  gH2OFormBrowserProtocolGuid       ## CONSUMED
+
+[FixedPcd]
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLtde
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLtdeBootManager
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLtdeBootFromFile
+  gH2OSetupTokenSpaceGuid.PcdDisplayEngineLocalTextColumn
+  gH2OSetupTokenSpaceGuid.PcdDisplayEngineLocalTextRow
+
+[Depex]
+  gH2OFormBrowserProtocolGuid
+

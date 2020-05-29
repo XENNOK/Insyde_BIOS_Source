@@ -1,0 +1,39 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+#/*++
+#
+# Copyright (c)  1999 - 2002 Intel Corporation. All rights reserved
+# This software and associated documentation (if any) is furnished
+# under a license and may only be used or copied in accordance
+# with the terms of the license. Except as permitted by such
+# license, no part of this software or documentation may be
+# reproduced, stored in a retrieval system, or transmitted in any
+# form or by any means without the express written consent of
+# Intel Corporation.
+#
+#  Module Name:
+#
+#    64N4ICR.inf
+#
+#  Abstract:
+#
+--*/
+
+[defines]
+BASE_NAME            = 64N4ICR
+FILE_GUID            = A4A9F7B8-24A4-4ea2-B1C6-145599B2DF64
+COMPONENT_TYPE       = LOGO
+BUILD_TYPE           = CUSTOM_MAKEFILE
+FFS_EXT              = FFS
+
+[sources.common]
+
+[nmake.common]

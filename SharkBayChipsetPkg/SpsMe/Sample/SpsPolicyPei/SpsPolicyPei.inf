@@ -1,0 +1,54 @@
+## @file
+#
+#
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsPolicyPei
+  FILE_GUID                      = C9256FD4-6626-46cd-8453-53ECF3AD588B
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SpsPolicyPeimEntry
+
+[Sources]
+  SpsPolicyPei.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(PROJECT_PKG)/Project.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  MemoryAllocationLib
+  HobLib
+  PchPlatformLib
+
+[Guids]
+  gSystemConfigurationGuid                       ## CONSUMES
+  gSpsPolicyHobGuid                              ## ALWAYS_PRODUCES
+
+[Ppis]
+  gSpsPolicyPpiGuid                              ## PRODUCES
+  gEfiPeiReadOnlyVariable2PpiGuid                ## CONSUMES
+
+[Pcd]
+
+[Depex]
+  TRUE
+
+[BuildOptions]
+

@@ -1,0 +1,34 @@
+## @file
+#  Component description file for BmcGopDriver.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+INF_VERSION          = 0x00010005
+BASE_NAME            = MUF20120229_V21
+FILE_GUID            = 92B9E0CB-CD83-4C9F-8AB2-5B9010ECE7F8
+MODULE_TYPE          = UEFI_DRIVER
+VERSION_STRING       = 1.0
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[Binaries.X64]
+  PE32|MUF20120229_V21.efi
+
+[Packages]
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[Depex]
+  gPlatformGopPolicyProtocolGuid
+

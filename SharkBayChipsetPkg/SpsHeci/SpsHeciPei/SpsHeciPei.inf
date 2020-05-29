@@ -1,0 +1,53 @@
+## @file
+#
+#  Component description file for HeciInit module
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsHeciPei
+  FILE_GUID                      = 4862AFF3-667C-5458-B274-A1C62DF8BA80
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeimHeciInit
+
+[Sources]
+  SpsHeciPei.c
+  SpsHeciCore.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  PerformancePkg/PerformancePkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  PciExpressLib
+  PciLib
+  HobLib
+  IoLib
+
+[Guids]
+
+[Ppis]
+  gSpsPeiHeciPpiGuid                             ## PRODUCES
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+
+[Depex]
+  TRUE
+
+[BuildOptions]

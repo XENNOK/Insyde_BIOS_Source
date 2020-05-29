@@ -1,0 +1,60 @@
+## @file
+#
+#  Component description file for Event Log Viewer DXE Driver.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#    
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = EventLogViewerDxe
+  FILE_GUID                      = 3F3B80D6-6052-4A30-BD1E-5949FE4DBCD3
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = EventLogViewerDxeEntry
+
+[Sources]
+  EventLogViewerCommonFunc.c
+  EventLogViewerCommonFunc.h
+  EventLogViewer.c
+  EventLogViewer.h
+  DisplayFilterMessage.c
+  DisplayFilterMessage.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib  
+  UefiRuntimeServicesTableLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  DebugLib
+  UefiLib
+  PrintLib
+  
+[Protocols]
+  gH2OEventLogProtocolGuid                       # CONSUMED
+  gH2OEventLogStringProtocolGuid                 # CONSUMED
+  gH2OEventLogStringOverwriteProtocolGuid        # CONSUMED
+  gEfiSimpleFileSystemProtocolGuid               # CONSUMED
+  gEfiBlockIoProtocolGuid                        # CONSUMED
+
+  gH2OEventLogViewerProtocolGuid                 # PRODUCED
+
+[Depex]
+  TRUE

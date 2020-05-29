@@ -1,0 +1,46 @@
+## @file
+#
+#  Component description file for AMT functionality
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeAmtLib
+  FILE_GUID                      = 29B890BF-C4AD-4ecb-B0C0-D2A60D0EB509
+  MODULE_TYPE                    = DXE_CORE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = AmtLib|DXE_CORE DXE_DRIVER DXE_RUNTIME_DRIVER DXE_SAL_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER
+
+[Sources]
+  AmtLib.c
+  AmtLib.h
+  AmtPolicyLib.c
+  AmtPolicyLib.h
+  AmtPolicyDebugDumpDxe.c
+  MebxSetupDebugDumpDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DebugLib
+  MeLib
+
+[Protocols]
+  gEfiActiveManagementProtocolGuid
+  gEfiHeciProtocolGuid
+  gDxePlatformAmtPolicyGuid                      ## CONSUMES

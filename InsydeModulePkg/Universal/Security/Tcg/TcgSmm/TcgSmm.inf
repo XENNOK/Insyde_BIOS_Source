@@ -1,0 +1,83 @@
+## @file
+#  This driver implements TPM definition block in ACPI table and
+#  registers SMI callback functions for physical presence and
+#  MemoryClear to handle the requests from ACPI method.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+##
+#  This driver implements TPM definition block in ACPI table and
+#  registers SMI callback functions for physical presence and
+#  MemoryClear to handle the requests from ACPI method.
+#
+# Copyright (c) 2011, Intel Corporation. All rights reserved.<BR>
+# This program and the accompanying materials
+# are licensed and made available under the terms and conditions of the BSD License
+# which accompanies this distribution. The full text of the license may be found at
+# http://opensource.org/licenses/bsd-license.php
+# THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+# WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = TcgSmm
+  FILE_GUID                      = 42293093-76B9-4482-8C02-3BEFDEA9B35D
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeTcgSmm
+
+[Sources]
+  TcgSmm.c
+  TcgSmm.h
+  Tpm.asl
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  SecurityPkg/SecurityPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  UefiBootServicesTableLib
+  DebugLib
+  DxeServicesLib
+  TpmMeasurementLib
+  VariableLib
+
+[Guids]
+  gEfiPhysicalPresenceGuid
+  gEfiMemoryOverwriteControlDataGuid
+  gEfiTpmDeviceInstanceTpm12Guid
+
+[Protocols]
+  gEfiSmmSwDispatch2ProtocolGuid                # PROTOCOL ALWAYS_CONSUMED
+  gEfiAcpiTableProtocolGuid                     # PROTOCOL ALWAYS_CONSUMED
+  gEfiSmmVariableProtocolGuid
+
+[Pcd]
+  gEfiSecurityPkgTokenSpaceGuid.PcdTpmInstanceGuid
+  gInsydeTokenSpaceGuid.PcdDxeTpmPolicy
+  gInsydeTokenSpaceGuid.PcdTpmHide
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+
+[Depex]
+  gEfiAcpiTableProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gEfiSmmVariableProtocolGuid AND
+  gEfiTcgProtocolGuid

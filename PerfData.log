@@ -1,0 +1,206 @@
+PerfDataMemAddr: 0x7a99b000
+BootToOs: 0
+S3Resume: 0 (ms)
+S3EntryNum: 0
+CpuFreq: 2294728 (khz)
+BDSRaw: 3034 (ms)
+Entry Count: 88
+Signature: Perf
+
+                       Simply Performance Entries:
+
+                                    Name                    Duration time(ms)
+-----------------------------------------------------------------------------
+                           3ACC966D-8E33-45C6-B:              588
+                           H2ODisplayEngineLoca:              1
+                             VariableRuntimeDxe:              2
+                                      SmbiosDxe:              2
+                                       PiSmmIpl:              2
+                                   SetupUtility:              1
+                           BootScriptExecutorDx:              1
+                                     CpuInitDxe:              16
+                                     PchInitDxe:              81
+                                    SaPolicyDxe:              1
+                                   SmbiosMemory:              11
+                           7755CA7B-CA8F-43C5-8:              57
+                                        IccInit:              4
+                           961578FE-B6B7-44C3-A:              17
+                                   AcpiPlatform:              1
+                                 Ps2KeyboardDxe:              25
+                                    Ps2MouseDxe:              573
+                                      PciBusDxe:              2
+                                   PartitionDxe:              16
+                                   PowerMgmtDxe:              4
+                                      SaInitDxe:              5
+                                       bootmgfw:              104
+-----------------------------------------------------------------------------
+                       Simply Performance ended.
+
+
+
+
+                       Detail Performance Entries:
+
+                                    Name                    Duration time(ms)
+-----------------------------------------------------------------------------
+                     3ACC966D-8E33-45C6-B(DBST):              588
+                     H2ODisplayEngineLoca(LIMG):              1
+                       VariableRuntimeDxe(SIMG):              2
+                                SmbiosDxe(SIMG):              2
+                                 PiSmmIpl(SIMG):              2
+                             SetupUtility(LIMG):              1
+                     BootScriptExecutorDx(SIMG):              1
+                               CpuInitDxe(SIMG):              16
+                               PchInitDxe(SIMG):              81
+                              SaPolicyDxe(SIMG):              1
+                             SmbiosMemory(SIMG):              11
+                     7755CA7B-CA8F-43C5-8(DBST):              57
+                                  IccInit(SIMG):              4
+                     961578FE-B6B7-44C3-A(DBST):              17
+                             AcpiPlatform(SIMG):              1
+                           Ps2KeyboardDxe(DBST):              25
+                              Ps2MouseDxe(DBSU):              573
+                                PciBusDxe(DBST):              2
+                             PartitionDxe(DBST):              16
+                             PowerMgmtDxe(SIMG):              4
+                                SaInitDxe(SIMG):              5
+                                 bootmgfw(LIMG):              104
+-----------------------------------------------------------------------------
+                                         PreMem:              753
+                              PeiVariable(PEIM):              0
+                                           PEIM:              0
+                                  SioInit(PEIM):              1
+                          GetBoardInfoPei(PEIM):              220
+                              SioDummyPei(PEIM):              0
+                         LegacySpeakerPei(PEIM):              0
+                ReportStatusCodeRouterPei(PEIM):              0
+                                  WdtPeim(PEIM):              0
+              PcatSingleSegmentPciCfg2Pei(PEIM):              0
+                               CapsulePei(PEIM):              0
+                                 CpuIoPei(PEIM):              0
+ ReadOnlyVariableOnReadOnlyVariable2Thunk(PEIM):              0
+                     PciCfgOnPciCfg2Thunk(PEIM):              0
+                             DebugMaskPei(PEIM):              0
+                  FirmwareRevisionSyncPei(PEIM):              0
+                           SecureFlashPei(PEIM):              0
+                     SetupDataProviderPei(PEIM):              0
+                           Ps2KeyboardPei(PEIM):              0
+                            TrEEConfigPei(PEIM):              0
+                                   TisPei(PEIM):              0
+                             S3Resume2Pei(PEIM):              0
+                             PchResetPeim(PEIM):              0
+                              PchInitPeim(PEIM):              0
+                               PchSpiPeim(PEIM):              0
+                                  HeciPei(PEIM):              0
+                  InsydeEventLogPolicyPei(PEIM):              0
+                           ProgramGPIOPei(PEIM):              0
+                        PeiMemoryTestNull(PEIM):              0
+                            SmmControlPei(PEIM):              0
+                            ChipsetSvcPei(PEIM):              0
+                                  IsctPei(PEIM):              0
+                           BiosStoragePei(PEIM):              0
+                              EventLogPei(PEIM):              0
+                        PlatformStage1Pei(PEIM):              1
+                         S3RestoreAcpiPei(PEIM):              0
+                                   TcgPei(PEIM):              0
+                      PchSmbusArpDisabled(PEIM):              0
+                                 PchMeUma(PEIM):              0
+                          PolicyClass1Pei(PEIM):              10
+                      InstallVerbTablePei(PEIM):              0
+                   FirmwarePerformancePei(PEIM):              0
+                 PeiSmbus2OnPeiSmbusThunk(PEIM):              0
+                                   PchUsb(PEIM):              0
+                              CpuInitPeim(PEIM):              0
+                               SaInitPeim(PEIM):              405
+                            RapidStartPei(PEIM):              0
+                            AzaliaInitPei(PEIM):              1
+                        PlatformStage2Pei(PEIM):              0
+                           ProgClkGenPeim(PEIM):              0
+                               MemoryInit(PEIM):              40
+                                        PostMem:              352
+                                         DisMem:              5
+                         LegacySpeakerPei(PEIM):              0
+                                 CpuIoPei(PEIM):              0
+                        PlatformStage1Pei(PEIM):              0
+                            ChipsetSvcPei(PEIM):              0
+                      InstallVerbTablePei(PEIM):              0
+                       CoreInitializeDispatcher:              5
+                                 CoreDispatcher:              351
+                                    PlatformBds:              1316
+-----------------------------------------------------------------------------
+                       Detail Performance ended.
+
+
+SIMG :  Start Image       
+LIMG :  Load Image.      
+DBST :  DriverBinding:Start      
+DBSU :  DriverBinding:Support       
+
+
+SEC Phase Duration     :        17(ms)
+PEI Phase Duration     :      1092(ms)
+DXE Phase Duration     :       357(ms)
+BDS Phase Duration     :      1548(ms)
+Total     Duration     :      3014(ms)
+
+==================== ACPI Performance Data ====================
+Firmware Performance Data Table
+
+Signature "FPDT"
+Length   0x00000044 (68)
+Revision 0x01 (1)
+Checksum 0x73 (115)
+OEM ID       "INSYDE"
+OEM Table ID "HSW-LPTOEM Revision 0x00000002 (2)
+Creator ID   "ACPI"
+Creator Revision	0x00040000 (262144)
+
+        Boot Performance Table Record
+-------------------------------------------------
+Record Type 0x0000 (0)
+Record Length 0x10 (16)
+Revision 0x01 (1)
+FBPT Pointer 0x788D0000
+
+Firmware Basic Boot Performance Table
+  Signature "FBPT"
+  Length 0x00000038 (53044416)
+
+[Record#0] Firmware Basic Boot Performance Data Record
+Record Type   0x0002 (2)
+Record Length 0x30 (48)
+Revision      0x02 (2)
+Reset End 0x0000000000000000 (0)
+OS Loader LoadImage Start  0x00000000AEA4501C (2930003996) (=2930.003996 ms)
+OS Loader StartImage Start 0x00000000B74277BA (3074586554) (=3074.586554 ms)
+ExitBootServices Entry     0x00000000F6864590 (4135994768) (=4135.994768 ms)
+ExitBootServices Exit      0x00000000F6891C7E (4136180862) (=4136.180862 ms)
+
+
+        S3 Performance Table Record
+-------------------------------------------------
+Record Type 0x0001 (1)
+Record Length 0x10 (16)
+Revision 0x01 (1)
+S3PT Pointer 0x788CF000
+
+S3Performance Table
+  Signature "S3PT"
+  Length 0x00000034 (53044416)
+
+[Record#0] Basic S3 Resume Performance Record
+Record Type   0x0000 (0)
+Record Length 0x18 (24)
+Revision      0x01 (1)
+Resume Count  0x00000000 (0)
+FullResume    0x0000000000000000 (0)
+AverageResume 0x0000000000000000 (0)
+
+[Record#1] Basic S3 Suspend Performance Record
+Record Type   0x0001 (1)
+Record Length 0x14 (20)
+Revision      0x01 (1)
+SuspendStart  0x0000000000000000 (0)
+SuspendEnd    0x0000000000000000 (0)
+
+

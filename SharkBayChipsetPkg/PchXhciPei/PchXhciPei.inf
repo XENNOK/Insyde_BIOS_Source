@@ -1,0 +1,58 @@
+## @file
+#  Component description file for PchXhci PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PchXhciPei
+  FILE_GUID                      = 2883464E-3CA2-4f4d-B903-21A1E3F61471
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializePchXhci
+
+[Sources]
+  PchXhci.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+#[-start-121116-IB10820168-add]#
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+#[-end-121116-IB10820168-add]#
+
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  PeimEntryPoint
+  TimerLib
+#[-start-121116-IB10820168-add]#
+  PeiServicesLib
+#[-end-121116-IB10820168-add]#
+
+[Ppis]
+  gPeiUsbControllerPpiGuid
+  gEfiEndOfPeiSignalPpiGuid
+  gEfiPciCfg2PpiGuid
+#[-start-121116-IB10820168-add]#
+  gPchUsbPolicyPpiGuid
+#[-end-121116-IB10820168-add]#
+
+[Pcd]
+#[-start-121116-IB10820168-add]#
+  gChipsetPkgTokenSpaceGuid.PcdXhciMemBaseAddress
+#[-end-121116-IB10820168-add]#
+
+[Depex]
+  gEfiPciCfg2PpiGuid     AND
+  gEfiPeiMemoryDiscoveredPpiGuid
+

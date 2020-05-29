@@ -1,0 +1,32 @@
+## @file
+#  Component description file for DxeIpmiPackageLibNull instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeIpmiPackageLibNull
+  FILE_GUID                      = CEF70058-146F-439c-80BE-156B755602D9
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeIpmiPackageLib|DXE_DRIVER
+
+[Sources]
+  IpmiEnterSetupNull.c
+  IpmiSetAcpiKeyboardNull.c
+  IpmiUpdateNvsVariableNull.c
+  IpmiUpdatePolicyNull.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+

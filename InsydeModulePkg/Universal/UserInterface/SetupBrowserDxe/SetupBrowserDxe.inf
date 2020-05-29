@@ -1,0 +1,120 @@
+## @file
+# Component description file for SetupBrowserDxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SetupBrowser
+  FILE_GUID                      = 4F921013-4F71-4c6c-BCF8-419B2B801932
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeSetup
+  STRGATHER_RESERVE_SIZE         = 0x1000
+
+[Sources]
+  SetupBrowserStr.uni
+  SetupUtilityStr.uni
+  Setup.c
+  Setup.h
+  IfrParse.c
+  Expression.c
+  InputHandler.c
+  Print.c
+  Print.h
+  Presentation.c
+  ProcessOptions.c
+  Ui.c
+  Ui.h
+  SetupUtility.c
+  H2ODialog.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  UefiLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  HiiLib
+  PrintLib
+  DevicePathLib
+  OemGraphicsLib
+  DxeOemSvcKernelLibDefault
+  ConsoleLib
+
+[Guids]
+  gEfiIfrTianoGuid
+  gEfiIfrFrameworkGuid
+  gEfiHiiPlatformSetupFormsetGuid
+  gEfiHiiStandardFormGuid
+  gEfiUsbEnumerationGuid
+  gH2OIfrExtGuid
+
+[Protocols]
+  gEfiHiiConfigAccessProtocolGuid
+  gEfiHiiStringProtocolGuid
+  gEfiFormBrowser2ProtocolGuid
+  gEfiFormBrowserExProtocolGuid
+  gEfiHiiConfigRoutingProtocolGuid
+  gEfiHiiDatabaseProtocolGuid
+  gEfiUnicodeCollationProtocolGuid
+  gEfiUnicodeCollation2ProtocolGuid
+  gEfiUserManagerProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gSetupMouseProtocolGuid
+  gEfiConsoleControlProtocolGuid
+  gConsoleRedirectionServiceProtocolGuid
+  gEfiGifDecoderProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gH2ODialogProtocolGuid
+  gEfiSetupUtilityBrowserProtocolGuid
+  ## Following protocols will be removed when OemGraphics library has check-in.
+  gEndOfDisableQuietBootGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiUgaDrawProtocolGuid
+
+[FeaturePcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFrameworkCompatibilitySupport
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserGrayOutTextStatement
+  gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserSubtitleTextColor
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserFieldTextColor
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserFieldTextHighlightColor
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserFieldBackgroundHighlightColor
+  gInsydeTokenSpaceGuid.PcdReturnDialogCycle
+  gInsydeTokenSpaceGuid.PcdScanCodeToOperationCount
+  gInsydeTokenSpaceGuid.PcdScanCodeToOperation
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitSecond
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitMinute
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitHour
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitDay
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitMonth
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitYear
+  gInsydeTokenSpaceGuid.PcdRealTimeClockYearMax
+  gInsydeTokenSpaceGuid.PcdRealTimeClockYearMin
+
+[Depex]
+  gEfiHiiDatabaseProtocolGuid AND gEfiHiiConfigRoutingProtocolGuid

@@ -1,0 +1,65 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#
+# Module Name:
+#
+#    EmuPeiGate.c
+#
+# Abstract:
+#
+#    Fast recovery helper DXE driver. 
+#    Jump back to recovery only emulate PEI phase. Or do preparation for BDS's
+#    recovery process.
+#
+
+[defines]
+BASE_NAME            = EmuPeiGate
+FILE_GUID            = 26452F27-45DE-4A94-807A-0E6FDC1CB962
+COMPONENT_TYPE       = BS_DRIVER
+
+
+[sources.common]
+  EmuPeiGate.c
+  EmuPeiMaskList.c
+
+[sources.x64]
+  x64\LegacyMode.asm
+
+[sources.ia32]
+  Ia32\LegacyMode.asm
+
+
+[includes.common]
+  .
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EFI_SOURCE)\$(FAST_CRISIS_RECOVERY_DIR)\Include
+  $(EFI_SOURCE)\$(FAST_CRISIS_RECOVERY_DIR)
+  $(BUILD_DIR)\$(PROCESSOR)
+  $(EFI_SOURCE)
+
+  
+[libraries.common]
+  EfiCommonLib
+  EfiDriverLib
+  HobLib
+  GuidLib
+  EdkFrameworkGuidLib
+  FastRecoveryEmuGuidLib
+  
+[nmake.common]
+  IMAGE_ENTRY_POINT=EmuPeiGate
+  DPX_SOURCE=EmuPeiGate.dxs

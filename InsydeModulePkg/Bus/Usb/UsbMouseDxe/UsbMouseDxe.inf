@@ -1,0 +1,48 @@
+## @file
+#  Component description file for UsbMouse Dxe module
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbMouseDxe
+  FILE_GUID                      = 2D2E62AA-9ECF-43b7-8219-94E7FC713DFE
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UsbMouseDriverBindingEntryPoint
+
+[Sources]
+  UsbMouse.c
+  UsbMouse.h
+  ComponentName.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  DebugLib
+  ReportStatusCodeLib
+  PostCodeLib
+  HidDescriptorLib
+
+[Protocols]
+  gEfiUsbCoreProtocolGuid
+  gEfiSimplePointerProtocolGuid
+  gEfiUsbIoProtocolGuid
+
+[Depex]
+  gEfiUsbCoreProtocolGuid

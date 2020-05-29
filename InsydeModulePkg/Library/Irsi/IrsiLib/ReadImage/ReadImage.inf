@@ -1,0 +1,45 @@
+## @file
+#  Component description file for ReadImage module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = ReadImage
+  FILE_GUID                      = B30C68CF-C3F5-45B7-A9A7-BDAD00053B56
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = IrsiLib
+  CONSTRUCTOR                    = IrsiReadImageInit
+
+[Sources]
+  ReadImage.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiLib
+  IrsiRegistrationLib
+  FvRegionAccessLib
+
+  
+[Protocols]
+  gIrsiRegistrationProtocolGuid
+  gEfiFirmwareVolumeBlockProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gFvRegionInfoProtocolGuid
+
+[Guids]
+  gIrsiServicesGuid

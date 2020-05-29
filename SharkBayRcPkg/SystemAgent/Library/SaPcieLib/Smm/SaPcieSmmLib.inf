@@ -1,0 +1,56 @@
+#
+# This file contains a 'Sample Driver' and is licensed as such
+# under the terms of your license agreement with Intel or your
+# vendor.  This file may be modified by the user, subject to
+# the additional terms of the license agreement
+#
+#/*++
+#
+#  Copyright (c) 2012 Intel Corporation. All rights reserved
+#  This software and associated documentation (if any) is furnished
+#  under a license and may only be used or copied in accordance
+#  with the terms of the license. Except as permitted by such
+#  license, no part of this software or documentation may be
+#  reproduced, stored in a retrieval system, or transmitted in any
+#  form or by any means without the express written consent of
+#  Intel Corporation.
+#
+#  Module Name:
+#
+#    SaPcieSmmLib.inf
+#
+#  Abstract:
+#
+#    Component description file for the SA PCIE library
+#
+#--*/
+
+[defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SaPcieSmmLib
+  FILE_GUID                      = CA0B0C4B-1E10-4f05-AFF0-2E3574AF487D
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SaPcieSmmLib
+
+[Sources]
+  ../Common/SaPcieLib.h
+  ../Common/SaPcieLib.c
+  SaPcieSmmLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  S3BootScriptLib
+  
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[BuildOptions]
+#[-start-130827-IB05400445-remove]#
+#  *_*_*_CC_FLAGS = $(CC_FLAGS)
+#[-end-130827-IB05400445-remove]#
+  

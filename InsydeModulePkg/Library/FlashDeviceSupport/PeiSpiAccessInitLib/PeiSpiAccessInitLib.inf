@@ -1,0 +1,37 @@
+## @file
+#  SPI Access Init Library Class
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiSpiAccessInitLib
+  FILE_GUID                      = B00A1BCD-74A8-4430-9B57-4220BE721F88
+  MODULE_TYPE                    = PEIM
+  LIBRARY_CLASS                  = SpiAccessInitLib
+
+[Sources]
+  PeiSpiAccessInitLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+
+[Pcd]
+
+[Guids]
+
+
+

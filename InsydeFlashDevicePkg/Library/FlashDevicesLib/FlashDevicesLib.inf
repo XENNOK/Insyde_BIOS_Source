@@ -1,0 +1,49 @@
+## @file
+#  Sample implementation for Flash Devices Library Class
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FlashDevicesLib
+  FILE_GUID                      = 4D868161-C4CD-4BC2-AC1D-DE4F0E196B42
+  MODULE_TYPE                    = BASE
+  LIBRARY_CLASS                  = FlashDevicesLib
+  CONSTRUCTOR                    = FlashDevicesLibInit
+
+[Sources]
+  FlashDevicesLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeFlashDevicePkg/InsydeFlashDevicePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  PcdLib
+  SpiAccessLib
+  FdSupportLib
+  IrsiRegistrationLib
+
+[Guids]
+  gH2OFlashDeviceGuid
+  gH2OFlashDeviceConfigGuid
+
+
+
+[Pcd]
+  gH2OFlashDeviceGuid.PcdActiveFlashDeviceId
+
+

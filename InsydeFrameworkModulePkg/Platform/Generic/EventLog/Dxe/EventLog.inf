@@ -1,0 +1,62 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+[defines]
+BASE_NAME       = EventLog
+FILE_GUID       = DF47BC21-939D-4faa-A743-7F0F0AA5BE6A
+COMPONENT_TYPE  = RT_DRIVER
+
+[sources.common]
+  EventLog.c
+  EventLog.h
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Cpu\Pentium\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Include\Pei
+  $(EDK_SOURCE)\Foundation\Library\Pei\Include
+  $(EDK_SOURCE)\Foundation\Core\Pei\Include
+  $(EDK_SOURCE)\Foundation\Framework\Ppi\CpuIo
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Framework
+  $(EFI_SOURCE)\$(CHIPSET_ROOT)\Library\Include
+  $(EFI_SOURCE)\Library\Dxe\Include
+  $(BUILD_DIR)
+  $(EFI_SOURCE)\Library\Include
+
+[libraries.common]
+  GuidLib
+  EfiGuidLib
+  ProtocolLib
+  EdkProtocolLib
+  EdkFrameworkProtocolLib
+  EfiProtocolLib
+  EfiRuntimeLib
+  HobLib
+  FdSupportLib
+  CmosLib
+  CpuIa32Lib
+  EcLib
+  ChipsetLib
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=EventLogEntryPoint
+  DPX_SOURCE=EventLog.dxs
+

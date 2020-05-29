@@ -1,0 +1,54 @@
+## @file
+# BaseCryptLib library instance
+#
+#;******************************************************************************
+#;* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = RuntimeCryptLib
+  FILE_GUID                      = 5B535A58-B52C-456c-B0DD-D2FBA20F6041
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = BaseCryptLib
+
+
+[Binaries.Ia32]
+!if $(GCC)==Gcc
+  LIB|Ia32/GccRuntimeCryptLib.lib
+!else
+  LIB|Ia32/RuntimeCryptLib.lib
+!endif
+
+[Binaries.X64]
+!if $(GCC)==Gcc
+  LIB|X64/GccRuntimeCryptLib.lib
+!else
+  LIB|X64/RuntimeCryptLib.lib
+!endif
+[Binaries.Arm]
+  LIB|Arm/RuntimeCryptLib.lib
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  IoLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  
+[Guids]
+  gEfiEventVirtualAddressChangeGuid
+  gEfiEventExitBootServicesGuid

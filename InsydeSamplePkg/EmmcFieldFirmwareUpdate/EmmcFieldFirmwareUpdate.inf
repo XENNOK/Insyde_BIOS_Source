@@ -1,0 +1,48 @@
+## @file
+#  INF file for FFU Driver module.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = EmmcFieldFirmwareUpdate
+  FILE_GUID            = BA39CEF2-9F8F-472b-92D0-4BBDC42B9694
+  MODULE_TYPE          = DXE_DRIVER
+  ENTRY_POINT          = FfuDriverEntryPoint
+
+[Sources.common]
+  EmmcFieldFirmwareUpdate.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  DebugLib
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  UefiLib
+
+[Guids]
+  gEfiFileInfoGuid
+  gH2OSdhcFfuImageGuid
+  
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid  
+  gEfiFirmwareManagementProtocolGuid
+  
+[Depex]
+  gH2OSdHostIoProtocolGuid AND
+  gEfiFirmwareManagementProtocolGuid AND
+  gEndOfBdsBootSelectionProtocolGuid

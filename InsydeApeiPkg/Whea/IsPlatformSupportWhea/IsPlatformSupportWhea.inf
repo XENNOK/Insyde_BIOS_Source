@@ -1,0 +1,64 @@
+## @file
+#
+#  Component description file for IsPlatformSupportWhea driver
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IsPlatformSupportWheaDxe
+  FILE_GUID                      = 1F4FD693-73FA-4374-9080-82C49A04618C
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 0.1
+  ENTRY_POINT                    = InsydeWheaIsPlatformSupportWhea
+
+[Sources]
+  IsPlatformSupportWhea.c
+  IsPlatformSupportWhea.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_APEI_PKG)/$(INSYDE_APEI_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(PROJECT_PKG)/Project.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  DebugLib
+  PcdLib
+
+[Guids]
+  gSystemConfigurationGuid
+
+[Protocols]
+  gEfiIsPlatformSupportWheaGuid                  ## PRODUCES IN DXE
+
+[FeaturePcd]
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiSupport
+
+[Pcd]
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiEnable
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiErrorInjectType
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiDefrag
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiAcpiVersion
+#[-start-140425-IB10310054-add]#
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiUefiVersion
+#[-end-140425-IB10310054-add]#
+
+[Depex]
+#[-start-130508-IB04560386-add]#
+  gEfiVariableArchProtocolGuid  AND
+  gEfiSetupUtilityProtocolGuid
+#[-end-130508-IB04560386-add]#

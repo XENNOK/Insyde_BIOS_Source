@@ -1,0 +1,48 @@
+## @file
+# H2O IPMI HOB library build description file for all phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BaseIpmiHobLib
+  FILE_GUID                      = 1392CEBF-2835-4C99-8C34-B5A5DD23656C
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = IpmiHobLib
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  BaseIpmiHobLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  DebugLib
+  HobLib
+
+[Guids]
+  gH2OIpmiHobGuid
+
+[Protocols]
+
+[Depex]
+  TRUE
+

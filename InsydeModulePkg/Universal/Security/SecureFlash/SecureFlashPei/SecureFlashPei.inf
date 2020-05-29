@@ -1,0 +1,47 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SecureFlashPei
+  FILE_GUID                      = EAA006CD-3256-789B-BD20-EBABCD02583F
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+
+  ENTRY_POINT                    = SecureFlashPeiMain
+
+[Sources]
+  SecureFlashPei.c
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  HobLib
+  BaseMemoryLib
+  VariableLib
+
+[Guids]
+  gSecureFlashInfoGuid
+
+[Ppis]
+  gEfiPeiMemoryDiscoveredPpiGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdReservedMemorySizeForSecureFlash
+
+[Depex]
+  gEfiPeiReadOnlyVariable2PpiGuid
+

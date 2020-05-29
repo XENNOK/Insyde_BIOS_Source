@@ -1,0 +1,47 @@
+## @file
+#  Component description file for UsbLegacyControl module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbLegacyControlSmm
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  FILE_GUID                      = 88EA1FCB-3A5D-4acf-A0B3-AACB36D4E90F
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UsbLegacyControlDriverEntryPoint
+  
+[Sources]
+  UsbLegacyControl.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  IoLib
+  PciLib
+  
+[Protocols]  
+  gEfiSmmUsbDispatch2ProtocolGuid 
+  gEfiSmmBase2ProtocolGuid
+  
+[Depex]
+  <DXE_DEPEX>
+  gEfiLegacyBiosProtocolGuid
+
+  <SMM_DEPEX>
+  gEfiSmmUsbDispatch2ProtocolGuid AND
+  gEfiSmmBase2ProtocolGuid
+

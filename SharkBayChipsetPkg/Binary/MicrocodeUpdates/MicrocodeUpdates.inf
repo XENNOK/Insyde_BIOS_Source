@@ -1,0 +1,46 @@
+## @file
+#  List all of the microcode updates that you want included at build time.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = Microcode
+  FILE_GUID                      = 1FAE4D78-CB33-4f73-8881-A1EA8F5EDFEF
+  MODULE_TYPE                    = USER_DEFINED
+  VERSION_STRING                 = 1.0
+
+[Sources]
+  M32306C1_FFFF0013.TXT
+  M32306C2_FFFF0006.TXT
+  M32306C3_0000001C.TXT
+#  M3240660_FFFF0011.TXT
+#  M3240661_00000012.TXT
+#  M7240650_FFFF000B.TXT
+#  M7240651_0000001C.TXT
+#  MC0306D3_FFFF0010.TXT
+#  MC0306D4_0000000D.TXT
+#  MF2306D2_FFFF0009.TXT
+#
+# Filename              | Description                        | Stepping(s)
+# ----------------------+------------------------------------+------------------------
+# M32306C1_FFFF0013.TXT | Assembly format, Revision FFFF0013 | A-0 (Haswell)          
+# M32306C2_FFFF0006.TXT | Assembly format, Revision FFFF0006 | B-0 (Haswell)          
+# M32306C3_0000001C.TXT | Assembly format, Revision 0000001C | C-0 (Haswell)           
+# M3240660_FFFF0011.TXT | Assembly format, Revision FFFF0011 | B-0 (Haswell Perf Halo)
+# M3240661_00000012.TXT | Assembly format, Revision 00000012 | C-0 (Haswell Perf Halo)
+# M7240650_FFFF000B.TXT | Assembly format, Revision FFFF000B | B-0 (Haswell ULT)      
+# M7240651_0000001C.TXT | Assembly format, Revision 0000001C | C-0 (Haswell ULT)      
+# M7240651_0000001C.TXT | Assembly format, Revision 0000001C | D-0 (Haswell ULT)      
+# MC0306D3_FFFF0010.TXT | Assembly format, Revision FFFF0010 | D-0 (Broadwell)        
+# MC0306D4_0000000D.TXT | Assembly format, Revision 0000000D | E-0 (Broadwell)        
+# MF2306D2_FFFF0009.TXT | Assembly format, Revision FFFF0009 | C-0 (Broadwell)        
+# 

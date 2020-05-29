@@ -1,0 +1,77 @@
+## @file
+# Component description file for CrHookDxe module
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CRHookDxe
+  FILE_GUID                      = 9E62300C-E94F-41a6-A70C-D7E47577B38C
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = ConsoleRedirectionHookEntryPoint
+
+[Sources]
+  CrHook.h
+  CrHook.c
+  CrBdaMemManager.c
+  CrBdaMemManager.h
+  CrBds.c
+  CrBds.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  DxeServicesLib
+  DevicePathLib
+  VariableLib
+  CrVfrConfigLib
+  CrBdsLib
+
+[Guids]
+  gEfiGenericVariableGuid
+
+[Protocols]
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gTerminalEscCodeProtocolGuid
+  gEfiLegacyBiosPlatformProtocolGuid
+  gEfiCRPolicyProtocolGuid
+  gEfiSmmAccess2ProtocolGuid
+  gCRBdsHookProtocolGuid
+  gConsoleRedirectionServiceProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiSerialIoProtocolGuid
+  gEfiIsaAcpiProtocolGuid
+  gEfiUsbIoProtocolGuid
+
+[FeaturePcd]
+  gInsydeCrTokenSpaceGuid.PcdCROverUsbSupported
+
+[Pcd]
+  gInsydeCrTokenSpaceGuid.PcdConsoleRedirectionOpRomFile
+
+[Depex]
+  gEfiPciRootBridgeIoProtocolGuid
+ 

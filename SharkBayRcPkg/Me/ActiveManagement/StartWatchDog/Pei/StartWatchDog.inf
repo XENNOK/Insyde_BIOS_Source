@@ -1,0 +1,49 @@
+## @file
+#
+#  Component description file for the Start Watch Dog PEIM driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = StartWatchDog
+  FILE_GUID            = 5479E09C-2E74-481B-89F8-B0172E388D1F
+  MODULE_TYPE          = PEIM
+  VERSION_STRING       = 1.0  
+  ENTRY_POINT          = PeiInitStartWatchDog
+
+[Sources]
+  StartWatchDog.c
+  StartWatchDog.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  PeiAmtLib
+  PeiMeLib
+
+[Ppis]
+  gEfiPeiHeciPpiGuid                             ## CONSUMES
+
+[Depex]
+  gEfiPeiHeciPpiGuid AND
+  gEfiPeiMasterBootModePpiGuid AND
+  gPeiAmtPlatformPolicyPpiGuid
+
+[BuildOptions]
+

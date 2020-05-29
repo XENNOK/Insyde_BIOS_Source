@@ -1,0 +1,44 @@
+## @file
+#
+#  Component description file for SPS Policy functionality in DXE.
+#  Note: Only for SPS.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeSpsPolicyLib
+  FILE_GUID                      = F948A480-58EE-46B0-A507-B20CD6668F05
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SpsPolicyLib | DXE_DRIVER
+
+[Sources]
+  SpsPolicyLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  DebugLib
+
+[Guids]
+
+[Protocols]
+  gSpsPolicyProtocolGuid                         ## CONSUMES
+
+[Pcd]
+
+[BuildOptions]
+

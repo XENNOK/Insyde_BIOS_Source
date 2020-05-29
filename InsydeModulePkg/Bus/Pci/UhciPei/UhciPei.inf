@@ -1,0 +1,34 @@
+## @file
+#  Component description file for Uhci PEIM
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UhciPei
+  FILE_GUID                      = C463CEAC-FC57-4f36-88B7-356C750C3BCA
+  MODULE_TYPE                    = PEIM
+  BINARY_VERSION                 = 02.01.06.0208.00
+
+[Binaries.Ia32]
+  PE32|Ia32/UhciPei.efi|*
+
+[Binaries.Arm]
+  TE|Arm/UhciPei.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[Depex]
+  gPeiUsbControllerPpiGuid       AND
+  gPeiBootInRecoveryModePpiGuid

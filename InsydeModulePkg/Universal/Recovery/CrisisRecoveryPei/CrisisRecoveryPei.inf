@@ -1,0 +1,78 @@
+## @file
+#  Component description file for Crisis Recovery PEIM
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CrisisRecoveryPei
+  FILE_GUID                      = 3E963A2F-E728-4218-98D8-CB9E22215320
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0  
+  ENTRY_POINT                    = CrisisRecoveryEntry
+  
+[Sources]
+  CrisisRecovery.c
+  CrisisRecovery.h
+ 
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  PcdLib
+  DebugLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  FlashDevicesLib
+  PostCodeLib
+  PeiOemSvcKernelLibDefault
+  PeiChipsetSvcLib
+  SeamlessRecoveryLib
+  BaseOemSvcKernelLibDefault
+  
+[Guids]
+  gRecoveryOnFatIdeDiskGuid
+  gRecoveryOnFatUsbDiskGuid
+  gRecoveryOnDataCdGuid
+  gEfiRecoveryFileAddressGuid
+
+[Ppis]
+  gEfiPeiVirtualBlockIoPpiGuid   
+  gEfiPeiRecoveryModulePpiGuid
+  gEfiPeiDeviceRecoveryModulePpiGuid
+  gEfiPeiBootInRecoveryModePpiGuid
+  gEfiPeiStallPpiGuid
+  gPeiSpeakerInterfacePpiGuid
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdSecureFlashSupported
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPeiRecoveryFile
+  gInsydeTokenSpaceGuid.PcdTableCount
+  gInsydeTokenSpaceGuid.PcdUseEcIdle
+  gInsydeTokenSpaceGuid.PcdOemProtectTable
+
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+
+[Depex]
+  gEfiPeiVirtualBlockIoPpiGuid AND
+  gEfiPeiBootInRecoveryModePpiGuid AND
+  gH2OChipsetServicesPpiGuid

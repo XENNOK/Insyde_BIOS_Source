@@ -1,0 +1,69 @@
+## @file
+#  Fast recovery helper DXE driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = EmuPeiGateDxe
+  FILE_GUID                      = 26452F27-45DE-4A94-807A-0E6FDC1CB962
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = EmuPeiGateEntryPoint
+
+[Sources]
+  EmuPeiGateDxe.c
+  EmuPeiMaskList.c
+  
+[Sources.X64]
+  x64/LegacyMode.asm
+  x64/LegacyMode.jwasm
+  
+[Sources.IA32]
+  Ia32/LegacyMode.asm
+  Ia32/LegacyMode.jwasm
+    
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  
+[LibraryClasses]
+  DebugLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  BaseLib
+  PcdLib
+  HobLib
+  
+[Guids]
+  gEmuSecFileNameGuid
+  gEmuPeiMarkGuid
+  gEfiFirmwareFileSystemGuid
+  gEfiFirmwareFileSystem2Guid
+  gEfiRecoveryFileAddressGuid  
+
+[Protocols]
+  
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+  gInsydeTokenSpaceGuid.PcdTemporaryRamSizeWhenRecovery
+  gInsydeTokenSpaceGuid.PcdPeiTemporaryRamStackSizeWhenRecovery
+  gInsydeTokenSpaceGuid.PcdRecoveryHobReportsEntireCapsule
+  gInsydeTokenSpaceGuid.PcdSecureFlashSupported
+
+[Depex]
+  TRUE
+

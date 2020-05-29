@@ -1,0 +1,82 @@
+## @file
+#
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   GopPolicy.inf
+#;
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = GopPolicyDxe
+  FILE_GUID                      = A52509C7-5ECD-42d1-85A2-46C37135D12D
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = GopPolicyEntry
+
+[Sources]
+  GopPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+#[-start-121004-IB10820134-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121004-IB10820134-add]#
+#[-start-121029-IB10820145-add]#
+  PcdLib
+#[-end-121029-IB10820145-add]#
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+#[-start-130110-IB11410040-add]#
+#[-start-130812-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcChipsetLibDefault
+#[-end-130812-IB06720232-modify]#
+#[-end-130110-IB11410040-add]#
+
+[Protocols]
+  gEfiFirmwareVolumeProtocolGuid
+  gPlatformGopPolicyProtocolGuid
+#[-start-130710-IB05160465-modify]#
+  gEfiSetupUtilityProtocolGuid
+#[-end-130710-IB05160465-modify]#
+
+#[-start-121003-IB10820132-add]#
+[Guids]
+  gVbtFileGuid
+#[-end-121003-IB10820132-add]#
+
+
+[Pcd]
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+#[-start-130110-IB11410040-remove]#
+#[-start-121029-IB10820145-add]#
+#  gChipsetPkgTokenSpaceGuid.PcdLidStatus
+#[-end-121029-IB10820145-add]#
+#[-end-130110-IB11410040-remove]#
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid AND
+  gLegacyFreeGuid AND
+  gEfiFirmwareVolumeProtocolGuid

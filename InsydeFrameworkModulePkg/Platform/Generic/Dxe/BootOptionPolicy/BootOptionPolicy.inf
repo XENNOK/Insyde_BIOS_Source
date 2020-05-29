@@ -1,0 +1,51 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+[defines]
+BASE_NAME            = BootOptionPolicy
+FILE_GUID            = FCDCB9C2-7987-47df-A9A7-BE3DBA52D50C
+COMPONENT_TYPE       = BS_DRIVER
+
+[sources.common]
+  BootOptionpolicy.c
+  BootOptionPolicy.h
+
+[includes.common]
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Platform\Generic
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation
+  $(EFI_SOURCE)\Framework
+  .
+  $(EFI_SOURCE)
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Library\Dxe\EfiIfrSupportLib
+  $(EDK_SOURCE)\Foundation\Include\Pei
+  $(EDK_SOURCE)\Foundation\Library\Pei\Include
+
+[libraries.common]
+  EfiDriverLib
+  EfiIfrSupportLib
+  ProtocolLib
+  GuidLib
+  PrintLibLite
+  PpiLib
+  ProtocolLib
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=InitBootOptionPolicy
+  DPX_SOURCE=BootOptionPolicy.dxs

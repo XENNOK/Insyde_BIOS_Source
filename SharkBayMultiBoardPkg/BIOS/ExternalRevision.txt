@@ -1,0 +1,5 @@
+
+Kernel 5.0 - rev. 8466
+Kernel 3.7 - rev. 7112
+Chipset    - rev. 3138
+Timestamp  - 2014-08-26 14:52:00.496

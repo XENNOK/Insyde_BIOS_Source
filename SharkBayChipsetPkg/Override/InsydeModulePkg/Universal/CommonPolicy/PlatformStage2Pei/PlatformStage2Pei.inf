@@ -1,0 +1,109 @@
+## @file
+#  Component description file for PlatformStage2Pei PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PlatformStage2Pei
+  FILE_GUID                      = 1191BBF5-DCB9-44F4-827E-95359744C987
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeiInitPlatformStage2EntryPoint
+
+[Sources]
+  PlatformStage2Pei.c
+  PlatformStage2NotifyCallback.c
+  Recovery.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-start-120907-IB10820120-add]#
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+#[-end-120907-IB10820120-add]#
+
+[LibraryClasses]
+  DebugLib
+  PeimEntryPoint
+  PeiServicesLib
+  BaseMemoryLib
+  HobLib
+  PostCodeLib
+  PeiOemSvcKernelLibDefault
+  PeiChipsetSvcLib
+  MemoryAllocationLib
+  KernelConfigLib
+  VariableLib
+
+[Guids]
+  gRecoveryOnFatIdeDiskGuid
+  gRecoveryOnDataCdGuid
+  gRecoveryOnFatUsbDiskGuid
+  gEfiSupervisorPwGuid
+  gEfiUserPwGuid
+  gEfiSupervisorPwHobGuid
+  gEfiFirmwareFileSystemGuid
+  gEfiFirmwareFileSystem2Guid
+  gEfiUserPwHobGuid
+  gEfiPowerOnPwSCUHobGuid
+  gSystemConfigurationGuid
+  gInsydeSecureFirmwarePasswordGuid
+  gInsydeSecureFirmwarePasswordHobGuid
+
+[Ppis]
+  gEmuPeiPpiGuid
+  gPeiRomCorruptPpiGuid
+  gEfiPeiMemoryDiscoveredPpiGuid
+  gEfiPeiRecoveryModulePpiGuid
+  gEfiPeiDeviceRecoveryModulePpiGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+  gInsydeTokenSpaceGuid.PcdFlashFvMainBase
+  gInsydeTokenSpaceGuid.PcdFlashFvMainSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+  gInsydeTokenSpaceGuid.PcdMemorySpaceSize
+  gInsydeTokenSpaceGuid.PcdIoSpaceSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gInsydeTokenSpaceGuid.PcdFlashUnsignedFvRegionBase
+  gInsydeTokenSpaceGuid.PcdFlashUnsignedFvRegionSize
+#[-start-140320-IB06040445-modify]#
+#[-start-130625-IB10920030-add]#
+  gInsydeTokenSpaceGuid.PcdEndOfFlashUnsignedFvRegionTotalSize
+#[-end-130625-IB10920030-add]#
+#[-end-140320-IB06040445-modify]#
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdUnsignedFvSupported
+  gInsydeTokenSpaceGuid.PcdSecureSysPasswordSupported
+
+[Depex]
+#[-start-130823-IB05160482-modify]#
+#[-start-120907-IB10820120-modify]#
+!IF "$(RAPID_START_SUPPORT)" == "YES"
+  gRapidStartPpiGuid               AND
+!ENDIF
+  gH2OChipsetServicesPpiGuid
+#[-end-120907-IB10820120-modify]#
+#[-end-130823-IB05160482-modify]#

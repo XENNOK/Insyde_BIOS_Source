@@ -1,0 +1,38 @@
+## @file
+#
+#  Component description file for the Whea library
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WheaLib
+  FILE_GUID                      = 04932895-3E66-467d-9527-DD9CADD2FC03
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = WheaLib 
+
+[Sources]
+  WheaLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(INSYDE_APEI_PKG)/$(INSYDE_APEI_PKG).dec
+
+[LibraryClasses]
+  PciLib
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid                       ## CONSUMES

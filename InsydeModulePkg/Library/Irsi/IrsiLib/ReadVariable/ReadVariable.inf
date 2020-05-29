@@ -1,0 +1,41 @@
+## @file
+#  Component description file for ReadVariable module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = ReadVariable
+  FILE_GUID                      = 8A817534-8131-4A9C-AF51-D60B9D87FFB7
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = IrsiLib
+  CONSTRUCTOR                    = IrsiReadVariableInit
+
+[Sources]
+  ReadVariable.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiLib
+  IrsiRegistrationLib
+
+  
+[Protocols]
+  gIrsiRegistrationProtocolGuid
+
+[Guids]
+  gIrsiServicesGuid

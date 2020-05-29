@@ -1,0 +1,69 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+# This file contains a 'Sample Driver' and is licensed as such
+# under the terms of your license agreement with Intel or your
+# vendor.  This file may be modified by the user, subject to
+# the additional terms of the license agreement
+#
+#/*++
+#
+# Copyright (c)  1999 - 2002 Intel Corporation. All rights reserved
+# This software and associated documentation (if any) is furnished
+# under a license and may only be used or copied in accordance
+# with the terms of the license. Except as permitted by such
+# license, no part of this software or documentation may be
+# reproduced, stored in a retrieval system, or transmitted in any
+# form or by any means without the express written consent of
+# Intel Corporation.
+
+#
+#  Module Name:
+#
+#    Stall.inf
+#
+#  Abstract:
+#
+#    Component description file for Stall ESAL module
+#
+#--*/
+
+[defines]
+COMPONENT_TYPE		= SAL_RT_DRIVER
+BASE_NAME	        = StallServices
+FILE_GUID	        = C961FBF1-6EAA-4d07-BFAE-5182776CFB8C
+
+[sources.common]
+  Stall.c
+
+[sources.ia32]
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  .
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EFI_SOURCE)
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+
+[libraries.common]
+  EdkProtocolLib
+  EfiRuntimeLib
+  ArchProtocolLib
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=StallServicesEsalClassInitialize
+  DPX_SOURCE = Stall.dxs
+

@@ -1,0 +1,96 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#/*++
+#
+# Copyright (c) 2004 - 2006, Intel Corporation
+# All rights reserved. This program and the accompanying materials
+# are licensed and made available under the terms and conditions of the BSD License
+# which accompanies this distribution.  The full text of the license may be found at
+# http://opensource.org/licenses/bsd-license.php
+#
+# THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+# WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+#  Module Name:
+#
+#    GenericBdsLib.inf
+#
+#  Abstract:
+#
+#    Component description file for GenericBdsLib module.
+#
+
+--*/
+
+[defines]
+BASE_NAME            = GenericBdsLib
+COMPONENT_TYPE       = LIBRARY
+
+[sources.common]
+  GenericBdsStrings.uni
+  BdsBoot.c
+  BdsConsole.c
+  BdsConnect.c
+  DevicePath.c
+  Performance.c
+  BdsMisc.c
+  HotKey.c
+  Performance.c
+  RecoveryDriver.c
+  String.c
+  MemoryCheck.c
+
+[sources.ia32]
+  Ia32\ClearDr.asm
+  Ia32\CallSmmIhisi.asm
+
+[sources.x64]
+  x64\ClearDr.asm
+  x64\CallSmmIhisi.asm
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Application
+  .
+  $(EDK_SOURCE)\Sample\Platform\Nt32
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Cpu\Pentium\Include
+  $(EDK_SOURCE)\Sample\Platform\Generic\Pei\Capsule
+  $(EFI_SOURCE)\Platform\Generic\Lib\Include
+  $(EFI_SOURCE)\Include\OemServices
+  $(EFI_SOURCE)\Library\Dxe\Include
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Library\Dxe\UefiEfiIfrSupportLib
+  $(EFI_SOURCE)\Include\IndustryStandard
+  $(EFI_SOURCE)\Universal\Console\VgaDriverPolicy
+  $(DEST_DIR)
+
+
+[libraries.common]
+  EfiGuidLib
+  EdkProtocolLib
+  EfiProtocolLib
+  EfiDriverLib
+!IF "$(EFI_SPECIFICATION_VERSION)" >= "0x0002000A"
+  UefiEfiIfrSupportLib
+!ENDIF
+  OemGraphicsLite
+  ProtocolLib
+
+[libraries.ia32]
+  CpuIA32Lib
+
+[nmake.common]

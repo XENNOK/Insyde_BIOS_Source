@@ -1,0 +1,78 @@
+#/*++
+#  This file contains an 'Intel Peripheral Driver' and uniquely
+#  identified as "Intel Reference Module" and is
+#  licensed for Intel CPUs and chipsets under the terms of your
+#  license agreement with Intel or your vendor.  This file may
+#  be modified by the user, subject to additional terms of the
+#  license agreement
+#--*/
+#
+#/*++
+#
+#Copyright (c) 2012 Intel Corporation. All rights reserved
+#This software and associated documentation (if any) is furnished
+#under a license and may only be used or copied in accordance
+#with the terms of the license. Except as permitted by such
+#license, no part of this software or documentation may be
+#reproduced, stored in a retrieval system, or transmitted in any
+#form or by any means without the express written consent of
+#Intel Corporation.
+#
+#Module Name:
+#
+#  SaSsdt.inf
+#
+#Abstract:
+#
+#  Component description file for the ACPI tables
+#
+#--*/
+
+
+[defines]
+BASE_NAME            = SaSsdt
+FILE_GUID            = AAA99A23-13B6-4C31-BB8B-299E8EC04FA4
+COMPONENT_TYPE       = ACPITABLE
+FFS_EXT              = .ffs
+
+[sources.common]
+  SaSsdt.asl
+
+[libraries.common]
+
+[includes.common]
+  .
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)/Include
+  $(EFI_SOURCE)/$(PROJECT_SA_ROOT)/Include
+  $(EDK_SOURCE)/Foundation/Efi
+  $(EDK_SOURCE)/Foundation/Include
+  $(EDK_SOURCE)/Foundation/Efi/Include
+  $(EDK_SOURCE)/Foundation/Framework/Include
+  $(EFI_SOURCE)/Include/IndustryStandard
+  $(EDK_SOURCE)/Foundation/Include/IndustryStandard
+  $(EDK_SOURCE)/Foundation/Library/Dxe/Include
+  $(EDK_SOURCE)/Foundation
+  $(EDK_SOURCE)/Foundation/Framework
+#
+# Typically the sample code referenced will be available in the code base already
+# So keep this include at the end to defer to the source base definition
+# and only use the sample code definition if source base does not include these files.
+#
+#  $(EFI_SOURCE)/$(PROJECT_SA_ROOT)/SampleCode/Include
+
+#
+# Edk II Glue Library, some hearder are included by R9 header so have to include
+#
+
+ $(EFI_SOURCE)
+ $(EFI_SOURCE)/Framework
+ $(EDK_SOURCE)/Foundation
+ $(EDK_SOURCE)/Foundation/Framework
+ $(EDK_SOURCE)/Foundation/Include/IndustryStandard
+ $(EDK_SOURCE)/Foundation/Core/Dxe
+ $(EDK_SOURCE)/Foundation/Include/Pei
+ $(EDK_SOURCE)/Foundation/Library/Dxe/Include
+ $(EDK_SOURCE)/Foundation/Library/EdkIIGlueLib/Include
+
+[nmake.common]

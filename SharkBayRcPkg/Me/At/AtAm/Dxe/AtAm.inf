@@ -1,0 +1,63 @@
+## @file
+#
+#  Component description file for Alert Standard Format driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AtAm
+  FILE_GUID                      = C810485E-D0EC-4e98-AAB5-120C7E554428
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0  
+  ENTRY_POINT                    = AtAmEntryPoint
+
+[Sources]
+  AtAm.c
+  AtAm.h
+  At.c
+  At.h
+  AtHi.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  PerformanceLib
+  AtDxeLib
+  MeLib
+
+[Guids]
+
+[Protocols]
+  gEfiAtProtocolGuid                             ## PRODUCES
+  gMeBiosPayloadDataProtocolGuid
+  gEfiHeciProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  gDxePlatformAtPolicyGuid
+
+[Pcd]
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Depex]
+  gDxePlatformAtPolicyGuid AND
+  gEfiHeciProtocolGuid AND
+  gEfiS3SaveStateProtocolGuid AND
+  gMeBiosPayloadDataProtocolGuid
+
+[BuildOptions]

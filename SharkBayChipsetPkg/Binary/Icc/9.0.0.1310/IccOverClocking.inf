@@ -1,0 +1,34 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#/*++
+#
+#
+#  Module Name:
+#
+#    IccOverClocking.inf
+#
+#  Abstract:
+#
+#    Component description file for IccOverClocking module.
+#
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = IccOverClocking 
+  FILE_GUID            = 2C6B9CB7-A13B-4eee-80C0-1A240C8A69EE
+  MODULE_TYPE          = DXE_DRIVER
+
+[Binaries.X64]
+  PE32|x64\IccOverClocking.efi|*
+
+[Packages]
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[Depex]
+  gDxePlatformICCPolicyGuid

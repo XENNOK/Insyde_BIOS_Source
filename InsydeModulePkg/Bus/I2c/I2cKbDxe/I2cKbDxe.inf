@@ -1,0 +1,51 @@
+## @file
+#  Component description file for I2C Keyboard DXE module
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = I2cKbDxe
+  FILE_GUID                      = 69F04F6E-BCCF-45f8-894E-2C68088F94FF
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = I2cKeyboardEntryPoint
+
+[Sources]
+  ComponentName.c
+  Efikey.c
+  Efikey.h
+  I2cKeyboard.c
+  I2cKeyboard.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  HidDescriptorLib
+
+[Protocols]
+  gEfiI2cIoProtocolGuid
+  gEfiAdapterInformationProtocolGuid
+  gEfiSimpleTextInProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+
+[Guids]
+  gI2cHidDeviceInfoGuid

@@ -1,0 +1,58 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PnpRuntimeDxe
+  FILE_GUID                      = A368D636-4C77-4b50-AAE8-F99E2DA40440
+  MODULE_TYPE                    = DXE_RUNTIME_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PnpRuntimeDxeInit
+
+[Sources]
+  PnpRuntimeDxe.c
+  PnpDmi.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseLib
+  UefiLib
+  DebugLib
+  BaseMemoryLib
+  UefiRuntimeLib
+  PcdLib
+  IrsiRegistrationLib
+  DxeOemSvcKernelLibDefault
+
+
+[Guids]
+  gEfiSmbiosTableGuid
+  gEfiGenericVariableGuid
+  gIsbServicesGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiSize
+  gInsydeTokenSpaceGuid.PcdSmbiosUpdatableStringTable
+
+[Depex]
+  gEfiVariableArchProtocolGuid  AND
+  gEfiVariableWriteArchProtocolGuid

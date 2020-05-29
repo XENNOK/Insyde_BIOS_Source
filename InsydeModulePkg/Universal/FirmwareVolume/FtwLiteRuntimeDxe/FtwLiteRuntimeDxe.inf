@@ -1,0 +1,78 @@
+## @file
+#  Component description file for FtwLitRuntimeDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FaultTolerantWriteLiteDxe
+  FILE_GUID                      = 4C862FC6-0E54-4e36-8C8F-FF6F3167951F
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeFtwLite
+
+[Sources]
+  FtwLiteRuntimeDxe.c
+  FtwMisc.c
+  FtwWorkSpace.c
+  Crc32.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  PcdLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiDriverEntryPoint
+  DxeServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  DevicePathLib
+  ImageRelocationLib
+
+[Guids]
+  gEfiSystemNvDataFvGuid
+  gEfiEventVirtualAddressChangeGuid
+  gEfiAlternateFvBlockGuid
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase64
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase64
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gInsydeTokenSpaceGuid.PcdUseEcpVariableStoreHeader
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiFirmwareVolumeBlockProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+  gEfiFaultTolerantWriteLiteProtocolGuid
+  gEfiSmmFwBlockServiceProtocolGuid
+  gEfiSmmFtwProtocolGuid
+  gEfiSmmRuntimeProtocolGuid
+
+[Depex]
+  <DXE_DEPEX>
+  gEfiFirmwareVolumeBlockProtocolGuid AND
+  gEfiAlternateFvBlockGuid
+
+  <SMM_DEPEX>
+  gEfiSmmFwBlockServiceProtocolGuid AND
+  gEfiFaultTolerantWriteLiteProtocolGuid

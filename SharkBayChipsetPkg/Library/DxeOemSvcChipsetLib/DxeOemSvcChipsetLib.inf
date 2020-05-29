@@ -1,0 +1,95 @@
+## @file
+#  Component description file for DXE OEM Services Chipset Lib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012-2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+#[-start-121107-IB10820153-modify]#
+  BASE_NAME                      = DxeOemSvcChipsetLib
+#[-end-121107-IB10820153-modify]#
+  FILE_GUID                      = 2113FC40-040C-4351-8CE7-E36BBAEEC228
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+#[-start-121107-IB10820153-modify]#
+  LIBRARY_CLASS                  = DxeOemSvcChipsetLib|DXE_CORE DXE_DRIVER DXE_RUNTIME_DRIVER DXE_SAL_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER SMM_CORE
+#[-end-121107-IB10820153-modify]#
+
+[Sources]
+#[-start-121220-IB10820206-remove]#
+#  GetLidStatus.c
+#[-end-121220-IB10820206-remove]#
+#[-start-121106-IB10820151-add]#
+  OemSvcModifyAcpiDescriptionHeader.c
+#[-end-121106-IB10820151-add]#
+#[-start-121219-IB10820204-remove]#
+#  UpdateOemGlobalNvs.c
+#[-end-121219-IB10820204-remove]
+#[-start-121107-IB10820154-add]#
+  OemSvcSetIgdOpRegion.c
+#[-end-121107-IB10820154-add]#
+#[-start-121108-IB10820155-add]#
+  OemSvcHookPlatformDxe.c
+  OemSvcSetUsbLegacyPlatformOptions.c
+#[-start-121114-IB05280012-remove]#
+#  SetPlatformMonitorKeyOptions.c
+#[-end-121114-IB05280012-remove]#
+#[-end-121108-IB10820155-add]#
+#[-start-121109-IB10820159-add]#
+  OemSvcHookPlatformReset.c
+#[-end-121109-IB10820159-add]#
+#[-start-121204-IB05280021-remove]#
+##[-start-121113-IB10820160-add]#
+#  GetSetOemPrePostHotKey.c
+##[-end-121113-IB10820160-add]#
+#[-end-121204-IB05280021-remove]#
+#[-start-121128-IB05280020-modify]#
+#[-start-121115-IB10820164-add]#
+  OemSvcUpdateOemBadgingLogoData.c
+#[-end-121115-IB10820164-add]#
+#[-end-121128-IB05280020-modify]#
+#[-start-121218-IB10820203-add]#
+  OemSvcUpdateGlobalNvs.c
+#[-end-121218-IB10820203-add]#
+#[-start-121219-IB10820205-add]#
+  OemSvcUpdateAcpiPlatformPolicy.c
+  OemSvcUpdateAmtPlatformPolicy.c
+#[-end-121219-IB10820205-add]#
+#[-start-121220-IB10820206-add]#
+  OemSvcUpdateDxeAtPolicy.c
+  OemSvcUpdateDxeCpuPlatformPolicy.c
+  OemSvcUpdatePlatformGopPolicy.c
+  OemSvcUpdateDxePlatformIccPolicy.c
+  OemSvcUpdateDxeMePolicy.c
+  OemSvcUpdatDxePchPlatformPolicy.c
+  OemSvcUpdateRapidStartPlatformPolicy.c
+  OemSvcUpdateDxePlatformSaPolicy.c
+  OemSvcUpdateDxeXtuPolicy.c
+#[-end-121220-IB10820206-add]#
+#[-start-130102-IB05280028-add]#
+  OemSvcUpdateI2cPlatformPolicy.c
+#[-end-130102-IB05280028-add]#
+#[-start-130422-IB05400398-add]#
+  OemSvcUpdateBoardIdString.c
+  OemSvcUpdateSsdtStatus.c
+#[-end-130422-IB05400398-add]#
+#[-start-130424-12360003-add]#
+  OemSvcUpdateBiosProtectTable.c
+#[-end-130424-12360003-add]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-start-130109-IB10820218-add]#
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+#[-end-130109-IB10820218-add]#

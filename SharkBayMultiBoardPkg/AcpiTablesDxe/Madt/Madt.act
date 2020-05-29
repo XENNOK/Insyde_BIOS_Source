@@ -1,0 +1,174 @@
+/** @file
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#include <Madt.h>
+
+  EFI_ACPI_3_0_MULTIPLE_APIC_DESCRIPTION_TABLE Madt = {
+  EFI_ACPI_3_0_MULTIPLE_APIC_DESCRIPTION_TABLE_SIGNATURE,
+  sizeof (EFI_ACPI_3_0_MULTIPLE_APIC_DESCRIPTION_TABLE),
+  EFI_ACPI_3_0_MULTIPLE_APIC_DESCRIPTION_TABLE_REVISION,
+  //
+  // Checksum will be updated at runtime
+  //
+  0x00,
+  
+  // OEM identification
+  'I', 'N', 'S', 'Y', 'D', 'E',
+
+  // OEM table identification
+  ((((((((((((('C' << 8) + 'a') << 8) + 'l') << 8) + 'p') << 8) + 'e') << 8) + 'l') << 8) + '1') << 8) + 'a',
+
+  1,                                                        // OEM revision number
+  // ASL compiler vendor ID
+  ((((('M' << 8) + 'S') << 8) + 'F') << 8) + 'T',
+  1000000,              // ASL compiler revision number
+
+  //
+  // MADT specific fields
+  //
+  EFI_ACPI_LOCAL_APIC_ADDRESS,
+  EFI_ACPI_3_0_MULTIPLE_APIC_FLAGS,
+  
+  //
+  // Processor Local APIC Structure
+  //
+  EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC,                        // Type
+  sizeof (EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC_STRUCTURE),     // Length
+  0x01,                                                         // Processor ID defined in \_PR
+  0x00,                                                         // Local APIC ID
+  0x00000001,                                                   // Flags
+
+  EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC,                        // Type
+  sizeof (EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC_STRUCTURE),     // Length
+  0x02,                                                         // Processor ID defined in \_PR
+  0x02,                                                         // Local APIC ID
+  0x00000000,                                                   // Flags
+  EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC,                        // Type
+  sizeof (EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC_STRUCTURE),     // Length
+  0x03,                                                         // Processor ID defined in \_PR
+  0x04,                                                         // Local APIC ID
+  0x00000000,                                                   // Flags
+
+  EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC,                        // Type
+  sizeof (EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC_STRUCTURE),     // Length
+  0x04,                                                         // Processor ID defined in \_PR
+  0x06,                                                         // Local APIC ID
+  0x00000000,                                                   // Flags  
+
+  EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC,                        // Type
+  sizeof (EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC_STRUCTURE),     // Length
+  0x05,                                                     // Processor ID defined in \_PR
+  0x01,                                                     // Local APIC ID
+  0x00000000,                                               // Flags
+  
+  EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC,                        // Type
+  sizeof (EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC_STRUCTURE),     // Length
+  0x06,                                                     // Processor ID defined in \_PR
+  0x03,                                                     // Local APIC ID
+  
+  0x00000000,                                               // Flags
+  
+  EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC,                        // Type
+  sizeof (EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC_STRUCTURE),     // Length
+  0x07,                                                     // Processor ID defined in \_PR
+  0x05,                                                     // Local APIC ID
+  0x00000000,                                               // Flags
+  
+  EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC,                        // Type
+  sizeof (EFI_ACPI_3_0_PROCESSOR_LOCAL_APIC_STRUCTURE),     // Length
+  0x08,                                                     // Processor ID defined in \_PR
+  0x07,                                                     // Local APIC ID
+  0x00000000,                                               // Flags
+  //
+  // I/O APIC Structure for ICH7M
+  // 
+  EFI_ACPI_3_0_IO_APIC,                                     // Type
+  sizeof (EFI_ACPI_3_0_IO_APIC_STRUCTURE),                  // Length
+   0x0,                                                         // IO APIC ID  
+// 0x2,
+  EFI_ACPI_RESERVED_BYTE,                                       // Reserved
+  EFI_IO_APIC_ADDRESS,                                          // IO APIC Address (physical)
+  0x00000000,                                                   // Global System Interrupt Base
+
+  //
+  // Interrupt Source Override Structure for IRQ0
+  //
+  EFI_ACPI_3_0_INTERRUPT_SOURCE_OVERRIDE,                   // Type
+  sizeof (EFI_ACPI_3_0_INTERRUPT_SOURCE_OVERRIDE_STRUCTURE),// Length
+  0x00,                                                         // Bus - ISA
+  0x00,                                                         // Source - IRQ0
+  0x00000002,                                                   // Global System Interrupt - IRQ2
+  0x0000,                                                       // Flags - Conforms to specifications of the bus
+
+  //
+  // Interrupt Source Override Structure for SCI - IRQ9
+  //
+  EFI_ACPI_3_0_INTERRUPT_SOURCE_OVERRIDE,                   // Type
+  sizeof (EFI_ACPI_3_0_INTERRUPT_SOURCE_OVERRIDE_STRUCTURE),// Length
+  0x00,                                                         // Bus - ISA
+  0x09,                                                         // Source - IRQ9
+  0x00000009,                                                   // Global System Interrupt - IRQ9
+  0x000D,                                                       // Flags - Level-tiggered, Active High
+
+  //
+  // Sample Non-Maskable Interrupt Source Structure
+  //
+  //EFI_ACPI_1_0_NON_MASKABLE_INTERRUPT_SOURCE,                     // Type
+  //sizeof (EFI_ACPI_1_0_NON_MASKABLE_INTERRUPT_SOURCE_STRUCTURE),  // Length
+  //0x0000,                                                         // Flags
+  //0x00000000,                                                     // Global System Interrupt
+  
+  //
+  // Sample Local APIC Address Override Structure
+  //
+  //EFI_ACPI_1_0_LOCAL_APIC_ADDRESS_OVERRIDE,                     // Type
+  //sizeof (EFI_ACPI_1_0_LOCAL_APIC_ADDRESS_OVERRIDE_STRUCTURE),  // Length
+  //EFI_ACPI_RESERVED_WORD,                                       // Reserved
+  //0x0000000000000000,                                           // Local APIC Address
+
+  //
+  // Sample Platform Interrupt Sources Structure
+  //
+  //EFI_ACPI_1_0_PLATFORM_INTERRUPT_SOURCES,                      // Type
+  //sizeof (EFI_ACPI_1_0_PLATFORM_INTERRUPT_SOURCES_STRUCTURE),   // Length
+  //0x0000,                                                       // Flags
+  //0x00,                                                         // Interrupt Type
+  //0x00,                                                         // Processor ID
+  //0x00,                                                         // Processor EID
+  //0x00,                                                         // IO SAPIC Vector
+  //0x00000000,                                                   // Global System Interrupt
+  //EFI_ACPI_RESERVED_DWORD,                                      // Reserved
+
+//[-start-131225-IB08620313-add]//
+#ifdef APEI_SUPPORT
+  EFI_ACPI_3_0_LOCAL_APIC_NMI,                    // Type
+  sizeof (EFI_ACPI_3_0_LOCAL_APIC_NMI_STRUCTURE), // Length
+  0xff,                                           // ACPI Processor ID
+  0x0005,                                         // Flags - Level-tiggered, Active High
+  0x01,                                           // Local APIC LINT#
+#endif
+//[-end-131225-IB08620313-add]//
+
+};
+
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&Madt;
+}

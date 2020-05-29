@@ -1,0 +1,62 @@
+## @file
+#  PlatformBdsLib
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BiosFlashUI
+  FILE_GUID                      = 1CB0E708-509D-4b28-99C3-A584505531EF
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = BiosFlashUIEntryPoint
+
+
+[Sources]
+  BiosFlashUI.c
+  
+[Packages]
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BvdtLib
+  GenericBdsLib
+  GenericUtilityLib
+
+[Guids]
+  gEfiGenericVariableGuid
+  gEfiRecoveryFileAddressGuid
+
+[Protocols]
+  gBiosFlashUIProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  gFileSelectUIProtocolGuid
+
+[FeaturePcd]
+
+[Pcd]
+
+[Depex]
+  gEfiSimpleFileSystemProtocolGuid
+  
+  

@@ -1,0 +1,225 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#****************************************************************************** 
+
+[Defines]
+  INF_VERSION                   = 0x00010005
+  BASE_NAME                     = AcpiTablesDxe
+  FILE_GUID                     = 7E374E25-8E01-4FEE-87F2-390C23C606CD
+  MODULE_TYPE                   = USER_DEFINED
+  VERSION_STRING                = 1.0
+
+[Sources]
+  Asf/Asf.act
+  Asf/Asf.h
+  Boot/Boot.act
+  Boot/Boot.h
+  Facs/Facs.h
+  Facs/Facs.act
+  Facp/Facp.h
+  Facp/Facp.act
+  Hpet/Hpet.act
+  Hpet/Hpet.h
+  Madt/Madt.act
+  Madt/Madt.h
+  Mcfg/Mcfg.act
+  Mcfg/Mcfg.h
+  Slic/Slic.act
+  Slic/Slic.h
+  Wdat/Wdat.act
+  Wdat/Wdat.h
+#[-start-120605-IB08050172-add]#
+  Dbgp/Dbgp.act
+  Dbgp/Dbgp.h
+#[-end-120605-IB08050172-add]#
+#[-start-120809-IB10820100-remove]#  
+# Dsdt/98_LINK.ASL
+# Dsdt/ALS.ASL
+# Dsdt/Bat0Virt.asl
+# Dsdt/Bat1Real.asl
+# Dsdt/Bat2Real.asl
+# Dsdt/CPU.asl
+#[-end-120809-IB10820100-remove]#  
+  Dsdt/DSDT.ASL
+#[-start-120809-IB10820100-remove]# 
+# Dsdt/EC.ASL
+# Dsdt/GloblNvs.asl
+# Dsdt/Gpe.asl
+#[-start-120817-IB03780458-add]#
+# Dsdt/GpeUlt.asl
+#[-end-120817-IB03780458-add]#
+# Dsdt/IDE.ASL
+# Dsdt/HOST_BUS.ASL
+# Dsdt/IgdOGBDA.ASL
+# Dsdt/IgdOMOBF.ASL
+# Dsdt/IgdOpRn.ASL
+# Dsdt/IgdOSBCB.ASL
+# Dsdt/INTELGFX.ASL
+# Dsdt/Sa.ASL
+#[-start-120627-IB05330350-remove]#
+#  Dsdt/SaPcieDsm.asl
+#[-end-120627-IB05330350-remove]#
+# Dsdt/H8S2113_SIO.ASL
+# Dsdt/LpcB.asl
+# Dsdt/LPC_DEV.ASL
+# Dsdt/NAT_COM.ASL
+# Dsdt/NAT_LPT.ASL
+# Dsdt/NAT_SIO.ASL
+#[-start-120627-IB06460409-add]#
+# Dsdt/Nfc.ASL  
+#[-end-120627-IB06460409-add]#
+# Dsdt/PCIEDOCK.ASL
+# Dsdt/BusPRT/B0PRT.ASL
+#[-start-120327-IB05330332-add]#
+# Dsdt/BusPRT/B1PRT.ASL  
+#[-end-120327-IB05330332-add]#
+# Dsdt/BusPRT/B2PRT.ASL
+# Dsdt/BusPRT/B3PRT.ASL
+# Dsdt/BusPRT/B4PRT.asl
+# Dsdt/BusPRT/B5PRT.asl
+# Dsdt/BusPRT/B6PRT.asl
+# Dsdt/BusPRT/B7PRT.asl
+# Dsdt/BusPRT/B8PRT.asl
+# Dsdt/BusPRT/B9PRT.asl
+# Dsdt/BusPRT/B10PRT.asl
+# Dsdt/BusPRT/B11PRT.asl
+# Dsdt/BusPRT/B12PRT.asl
+# Dsdt/BusPRT/B13PRT.asl
+# Dsdt/BusPRT/B14PRT.asl
+#[-start-120618-IB05330349-add]#
+# Dsdt/BusPRT/B15PRT.asl
+#[-end-120618-IB05330349-add]#
+# Dsdt/PciTree.asl
+# Dsdt/PCI_DRC.ASL
+# Dsdt/Platform.asl
+# Dsdt/SMSC1000_COM.ASL
+# Dsdt/SMSC1000_LPT.ASL
+# Dsdt/SMSC1000_SIO.ASL
+# Dsdt/SMSC1007_COM.ASL
+# Dsdt/SMSC1007_SIO.ASL
+# Dsdt/THERMAL.ASL
+# Dsdt/token.asl
+#[-start-120627-IB06460409-add]#
+# Dsdt/Uhci.asl
+#[-end-120627-IB06460409-add]#
+# Dsdt/Video.asl
+# Dsdt/WPCN381U_COM.asl
+# Dsdt/WPCN381U_SIO.asl
+# Dsdt/WPCN381U_LPT.asl
+#[-start-120628-IB06460410-add]#
+# Dsdt/PchAudioDsp.asl
+# Dsdt/PchLpss.asl
+#[-end-120628-IB06460410-add]#
+#[-end-120809-IB10820100-remove]# 
+#[-start-120604-IB06150223-modify]#
+  ISCT/ISCT.asl 
+#[-end-120604-IB06150223-modify]#
+  SsdtPtid/Ptid.asl
+  VaAcpiTables/VaAcpi.asl
+#[-start-120809-IB10820100-remove]#    
+# Dsdt/OemGloblNvs.asl
+#[-end-120809-IB10820100-remove]#    
+  SsdtSataPrimary/SataPri.asl
+  SsdtSataSecondary/SataSec.asl  
+#[-start-120726-IB06460426-modify]#
+#[-start-120713-IB05330359-add]#
+#[-start-120809-IB10370015-modify]#
+  #RTD3/BaskingRidge/RuntimeD3Br.asl
+  #RTD3/WhiteTipMountain/RuntimeD3Wtm.asl
+  RTD3/Ult0Rtd3.asl
+  RTD3/BRRtd3.asl
+  RTD3/Rtd3FFRD.asl
+#[-end-120809-IB10370015-modify]#
+#[-end-120713-IB05330359-add]#
+#[-end-120726-IB06460426-modify]#
+  Spcr/Spcr.act
+  Spcr/Spcr.h
+#[-start-120809-IB10820100-remove]#  
+# Dsdt/Zpodd.asl
+# Dsdt/Memdbg.asl
+# Dsdt/AMLUPD.asl
+#[-end-120809-IB10820100-remove]#    
+  Aspt/Aspt.act
+  Aspt/Aspt.h
+  XTU/XTU.asl
+#[-start-120809-IB10820100-remove]#    
+# Dsdt/PCH.asl
+# Dsdt/PchAudio.asl
+# Dsdt/PchEhci1.asl
+# Dsdt/PchEhci2.asl
+# Dsdt/PchPcie.asl
+# Dsdt/PchSmb.asl
+# Dsdt/PchXhci.asl
+# Dsdt/UsbSBD.ASL
+#[-end-120809-IB10820100-remove]#    
+  SensorHubApp/SensorHubApp.asl
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(PROJECT_PKG)/Project.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  PerformancePkg/PerformancePkg.dec
+
+[Pcd]
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdCmosIndexPort
+  gChipsetPkgTokenSpaceGuid.PcdCmosDataPort
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+#[-start-130812-IB05670190-add]#
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdPciExpressSize  
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+  gChipsetPkgTokenSpaceGuid.PcdAdspFlag
+  gChipsetPkgTokenSpaceGuid.PcdTradFlag
+  gChipsetPkgTokenSpaceGuid.PcdPegFlag
+  gChipsetPkgTokenSpaceGuid.PcdDmiFlag
+  gChipsetPkgTokenSpaceGuid.PcdMeSupported
+  gChipsetPkgTokenSpaceGuid.PcdSpsMeSupported
+#[-end-130812-IB05670190-add]#
+#[-start-140521-IB05400527-add]#
+  gInsydeTokenSpaceGuid.Pcd64BitAmlSupported
+#[-end-140521-IB05400527-add]#
+  
+[BuildOptions]
+!IF "$(H2O_PORT_80_DEBUG)" == "YES"
+  *_*_*_ASLPP_FLAGS = -D H2O_PORT_80_DEBUG
+!ENDIF
+
+!IF "$(ULT_SUPPORT)" == "YES"
+!ELSE
+  *_*_*_ASLPP_FLAGS = -D TRAD_FLAG -D PEG_FLAG -D DMI_FLAG 
+!ENDIF
+
+#[-start-131204-IB05670214-modify]#
+#[-start-130805-IB05400436-add]#
+!IF $(PCI_EXPRESS_SIZE) == 128
+  *_*_*_ASLCC_FLAGS = -D PLATFORM_PCIEX_BASE_ADDRESS
+!ENDIF
+
+!IF $(PCI_EXPRESS_SIZE) == 64
+  *_*_*_ASLCC_FLAGS = -D PLATFORM_PCIEX_BASE_ADDRESS -D PLATFORM_PCIEX_BASE_ADDRESS_64MB
+!ENDIF
+#[-end-130805-IB05400436-add]#
+#[-end-131204-IB05670214-modify]#
+
+#[-start-131225-IB08620313-add]#
+!IF "$(APEI_SUPPORT)" == "YES"
+  *_*_*_ASLPP_FLAGS = -D APEI_SUPPORT
+  *_*_*_ASLCC_FLAGS = -D APEI_SUPPORT
+!ENDIF
+#[-end-131225-IB08620313-add]#
+

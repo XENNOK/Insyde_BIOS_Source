@@ -1,0 +1,50 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   XtuPolicy.inf
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = XtuPolicyDxe
+  FILE_GUID                      = BA4CD849-6878-4686-9A87-30FB79B5B8A9
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = XTUPolicyEntry
+
+[Sources]
+  XtuPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+
+[Protocols]
+  gDxePlatformXtuPolicyGuid
+
+#[-start-121003-IB10820132-add]#
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdXTUPlatformPolicyEnableRealtimeDevicesSptt
+  gChipsetPkgTokenSpaceGuid.PcdXTUPlatformPolicyEanbleRealtimeWdttAcpiTable
+  gChipsetPkgTokenSpaceGuid.PcdXTUPlatformPolicyEnableSwSmiRealtimeCommunicationsInterface
+#[-end-121003-IB10820132-add]#
+
+[Depex]
+  TRUE

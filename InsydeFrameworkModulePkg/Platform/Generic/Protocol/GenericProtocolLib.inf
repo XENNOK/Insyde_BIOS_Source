@@ -1,0 +1,89 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+# This file contains 'Framework Code' and is licensed as such
+# under the terms of your license agreement with Intel or your
+# vendor.  This file may not be modified, except as allowed by
+# additional terms of your license agreement.
+#
+#/*++
+#
+# Copyright (c)  1999 - 2006 Intel Corporation. All rights reserved
+# This software and associated documentation (if any) is furnished
+# under a license and may only be used or copied in accordance
+# with the terms of the license. Except as permitted by such
+# license, no part of this software or documentation may be
+# reproduced, stored in a retrieval system, or transmitted in any
+# form or by any means without the express written consent of
+# Intel Corporation.
+#
+#  Module Name:
+#
+#    GenericProtocolLib.inf
+#
+#  Abstract:
+#
+#    Component description file for the GenericProtocolLib
+#
+#--*/
+[defines]
+BASE_NAME=   GenericProtocolLib
+COMPONENT_TYPE=   LIBRARY
+[includes.common]
+$(EFI_SOURCE)\Platform\Generic
+$(EDK_SOURCE)\Foundation\Efi
+$(EDK_SOURCE)\Foundation\Include
+$(EDK_SOURCE)\Foundation\Efi\Include
+$(EDK_SOURCE)\Foundation\Framework\Include
+$(EDK_SOURCE)\Foundation\Include\IndustryStandard
+$(EFI_SOURCE)
+$(EDK_SOURCE)\Foundation\Include\Pei
+$(EDK_SOURCE)\Foundation\Library\Pei\Include
+$(EDK_SOURCE)\Foundation\Core\Dxe
+$(EDK_SOURCE)\Foundation\Library\Dxe\Include
+$(EDK_SOURCE)\Foundation\Framework
+!IF "$(H2OIPMI_SUPPORT)" == "YES"
+$(EFI_SOURCE)\Platform\Generic\Ipmi\Include
+!ENDIF
+[nmake.common]
+C_STD_INCLUDE=
+[sources.common]
+LpcPolicy\LpcPolicy.h
+LpcPolicy\LpcPolicy.c
+PlatformPolicy\PlatformPolicy.h
+PlatformPolicy\PlatformPolicy.c
+SdramMemorySetup\SdramMemorySetup.h
+SdramMemorySetup\SdramMemorySetup.c
+Smsc6d103\Smsc6d103.h
+Smsc6d103\Smsc6d103.c
+Spi\Spi.h
+Spi\Spi.c
+SpiChip\SpiChip.h
+SpiChip\SpiChip.c
+SmmThunk\SmmThunk.c
+SmmThunk\SmmThunk.h
+!IF "$(H2OIPMI_SUPPORT)" == "YES"
+H2OIpmiInterfaceProtocol\H2OIpmiInterfaceProtocol.h
+H2OIpmiInterfaceProtocol\H2OIpmiInterfaceProtocol.c
+H2OIpmiUtilityProtocol\H2OIpmiUtilityProtocol.h
+H2OIpmiUtilityProtocol\H2OIpmiUtilityProtocol.c
+H2OIpmiSyncProtocol\H2OIpmiSyncProtocol.c
+H2OIpmiSyncProtocol\H2OIpmiSyncProtocol.h
+H2OIpmiFruProtocol\H2OIpmiFruProtocol.c
+H2OIpmiFruProtocol\H2OIpmiFruProtocol.h
+H2OIpmiPlatformHookProtocol\H2OIpmiPlatformHookProtocol.c
+H2OIpmiPlatformHookProtocol\H2OIpmiPlatformHookProtocol.h
+H2OIpmiSdrProtocol\H2OIpmiSdrProtocol.c
+H2OIpmiSdrProtocol\H2OIpmiSdrProtocol.h
+H2OIpmiSelInfoProtocol\H2OIpmiSelInfoProtocol.c
+H2OIpmiSelInfoProtocol\H2OIpmiSelInfoProtocol.h
+H2OIpmiSelDataProtocol\H2OIpmiSelDataProtocol.c
+H2OIpmiSelDataProtocol\H2OIpmiSelDataProtocol.h
+!ENDIF

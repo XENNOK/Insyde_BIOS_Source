@@ -1,0 +1,44 @@
+## @file
+#  Component description file.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+BASE_NAME           = SetupDefaultLib
+COMPONENT_TYPE      = LIBRARY
+
+[sources.common]
+  Main/MainVfr.vfr
+  Security/SecurityVfr.vfr
+  Boot/BootVfr.vfr
+  Exit/ExitVfr.vfr
+  SetupUtilityLibString.uni
+  
+  Advance/AdvanceVfr.vfr
+  Power/PowerVfr.vfr
+  SetupVfrStrings.uni
+  SetupDefaultLib.c
+
+[includes.common]
+  .
+  $(EDK_SOURCE)/Foundation/Include
+  $(EDK_SOURCE)/Foundation/Efi
+  $(EDK_SOURCE)/Foundation/Efi/Include
+  $(EDK_SOURCE)/Foundation/Framework/Include
+  $(EFI_SOURCE)/Include
+  $(EFI_SOURCE)/$(DEMOBOARD_FAMILY)/$(DEMOBOARD_NAME)/Include
+  $(EFI_SOURCE)/$(COMMON_PLATFORM_DIR)/Dxe/MiscSubclass/Type00
+
+[libraries.common]
+  EfiCommonLib
+
+[nmake.common]
+  C_STD_INCLUDE=

@@ -1,0 +1,45 @@
+#/** @file
+#
+#  Component description file for BiosStorageChipsetDxe driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BiosStorageChipsetDxe
+  FILE_GUID                      = 95AD276A-7E8B-46A8-98F8-4C56F68C3590
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = BiosStorageChipsetDxeEntryPoint
+  
+[Sources]
+  BiosStorageChipsetDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  
+[Protocols]
+  gEfiBiosEventLogProtocolGuid                 # CONSUMED
+
+  gH2OEventStorageProtocolGuid                 # PRODUCED
+  gH2OEventLogStringProtocolGuid               # PRODUCED
+
+[Depex]
+  gEfiBiosEventLogProtocolGuid 

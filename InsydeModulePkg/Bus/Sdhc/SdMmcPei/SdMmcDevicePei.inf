@@ -1,0 +1,42 @@
+## @file
+#  Component description file for SdMmcDevice peim
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SdMmcDevice
+  FILE_GUID                      = F1577E74-CAAB-41c8-9E26-F11EEBB6C83D
+  MODULE_TYPE                    = PEIM
+  BINARY_VERSION                 = 02.12.31.0731.00
+
+[Binaries.Ia32]
+  PE32|Ia32/SdMmcDevice.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  BaseMemoryLib
+  TimerLib
+
+[Ppis]
+  gEfiPeiVirtualBlockIoPpiGuid
+  gH2OSdHostIoPpiGuid
+
+[Depex]
+  gEfiPeiMemoryDiscoveredPpiGuid AND
+  gEfiPeiBootInRecoveryModePpiGuid AND
+  gH2OSdHostIoPpiGuid

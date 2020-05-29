@@ -1,0 +1,213 @@
+## @file
+# General BDS defines and produce general interfaces for platform BDS driver including:
+# 1) BDS boot policy interface;
+# 2) BDS boot device connect interface;
+# 3) BDS Misc interfaces for mainting boot variable, ouput string, etc.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+#  Copyright (c) 2007 - 2011, Intel Corporation. All rights reserved.<BR>
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License
+#  which accompanies this distribution.  The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.php
+#
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = GenericBdsLib
+  FILE_GUID                      = e405ec31-ccaa-4dd4-83e8-0aec01703f7e
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = GenericBdsLib|DXE_DRIVER UEFI_APPLICATION
+  CONSTRUCTOR                    = GenericBdsLibConstructor
+
+[Sources]
+  GenericBdsStrings.uni
+  InternalBdsLib.h
+  String.h
+  HotKey.h
+  BootSystemInformation.c
+  RecoveryFlash.c
+  BdsBoot.c
+  String.c
+  BdsConsole.c
+  DevicePath.c
+  Performance.c
+  BdsConnect.c
+  BdsMisc.c
+  HotKey.c
+  SecureRecovery.c
+  MemoryCheck.c
+  BitlockerVirtualKeyboard.c
+
+[Sources.IA32]
+  Ia32/ClearDr.asm
+  Ia32/CallSmmIhisi.asm
+  Ia32/CallSmmIhisi.S
+  Ia32/ClearDr.S
+
+[Sources.X64]
+  X64/ClearDr.asm
+  X64/CallSmmIhisi.asm
+  X64/CallSmmIhisi.S
+  X64/ClearDr.S
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  PerformancePkg/PerformancePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  DevicePathLib
+  PeCoffGetEntryPointLib
+  BaseLib
+  HobLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  MemoryAllocationLib
+  UefiLib
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  DebugLib
+  PrintLib
+  PcdLib
+  PerformanceLib
+  TimerLib
+  DxeServicesLib
+  HiiLib
+  ReportStatusCodeLib
+  OemGraphicsLib
+  CmosLib
+  BvdtLib
+  KernelConfigLib
+  PostCodeLib
+  DxeOemSvcKernelLibDefault
+  VariableSupportLib
+  SeamlessRecoveryLib
+  LockBoxLib
+
+[Guids]
+  gEfiVT100PlusGuid                             ## CONSUMES ## GUID (The type of terminal)
+  gEfiVT100Guid                                 ## CONSUMES ## GUID (The type of terminal)
+                                                ## CONSUMES ## GUID HOB (The hob holding memory type information)
+  gEfiMemoryTypeInformationGuid                 ## CONSUMES ## GUID (The identifier of memory type information type in system table)
+  gEfiVTUTF8Guid                                ## CONSUMES ## GUID (The type of terminal)
+                                                ## SOMETIMES_CONSUMES ## Variable:L"BootXX" (Boot option variable)
+                                                ## CONSUMES           ## Variable:L"Timeout" (The time out value in second of showing progress bar)
+                                                ## SOMETIMES_CONSUMES ## Variable:L"BootOrder" (The boot option array)
+                                                ## SOMETIMES_CONSUMES ## Variable:L"DriverOrder" (The driver order list)
+                                                ## SOMETIMES_CONSUMES ## Variable:L"ConIn" (The device path of console in device)
+                                                ## SOMETIMES_CONSUMES ## Variable:L"ConOut" (The device path of console out device)
+                                                ## SOMETIMES_CONSUMES ## Variable:L"ErrOut" (The device path of error out device)
+  gEfiGlobalVariableGuid                        ## SOMETIMES_PRODUCES ## Variable:L"BootCurrent" (The boot option of current boot)
+  gEfiFileInfoGuid                              ## CONSUMES ## GUID
+  gEfiPcAnsiGuid                                ## CONSUMES ## GUID (The type of terminal)
+  gPerformanceProtocolGuid                      ## SOMETIMES_PRODUCES ## Variable:L"PerfDataMemAddr" (The ACPI address of performance data)
+  gEfiUartDevicePathGuid                        ## CONSUMES ## GUID (Identify the device path for UARD device)
+  gEfiSasDevicePathGuid                         ## CONSUMES ## GUID (Identify the device path for SAS device)
+  gLastEnumLangGuid                             ## SOMETIMES_PRODUCES ## Variable:L"LastEnumLang" (Platform language at last time enumeration.)
+  gHdBootDevicePathVariablGuid                  ## SOMETIMES_PRODUCES ## Variable:L"HDDP" (The device path of Boot file on Hard device.)
+  gBdsLibStringPackageGuid                      ## PRODUCES ## GUID (HII String PackageList Guid)
+  gEfiGenericVariableGuid
+  gEfiDiskInfoIdeInterfaceGuid
+  gEfiDiskInfoAhciInterfaceGuid
+  gSecureFlashInfoGuid
+  gEfiPartTypeSystemPartGuid
+  gEfiUsbEnumerationGuid
+  gEfiCertX509Guid
+  gEfiFirmwarePerformanceGuid
+  gBootOrderHookEnableGuid
+  gBootOrderHookDisableGuid
+  gEfiFirmwareFileSystem2Guid
+  gReturnFromImageGuid
+  gEfiConsoleOutDeviceGuid
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid              # PROTOCOL CONSUMES
+  gEfiLoadFileProtocolGuid                      # PROTOCOL CONSUMES
+  gEfiSimpleTextOutProtocolGuid                 # PROTOCOL CONSUMES
+  gEfiPciIoProtocolGuid                         # PROTOCOL CONSUMES
+  gEfiLoadedImageProtocolGuid                   # PROTOCOL CONSUMES
+  gEfiDevicePathToTextProtocolGuid              # PROTOCOL SOMETIMES_CONSUMES
+  gEfiSimpleNetworkProtocolGuid                 # PROTOCOL CONSUMES
+  gEfiDebugPortProtocolGuid                     # PROTOCOL CONSUMES
+  gEfiSimpleTextInProtocolGuid                  # PROTOCOL CONSUMES
+  gEfiBlockIoProtocolGuid                       # PROTOCOL CONSUMES
+  gEfiFirmwareVolume2ProtocolGuid               # PROTOCOL CONSUMES
+  gEfiLegacyBiosProtocolGuid                    # PROTOCOL SOMETIMES_CONSUMES
+  gEfiDevicePathProtocolGuid                    # PROTOCOL CONSUMES
+  gEfiAcpiS3SaveProtocolGuid                    # PROTOCOL CONSUMES
+  gEfiGraphicsOutputProtocolGuid                # PROTOCOL SOMETIMES_CONSUMES
+  gEfiUgaDrawProtocolGuid |gEfiMdePkgTokenSpaceGuid.PcdUgaConsumeSupport # PROTOCOL SOMETIMES_CONSUMES
+  gEfiUserManagerProtocolGuid                   # PROTOCOL CONSUMES
+  gEfiUsbIoProtocolGuid                         # PROTOCOL SOMETIMES_CONSUMES
+  gEfiBootLogoProtocolGuid                      # PROTOCOL SOMETIMES_CONSUMES
+  gEfiSetupUtilityProtocolGuid
+  gEfiEbcProtocolGuid
+  gEfiMonitorKeyFilterProtocolGuid
+  gEfiOEMBadgingSupportProtocolGuid
+  gEfiSkipScanRemovableDevProtocolGuid
+  gEfiDriverBindingProtocolGuid
+  gEfiLegacyBiosPlatformProtocolGuid
+  gEfiComponentName2ProtocolGuid
+  gEfiStartOfBdsDiagnosticsProtocolGuid
+  gEndOfBdsBootSelectionProtocolGuid
+  gEfiBootOptionPolicyProtocolGuid
+  gEfiDiskInfoProtocolGuid
+  gH2ODialogProtocolGuid
+  gEfiEdidDiscoveredProtocolGuid
+  gEfiConsoleControlProtocolGuid
+  gEfiSmbiosProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiUnicodeCollation2ProtocolGuid             # PROTOCOL SOMETIMES_CONSUMES
+  gEfiTrEEMeasureOsLoaderAuthorityProtocolGuid
+  gLegacyBiosDependencyGuid
+  gDynamicHotKeyProtocolGuid
+  gEfiHddPasswordServiceProtocolGuid
+  gSetupMouseProtocolGuid
+  gEfiSimplePointerProtocolGuid
+  gEfiAbsolutePointerProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+
+[FeaturePcd]
+  gEfiMdePkgTokenSpaceGuid.PcdUgaConsumeSupport
+  gInsydeTokenSpaceGuid.PcdHdBootDevPathVarSupported
+  gInsydeTokenSpaceGuid.PcdSecureFlashSupported
+  gInsydeTokenSpaceGuid.PcdH2ONetworkSupported
+  gInsydeTokenSpaceGuid.PcdH2ONetworkIpv6Supported
+  gInsydeTokenSpaceGuid.PcdBootDisplayDeviceReplace
+  gInsydeTokenSpaceGuid.PcdMemoryMapConsistencyCheck
+  gInsydeTokenSpaceGuid.PcdAutoCreateDummyBootOption
+  gInsydeTokenSpaceGuid.PcdDynamicHotKeySupported
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdResetOnMemoryTypeInformationChange
+  gEfiMdeModulePkgTokenSpaceGuid.PcdProgressCodeOsLoaderLoad
+  gEfiMdeModulePkgTokenSpaceGuid.PcdProgressCodeOsLoaderStart
+  gEfiIntelFrameworkModulePkgTokenSpaceGuid.PcdShellFile
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+  gInsydeTokenSpaceGuid.PcdDefaultLogoResolution
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gInsydeTokenSpaceGuid.PcdSecureFlashCertificateFile
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+

@@ -1,0 +1,56 @@
+## @file
+# Instance of Layout Package Library using DXE protocols and services.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = HiiLayoutPkgDxe
+  FILE_GUID                      = 6AD37609-A9F9-4587-9023-7820E10F5B7A
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = HiiLayoutPkgDxeEntryPoint
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  HiiLayoutPkg.c
+  Project.vfcf
+  Resource/Resource.idf
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeSetupPkg/InsydeSetupPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseLib
+  MemoryAllocationLib
+  DevicePathLib
+  BaseMemoryLib
+  UefiLib
+  DebugLib
+  HiiLib
+
+[Guids]
+  gH2OHiiLayoutFileGuid
+
+[Protocols]
+  gEfiFirmwareVolume2ProtocolGuid
+  gEfiHiiDatabaseProtocolGuid
+  gLayoutDatabaseProtocolGuid
+

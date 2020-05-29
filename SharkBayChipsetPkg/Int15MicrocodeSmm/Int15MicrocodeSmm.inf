@@ -1,0 +1,54 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = Int15MicrocodeSmm
+  FILE_GUID                      = 30806658-1E9C-4a13-971E-707A69E958C8
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MicrocodeUpdateEntrypoint
+
+[Sources]
+  MicrocodeUpdate.c
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  SmmServicesTableLib
+  MemoryAllocationLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DebugLib
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeSize
+  
+[Protocols]
+# gEfiSmmBase2ProtocolGuid
+  gEfiSmmCpuProtocolGuid                                ## CONSUMES
+  gEfiSmmSwDispatch2ProtocolGuid                        ## CONSUMES
+  gEfiSmmFwBlockServiceProtocolGuid
+  
+[Depex]
+# gEfiSmmBase2ProtocolGuid AND
+# gEfiSmmAccessProtocolGuid AND                 
+  gEfiSmmFwBlockServiceProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid
+

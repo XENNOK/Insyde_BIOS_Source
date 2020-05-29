@@ -1,0 +1,60 @@
+## @file
+# Instance of PEI Chipset Services Library
+#
+# The PEI Chipset Services Library provides wrapper functions for the H2O 
+# Chipset Services ppi, which provides an interface into the Chipset layer
+# for the Kernel and Platform PEIMs and libraries.
+#
+# ***************************************************************************
+# * Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+# *
+# * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+# * transmit, broadcast, present, recite, release, license or otherwise exploit
+# * any part of this publication in any form, by any means, without the prior
+# * written permission of Insyde Software Corporation.
+# *
+# ******************************************************************************
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiChipsetSvcLib
+  FILE_GUID                      = 983b9276-d041-4842-9882-39aad6a56348
+  MODULE_TYPE                    = PEIM
+  LIBRARY_CLASS                  = PeiChipsetSvcLib
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  PeiCsSvcEnableFdWrites.c
+  PeiCsSvcLegacyRegionAccessCtrl.c
+  PeiCsSvcGetSleepState.c
+  PeiCsSvcHdaInitHook.c
+  PeiCsSvcPlatformStage1Init.c
+  PeiCsSvcStage1MemoryDiscoverCallback.c
+  PeiCsSvcPlatformStage2Init.c
+  PeiCsSvcStage2MemoryDiscoverCallback.c
+  PeiCsSvcModifyMemoryRange.c
+  PeiCsSvcSetSetupVariableDefault.c
+  PeiCsSvcSetPlatformHardwareSwitch.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeiServicesLib
+  DebugLib
+  
+[Guids]
+
+[Ppis]
+  gH2OChipsetServicesPpiGuid
+
+[Pcd]
+
+[Depex]
+  gH2OChipsetServicesPpiGuid
+  

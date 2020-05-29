@@ -1,0 +1,318 @@
+;/** @file
+;  This file contains AP initialization code in PEI phase
+;  
+;******************************************************************************
+;* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+;*/
+;/*++                                                             
+;  This file contains an 'Intel Peripheral Driver' and uniquely   
+;  identified as "Intel Reference Module" and is                  
+;  licensed for Intel CPUs and chipsets under the terms of your   
+;  license agreement with Intel or your vendor.  This file may    
+;  be modified by the user, subject to additional terms of the    
+;  license agreement                                              
+;--*/                                                             
+;                                                                 
+;/*++                                                             
+;                                                                 
+; Copyright (c)  1999 - 2011 Intel Corporation. All rights reserved
+; This software and associated documentation (if any) is furnished
+; under a license and may only be used or copied in accordance
+; with the terms of the license. Except as permitted by such
+; license, no part of this software or documentation may be
+; reproduced, stored in a retrieval system, or transmitted in any
+; form or by any means without the express written consent of
+; Intel Corporation.
+; 
+; 
+; Module Name:
+; 
+;   TxtPeiAp.asm
+; 
+; Abstract:
+; 
+;   This file contains AP initialization code in PEI phase
+;
+;--*/
+
+    .XLIST
+    include txt.inc
+    .LIST	    
+
+    .586p
+    .MMX
+
+TxtSegment16 SEGMENT PARA USE16 PUBLIC 'TXTCODE'
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;  Procedure:	
+; 
+;  Input:	None
+; 
+;  Output:	None
+; 
+;  Registers:	None are preserved
+; 
+;  Description: Entry point of AP startup code. Target of SIPI vector.
+; 
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;
+; This point is 4K aligned somewhere in boot block. 
+;
+    jmp     code16bitStart        
+
+    ORG     10h
+
+GDTAddress:   
+    dw	GDTLen			; The length of the GDT
+    dd	OFFSET GDTStart         ; The 32-bit physical address
+
+;
+; AP GDT table
+;
+    ALIGN 16
+GDTStart	LABEL	BYTE
+
+    SEG_DESCRIPTOR	<>			; Unused  (selector 0)
+
+;
+; Selector 8
+;
+TXT_DATA32	EQU	$ - GDTStart
+
+TXT_DATA32_OFF	SEG_DESCRIPTOR	{0FFFFh,\
+				0000h, 	\
+				00h, 	\
+				<SEG_PRESENT, 0, APPLSEGMENT, DATATYPE>,	\
+				<PAGEGRANULARITY, BIGSEGMENT,,,0Fh>,		\
+				00h}
+
+GDTLen		EQU	$ - GDTStart - 1              
+
+
+code16bitStart:
+
+;L1:	jmp     $
+    cli
+        
+    mov     si, OFFSET GDTAddress
+    ;
+    ; Set DS and ES limits
+    ;
+    db      66h                     ; Force 32 bit load
+    lgdt    FWORD PTR cs:[si]
+
+    mov	eax, CR0 		; get CPU control word 0
+    or	al, 01			; enable CPU protected mode
+    mov	CR0, eax 		; write back to CPU control word 0
+    jmp	target
+
+target:                      
+
+    mov	ax, TXT_DATA32
+    mov	ds, ax			; set DS limit
+    mov	es, ax			; set ES limit
+    mov	fs, ax			; set FS limit
+    mov	gs, ax			; set GS limit
+    mov	ss, ax			; set SS limit
+
+    ;
+    ; Disable protected mode
+    ;
+    mov	eax, CR0 		; get CPU control word 0
+    and	al, 0FEh 		; disable CPU protected mode
+    mov	CR0, eax 		; write back to CPU control word 0
+    jmp target3
+
+target3:
+    xor	ax, ax
+    mov	ds, ax			; set flat DS
+    mov	es, ax			; set flat ES
+
+    ;
+    ; Fall through to main code 
+    ;
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;
+; Procedure:	LoadVsmcuRetNS - Variable Size Processor Microcode Update (Stackless)
+;
+; Input:	SP = Return address
+;
+; Output:	None
+;
+; Registers:	All but SP are modified
+;
+; Description:
+;		Load MCU into processor.
+;
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+
+LoadVsmcuRetNS PROC NEAR PUBLIC	       
+    ;
+    ; Check uCode was loaded or not
+    ;
+    xor eax, eax
+    xor edx, edx
+    mov ecx, MCU_REV_MSR
+    wrmsr
+	mov	eax, 1
+	cpuid
+    mov ecx, MCU_REV_MSR
+    rdmsr
+    or  edx, edx
+    jnz uCode_loaded
+
+    ;
+    ; Restore MCU address from scratch register
+    ;					   
+    mov	eax, 1
+    cpuid
+        
+    mov	eax, TXT_PUBLIC_BASE + MCU_BASE_ADDR
+    mov	eax, [eax]
+
+    lea	eax, [eax + SIZEOF MCU]	; EAX -> MCU data (after header)
+    xor	edx, edx						   
+    mov	ecx, MCU_LOAD_MSR	; Trigger to load MCU
+
+    wrmsr				; Load MCU
+
+    mov	eax, 1
+    cpuid
+uCode_loaded:
+    ;
+    ; Fall through
+    ;
+LoadVsmcuRetNS ENDP
+				       
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;  Procedure:	TxtPrepareCacheForAcModuleRetNS
+; 
+;  Input:	None
+; 
+;  Output:	None
+; 
+;  Registers:	None are preserved
+; 
+;  Description: Cache initialization per TXT BIOS spec	
+; 
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+
+TxtPrepareCacheForAcModuleRetNS PROC NEAR PUBLIC
+
+	;
+	; Ensure CR0.CD and CR0.NW are cleared
+	;
+ 	mov	eax, cr0	;
+ 	and	eax, NOT (CR0_CD_MASK + CR0_NW_MASK)
+ 	mov	cr0, eax
+    ;
+    ; Fall through
+    ;
+TxtPrepareCacheForAcModuleRetNS ENDP
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;  Procedure:	TxtCleanMcaNS
+; 
+;  Input:	None
+; 
+;  Output:	None
+; 
+;  Registers:	None are preserved
+; 
+;  Description: MCA registers are cleaned
+; 
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+
+TxtCleanMcaNS PROC NEAR PUBLIC                                   
+    ;
+    ; Clean MC[i]_STATUS MSR registers
+    ; SCLEAN will generate GPF otherwise
+    ;
+    mov	ecx, MCG_CAP
+    rdmsr
+    movzx	ebx, al			; Bank count to ebx
+    sub	eax, eax		; Write 0 into all MCi_STATUS registers
+    sub	edx, edx					     
+    mov	ecx, MC0_STATUS
+
+McaErrorCleanLoopStart:	
+    wrmsr
+    dec	ebx
+    jz	continue
+    add	ecx, 4			; Number of MSRs per bank
+    jmp	McaErrorCleanLoopStart
+
+continue:                  
+    ;
+    ; Fall through
+    ;
+TxtCleanMcaNS ENDP
+
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+;  Procedure:	TxtHaltLoopNS
+; 
+;  Input:	None
+; 
+;  Output:	None
+; 
+;  Registers:	None are preserved
+; 
+;  Description: APs enter halt loop
+; 
+;-----------------------------------------------------------------------------
+;-----------------------------------------------------------------------------
+TxtHaltLoopNS PROC NEAR PUBLIC                                   
+
+    mov	eax, CR4
+    or	eax, CR4_OSFXSR + CR4_DE + CR4_SMXE
+    mov	CR4, eax
+
+    mov     eax, 1
+    cpuid
+    shr     ebx, 24                 ; ebx is initial APIC ID shifted rightmostly
+        
+    ;
+    ; Since accesses to semaphore cannot be serialized, accesses among different CPUs
+    ; are orchestrated as following:
+    ; BSP will only READ semaphore
+    ; All APs will keep READING semaphore until its value EQUALS to that AP's
+    ; APIC ID minus 1. Only AFTER that AP will INCREMENT semaphore.
+    ; This allows BSP to judge WHEN all APs finished.
+    ;
+    mov     ecx, [TXT_PUBLIC_BASE + SEMAPHORE]
+        
+keepWaiting:
+    mov     eax, [ecx]
+    inc     eax
+    cmp     eax, ebx
+    jb      keepWaiting
+    ja      hltLoop
+    mov     [ecx], eax
+
+hltLoop:
+    cli
+    hlt
+    jmp	hltLoop
+
+TxtHaltLoopNS ENDP
+
+TxtSegment16	ENDS
+
+END

@@ -1,0 +1,57 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = OemModifyOpRegion
+  FILE_GUID                      = 346B093A-9002-4e99-A2F2-27A16C3DCD89 
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = OemModifyOpRegionInit   
+
+[Sources]
+  OemModifyOpRegion.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+#[-start-121107-IB10820154-add]#
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-end-121107-IB10820154-add]#
+#[-start-121108-IB10820155-add]#
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-end-121108-IB10820155-add]#
+#[-start-121214-IB10820197-add]#
+#[-end-121214-IB10820197-add]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+#[-start-121107-IB10820154-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121107-IB10820154-add]#
+#[-start-130110-IB11410040-add]#
+#[-start-130812-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcChipsetLibDefault
+#[-end-130812-IB06720232-modify]#
+#[-end-130110-IB11410040-add]#
+
+[Protocols]
+  gIgdOpRegionProtocolGuid      # CONSUMED
+
+#[-start-121107-IB10820154-add]#
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdLidStatus
+#[-end-121107-IB10820154-add]#
+
+[Depex]
+  TRUE

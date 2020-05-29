@@ -1,0 +1,76 @@
+## @file
+# Component description file for SetupMouse Module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SetupMouseDxe
+  FILE_GUID                      = 06B5947E-FF53-457d-98BC-C5ABC777FD5A
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeSetupMouse
+
+[Sources]
+  SetupMouse.c
+  SetupMouse.h
+  SetupMouseFuncs.c
+  SetupMouseCursor.c
+  KeyboardLayout.c
+  SetupMouseKeyboard.c
+  SetupMouseScreen.c
+  Picture/SetupMouseKeyboard.idf
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  PrintLib
+  HiiLib
+  DevicePathLib
+  UefiHiiServicesLib
+  RectLib
+  BitBltLib
+
+[Guids]
+  gEfiConsoleInDeviceGuid                       ## SOMETIMES_CONSUMES
+  gReturnFromImageGuid
+
+[Protocols]
+  gEfiGraphicsOutputProtocolGuid
+  gEfiAbsolutePointerProtocolGuid
+  gEfiSimplePointerProtocolGuid
+  gSetupMouseProtocolGuid
+  gEfiEdidDiscoveredProtocolGuid
+  gEfiEdidActiveProtocolGuid
+  gEfiConsoleControlProtocolGuid
+  gEfiSimpleTextInProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiDriverBindingProtocolGuid
+
+[Depex]
+  gEfiGraphicsOutputProtocolGuid  AND
+  gEfiSimplePointerProtocolGuid
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS = /wd4047

@@ -1,0 +1,100 @@
+## @file
+#  Package declaration file for InsydeApeiPkg
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = $(INSYDE_APEI_PKG)
+  PACKAGE_GUID                   = F832289-AC53-480E-A513-E014C1DCBFCA
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+
+[Guids]
+  ## Include\Guid\InsydeApeiPkgTokenSpace.h
+  gEfiApeiPkgTokenSpaceGuid            = { 0xAB7F4F3F, 0x6859, 0x4BB3, { 0xBD, 0x23, 0x17, 0xEB, 0x2C, 0x82, 0xFA, 0xE6 }}
+
+[Ppis]
+
+[Protocols]
+  ## Include\Protocol\Whea\IsPlatformSupportWhea.h
+  gEfiIsPlatformSupportWheaGuid        = { 0x7520E2BF, 0x3A02, 0x49C0, { 0xA0, 0x3E, 0x57, 0xB0, 0x6D, 0x16, 0xA9, 0xFE }}
+
+  ## Include\Protocol\Whea\WheaSupport.h
+  gEfiWheaSupportProtocolGuid          = { 0x0F0069BC, 0x016C, 0x43D1, { 0xBF, 0x6C, 0x83, 0x7C, 0xCE, 0x92, 0xF1, 0x82 }}
+
+  ## Include\Protocol\Whea\WheaPlatform.h
+  gEfiWheaPlatformProtocolGuid         = { 0xBDFECBC9, 0x8932, 0x4029, { 0xBC, 0x75, 0x4A, 0x2F, 0xC6, 0x64, 0x11, 0x44 }}
+
+#
+# RasPkg PCD Summary
+#
+# 0x000AXXXX : APEI(WHEA)
+#
+# 0x000001XX : Feature Flag
+# 0x000002XX : Store information
+# 0x000003XX : Error Inject
+# 0x000004XX : Error Log
+
+[PcdsFeatureFlag]
+  #
+  # H2O APEI(WHEA) feature switch.
+  #
+  ## If TRUE, H2O APEI(WHEA) Feature Support.
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiSupport|TRUE|BOOLEAN|0x000A0101
+
+[PcdsFixedAtBuild]
+  #
+  # H2O APEI(WHEA) Error NV Store information.
+  # Set by Project.fdf
+  #
+  gEfiApeiPkgTokenSpaceGuid.PcdFlashApeiStoreBase|0x00000000|UINT32|0x000A0201
+  gEfiApeiPkgTokenSpaceGuid.PcdFlashApeiStoreSize|0x00000000|UINT32|0x000A0202
+
+[PcdsDynamic, PcdsDynamicEx]
+  #
+  # H2O APEI(WHEA) feature switch.
+  #
+  ## Set by SUC
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiEnable|FALSE|BOOLEAN|0x000A0102
+
+  #
+  # H2O APEI(WHEA) Error Inject Configure.
+  #
+  ## Set by SCU
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiErrorInjectType|0x0000|UINT16|0x000A0302
+
+  #
+  # H2O APEI(WHEA) Error Log Configure.
+  #
+  ## Set by SCU
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiDefrag|0x00|UINT8|0x000A0403
+
+#[-start-140425-IB10310054-add]#
+  #
+  # H2O APEI(WHEA) ACPI Version.
+  #
+  ## Set by SCU
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiAcpiVersion|0x02|UINT8|0x000A0504
+
+  #
+  # H2O APEI(WHEA) Uefi Version.
+  #
+  ## Set by SCU
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiUefiVersion|0x0201|UINT16|0x000A0505
+#[-end-140425-IB10310054-add]#
+
+[PcdsFixedAtBuild,PcdsPatchableInModule,PcdsDynamic, PcdsDynamicEx]
+

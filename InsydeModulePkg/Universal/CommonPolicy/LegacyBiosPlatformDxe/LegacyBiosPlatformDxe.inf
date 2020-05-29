@@ -1,0 +1,85 @@
+## @file
+#  Component description file for LegacyBiosPlatformDxe driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = LegacyBiosPlatformDxe
+  FILE_GUID                      = F84CFFF4-511E-41C8-B829-519F5152F444
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = LegacyBiosPlatformDxeEntryPoint
+
+[Sources]
+  PlatformHooks.c
+  GetRoutingTable.c
+  GetPlatformInfo.c
+  SmmInit.c
+  PrepareToBoot.c
+  GetPlatformHandle.c
+  LegacyBiosPlatformDxe.c
+  LegacyBiosPlatformDxe.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  BvdtLib
+  DebugLib
+  DevicePathLib
+  DxeServicesLib
+  MemoryAllocationLib
+  PcdLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  KernelConfigLib
+  DxeOemSvcKernelLibDefault
+  DxeChipsetSvcLib
+  VariableLib
+
+[Guids]
+  gEfiGenericVariableGuid
+  gEfiGlobalVariableGuid
+  gEfiDiskInfoAhciInterfaceGuid
+
+[Protocols]
+  gEfiLegacyBiosProtocolGuid
+  gEfiLegacyBiosPlatformProtocolGuid
+  gLegacyBiosDependencyGuid
+  gEfiSmbiosProtocolGuid
+  gEfiLegacyInterruptProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  gSdPassThruProtocolGuid
+  gEfiLegacyRegionProtocolGuid
+  gLegacyFreeGuid
+  gEfiDiskInfoProtocolGuid
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+
+[Depex]
+  gH2OChipsetServicesProtocolGuid AND
+  gEfiVariableArchProtocolGuid AND
+  gEfiSetupUtilityProtocolGuid
+

@@ -1,0 +1,57 @@
+/** @file
+ This file contains a structure definition for the ACPI ASPT Table
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/ 
+
+//
+// Statements that include other files
+//
+
+#include <Aspt.h>
+
+EFI_ACPI_ASPT_TABLE AsptTable = {
+  EFI_ACPI_ASPT_TABLE_SIGNATURE,
+  sizeof (EFI_ACPI_ASPT_TABLE),
+  EFI_ACPI_ASPT_TABLE_REVISION,
+
+  // Checksum will be updated at runtime
+  0x00,
+  // OEM identification
+  EFI_ACPI_OEM_ID,
+
+  // OEM table identification
+  EFI_ACPI_OEM_TABLE_ID_XTU,
+
+  // OEM revision number
+  EFI_ACPI_OEM_REVISION, 
+
+  // ASL compiler vendor ID
+  EFI_ACPI_CREATOR_ID,
+  
+  // ASL compiler revision number
+  EFI_ACPI_CREATOR_REVISION,
+
+  // 64 bits of reserved data
+  0
+};
+
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&AsptTable;
+}

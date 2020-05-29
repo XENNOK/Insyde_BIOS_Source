@@ -1,0 +1,66 @@
+## @file
+#  Component description file for UsbStatusCodePei module
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbStatusCodePei
+  FILE_GUID                      = 1453D8CE-F24C-4367-96C2-9258A0432AE5
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0  
+  ENTRY_POINT                    = UsbStatusCodePeiEntry
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC (EBC is only for build)
+#
+
+[Sources]
+  UsbStatusCodePei.c
+  UsbDebug.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  PcdLib
+  HobLib
+  ReportStatusCodeLib
+  PrintLib
+  DebugLib
+  BaseMemoryLib
+  H2ODebugLib
+  PciLib
+  IoLib
+  TimerLib
+  
+[Guids]
+  gEfiStatusCodeDataTypeStringGuid              ## CONSUMES
+  
+[Ppis]
+  gEfiPeiRscHandlerPpiGuid                      ## CONSUMES
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdStatusCodeUseUsb
+  gInsydeTokenSpaceGuid.PcdDdtStatusCodeReportsProgressCode
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdUsbDebugEhciControl
+  gInsydeTokenSpaceGuid.PcdUsbDebugEhciBaseAddress
+
+[Depex]
+  TRUE

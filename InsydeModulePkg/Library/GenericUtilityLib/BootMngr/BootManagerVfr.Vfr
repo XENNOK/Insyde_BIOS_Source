@@ -1,0 +1,69 @@
+/** @file
+  GenericUtilityLib
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+///**
+//
+//    Browser formset.
+//
+//  Copyright (c) 2004 - 2011, Intel Corporation. All rights reserved.<BR>
+//  This program and the accompanying materials
+//  are licensed and made available under the terms and conditions of the BSD License
+//  which accompanies this distribution.  The full text of the license may be found at
+//  http://opensource.org/licenses/bsd-license.php
+//
+//  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+//
+//**/
+
+#include <Guid/BdsHii.h>
+
+#define BOOT_MANAGER_FORM_ID     0x1000
+
+#define LABEL_BOOT_OPTION        0x00
+#define LABEL_BOOT_OPTION_END    0x01
+
+#define BOOT_MANAGER_CLASS       0x00
+#define BOOT_MANAGER_SUBCLASS    0x00
+
+formset
+  guid      = BOOT_MANAGER_FORMSET_GUID,
+  title     = STRING_TOKEN(STR_BM_BANNER),
+  help      = STRING_TOKEN(STR_LAST_STRING),
+  classguid = BOOT_MANAGER_FORMSET_GUID,
+  class     = BOOT_MANAGER_CLASS,
+  subclass  = BOOT_MANAGER_SUBCLASS,
+#if FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+  image     = IMAGE_TOKEN(IMAGE_BOOT_MANAGER_MENU);
+#endif
+
+  form formid = BOOT_MANAGER_FORM_ID,
+       title  = STRING_TOKEN(STR_BM_BANNER);
+
+    subtitle text = STRING_TOKEN(STR_LAST_STRING);
+    subtitle text = STRING_TOKEN(STR_BOOT_OPTION_BANNER);
+    subtitle text = STRING_TOKEN(STR_LAST_STRING);
+
+    //
+    // This is where we will dynamically add choices for the Boot Manager
+    //
+    label LABEL_BOOT_OPTION;
+    label LABEL_BOOT_OPTION_END;
+
+    subtitle text = STRING_TOKEN(STR_LAST_STRING);
+    subtitle text = STRING_TOKEN(STR_HELP_FOOTER);
+
+  endform;
+
+endformset;

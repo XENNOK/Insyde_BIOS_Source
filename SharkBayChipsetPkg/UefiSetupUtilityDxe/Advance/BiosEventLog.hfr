@@ -1,0 +1,77 @@
+/** @file
+
+  BIOS Event Log HFR implementation.
+
+;******************************************************************************
+;* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+  //
+  //  Form VFR_FORMID_BIOS_EVENT_LOG : BIOS Event Log Config
+  //
+  form
+    formid = VFR_FORMID_BIOS_EVENT_LOG, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+    subtitle text = STRING_TOKEN(STR_BIOS_EVENT_LOG_TITLE);
+    
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+    
+    //
+    // Log Event To
+    //
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    
+      oneof
+        varid       = SystemConfig.LogEventTo,
+        prompt      = STRING_TOKEN(STR_LOG_EVENT_TO_STRING),
+        help        = STRING_TOKEN(STR_LOG_EVENT_TO_HELP),
+        option text = STRING_TOKEN(STR_ALL_TXT),           value = 0, flags = INTERACTIVE;
+        option text = STRING_TOKEN(STR_BIOS_TXT),          value = 1, flags = INTERACTIVE | DEFAULT;
+        option text = STRING_TOKEN(STR_BMC_SEL_TXT),       value = 2, flags = INTERACTIVE;
+        option text = STRING_TOKEN(STR_MEMORY_TXT),        value = 4, flags = INTERACTIVE;
+      endoneof;      
+    endif;
+
+    //
+    // Event Log Full
+    //
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    
+      oneof
+        varid       = SystemConfig.EventLogFullOption,
+        prompt      = STRING_TOKEN(STR_EVENT_LOG_FULL_OPTION_STRING),
+        help        = STRING_TOKEN(STR_EVENT_LOG_FULL_OPTION_HELP),
+        option text = STRING_TOKEN(STR_OVERWRITE_TEXT),             value = 0, flags = INTERACTIVE;
+        option text = STRING_TOKEN(STR_CLEAR_ALL_TEXT),             value = 1, flags = INTERACTIVE;
+        option text = STRING_TOKEN(STR_STOP_LOGGING_TEXT),          value = 2, flags = INTERACTIVE | DEFAULT;
+      endoneof;
+      
+    endif;    
+
+    subtitle text = STRING_TOKEN(STR_BLANK_STRING);
+
+    //
+    // Event Log Viewer
+    //
+    text
+      help   = STRING_TOKEN(STR_EVENT_LOG_VIEWER_HELP),
+      text   = STRING_TOKEN(STR_EVENT_LOG_VIEWER_STRING),
+      text   = STRING_TOKEN(STR_BLANK_STRING),
+      flags  = INTERACTIVE,
+      key    = KEY_EVENT_LOG_VIEWER;
+
+  
+endform;// end of form VFR_FORMID_BIOS_EVENT_LOG

@@ -1,0 +1,60 @@
+## @file
+# 
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WatchDogHook
+  FILE_GUID                      = 9EA55025-8093-4762-A6C2-7611FD205F8C
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = WatchDogHookEntry
+
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  WatchDogHook.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  PcdLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  WatchDogLib
+  BaseMemoryLib
+  
+[Guids]
+  
+[Protocols]
+  gWatchDogHookProtocolGuid
+  
+[FeaturePcd]
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+   
+[Depex]
+  TRUE
+

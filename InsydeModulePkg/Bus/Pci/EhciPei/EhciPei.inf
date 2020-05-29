@@ -1,0 +1,34 @@
+## @file
+#  Component description file for Ehci PEIM
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = EhciPei
+  FILE_GUID                      = 9A5D7D47-CF0C-451c-8E4B-B051EFC3CEDB
+  MODULE_TYPE                    = PEIM
+  BINARY_VERSION                 = 02.01.06.0208.00
+
+[Binaries.Ia32]
+  PE32|Ia32/EhciPei.efi|*
+
+[Binaries.Arm]
+  TE|Arm/EhciPei.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[Depex]
+  gPeiUsbControllerPpiGuid       AND
+  gPeiBootInRecoveryModePpiGuid

@@ -1,0 +1,105 @@
+## @file
+#  Component description file for FvbServicesRuntimeDxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FvbServicesRuntimeDxe
+  FILE_GUID                      = BDFE5FAA-2A35-44bb-B17A-8084D4E2B9E9
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = FvbEntryPoint
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32
+#
+
+[Sources]
+  FvbInfo.c
+  FvbServicesRuntimeDxe.h
+  FvbServicesRuntimeDxe.c
+  RuntimeFunctions.h
+  RuntimeFunctions.c
+  CommonFunctions.h
+  CommonFunctions.c
+  SmmFunctions.h
+  SmmFunctions.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  HobLib
+  DebugLib
+  DxeServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseLib
+  UefiDriverEntryPoint
+  UefiLib
+  PcdLib
+  FlashDevicesLib
+  ImageRelocationLib
+
+[Sources.Ia32]
+  Ia32/CallSmmFunctions.asm
+  Ia32/CallSmmFunctions.S
+
+[Sources.X64]
+  X64/CallSmmFunctions.asm
+  X64/CallSmmFunctions.S
+
+[Sources.Arm]
+  Arm/CallSmmFunctions.c
+
+[Guids]
+  gEfiEventVirtualAddressChangeGuid             # ALWAYS_CONSUMED  Create Event: EVENT_GROUP_GUID
+  gEfiAlternateFvBlockGuid
+  gEfiEventExitBootServicesGuid
+  gFvbAccessThroughSmiGuid
+
+[Protocols]
+  gEfiFirmwareVolumeBlockProtocolGuid           # PROTOCOL ALWAYS_PRODUCED
+  gEfiDevicePathProtocolGuid                    # PROTOCOL SOMETIMES_PRODUCED
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmFwBlockServiceProtocolGuid
+  gEfiSmmCpuProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashFvMainBase
+  gInsydeTokenSpaceGuid.PcdFlashFvMainSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase64
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+  gInsydeTokenSpaceGuid.PcdFirmwareBlockSize
+  gInsydeTokenSpaceGuid.PcdFvbAccessThroughSmi
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+
+[Depex]
+
+  <SMM_DEPEX>
+  gFvbAccessThroughSmiGuid  AND
+  gEfiSmmFwBlockServiceProtocolGuid AND
+  gEfiSmmCpuProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid

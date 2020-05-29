@@ -1,0 +1,71 @@
+## @file
+#
+#   Component description file for Heci SMM driver
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#* Copyright (c)  2005 - 2012 Intel Corporation. All rights reserved
+#* This software and associated documentation (if any) is furnished
+#* under a license and may only be used or copied in accordance
+#* with the terms of the license. Except as permitted by such
+#* license, no part of this software or documentation may be
+#* reproduced, stored in a retrieval system, or transmitted in any
+#* form or by any means without the express written consent of
+#* Intel Corporation.
+#
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PerfTuneSmm
+  FILE_GUID                      = AD5FDB62-7060-46d0-AB28-8F6181FBC7DD
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializePerfTuneServices
+
+[Sources]
+  PerfTuneSmm.c
+  PerfTuneSmm.h
+ 
+[Packages]
+  MdePkg/MdePkg.dec 
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  IoLib
+  BaseMemoryLib
+  CmosLib
+  DevicePathLib
+ 
+[Protocols]
+  gDxePlatformXtuPolicyGuid
+  gEfiSetupUtilityProtocolGuid
+  gEfiSmmVariableProtocolGuid
+  gEfiSmmSwDispatchProtocolGuid
+
+[Pcd]
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Depex]
+  gEfiCpuIoProtocolGuid             AND
+  gEfiPciRootBridgeIoProtocolGuid   AND
+  gEfiSetupUtilityProtocolGuid      AND
+  gEfiAcpiSupportProtocolGuid       AND
+  gEfiSmmVariableProtocolGuid       AND
+  gEfiSmmSwDispatchProtocolGuid

@@ -1,0 +1,58 @@
+## @file
+# Component description file for CrPl2303Dxe module
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CrPl2303Dxe
+  FILE_GUID                      = 5D908627-8472-4913-A93A-66D62F374C08
+  MODULE_TYPE                    = DXE_DRIVER
+  BINARY_VERSION                 = 10.01
+
+
+[Binaries.Ia32]
+  PE32|Ia32/CrPl2303Dxe.efi
+
+
+[Binaries.X64]
+  PE32|X64/CrPl2303Dxe.efi
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec  
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  DxeServicesLib
+  DevicePathLib
+
+[Protocols]
+  gEfiDevicePathProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiCRPolicyProtocolGuid
+  gEfiUsbIoProtocolGuid
+  gUsbSerialControllerIoProtocolGuid
+
+[Pcd]
+  gInsydeCrTokenSpaceGuid.PcdCRSrvManagerSupported
+  
+[Depex]
+  gEfiCRPolicyProtocolGuid

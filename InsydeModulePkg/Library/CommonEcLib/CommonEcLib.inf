@@ -1,0 +1,40 @@
+## @file
+#  Component description file for CommonEcLib.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CommonEcLib
+  FILE_GUID                      = 218231EE-DC96-497c-A886-B36B0CC2C3C6
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = CommonEcLib
+
+[Sources]
+  CommonEcLib.c
+
+[Pcd]
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  PerformancePkg/PerformancePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  IoLib
+  PcdLib
+  DebugLib
+  
+[Protocols]
+
+

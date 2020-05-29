@@ -1,0 +1,649 @@
+//;******************************************************************************
+//;* Copyright (c) 1983-2014, Insyde Software Corporation. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+//;
+//; Module Name:
+//;
+//;   BootVfr.vfr
+//;
+//; Abstract:
+//;
+//;   The Vfr component for Boot menu
+//;
+
+//
+// Define this to include compiler fail-cases in the code
+//
+#include "UefiSetupUtilityLibStrDefs.h"
+#include "SetupConfig.h"
+#include "Bootconfig.h"
+#define EFI_GLOBAL_VARIABLE_GUID \
+  { \
+    0x8BE4DF61, 0x93CA, 0x11d2, 0xAA, 0x0D, 0x00, 0xE0, 0x98, 0x03, 0x2B, 0x8C \
+  }
+//
+// Variable attributes
+//
+#define EFI_VARIABLE_NON_VOLATILE       0x00000001
+#define EFI_VARIABLE_BOOTSERVICE_ACCESS 0x00000002
+#define EFI_VARIABLE_RUNTIME_ACCESS     0x00000004
+
+
+//
+//          Form 5: Boot Menu
+//
+formset
+  guid     = SYSTEM_CONFIGURATION_GUID,
+  title    = STRING_TOKEN(STR_BOOT_TITLE),
+  help     = STRING_TOKEN(STR_BLANK_STRING),
+  class    = SETUP_UTILITY_CLASS,
+  subclass = SETUP_UTILITY_SUBCLASS,
+
+  varstore SYSTEM_CONFIGURATION,            // This is the data structure type
+    varid = CONFIGURATION_VARSTORE_ID,      // Optional VarStore ID
+    name  = SystemConfig,                   // Define referenced name in vfr
+    guid  = SYSTEM_CONFIGURATION_GUID;      // GUID of this buffer storage
+
+  varstore BOOT_CONFIGURATION,              // This is the data structure type
+    varid = BOOT_VARSTORE_ID,               // Optional VarStore ID
+    name  = BootConfig,                     // Define referenced name in vfr
+    guid  = SYSTEM_CONFIGURATION_GUID;      // GUID of this buffer storage
+
+
+  form
+    formid = ROOT_FORM_ID,
+
+    title = STRING_TOKEN(STR_BOOT_TITLE);
+
+    subtitle
+      text = STRING_TOKEN(STR_BLANK_STRING);
+
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    oneof
+      varid       = SystemConfig.BootTypeReserved,
+      questionid  = KEY_BOOT_MODE_TYPE,
+      prompt      = STRING_TOKEN(STR_BOOT_TYPE_STRING),
+      help        = STRING_TOKEN(STR_BOOT_TYPE_HELP),
+      option text = STRING_TOKEN(STR_DUAL_BOOT_TYPE_TEXT),   value = 0, flags = 0|INTERACTIVE;
+      option text = STRING_TOKEN(STR_LEGACY_BOOT_TYPE_TEXT), value = 1, flags = 0|INTERACTIVE;
+      option text = STRING_TOKEN(STR_EFI_BOOT_TYPE_TEXT),    value = 2, flags = DEFAULT|INTERACTIVE;
+    endoneof;
+    oneof
+      varid       = SystemConfig.QuickBoot,
+      prompt      = STRING_TOKEN(STR_QUICK_BOOT_STRING),
+      help        = STRING_TOKEN(STR_QUICK_BOOT_HELP),
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = 0;
+    endoneof;
+
+    oneof
+      varid       = SystemConfig.QuietBoot,
+      prompt      = STRING_TOKEN(STR_QUIET_BOOT_STRING),
+      help        = STRING_TOKEN(STR_QUIET_BOOT_HELP),
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),   value = 0, flags = 0;
+    endoneof;
+#ifdef UEFI_NETWORK_SUPPORT
+    suppressif
+      ideqvallist SystemConfig.BootTypeReserved == 1;
+    oneof
+      varid       = SystemConfig.PxeBootToLan,
+      prompt      = STRING_TOKEN(NETWORK_STACK_CONFIG_STRING),
+      help        = STRING_TOKEN(NETWORK_STACK_CONFIG_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = 0;
+    endoneof;
+    endif;
+
+    suppressif
+      ideqvallist SystemConfig.BootTypeReserved == 0 2;
+    oneof
+      varid       = SystemConfig.PxeBootToLan,
+      prompt      = STRING_TOKEN(STR_PXE_BOOT_TO_LAN_STRING),
+      help        = STRING_TOKEN(STR_PXE_BOOT_TO_LAN_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = 0;
+    endoneof;
+    endif;
+
+    suppressif
+    ideqvallist SystemConfig.BootTypeReserved == 1;
+
+    grayoutif
+    ideqvallist SystemConfig.PxeBootToLan == 0;
+      oneof
+      varid       = SystemConfig.NetworkProtocol,
+      prompt      = STRING_TOKEN(STR_IP_CONFIG_STRING),
+      help        = STRING_TOKEN(STR_IP_CONFIG_HELP_V2),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),   value = 4, flags = DEFAULT; // UEFI PXE Disable, But support Network Stack
+      suppressif
+      ideqvallist SystemConfig.BootTypeReserved == 1
+      OR
+      ideqvallist SystemConfig.PxeBootToLan == 0;
+        option text = STRING_TOKEN(STR_IPV4_TEXT),     value = 0, flags = 0;       // UEFI_NETWORK_BOOT_OPTION_IPV4
+#ifdef DUAL_NETWORK_ENABLE
+        option text = STRING_TOKEN(STR_IPV6_TEXT),     value = 1, flags = 0;       // UEFI_NETWORK_BOOT_OPTION_IPV6
+        option text = STRING_TOKEN(STR_BOTH_TEXT),     value = 2, flags = 0;       // UEFI_NETWORK_BOOT_OPTION_BOTH
+#endif
+      endif
+      suppressif
+      ideqvallist SystemConfig.BootTypeReserved == 2;
+        option text = STRING_TOKEN(STR_LEGACY),        value = 3, flags = 0;       // Legacy PXE OPROM, not support Network Stack
+      endif
+      endoneof;
+    endif;
+    endif;
+#endif
+
+		oneof
+		  	varid       = SystemConfig.NewPositionPolicy,
+		  	questionid  = KEY_NEW_POSITION_POLICY,
+		  	prompt			= STRING_TOKEN(STR_ADDPOSITION_TEXT),
+        help        = STRING_TOKEN(STR_ADDPOSITION_TEXT_HELP),
+        option text = STRING_TOKEN(STR_ADDPOSITION_FIRST), value = 0, flags = INTERACTIVE;
+        option text = STRING_TOKEN(STR_ADDPOSITION_LAST), value = 1, flags = INTERACTIVE;
+        option text = STRING_TOKEN(STR_ADDPOSITION_AUTO), value = 2, flags = DEFAULT | INTERACTIVE;
+     endoneof;
+    endif;
+
+#ifdef SUPPORT_64BITS_AML
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.AcpiVer,
+        prompt      = STRING_TOKEN(STR_ACPIVER_BOOT_STRING),
+        help        = STRING_TOKEN(STR_ACPIVER_BOOT_HELP),
+        option text = STRING_TOKEN(STR_ACPI40_TEXT), value = 2, flags = 0;
+        option text = STRING_TOKEN(STR_ACPI50_TEXT), value = 3, flags = DEFAULT;
+      endoneof;
+    endif;
+#else
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.AcpiVer,
+        prompt      = STRING_TOKEN(STR_ACPIVER_BOOT_STRING),
+        help        = STRING_TOKEN(STR_ACPIVER_BOOT_HELP),
+        option text = STRING_TOKEN(STR_ACPI10B_TEXT),  value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_ACPI30_TEXT), value = 1, flags = 0;
+        option text = STRING_TOKEN(STR_ACPI40_TEXT), value = 2, flags = 0;
+        option text = STRING_TOKEN(STR_ACPI50_TEXT), value = 3, flags = DEFAULT;
+      endoneof;
+    endif;
+#endif
+
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid   = SystemConfig.UsbBoot,
+        prompt      = STRING_TOKEN(STR_USB_BOOT_STRING),
+        help        = STRING_TOKEN(STR_USB_BOOT_HELP),
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 1, flags = 0;
+      endoneof;
+      label OPROM_STORAGE_DEVICE_BOOT_LABEL;
+    endif;
+
+
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.BootNormalPriority,
+        questionid  = KEY_NORMAL_BOOT_PRIORITY,
+        prompt      = STRING_TOKEN(STR_EFI_DEVICE_FIRST_STRING),
+        help        = STRING_TOKEN(STR_EFI_DEVICE_FIRST_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 1, flags = 0 | INTERACTIVE;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 0, flags = DEFAULT | INTERACTIVE;
+      endoneof;
+    endif;
+
+
+    suppressif
+      ideqvallist SystemConfig.BootTypeReserved == 0 1;
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.Win8FastBoot,
+        prompt      = STRING_TOKEN(STR_WINDOWS_8_FAST_BOOT_STRING),
+        help        = STRING_TOKEN(STR_WINDOWS_8_FAST_BOOT_HELP),
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_DISABLED_TEXT), value = 1, flags = 0;
+      endoneof;
+    endif;
+    endif;
+    suppressif
+      ideqvallist SystemConfig.BootTypeReserved == 0 1
+      OR
+      ideqval SystemConfig.Win8FastBoot == 1;
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.UsbHotKeySupport,
+        prompt      = STRING_TOKEN(STR_USB_HOT_KEY_SUPPORT_STRING),
+        help        = STRING_TOKEN(STR_USB_HOT_KEY_SUPPORT_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = 0;
+      endoneof;
+    endif;
+    endif;
+
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      numeric
+        varid   = SystemConfig.Timeout,
+        prompt  = STRING_TOKEN(STR_BOOT_TIMEOUT_STRING),
+        help    = STRING_TOKEN(STR_BOOT_TIMEOUT_HELP),
+        minimum = 0,
+        maximum = EFI_TIMEOUT_VARIABLE_MAX,
+        step    = 1,
+        default = EFI_TIMEOUT_VARIABLE_DEFAULT,
+      endnumeric;
+    endif;
+    grayoutif
+      ideqvallist SystemConfig.UserAccessLevel == 2 3
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.AutoFailover,
+        prompt      = STRING_TOKEN(STR_AUTO_FAILOVER_STRING),
+        help        = STRING_TOKEN(STR_AUTO_FAILOVER_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = DEFAULT;
+      endoneof;
+    endif;
+
+    oneof
+      varid       = SystemConfig.PUISEnable,
+      prompt      = STRING_TOKEN(STR_PUIS_SUPPORT_STRING),
+      help        = STRING_TOKEN(STR_PUIS_SUPPORT_HELP),
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),  value = 1, flags = 0;
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),   value = 0, flags = DEFAULT;
+    endoneof;
+
+    subtitle
+     text = STRING_TOKEN(STR_BLANK_STRING);
+
+    suppressif
+      ideqval SystemConfig.BootTypeReserved == 1
+      OR
+      ideqval SystemConfig.NoEfiBootDev == 0;
+
+      goto BOOT_DEVICE_EFI_FORM_ID,
+      prompt = STRING_TOKEN(STR_EFI),
+      help   = STRING_TOKEN(STR_EFI_HELP);
+    endif;
+
+    suppressif
+      ideqval SystemConfig.BootTypeReserved == 2
+      OR
+      ideqval SystemConfig.NoLegacyBootDev == 0;
+
+      goto BOOT_OPTION_FORM_ID,
+      prompt = STRING_TOKEN(STR_LEGACY),
+      help   = STRING_TOKEN(STR_LEGACY_HELP);
+    endif;
+  endform;
+
+     //
+     //  Sub Form BOOT_DEVICE_EFI_FORM_ID
+     //
+     form
+       formid = BOOT_DEVICE_EFI_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_EFI);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         (ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1)
+         OR
+         ideqval SystemConfig.NewPositionPolicy == 2;
+         label EFI_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+
+     //
+     //  Sub Form BOOT_OPTION_FORM_ID
+     //
+     form
+       formid = BOOT_OPTION_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_BOOT_OPTIONS);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+       oneof
+         varid       = SystemConfig.LegacyNormalMenuType,
+         questionid  = KEY_LEGACY_NORMAL_BOOT_MENU,
+         prompt      = STRING_TOKEN(STR_LEGACY_NORMAL_OPTIONS),
+         help        = STRING_TOKEN(STR_LEGACY_NORMAL_HELP),
+         option text = STRING_TOKEN(STR_NORMAL),     value = 0, flags = INTERACTIVE | DEFAULT;
+         option text = STRING_TOKEN(STR_ADVANCE),    value = 1, flags = INTERACTIVE | 0;
+       endoneof;
+       endif;
+
+       subtitle
+            text = STRING_TOKEN(STR_BLANK_STRING);
+       suppressif
+         ideqval SystemConfig.LegacyNormalMenuType == 1
+         OR
+         ideqval SystemConfig.NoBootTypeOrder == 0;
+         goto BOOT_DEVICE_LEG_NOR_BOOT_ID,
+         prompt = STRING_TOKEN(STR_BOOT_TYPE_ORDER_OPTIONS),
+         help = STRING_TOKEN(STR_BOOT_TYPE_ORDER_HELP);
+       endif;
+
+       suppressif
+         ideqval SystemConfig.LegacyNormalMenuType == 1
+         OR
+#if MAX_BOOT_ORDER_NUMBER == 16
+         ideqval BootConfig.NoBootDevs[0] == 0;
+#else
+         ideqval SystemConfig.NoBootDevs[0] == 0;
+#endif
+         goto BOOT_DEVICE_FDD_FORM_ID,
+         prompt = STRING_TOKEN(STR_FLOPPY_BOOT),
+         help = STRING_TOKEN(STR_BLANK_STRING);
+       endif;
+
+       suppressif
+        ideqval SystemConfig.LegacyNormalMenuType == 1
+        OR
+#if MAX_BOOT_ORDER_NUMBER == 16
+        ideqval BootConfig.NoBootDevs[1] == 0;
+#else
+        ideqval SystemConfig.NoBootDevs[1] == 0;
+#endif
+        goto BOOT_DEVICE_HDD_FORM_ID,
+        prompt = STRING_TOKEN(STR_HDD_BOOT),
+        help = STRING_TOKEN(STR_CD_BOOT_HELP);
+      endif;
+
+   suppressif
+      ideqval SystemConfig.LegacyNormalMenuType == 1
+      OR
+#if MAX_BOOT_ORDER_NUMBER == 16
+      ideqval BootConfig.NoBootDevs[2] == 0;
+#else
+      ideqval SystemConfig.NoBootDevs[2] == 0;
+#endif
+     goto BOOT_DEVICE_CD_FORM_ID,
+        prompt = STRING_TOKEN(STR_CD_BOOT),
+        help = STRING_TOKEN(STR_BLANK_STRING);
+   endif;
+
+   suppressif
+      ideqval SystemConfig.LegacyNormalMenuType == 1
+      OR
+#if MAX_BOOT_ORDER_NUMBER == 16
+      ideqval BootConfig.NoBootDevs[3] == 0;
+#else
+      ideqval SystemConfig.NoBootDevs[3] == 0;
+#endif
+     goto BOOT_DEVICE_PCMCIA_FORM_ID,
+        prompt = STRING_TOKEN(STR_PCMCIA_BOOT),
+        help = STRING_TOKEN(STR_PCMCIA_BOOT_HELP);
+   endif;
+
+  suppressif
+      ideqval SystemConfig.LegacyNormalMenuType == 1
+      OR
+#if MAX_BOOT_ORDER_NUMBER == 16
+      ideqval BootConfig.NoBootDevs[4] == 0;
+#else
+      ideqval SystemConfig.NoBootDevs[4] == 0;
+#endif
+     goto BOOT_DEVICE_USB_FORM_ID,
+        prompt = STRING_TOKEN(STR_USB_BOOT),
+        help = STRING_TOKEN(STR_USB_BOOT_HELP);
+   endif;
+
+   suppressif
+      ideqval SystemConfig.LegacyNormalMenuType == 1
+      OR
+#if MAX_BOOT_ORDER_NUMBER == 16
+      ideqval BootConfig.NoBootDevs[5] == 0;
+#else
+      ideqval SystemConfig.NoBootDevs[5] == 0;
+#endif
+     goto BOOT_EMBED_NETWORK_FORM_ID,
+        prompt = STRING_TOKEN(STR_EMBED_NETWORK_BOOT),
+        help = STRING_TOKEN(STR_EMBED_NETWORK_BOOT_HELP);
+   endif;
+
+   suppressif
+      ideqval SystemConfig.LegacyNormalMenuType == 1
+      OR
+#if MAX_BOOT_ORDER_NUMBER == 16
+      ideqval BootConfig.NoBootDevs[6] == 0;
+#else
+      ideqval SystemConfig.NoBootDevs[6] == 0;
+#endif
+     goto BOOT_DEVICE_BEV_FORM_ID,
+        prompt = STRING_TOKEN(STR_BEV_BOOT),
+        help = STRING_TOKEN(STR_BEV_BOOT_HELP);
+   endif;
+
+   suppressif
+      ideqval SystemConfig.LegacyNormalMenuType == 1
+      OR
+#if MAX_BOOT_ORDER_NUMBER == 16
+      ideqval BootConfig.NoBootDevs[7] == 0;
+#else
+      ideqval SystemConfig.NoBootDevs[7] == 0;
+#endif
+      goto BOOT_DEVICE_OTHER_FORM_ID,
+        prompt = STRING_TOKEN(STR_OTHER_DRIVE_BOOT),
+        help = STRING_TOKEN(STR_OTHER_DRIVE_BOOT_HELP);
+   endif;
+
+    suppressif
+      ideqval SystemConfig.LegacyNormalMenuType == 0
+      OR
+      ideqval SystemConfig.NoLegacyBootDev == 0;
+
+      label BOOT_LEGACY_ADV_BOOT_LABEL;
+    endif;
+  endform;
+     //
+     //  Sub Form BOOT_DEVICE_LEG_NOR_BOOT_ID
+     //
+      form
+        formid = BOOT_DEVICE_LEG_NOR_BOOT_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+        subtitle
+          text = STRING_TOKEN(STR_BOOT_TYPE_ORDER_OPTIONS);
+
+        subtitle
+          text = STRING_TOKEN(STR_BLANK_STRING);
+
+        grayoutif
+          ideqvallist SystemConfig.UserAccessLevel == 2 3
+          AND
+          ideqval SystemConfig.SetUserPass == 1;
+          label BOOT_ORDER_LABEL;
+        endif;
+      endform;
+
+
+     //
+     //  Sub Form BOOT_DEVICE_HDD_FORM_ID
+     //
+
+     form
+       formid = BOOT_DEVICE_HDD_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_HDD_BOOT);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+         label HDD_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+
+     //
+     //  Sub Form BOOT_DEVICE_CD_FORM_ID
+     //
+     form
+       formid = BOOT_DEVICE_CD_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_CD_BOOT);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+         label CD_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+     //
+     //  Sub Form BOOT_DEVICE_FDD_FORM_ID
+     //
+     form
+       formid = BOOT_DEVICE_FDD_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_FLOPPY_BOOT);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+         label FDD_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+
+     //
+     //  Sub Form BOOT_DEVICE_OTHER_FORM_ID
+     //
+     form
+       formid = BOOT_DEVICE_OTHER_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_OTHER_DRIVE_BOOT);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+         label OTHER_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+     //
+     //  Sub Form BOOT_DEVICE_PCMCIA_FORM_ID
+     //
+     form
+       formid = BOOT_DEVICE_PCMCIA_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_PCMCIA_BOOT);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+         label PCMCIA_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+
+     //
+     //  Sub Form BOOT_DEVICE_USB_FORM_ID
+     //
+     form
+       formid = BOOT_DEVICE_USB_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_USB_BOOT);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+         label USB_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+     //
+     //  Sub Form BOOT_EMBED_NETWORK_FORM_ID
+     //
+     form
+       formid = BOOT_EMBED_NETWORK_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_EMBED_NETWORK_BOOT);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+         label EMBED_NETWORK_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+     //
+     //  Sub Form BOOT_DEVICE_BEV_FORM_ID
+     //
+     form
+       formid = BOOT_DEVICE_BEV_FORM_ID, title = STRING_TOKEN(STR_EFI_SETUP_UTILITY_TITLE);
+
+       subtitle
+         text = STRING_TOKEN(STR_BEV_BOOT);
+
+       subtitle
+         text = STRING_TOKEN(STR_BLANK_STRING);
+       grayoutif
+         ideqvallist SystemConfig.UserAccessLevel == 2 3
+         AND
+         ideqval SystemConfig.SetUserPass == 1;
+         label BEV_BOOT_DEVICE_LABEL;
+       endif;
+     endform;
+endformset;

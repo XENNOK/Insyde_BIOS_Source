@@ -1,0 +1,72 @@
+## @file
+#  Component description file for CryptoService module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CryptoServiceRuntimeDxe
+  FILE_GUID                      = 4AC99A7C-1DCF-4a51-8F06-5EEDFE8A8864
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = CryptoServiceSmmRuntimeEntry
+
+[Sources]
+  CryptoServiceRuntimeDxe.c
+  CryptoServiceProtocol.c
+  CryptoServiceProtocol.h
+  CryptoHash.c
+  CryptoHash.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DebugLib
+  BaseCryptLib
+  IntrinsicLib
+  UefiLib
+  ImageRelocationLib
+
+[Guids]
+  gEfiHashAlgorithmSha1NoPadGuid
+  gEfiHashAlgorithmSha256NoPadGuid
+  gEfiHashAlgorithmSha1Guid
+  gEfiHashAlgorithmSha224Guid
+  gEfiHashAlgorithmSha256Guid
+  gEfiHashAlgorithmSha384Guid
+  gEfiHashAlgorithmSha512Guid
+  gEfiHashAlgorithmMD5Guid
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiHashProtocolGuid
+  gCryptoServicesProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+  gEfiSmmRuntimeProtocolGuid
+  gEfiHashServiceBindingProtocolGuid
+
+[Depex]
+  <DXE_DEPEX>
+  TRUE
+
+  <SMM_DEPEX>
+  TRUE

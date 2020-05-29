@@ -1,0 +1,180 @@
+${makefile_header}
+
+#
+# Platform Macro Definition
+#
+PLATFORM_NAME = ${platform_name}
+PLATFORM_GUID = ${platform_guid}
+PLATFORM_VERSION = ${platform_version}
+PLATFORM_RELATIVE_DIR = ${platform_relative_directory}
+PLATFORM_DIR = $(WORKSPACE)${separator}${platform_relative_directory}
+PLATFORM_OUTPUT_DIR = ${platform_output_directory}
+
+#
+# Module Macro Definition
+#
+MODULE_AUTORUN_TOOL = @echo . > NUL #workaround: dummy module autorun tool to prevent nmake from exception
+MODULE_NAME = ${module_name}
+MODULE_GUID = ${module_guid}
+MODULE_VERSION = ${module_version}
+MODULE_TYPE = ${module_type}
+MODULE_FILE = ${module_file}
+MODULE_FILE_BASE_NAME = ${module_file_base_name}
+BASE_NAME = $(MODULE_NAME)
+MODULE_RELATIVE_DIR = ${module_relative_directory}
+MODULE_DIR = $(WORKSPACE)${separator}${module_relative_directory}
+
+MODULE_ENTRY_POINT = ${module_entry_point}
+ARCH_ENTRY_POINT = ${arch_entry_point}
+IMAGE_ENTRY_POINT = ${image_entry_point}
+
+${BEGIN}${module_extra_defines}
+${END}
+#
+# Build Configuration Macro Definition
+#
+ARCH = ${architecture}
+TOOLCHAIN = ${toolchain_tag}
+TOOLCHAIN_TAG = ${toolchain_tag}
+TARGET = ${build_target}
+
+#
+# Build Directory Macro Definition
+#
+# PLATFORM_BUILD_DIR = ${platform_build_directory}
+BUILD_DIR = ${platform_build_directory}
+BIN_DIR = $(BUILD_DIR)${separator}${architecture}
+LIB_DIR = $(BIN_DIR)
+MODULE_BUILD_DIR = ${module_build_directory}
+OUTPUT_DIR = ${module_output_directory}
+DEBUG_DIR = ${module_debug_directory}
+DEST_DIR_OUTPUT = $(OUTPUT_DIR)
+DEST_DIR_DEBUG = $(DEBUG_DIR)
+
+#
+# Shell Command Macro
+#
+${BEGIN}${shell_command_code} = ${shell_command}
+${END}
+
+#
+# Tools definitions specific to this module
+#
+${BEGIN}${module_tool_definitions}
+${END}
+MAKE_FILE = ${makefile_path}
+
+#
+# Build Macro
+#
+${BEGIN}${file_macro}
+${END}
+
+COMMON_DEPS = ${BEGIN}${common_dependency_file} \\
+              ${END}
+
+#
+# Overridable Target Macro Definitions
+#
+FORCE_REBUILD = force_build
+INIT_TARGET = init
+PCH_TARGET =
+BC_TARGET = ${BEGIN}${backward_compatible_target} ${END}
+CODA_TARGET = ${BEGIN}${remaining_build_target} modulerun \\
+              ${END}
+
+#
+# Default target, which will build dependent libraries in addition to source files
+#
+
+all: mbuild
+
+
+#
+# Target used when called from platform makefile, which will bypass the build of dependent libraries
+#
+
+pbuild: $(INIT_TARGET) $(BC_TARGET) $(PCH_TARGET) $(CODA_TARGET)
+
+#
+# ModuleTarget
+#
+
+mbuild: $(INIT_TARGET) $(BC_TARGET) gen_libs $(PCH_TARGET) $(CODA_TARGET)
+
+#
+# Build Target used in multi-thread build mode, which will bypass the init and gen_libs targets
+#
+
+tbuild: $(BC_TARGET) $(PCH_TARGET) $(CODA_TARGET)
+
+#
+# Phony target which is used to force executing commands for a target
+#
+force_build:
+\t-@
+
+#
+# Target to update the FD
+#
+
+fds: mbuild gen_fds
+
+#
+# Initialization target: print build information and create necessary directories
+#
+init: info dirs
+
+info:
+\t-@echo Building ... $(MODULE_DIR)${separator}$(MODULE_FILE) [$(ARCH)]
+
+dirs:
+${BEGIN}\t-@${create_directory_command}\n${END}
+
+strdefs:
+\t-@$(CP) $(DEBUG_DIR)${separator}AutoGen.h $(DEBUG_DIR)${separator}$(MODULE_NAME)StrDefs.h
+
+#
+# GenLibsTarget
+#
+gen_libs:
+\t${BEGIN}@"$(MAKE)" $(MAKE_FLAGS) -f ${dependent_library_build_directory}${separator}${makefile_name}
+\t${END}@cd $(MODULE_BUILD_DIR)
+
+#
+# Build Flash Device Image
+#
+gen_fds:
+\t@"$(MAKE)" $(MAKE_FLAGS) -f $(BUILD_DIR)${separator}${makefile_name} fds
+\t@cd $(MODULE_BUILD_DIR)
+
+#
+# Individual Object Build Targets
+#
+${BEGIN}${file_build_target}
+${END}
+
+#
+# clean all intermediate files
+#
+clean:
+\t${BEGIN}${clean_command}
+\t${END}
+
+#
+# clean all generated files
+#
+cleanall:
+${BEGIN}\t${cleanall_command}
+${END}\t$(RM) *.pdb *.idb > NUL 2>&1
+\t$(RM) $(BIN_DIR)${separator}$(MODULE_NAME).efi
+
+#
+# clean all dependent libraries built
+#
+cleanlib:
+\t${BEGIN}-@${library_build_command} cleanall
+\t${END}@cd $(MODULE_BUILD_DIR)\n\n
+
+modulerun:
+\t$(MODULE_AUTORUN_TOOL) $(AUTORUN_PARAM)

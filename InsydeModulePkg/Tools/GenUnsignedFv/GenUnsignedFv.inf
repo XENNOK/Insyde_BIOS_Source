@@ -1,0 +1,44 @@
+## @file
+#  Generation of Flash layout information
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION             = 0x00010005
+  BASE_NAME               = GenUnsignedFv
+  FILE_GUID               = 2C8E85E4-BCAC-4c78-9702-58309B444BB4
+  MODULE_TYPE             = USER_DEFINED
+  VERSION_STRING          = 1.0
+
+[Sources]
+  GenUnsignedFv.c
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  
+[LibraryClasses]
+  PrintLib
+  PcdLib
+  BaseLib
+  
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+  gInsydeTokenSpaceGuid.PcdFlashUnsignedFvRegionBase
+  gInsydeTokenSpaceGuid.PcdFlashUnsignedFvRegionSize
+  gInsydeTokenSpaceGuid.PcdEndOfFlashUnsignedFvRegionOffset
+  gInsydeTokenSpaceGuid.PcdEndOfFlashUnsignedFvRegionTotalSize
+
+[BuildOptions]
+  MSFT:*_*_IA32_DLINK_FLAGS == /out:"$(BIN_DIR)\$(BASE_NAME).exe" /base:0x10000000 /NOLOGO /SUBSYSTEM:CONSOLE /NODEFAULTLIB /IGNORE:4086 /MAP /OPT:REF /MACHINE:I386 /LTCG Kernel32.lib MSVCRT.lib 
+  MSFT:*_*_*_CC_FLAGS = /wd4996

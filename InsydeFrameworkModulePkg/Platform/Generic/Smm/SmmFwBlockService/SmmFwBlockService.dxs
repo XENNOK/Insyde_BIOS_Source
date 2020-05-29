@@ -1,0 +1,21 @@
+//;******************************************************************************
+//;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+
+#include "EfiDepex.h"
+
+#include EFI_PROTOCOL_DEFINITION (SmmBase)
+#include EFI_PROTOCOL_DEPENDENCY (SmmAccess)
+#include EFI_PROTOCOL_DEFINITION (SmmRtProtocol)
+
+DEPENDENCY_START
+  EFI_SMM_BASE_PROTOCOL_GUID AND
+  EFI_SMM_ACCESS_PROTOCOL_GUID AND
+  EFI_SMM_RUNTIME_PROTOCOL_GUID
+DEPENDENCY_END

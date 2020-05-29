@@ -1,0 +1,32 @@
+## @file
+#
+#  Component description file for LegacyBios Extension Above 1M Driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MebxSetupBrowser
+  FILE_GUID                      = B62EFBBB-3923-4CB9-A6E8-DB818E828A80
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+
+[Binaries.X64]
+  PE32|MebxSetupBrowser.efi
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[Depex]
+  gDxePlatformAmtPolicyGuid AND
+  gEfiSimpleTextOutProtocolGuid AND
+  gEfiSimpleTextInProtocolGuid

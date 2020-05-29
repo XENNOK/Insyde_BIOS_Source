@@ -1,0 +1,37 @@
+## @file
+#  Platform Package Declaration file
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = SioNct6683dluPkg
+  PACKAGE_GUID                   = E574D3A1-448F-42fd-B9CB-BA88C75D6FF0
+  PACKAGE_VERSION                = 0.2
+
+[Includes]
+  Include
+
+[LibraryClasses]  
+  
+[Guids]
+  gSioNct6683dluSetup00FormSetGuid = { 0x1a37cf1e, 0x1447, 0x43a6, { 0x98, 0x2b, 0xbc, 0x2e, 0xba, 0x70, 0x1b, 0x34 } }
+
+[Protocols]
+
+[PcdsFeatureFlag]
+  gSioGuid.PcdSioNct6683dluSetup|FALSE|BOOLEAN|0x00480581
+  gSioGuid.PcdSioNct6683dluUpdateAsl|FALSE|BOOLEAN|0x00480582
+
+[PcdsFixedAtBuild,PcdsPatchableInModule,PcdsDynamic]
+  gSioGuid.PcdSioNct6683dluCfg|{0}|VOID*|0x00480585
+  gSioGuid.PcdSioNct6683dluSetupStr|L""|VOID*|0x00480586
+

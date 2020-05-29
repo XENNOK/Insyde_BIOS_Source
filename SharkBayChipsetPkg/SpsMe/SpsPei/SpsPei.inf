@@ -1,0 +1,52 @@
+## @file
+#
+#  Component description file for Server Platform Services ME Module in PEI phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsPei
+  FILE_GUID                      = E77B1EEA-3DE7-4feb-8DAA-D890AF52AE52
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SpsMePeimEntry
+
+[Sources]
+  SpsPei.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  HobLib
+  PciLib
+
+  SpsMeLib
+
+[Guids]
+  gSpsInfoHobGuid                                ## PRODUCES  ## Hob
+
+[Ppis]
+  gEfiPeiMemoryDiscoveredPpiGuid                 ## NOTIFY
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[Depex]
+  TRUE
+
+[BuildOptions]
+

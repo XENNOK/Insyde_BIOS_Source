@@ -1,0 +1,48 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SavePegConfigDxe
+  FILE_GUID                      = C8F9202B-8983-4470-940A-E65E7A552270
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SavePegConfigEntry
+
+[Sources]
+  SavePegConfig.c
+#[-start-121113-IB10820161-remove]#
+#  SavePegConfig.h
+#[-end-121113-IB10820161-remove]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  HobLib
+
+[Guids]
+  gSaDataHobGuid
+
+[Ppis]
+  gPegDataVariableGuid
+  
+[Depex]
+  gEfiVariableWriteArchProtocolGuid AND
+  gEfiVariableArchProtocolGuid
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS      = -D _PEI_HOB_H_ -D __HOB__H__

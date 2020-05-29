@@ -1,0 +1,229 @@
+## @file
+#  Implement the PEIM of PeiChipsetSvc.
+#  
+#  ***************************************************************************
+#  * Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#  *
+#  * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#  * transmit, broadcast, present, recite, release, license or otherwise exploit
+#  * any part of this publication in any form, by any means, without the prior
+#  * written permission of Insyde Software Corporation.
+#  *
+#  ******************************************************************************
+#  
+##
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = ChipsetSvcPei
+  FILE_GUID                 = FB3D20EE-CB5D-45ee-BBAE-C5AAA9C0FDFA
+  MODULE_TYPE               = PEIM
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = ChipsetSvcPeiEntryPoint
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IA32FamilyCpuPkg/IA32FamilyCpuPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  PerformancePkg/PerformancePkg.dec
+  PcAtChipsetPkg/PcAtChipsetPkg.dec
+  UefiCpuPkg/UefiCpuPkg.dec
+#[-start-121130-IB10820178-add]#
+  SecurityPkg/SecurityPkg.dec
+#[-end-121130-IB10820178-add]#
+#[-start-130808-IB06720232-add]#
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+#[-end-130808-IB06720232-add]#
+
+[Sources]
+  ChipsetSvcPei.c
+#[-start-121210-IB08460021-add]#
+  EnableFdWrites.c
+  LegacyRegionAccessCtrl.c
+  GetSleepState.c
+  HdaInitHook.c
+  PlatformStage1Init.c
+  Stage1MemoryDiscoverCallback.c
+  PlatformStage2Init.c
+  Stage2MemoryDiscoverCallback.c
+  ModifyMemoryRange.c
+  SetSetupVariableDefault.c
+#[-end-121210-IB08460021-add]#
+  SetPlatformHardwareSwitch.c
+  ChipsetInitPlatformStage2/EhciReset.c
+  ChipsetInitPlatformStage2/TxtExecute.c
+  ChipsetInitPlatformStage2/XtuPei.c
+  
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  MemoryAllocationLib
+  PciLib
+  BaseLib
+  IoLib
+  CmosLib
+  HobLib
+  ChipsetCpuLib
+  PeiServicesTablePointerLib
+#[-start-121130-IB10820178-add]#
+#[-start-130808-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcKernelLibDefault
+#[-end-130808-IB06720232-modify]#
+  PostCodeLib
+  PchPlatformLib
+  PciExpressLib
+#[-end-121130-IB10820178-add]#
+#[-start-121211-IB11410030-add]#
+  BaseCryptLib
+#[-end-121211-IB11410030-add]#
+#[-start-130702-IB06720227-add]#
+  BaseMemoryLib
+#[-end-130702-IB06720227-add]#
+  
+[Ppis]
+  gH2OChipsetServicesPpiGuid
+  gEfiPeiReadOnlyVariable2PpiGuid
+  gPeiWarmResetDetectedGuid
+  gWdtPpiGuid
+  gEcpPeiAtaControllerPpiGuid
+  gPchPlatformPolicyPpiGuid
+  gPchUsbPolicyPpiGuid
+  gEfiPeiMemoryDiscoveredPpiGuid
+  gEfiPeiStallPpiGuid
+  gPchInitPpiGuid
+  gPeiCpuProductionFlagPpiGuid
+  gPeiPchProductionFlagPpiGuid
+  gEfiPeiResetPpiGuid
+  gPeiS3RestoreAcpiCallbackPpiGuid
+  gEfiEndOfPeiSignalPpiGuid
+  gPeiCachePpiGuid
+#[-start-121130-IB10820178-add]#
+#  gPeiTpmInitializedPpiGuid
+  gPeiBootScriptDonePpiGuid
+  gEmuPeiPpiGuid
+  gSaPlatformPolicyPpiGuid
+  gPeiWdttPpiGuid
+  gWdtPpiGuid
+  gRapidStartPpiGuid
+#[-end-121130-IB10820178-add]#
+#[-start-130118-IB11410043-add]#
+  gPeiCpuPlatformPolicyPpiGuid
+#[-end-130118-IB11410043-add]#
+
+[Guids]
+  gMtrrDataInfoGuid
+#[-start-121130-IB10820178-add]#
+#[-start-121214-IB07250300-modify]#
+  gH2OSwitchableGraphicsVariableGuid
+#[-end-121214-IB07250300-modify]#
+  gSecureFlashInfoGuid
+  gXTUInfoHobGuid
+  gAcpiVariableSetGuid
+#[-end-121130-IB10820178-add]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdDmiBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdEpBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdTxtPublicBase
+  gPcAtChipsetPkgTokenSpaceGuid.PcdHpetBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdHeciMmioBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdPcieReservedSize
+  gPcAtChipsetPkgTokenSpaceGuid.PcdIoApicBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdRcbaBaseAddress
+  gUefiCpuPkgTokenSpaceGuid.PcdCpuLocalApicBaseAddress
+#[-start-121130-IB10820178-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPciExpressSize
+#[-end-121130-IB10820178-add]#
+#[-start-121205-IB10820184-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchLpcDecodeRange
+  gChipsetPkgTokenSpaceGuid.PcdPchLpcEnableList
+  gChipsetPkgTokenSpaceGuid.PcdPchLpcIoDecodeTable
+#[-end-121205-IB10820184-add]#
+#[-start-121210-IB10820189-add]#
+#[-start-130628-IB06720227-remove]#
+#  gChipsetPkgTokenSpaceGuid.PcdDevice19InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice20InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice21InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice22InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice23InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice25InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice26InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice27InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice28InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice29InterruptRouteRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice31InterruptRouteRegisterValue
+#[-end-130628-IB06720227-remove]#
+#[-start-140612-IB06720257-remove]#
+#  gChipsetPkgTokenSpaceGuid.PcdDevice20InterruptPinRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice22InterruptPinRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice25InterruptPinRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice26InterruptPinRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice27InterruptPinRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice28InterruptPinRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice29InterruptPinRegisterValue
+#  gChipsetPkgTokenSpaceGuid.PcdDevice31InterruptPinRegisterValue
+#[-end-140612-IB06720257-remove]#
+#[-end-121210-IB10820189-add]#
+#[-start-121214-IB10820195-add]#
+  gChipsetPkgTokenSpaceGuid.PcdRcbaBaseAddress
+#[-end-121214-IB10820195-add]#
+#[-Start-121222-IB10820209-add]#
+  gChipsetPkgTokenSpaceGuid.PcdFlashFvBackupBase
+  gChipsetPkgTokenSpaceGuid.PcdFlashFvBackupSize
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+  gInsydeTokenSpaceGuid.PcdFlashFvMainBase
+  gInsydeTokenSpaceGuid.PcdFlashFvMainSize
+#[-end-121222-IB10820209-add]#
+#[-start-130128-IB05280042-add]#
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+#[-end-130128-IB05280042-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+#[-start-130702-IB06720227-add]#
+  gChipsetPkgTokenSpaceGuid.PcdControllerDeviceIrqRoutingEntry
+  gChipsetPkgTokenSpaceGuid.PcdPirqLinkValueArray
+#[-end-130702-IB06720227-add]#
+
+#[-start-121130-IB10820178-add]#
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdGraniteCitySupported
+  gChipsetPkgTokenSpaceGuid.PcdEcSharedFlashSupported
+  gChipsetPkgTokenSpaceGuid.PcdEcIdlePerWriteBlockSupported
+  gChipsetPkgTokenSpaceGuid.PcdEcSharedFlashSupported
+  gChipsetPkgTokenSpaceGuid.PcdEcIdlePerWriteBlockSupported
+  gChipsetPkgTokenSpaceGuid.PcdTXTSupported
+  gChipsetPkgTokenSpaceGuid.PcdRapidStartSupported
+  gChipsetPkgTokenSpaceGuid.PcdAntiTheftSupported
+  gChipsetPkgTokenSpaceGuid.PcdXtuSupported
+#[-start-121214-IB07250300-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdNvidiaOptimusSupported
+#[-end-121214-IB07250300-modify]#
+  gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+#[-start-130204-IB10820229-add]#
+  gChipsetPkgTokenSpaceGuid.PcdDisableCacheSupportInEnableFdWrites
+#[-end-130204-IB10820229-add]#
+  gChipsetPkgTokenSpaceGuid.PcdMeSupported
+#[-start-130425-IB05160441-add]#
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+#[-end-130425-IB05160441-add]#
+#[-start-130109-IB10310017-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSpsMeSupported
+#[-end-130109-IB10310017-add]#
+
+[BuildOptions]
+  *_*_*_CC_FLAGS = -D __HOB__H__  # to avod efi_HOB_GENERIC_HERDER refdifine on memoryinfoHob.h
+#[-end-121130-IB10820178-add]#
+
+[Depex]
+  TRUE

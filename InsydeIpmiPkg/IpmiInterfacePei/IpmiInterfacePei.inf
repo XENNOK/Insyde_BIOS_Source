@@ -1,0 +1,91 @@
+## @file
+# H2O IPMI Interface module build description file for PEI phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IpmiInterfacePei
+  FILE_GUID                      = B12CBABC-30A1-4223-9D95-E17CEBD8C667
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IpmiInterfacePeiEntry
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  IpmiInterfacePei.c
+  IpmiSystemInterfaceSmic.c
+  IpmiSystemInterfaceBt.c
+  IpmiSystemInterfaceKcs.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  PcdLib
+  PeimEntryPoint
+  DebugLib
+  IoLib
+  IpmiCommonLib
+  IpmiHobLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  PeiIpmiPackageLib
+  PeiIpmiLpcLib
+  PeiIpmiSioLib
+  PeiOemIpmiPackageLibDefault
+
+[Guids]
+  gH2OIpmiHobGuid                            # Consume
+
+[Ppis]
+  gH2OIpmiInterfacePpiGuid                   # Produce
+  gEfiPeiMasterBootModePpiGuid               # Consume
+  gEfiPeiReadOnlyVariable2PpiGuid            # Consume
+
+[Pcd]
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiInterfaceType
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiAddressType
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSmmBaseAddress
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSmmRegOffset
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiPostBaseAddress
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiPostRegOffset
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiOsBaseAddress
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiOsRegOffset
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiAcpiTimerAddress
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiAcpiTimerMaxValue
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiPeiExecuteTime
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiPeiRetryAfterIdle
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiEnable
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWarmupTime
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtEnable
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtAction
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtTimeout
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSpmiEnable
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSetBiosVersion
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiBootOption
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtNotLog
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtTimerUse
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiConfigInDeviceManager
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiWaitBmcDecodeRetry
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiWaitBmcDecodeInterval
+
+[Depex]
+  TRUE
+

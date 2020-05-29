@@ -1,0 +1,48 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+[defines]
+BASE_NAME            = MonitorKey
+FILE_GUID            = 27BEDA18-AE2B-43c2-AF6B-74952441DE28
+COMPONENT_TYPE       = BS_DRIVER
+
+[sources.common]
+
+  MonitorKey.c
+
+[libraries.common]
+  GuidLib
+  EfiGuidLib
+  ProtocolLib
+  EdkFrameworkProtocolLib
+  EdkProtocolLib
+  EfiDriverLib
+  EfiRegTableLib
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EFI_SOURCE)\Framework
+  $(EDK_SOURCE)\Foundation
+  .
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EFI_SOURCE)
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=MonitorKeyFilterInstall
+  DPX_SOURCE=MonitorKey.dxs
+
+

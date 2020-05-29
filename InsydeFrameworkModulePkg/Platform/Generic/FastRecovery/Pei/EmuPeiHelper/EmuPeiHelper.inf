@@ -1,0 +1,58 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#  Module Name:
+#
+#   EmuPeiHelper.inf
+#
+#  Abstract:
+#
+#   Doing necessary preparsions in recovery PEI phase. 
+#
+#
+
+[defines]
+BASE_NAME            = EmuPeiHelper
+FILE_GUID            = E2FC5838-16A9-4ED7-96E0-9A75F5AF711D
+COMPONENT_TYPE       = PE32_PEIM
+
+[sources.common]
+   EmuPeiHelper.c
+
+[includes.common]
+  .
+  ..
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation\Include\Pei
+  $(EDK_SOURCE)\Foundation\Library\Pei\Include
+  $(EDK_SOURCE)\Foundation\Core\Pei\Include
+  $(BUILD_DIR)\$(PROCESSOR)
+  $(EFI_SOURCE)\$(FAST_CRISIS_RECOVERY_DIR)\Include
+  $(EFI_SOURCE)\$(FAST_CRISIS_RECOVERY_DIR)
+  $(EFI_SOURCE)
+
+[libraries.common]
+  PeiLib
+  EdkFrameworkPpiLib
+  EfiCommonLib
+  FastRecoveryEmuGuidLib
+  FastRecoveryPpiLib
+  GuidLib
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=EmuPeiHelperEntry
+  DPX_SOURCE=EmuPeiHelper.dxs
+

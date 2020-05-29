@@ -1,0 +1,29 @@
+//;******************************************************************************
+//;* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+#image IMAGE_CURSOR               "arrow.gif"
+                                  
+#image IMAGE_KB_BACKGROUND        "KB_Background.gif"
+#image IMAGE_KB_NORMAL            "KB_Normal.gif"
+#image IMAGE_KB_PRESS             "KB_Press.gif"
+#image IMAGE_KB_LEFTSHIFT         "KB_LeftShift.gif"
+#image IMAGE_KB_LEFTSHIFT_PRESS   "KB_LeftShift_Press.gif"
+#image IMAGE_KB_RIGHTSHIFT        "KB_RightShift.gif"
+#image IMAGE_KB_RIGHTSHIFT_PRESS  "KB_RightShift_Press.gif"
+#image IMAGE_KB_CLOSE             "KB_Close.gif"
+#image IMAGE_KB_CLOSE_PRESS       "KB_Close_Press.gif"
+#image IMAGE_KB_TAB               "KB_Tab.gif"
+#image IMAGE_KB_TAB_PRESS         "KB_Tab_Press.gif"
+#image IMAGE_KB_CAPS              "KB_Caps.gif"
+#image IMAGE_KB_CAPS_PRESS        "KB_Caps_Press.gif"
+#image IMAGE_KB_ENTER             "KB_Enter.gif"
+#image IMAGE_KB_ENTER_PRESS       "KB_Enter_Press.gif"
+#image IMAGE_KB_BACKSPACE         "KB_Backspace.gif"
+#image IMAGE_KB_BACKSPACE_PRESS   "KB_Backspace_Press.gif"
+

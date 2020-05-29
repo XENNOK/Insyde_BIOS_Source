@@ -1,0 +1,40 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MemInfoDxe
+  FILE_GUID                      = 525B672C-8C8F-0361-AE8E-565EE0F563B8
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = MemInfoEntry
+
+[Sources]
+  MemInfo.c
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  
+[LibraryClasses]
+  UefiDriverEntryPoint   
+  UefiBootServicesTableLib
+  HobLib
+  MemoryAllocationLib
+  
+[Protocols]
+  gMemInfoProtocolGuid         # PRODUCES 
+  
+[BuildOptions]  
+  *_*_*_CC_FLAGS = -D __HOB__H__  
+  
+[Depex]
+  TRUE

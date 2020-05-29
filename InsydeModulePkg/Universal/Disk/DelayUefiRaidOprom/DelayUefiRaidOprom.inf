@@ -1,0 +1,67 @@
+## @file
+#  Delay UEFI RAID OpROM driver
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+INF_VERSION          = 0x00010005
+BASE_NAME            = DelayUefiRaidOprom
+FILE_GUID            = 13863F79-D94B-4205-BB0F-E4E06AAA5A4E
+MODULE_TYPE          = DXE_DRIVER
+VERSION_STRING       = 1.0
+ENTRY_POINT          = DelayUefiRaidOpromEntry
+
+[sources]
+  DelayUefiRaidOprom.c
+  DelayUefiRaidOprom.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  UefiLib
+  DxeServicesTableLib
+  HobLib
+  VariableSupportLib
+  PcdLib
+  KernelConfigLib
+
+[Guids]
+  gEfiDiskInfoAhciInterfaceGuid
+  gEfiDiskInfoUsbInterfaceGuid
+  gEfiHobListGuid
+  gSetupDefaultHobGuid
+
+[Protocols]
+  gEfiAtaPassThruProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiDiskInfoProtocolGuid
+  gEfiExtScsiPassThruProtocolGuid
+  gEfiHddPasswordServiceProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiPlatformDriverOverrideProtocolGuid
+  gEfiScsiIoProtocolGuid
+  gUefiRaidOpromReadyGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+
+[Depex]
+  gEfiVariableWriteArchProtocolGuid AND
+  gEfiVariableArchProtocolGuid
+

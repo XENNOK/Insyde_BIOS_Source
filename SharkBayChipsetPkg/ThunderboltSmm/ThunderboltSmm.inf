@@ -1,0 +1,65 @@
+## @file
+#  Component description file for the PchBiosWriteProtect driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = ThunderboltSmm
+  FILE_GUID            = 5D4109D2-B7A2-4c9a-8BFA-4E1CBF744F81
+  MODULE_TYPE          = COMBINED_SMM_DXE
+  VERSION_STRING       = 1.0
+  ENTRY_POINT          = ThunderboltSmmEntryPoint
+
+[Sources]
+  ThunderboltSmm.c
+  TbtSmiHandler.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  CryptoPkg/CryptoPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DebugLib
+  IoLib
+  IntrinsicLib
+#[-start-130227-IB05280051-add]#
+  BaseLib
+#[-end-130227-IB05280051-add]#
+#[-start-130424-IB05160441-modify]#
+  PcdLib
+#[-end-130424-IB05160441-modify]#
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiGlobalNvsAreaProtocolGuid
+  gEfiSmmVariableProtocolGuid
+
+[Pcd]
+#[-start-130424-IB05160441-add]#
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-end-130424-IB05160441-add]#
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid        AND
+  gEfiSetupUtilityProtocolGuid    AND
+  gEfiGlobalNvsAreaProtocolGuid   AND
+  gEfiSmmSwDispatch2ProtocolGuid  AND
+  gEfiSmmVariableProtocolGuid

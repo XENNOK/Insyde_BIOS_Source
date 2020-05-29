@@ -1,0 +1,63 @@
+#/** @file
+#
+#  Component description file for Variable Editor Dxe driver
+#  
+#;******************************************************************************
+#;* Copyright (c) 1983-2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = VariableEditDxe
+  FILE_GUID                      = 3F837872-2A07-4470-B8B7-9AC131360314
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = VariableEditDriverEntry
+  UNLOAD_IMAGE                   = VariableEditDriverUnload
+
+[Sources]
+  VariableEditDxe.h
+  VariableEditDxe.c
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+  
+[LibraryClasses]
+  UefiLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  
+[Protocols]
+  gEfiSysPasswordServiceProtocolGuid        # always consume
+  gEfiSetupUtilityBrowserProtocolGuid       # always consume
+  gSetupCallbackSyncGuid                    # always consume
+  gEfiLegacyRegion2ProtocolGuid             # always consume
+  gEfiLegacyBiosProtocolGuid                # always consume
+  gEfiSetupUtilityProtocolGuid              # always consume
+  gVariableEditProtocolGuid                 # always consume
+
+[Guids]
+  gVarableEditGuid
+#[-start-140721-IB08620401-add]#
+  gVarableEditFunctionDisableGuid
+#[-end-140721-IB08620401-add]#
+
+[Depex]
+#[-start-140721-IB08620401-add]#
+  gEfiVariableArchProtocolGuid
+#[-end-140721-IB08620401-add]#
+

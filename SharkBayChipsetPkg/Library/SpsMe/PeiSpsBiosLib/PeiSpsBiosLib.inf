@@ -1,0 +1,44 @@
+## @file
+#
+#  Component description file for BIOS to use SPS ME Serivces
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiSpsBiosLib
+  FILE_GUID                      = FE291EFA-7A12-41ff-86A0-490D89CCC23F
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SpsBiosLib | PEIM
+
+[Sources]
+  SpsBiosLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+
+[Guids]
+  gSpsInfoHobGuid                                ## CONSUMES
+
+[Protocols]
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdSpsMeSupported
+
+[BuildOptions]
+
+
+

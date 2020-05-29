@@ -1,0 +1,43 @@
+## @file
+#  Component description file for DxeOemIpmiPackageLibDefault instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeOemIpmiPackageLibDefault
+  FILE_GUID                      = E823ACDF-B791-4ccd-A58B-E5D56FCD8B9D
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeOemIpmiPackageLibDefault|DXE_DRIVER
+
+[Sources]
+  OemIpmiEnterSetup.c
+  OemIpmiSetAcpiKeyboard.c
+  OemIpmiUpdateNvsVariable.c
+  OemIpmiUpdatePolicy.c
+  OemIpmiBeforeAddSmbiosRecord.c
+  OemIpmiBeforeInstallAcpiTable.c
+  OemIpmiBeforeMiscDriverEnd.c
+  OemIpmiDxeAfterInstallInterface.c
+  OemIpmiDxeAfterInstallFru.c
+  OemIpmiDxeAfterInstallSdr.c
+  OemIpmiDxeAfterInstallSelData.c
+  OemIpmiDxeAfterInstallSelInfo.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  DxeOemIpmiPackageLib
+

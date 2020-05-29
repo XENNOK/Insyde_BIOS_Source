@@ -1,0 +1,93 @@
+/*++
+
+Copyright (c) 2007 - 2009 Intel Corporation. All rights reserved
+This software and associated documentation (if any) is furnished
+under a license and may only be used or copied in accordance
+with the terms of the license. Except as permitted by such
+license, no part of this software or documentation may be
+reproduced, stored in a retrieval system, or transmitted in any
+form or by any means without the express written consent of
+Intel Corporation.
+
+
+Module Name:
+
+  Wdtt.c
+
+Abstract:
+
+  This file contains a structure definition for the ACPI 1.0 Watchdog Timer
+  Description Table (WDDT).  Any changes to the WDDT table require updating the
+  respective structure count in wddt.h and then adding the structure to the
+  WDDT defined in this file.  The table layout is defined in Wddt.h and the
+  table contents are defined in Acpi1_0.h and Wddt.h.
+
+--*/
+
+//
+// Statements that include other files
+//
+
+#include "WDTT.h"
+
+//
+// Watchdog Description Table
+//
+EFI_IDCC2_WATCHDOG_DESCRIPTION_TABLE Wdtt = {
+  EFI_IDCC2_WDTT_SIGNATURE,                        // Signature
+  sizeof (EFI_IDCC2_WATCHDOG_DESCRIPTION_TABLE),   // Length
+  EFI_IDCC2_WATCHDOG_DESCRIPTION_TABLE_REVISION,   // Revision
+
+  //
+  // Checksum will be updated at runtime
+  //
+  0x00,
+  // OEM identification
+  EFI_ACPI_OEM_ID,
+
+  // OEM table identification
+  EFI_ACPI_OEM_TABLE_ID,
+
+  // OEM revision number
+  EFI_ACPI_OEM_WDTT_REVISION, 
+
+  // Vendor ID of the utility that created the table
+  EFI_ACPI_WDTT_CREATOR_ID,
+  
+  // Revision of the utility that created the table
+  EFI_ACPI_WDTT_CREATOR_REVISION,
+  //
+  // END OF ACPI HEADER
+  //
+
+  //
+  // WDDT specific fields
+  //
+
+  // WatchdogHeaderLength
+  sizeof(EFI_IDCC2_WATCHDOG_DESCRIPTION_TABLE) - sizeof(EFI_ACPI_DESCRIPTION_HEADER) - MAX_NUMBER_ACTION_ENTRIES,
+  0xFFFFFFFF,                                      // Reserved1
+  0xFF,                                            // Reserved2
+  0,                                               // Reserved3
+  0,                                               // Reserved3a
+  0,                                               // Watchdog Timer Support for OS Boot
+  0,                                               // TimerPeriod
+  0,                                               // MaximumCount
+  0,                                               // MinimumCount
+  0,                                               // Reserved4
+  0,                                               // WatchdogInstructionEntryCount
+  { 0 }
+};
+
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&Wdtt;
+}
+

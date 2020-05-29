@@ -1,0 +1,75 @@
+## @file
+#  Component description file for PEI OEM Services Chipset Lib Default instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiOemSvcChipsetLibDefault
+  FILE_GUID                      = D3D3F81E-F6A0-4dd7-B9D9-5739C8AF34F4
+  MODULE_TYPE                    = PEIM 
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PeiOemSvcChipsetLibDefault|PEI_CORE PEIM
+  
+[Sources]
+#[-start-121219-IB10870058-remove]#
+#  PlatformMeHookPpiPreGlobalReset.c
+#[-end-121219-IB10870058-remove]#
+#[-start-121224-IB10870061-remove]#
+#  PchAzaliaPolicyPpiDa.c
+#[-end-121224-IB10870061-remove]#
+#[-start-121023-IB05280006-add]#
+  OemSvcModifyGpioSettingTable.c
+#[-end-121023-IB05280006-add]#
+#[-start-121113-IB05280009-add]#
+  OemSvcHookInitSio.c
+#[-end-121113-IB05280009-add]#
+#[-start-130218-IB07250301-add]#
+  OemSvcMxmDgpuPowerSequence.c
+#[-end-130218-IB07250301-add]#
+#[-start-121219-IB10870058-add]#
+  OemSvcUpdatePeiMePlatformPolicy.c
+  OemSvcUpdatePlatformMeHook.c
+  OemSvcUpdatePchUsbPolicy.c
+#[-end-121219-IB10870058-add]#
+#[-start-121224-IB10870061-add]#
+  OemSvcUpdatePeiAmtPlatformPolicy.c
+  OemSvcUpdateAzaliaPolicy.c
+  OemSvcUpdatePchPlatformPolicy.c
+#[-end-121224-IB10870061-add]#
+#[-start-121226-IB10870063-add]#
+  OemSvcUpdatePeiCpuPlatformPolicy.c
+  OemSvcUpdateSaPlatformPolicy.c
+#[-end-121226-IB10870063-add]#
+#[-start-130326-IB06720210-add]#
+  OemSpdDataAndSlotStatus.c
+#[-end-130326-IB06720210-add]#
+#[-start-130419-IB05400398-add]#
+  OemSvcGetBoardInfo.c
+  OemSvcGetGpioTable.c
+#[-end-130419-IB05400398-add]#
+#[-start-130709-IB05400426-add]#
+  OemSvcPeiTbtInit.c
+#[-end-130709-IB05400426-add]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeiOemSvcChipsetLib
+
+#[-start-121004-IB10820133-remove]#
+#[BuildOptions]
+#  *_*_*_CC_FLAGS = -D __HOB__H__  # to avod efi_HOB_GENERIC_HERDER redefine
+#[-end-121004-IB10820133-remove]#

@@ -1,0 +1,8 @@
+FONT "sysdefault",19, "normal" {            
+  FORCEINCLUDE = 0x20 - 0x7E, 0xA0 - 0xFF, 0x3000, 0xFF00 - 0xFF5E
+  FORCEEXCLUDE = 0x0 - 0x1F, 0xFFF0 - 0xFFF1,
+  SOURCEBDF = "BaseTools/Fonts/ISO8859-1.bdf",
+              "BaseTools/Fonts/Big5.bdf",
+              "BaseTools/Fonts/Japanese.bdf",
+              "BaseTools/Fonts/GB2312.bdf",
+}

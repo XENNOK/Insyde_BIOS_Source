@@ -1,0 +1,33 @@
+## @file
+#  Component description file for SmmOemIpmiPackageLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmOemIpmiPackageLib
+  FILE_GUID                      = D99E1007-B0F6-47f5-93DA-4473F39F89D8
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SmmOemIpmiPackageLib|DXE_SMM_DRIVER
+
+[Sources]
+  OemIpmiSmmAfterInstallInterface.c
+  OemIpmiSmmAfterInstallFru.c
+  OemIpmiSmmAfterInstallSdr.c
+  OemIpmiSmmAfterInstallSelData.c
+  OemIpmiSmmAfterInstallSelInfo.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+

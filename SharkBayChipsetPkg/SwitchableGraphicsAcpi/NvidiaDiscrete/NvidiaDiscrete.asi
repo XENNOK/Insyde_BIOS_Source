@@ -1,0 +1,108 @@
+/** @file
+
+;******************************************************************************
+;* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#ifndef _NVIDIA_DISCRETE_ASI_
+#define _NVIDIA_DISCRETE_ASI_
+
+//
+// ASL code common define about device and bridge
+//
+//[-start-130523-IB05160449-modify]//
+#ifndef ULT_SUPPORT
+//[-end-130523-IB05160449-modify]//
+#define DGPU_BRIDGE_SCOPE                     \_SB.PCI0.PEG0
+#else
+#define DGPU_BRIDGE_SCOPE                     \_SB.PCI0.RP05
+#endif
+#define DGPU_DEVICE                           PEGP
+#define DGPU_SCOPE                            DGPU_BRIDGE_SCOPE.DGPU_DEVICE
+#define DGPU2_BRIDGE_SCOPE                    \_SB.PCI0.PEG1
+#define DGPU2_DEVICE                          PEGP
+#define DGPU2_SCOPE                           DGPU_BRIDGE_SCOPE.DGPU_DEVICE
+#define IGPU_SCOPE                            \_SB.PCI0.GFX0
+#define EC_SCOPE                              \_SB.PCI0.LPCB.EC0
+
+//
+// nVIDIA GPS and Ventura feature usage define
+//
+#define CPU0_SCOPE                            \_PR.CPU0
+#define CPU1_SCOPE                            \_PR.CPU1
+#define CPU2_SCOPE                            \_PR.CPU2
+#define CPU3_SCOPE                            \_PR.CPU3
+#define CPU4_SCOPE                            \_PR.CPU4
+#define CPU5_SCOPE                            \_PR.CPU5
+#define CPU6_SCOPE                            \_PR.CPU6
+#define CPU7_SCOPE                            \_PR.CPU7
+
+//
+// nVIDIA device's DID list
+//
+#define N13E_GS1_DID                          0x1212
+#define N13E_GE_DID                           0x0FD4
+#define N13E_GTX_DID                          0x11A0
+
+//
+// ACPI define in dGPU SCOPE _DOD method
+//
+#define ACPI_ID_LCD                           0x00000110
+#define ACPI_ID_CRT                           0x80000100
+#define ACPI_ID_HDMI                          0x80008320
+#define ACPI_ID_TMDS                          0x80008340
+#define ACPI_ID_DP_B                          0x80006330
+#define ACPI_ID_DP_C                          0x80006340
+#define ACPI_ID_EDP                           0x8000A450
+
+//
+// License define
+//
+#define TEST_LICENSE_VECTOR                   0x25, 0x1B, 0xA2, 0x44, 0x17, 0x62, 0x17, 0x46, 0xBF, 0xB7, 0x41, 0x51, 0x4C, 0xEA, 0xC2, 0x41
+#define N13E_GS1_LICENSE_VECTOR               TEST_LICENSE_VECTOR
+#define N13E_GE_LICENSE_VECTOR                TEST_LICENSE_VECTOR
+#define N13E_GTX_LICENSE_VECTOR               TEST_LICENSE_VECTOR
+
+//
+// nVIDIA return status code
+//
+#define STATUS_SUCCESS                        0x00000000 // Generic Success
+#define STATUS_ERROR_UNSPECIFIED              0x80000001 // Generic unspecified error code
+#define STATUS_ERROR_UNSUPPORTED              0x80000002 // Sub-Function not supported
+
+//
+// Notebook Common Interfaces Function define
+//
+#define NBCI_FUNC_SUPPORT                     0x00
+#define NBCI_FUNC_GETBACKLIGHT                0x14
+#define NBCI_FUNC_GETLICENSE                  0x16
+
+//
+// MXM Function define
+//
+#define MXM_FUNC_MXSS                         0x00
+#define MXM_FUNC_MXMI                         0x18
+#define MXM_FUNC_MXMS                         0x10
+#define MXM_FUNC_MDTL                         0x19
+#define NVOP_FUNC_DISPLAYSTATUS               0x05
+#define NVOP_FUNC_MDTL                        0x06
+
+//
+// nVIDIA GPS feature related function define
+//
+#define GPS_FUNC_SUPPORT                      0x00
+#define GPS_FUNC_GETCALLBACKS                 0x13
+#define GPS_FUNC_PSHARESTATUS                 0x20
+#define GPS_FUNC_GETPSS                       0x21
+#define GPS_FUNC_SETPPC                       0x22
+#define GPS_FUNC_GETPPC                       0x23
+#define GPS_FUNC_PSHAREPARAMS                 0x2A
+
+#endif

@@ -1,0 +1,58 @@
+## @file
+#
+#  Component description file for Heci SMM driver
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsHeciSmm
+  FILE_GUID                      = 921CD783-3E22-4579-A71F-00D74197FCC8
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = InitializeHECI
+
+[Sources]
+  SpsHeciSmm.c
+  SpsHeciCore.c
+  SpsHeciHpet.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  PciExpressLib
+  PrintLib
+  TimerLib
+  PciLib
+  IoLib
+
+[Guids]
+
+[Protocols]
+  gSpsSmmHeciProtocolGuid                        ## PRODUCES
+  gEfiSmmRuntimeProtocolGuid                     ## CONSUMES
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[Depex]
+  TRUE
+
+[BuildOptions]
+

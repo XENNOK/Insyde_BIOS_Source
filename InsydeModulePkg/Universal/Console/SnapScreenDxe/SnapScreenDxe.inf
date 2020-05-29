@@ -1,0 +1,79 @@
+## @file
+#
+#  Component description file for Terminal module.
+#
+#  This driver installs Simple Text In/Out protocol for terminal devices (serial devices or hotplug devices).
+#
+#  Copyright (c) 2006 - 2010, Intel Corporation. All rights reserved.<BR>
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License
+#  which accompanies this distribution. The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.php
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SnapScreenDxe
+  FILE_GUID                      = FA82AC30-EA3B-4fdc-9D90-C2FDFFCAFBE4
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SnapScreenEntryPoint
+
+[Sources]
+  SnapScreen.c
+  SnapLib.c
+  SnapBmp.c
+  SnapWin.c
+  SnapDialog.c
+  SnapConOut.c
+  SnapTextOutHook.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  PrintLib
+  OemGraphicsLib
+  ConsoleLib
+  VariableLib
+
+[Guids]
+  gEfiFileInfoGuid
+  gEfiGenericVariableGuid
+  gEfiGlobalVariableGuid
+  gEfiFileSystemInfoGuid
+  gEfiDiskInfoIdeInterfaceGuid
+  gEfiDiskInfoScsiInterfaceGuid
+  gEfiDiskInfoUsbInterfaceGuid
+  gEfiDiskInfoAhciInterfaceGuid
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiSimpleTextOutProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiConsoleControlProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiDiskInfoProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  #gSnapScreenDriverGuid                 #Produce
+
+[Depex]
+  TRUE
+  

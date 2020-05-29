@@ -1,0 +1,83 @@
+## @file
+#
+#  Component description file for TXTDXE module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BiosExtensionLoader
+  FILE_GUID                      = 32C1C9F8-D53F-41c8-94D0-F6739F231011
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MebxDriverEntry
+
+[Sources]
+  BiosExtensionLoader.c
+  BiosExtensionLoader.h
+  Inventory.c
+  Inventory.h
+  UsbProvision.c
+  UsbProvision.h
+  MebxBiosParamsDebugDumpDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  ReportStatusCodeLib
+  PerformanceLib
+  BaseMemoryLib
+  DevicePathLib
+  UefiLib
+  HobLib
+  PciLib
+  IoLib
+  
+  PchPlatformLib
+  AmtLib
+
+[Guids]
+  gEfiMeBiosExtensionSetupGuid                   ## CONSUMES ## VARIABLE
+  gEfiSmbiosTableGuid                            ## CONSUMES
+  gEfiAcpiTableGuid                              ## CONSUMES
+  gEfiAcpi20TableGuid                            ## CONSUMES
+  gEfiFileInfoGuid                               ## CONSUMES
+  gEfiDiskInfoIdeInterfaceGuid                   ## CONSUMES
+  gEfiDiskInfoAhciInterfaceGuid                  ## CONSUMES
+  
+
+[Protocols]
+  gAmtReadyToBootProtocolGuid                    ## PRODUCES
+  gEfiHeciProtocolGuid                           ## CONSUMES
+  gMeBiosPayloadDataProtocolGuid                 ## CONSUMES
+  gEfiConsoleControlProtocolGuid                 ## CONSUMES
+  gEfiAlertStandardFormatProtocolGuid            ## CONSUMES
+  gEfiPciRootBridgeIoProtocolGuid                ## CONSUMES
+  gEfiSimpleFileSystemProtocolGuid               ## CONSUMES
+  gEfiDiskInfoProtocolGuid                       ## CONSUMES
+  gEfiBlockIoProtocolGuid                        ## CONSUMES
+  gEfiIderControllerDriverProtocolGuid           ## CONSUMES
+  gEfiMebxProtocolGuid                           ## CONSUMES
+  
+[Depex]
+  gEfiHeciProtocolGuid AND
+  gEfiFirmwareVolumeProtocolGuid AND
+  gDxePlatformAmtPolicyGuid
+
+[BuildOptions]

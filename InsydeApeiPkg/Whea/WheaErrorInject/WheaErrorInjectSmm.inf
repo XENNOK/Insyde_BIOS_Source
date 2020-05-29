@@ -1,0 +1,64 @@
+## @file
+#
+#  Component description file for the WheaErrorInject driver
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WheaErrorInjectSmm
+  FILE_GUID                      = DF243C0E-95EA-428d-9AB2-B70666AAA08B
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 0.1
+  ENTRY_POINT                    = InsydeWheaErrorInjectSmm
+
+[Sources.common]
+  WheaErrorInjectSmm.c
+  WheaErrorInjectSmm.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_APEI_PKG)/$(INSYDE_APEI_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  SmmServicesTableLib
+  BaseMemoryLib
+
+  WheaLib
+  
+[Protocols]
+  gEfiWheaSupportProtocolGuid                    ## CONSUMES 
+  gEfiWheaPlatformProtocolGuid                   ## CONSUMES
+  gEfiAcpiSupportProtocolGuid                    ## CONSUMES
+  gEfiSmmBase2ProtocolGuid                       ## CONSUMES
+  gEfiSmmSwDispatch2ProtocolGuid                 ## CONSUMES
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiErrorInjectType
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiAcpiVersion
+#[-start-140425-IB10310054-add]#
+  gEfiApeiPkgTokenSpaceGuid.PcdApeiUefiVersion
+#[-end-140425-IB10310054-add]#
+
+[Depex]
+  gEfiWheaSupportProtocolGuid AND
+  gEfiWheaPlatformProtocolGuid AND
+  gEfiAcpiSupportProtocolGuid AND
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid
+
+[BuildOptions]

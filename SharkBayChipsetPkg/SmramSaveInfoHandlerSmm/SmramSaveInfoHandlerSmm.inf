@@ -1,0 +1,80 @@
+## @file
+#  A helper driver to save information to SMRAM after SMRR is enabled.
+#
+#@copyright
+#  Copyright (c)  2004 - 2013 Intel Corporation. All rights reserved
+#  This software and associated documentation (if any) is furnished
+#  under a license and may only be used or copied in accordance
+#  with the terms of the license. Except as permitted by such
+#  license, no part of this software or documentation may be
+#  reproduced, stored in a retrieval system, or transmitted in any
+#  form or by any means without the express written consent of
+#  Intel Corporation.
+#  This file contains a 'Sample Driver' and is licensed as such
+#  under the terms of your license agreement with Intel or your
+#  vendor.  This file may be modified by the user, subject to
+#  the additional terms of the license agreement.
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmramSaveInfoHandlerSmm
+  FILE_GUID                      = 63296C52-01CF-4eea-A47C-782A14DA6894
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A  
+  ENTRY_POINT                    = SmramSaveInfoHandlerSmmMain
+
+[BuildOptions]
+
+################################################################################
+#
+# Sources Section - list of files that are required for the build to succeed.
+#
+################################################################################
+
+[Sources]
+  SmramSaveInfoHandlerSmm.c
+  SmramSaveInfoHandlerSmm.h
+
+################################################################################
+#
+# Package Dependency Section - list of Package files that are required for
+#                              this module.
+#
+################################################################################
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+ 
+################################################################################
+#
+# Library Class Section - list of Library Classes that are required for
+#                         this module.
+#
+################################################################################
+  
+[LibraryClasses]  
+  BaseMemoryLib
+  DebugLib
+  IoLib  
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  SmmServicesTableLib
+
+[Protocols]
+  gEfiSmmSwDispatch2ProtocolGuid
+  gDxeCpuPlatformPolicyProtocolGuid
+  
+[Guids]
+  gSmramCpuDataVariableGuid
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gDxeCpuPlatformPolicyProtocolGuid
+ 
+

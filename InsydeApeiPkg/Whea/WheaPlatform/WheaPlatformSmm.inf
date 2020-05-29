@@ -1,0 +1,76 @@
+## @file
+#
+#  Component description file for the WheaPlatform driver
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WheaPlatformSmm
+  FILE_GUID                      = D27F555B-93A5-43cf-A4F4-E7ECE60EDC15
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 0.1
+  ENTRY_POINT                    = InsydeWheaPlatformEntry
+
+[Sources]
+  WheaPlatformSmm.c
+  WheaPlatformSmm.h
+  WheaErrorLib.c
+  WheaErrorLib.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_APEI_PKG)/$(INSYDE_APEI_PKG).dec
+
+  # For SmmBase and AcpiSupport Protocol
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  SmmServicesTableLib
+  BaseMemoryLib
+  PciExpressLib
+
+  WheaLib
+
+[Guids]
+  gEfiPcieErrorSectionGuid                       ## CONSUMES ## GUID
+  gEfiPlatformMemoryErrorSectionGuid             ## CONSUMES ## GUID
+
+  
+[Protocols]
+  gEfiWheaPlatformProtocolGuid                   ## PRODUCES IN SMM
+  gEfiIsPlatformSupportWheaGuid                  ## CONSUMES
+  gEfiWheaSupportProtocolGuid                    ## CONSUMES 
+  gEfiAcpiSupportProtocolGuid                    ## CONSUMES
+  gEfiSmmSwDispatch2ProtocolGuid                 ## CONSUMES
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[Depex]
+  gEfiIsPlatformSupportWheaGuid AND
+  gEfiWheaSupportProtocolGuid AND
+  gEfiAcpiSupportProtocolGuid AND
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid
+
+[BuildOptions]
+  #
+  # To avoid LINK error LNK2001: unresolved external symbol memset.
+  # in function [InsydeWheaPlatformRestartElog()] 
+  # GenErr = (GENERIC_HW_ERROR_SOURCE *)ErrSrc->SourceData;
+  # ErrSize = (UINTN)GenErr->ErrorStatusSize;
+  #
+  MSFT_*_*_CC_FLAGS = /Od
+  GCC_*_*_CC_FLAGS = -O0

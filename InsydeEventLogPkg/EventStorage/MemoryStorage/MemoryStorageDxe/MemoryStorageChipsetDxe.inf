@@ -1,0 +1,49 @@
+## @file
+#
+#  Component description file for MemoryStorageChipset DXE Driver.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#    
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MemoryStorageChipsetDxe
+  FILE_GUID                      = 4CA8A1EF-D4DA-4212-9F4D-41638E68B6C1
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MemoryStorageChipsetDxeEntryPoint
+  
+
+[Sources]
+  MemoryStorageChipsetDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  
+[Protocols]
+  gH2OMemoryStorageProtocolGuid                # CONSUMED
+  gH2OEventStorageProtocolGuid                 # PRODUCED
+#[-start-140213-IB08400246-add]#
+  gH2OEventLogStringProtocolGuid               # PRODUCED
+#[-end-140213-IB08400246-add]#
+
+[Depex]
+  gH2OMemoryStorageProtocolGuid 

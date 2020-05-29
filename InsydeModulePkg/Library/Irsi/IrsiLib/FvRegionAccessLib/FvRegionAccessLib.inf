@@ -1,0 +1,40 @@
+## @file
+#  Component description file for FvRegionAccessLib module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FvRegionAccessLib
+  FILE_GUID                      = F50F5642-2E66-431F-AA3A-70D793D3AA8B
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = FvRegionAccessLib
+  CONSTRUCTOR                    = FvRegionAccessLibInit
+
+[Sources]
+  FvRegionAccessLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiLib
+  IrsiRegistrationLib
+
+[Protocols]
+  gIrsiRegistrationProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiFirmwareManagementProtocolGuid
+  gEfiLoadedImageProtocolGuid

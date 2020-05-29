@@ -1,0 +1,40 @@
+## @file
+#  Library classes for enabling/disabling flash write access
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FlashWriteEnableLib
+  FILE_GUID                      = D91C67C8-E307-4DE8-8C57-7E4EFD33543E
+  MODULE_TYPE                    = BASE
+  LIBRARY_CLASS                  = FlashWriteEnableLib
+  CONSTRUCTOR                    = FlashWriteEnableLibInit
+
+[Sources]
+  FlashWriteEnableLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+
+[LibraryClasses]
+  BaseLib
+  PciCf8Lib
+  IoLib
+  IrsiRegistrationLib
+
+[Guids]
+
+
+

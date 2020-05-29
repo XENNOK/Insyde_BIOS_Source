@@ -1,0 +1,32 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CommonSmbiosLib
+  FILE_GUID                      = A1927099-7FB0-4bff-B72D-6F83C94B9B53
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = CommonSmbiosLib|DXE_DRIVER UEFI_DRIVER UEFI_APPLICATION
+  CONSTRUCTOR                    = SmbiosBaseLibConstructor
+
+[Packages]
+  MdePkg/MdePkg.dec
+  
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  
+[Sources]
+  CommonSmbiosLib.c
+

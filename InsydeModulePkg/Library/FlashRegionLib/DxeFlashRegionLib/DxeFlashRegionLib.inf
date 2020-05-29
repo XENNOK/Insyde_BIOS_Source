@@ -1,0 +1,56 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeFlashRegionLib
+  FILE_GUID                      = 35A15F7D-6F69-4545-BA57-E37255F2B044
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = FlashRegionLib
+  CONSTRUCTOR                    = DxeFlashRegionLibInit
+  DESTRUCTOR                     = DxeFlashRegionLibDestruct
+
+
+
+[Sources]
+  DxeFlashRegionLib.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeFlashDevicePkg/InsydeFlashDevicePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  BaseCryptLib
+  UefiBootServicesTableLib
+  
+
+ [Protocols]
+   gEfiSmmBase2ProtocolGuid
+   gEfiHashProtocolGuid   
+
+[Guids]
+  gInsydeTokenSpaceGuid
+  gEfiHashAlgorithmSha256Guid  
+  gEfiEventExitBootServicesGuid  
+
+
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdH2OFlashDeviceMapStart
+  gInsydeTokenSpaceGuid.PcdH2OFlashDeviceMapSize
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+

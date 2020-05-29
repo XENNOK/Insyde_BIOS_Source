@@ -1,0 +1,77 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = SioInit
+  FILE_GUID            = a43f5a9e-b29e-451b-8526-44c3e43d5067
+  MODULE_TYPE          = PEIM
+  VERSION_STRING       = 1.0
+  ENTRY_POINT          = SioInitPeim
+
+[Sources]
+  SioInit.c
+  SioRegs.h  
+
+[Packages]
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+  MdePkg/MdePkg.dec
+#[-start-120510-IB10820050-modify]#
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-end-120510-IB10820050-modify]#
+  InsydeFrameworkModulePkg/InsydeFrameworkModulePkg.dec
+#[-start-121219-IB10870058-add]#
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+#[-end-121219-IB10870058-add]#
+
+[LibraryClasses]
+  PeimEntryPoint
+#[-start-120406-IB10820033-modify]#
+# PeiIoLibCpuIo
+  IoLib
+#[-end-120406-IB10820033-modify]#
+  PeiServicesLib
+  PostCodeLib
+#[-start-121113-IB05280009-add]#
+  PeiOemSvcChipsetLibDefault
+#[-end-121113-IB05280009-add]#
+  SerialPortLib
+#[-start-130709-IB05160465-add]#
+  MemoryAllocationLib
+#[-end-130709-IB05160465-add]#
+
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid                # PPI CONSUMED
+  gPeiSioInitializedPpiGuid                      # PPI PRODUCES
+
+#[-start-121113-IB05280009-add]#
+[Pcd]
+#[-start-121122-IB05280018-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPeiSioGpioTable1
+#[-end-121122-IB05280018-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPeiSioTable
+  gChipsetPkgTokenSpaceGuid.PcdSioBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdSioConfigPort
+  gChipsetPkgTokenSpaceGuid.PcdSioIndexPort
+  gChipsetPkgTokenSpaceGuid.PcdSioDataPort
+#[-end-121113-IB05280009-add]#
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdDenlowServerSupported
+#[-start-130326-IB10930027-add]#
+  gInsydeTokenSpaceGuid.PcdH2ODdtSupported
+#[-end-130326-IB10930027-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Depex]
+  gEfiPeiReadOnlyVariable2PpiGuid

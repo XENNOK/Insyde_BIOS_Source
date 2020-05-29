@@ -1,0 +1,50 @@
+## @file
+#
+#  Component description file for the WheaSupport driver
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WheaSupportDxe
+  FILE_GUID                      = 39203C78-49FC-48c9-B883-B4A015D84BD3
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 0.1
+  ENTRY_POINT                    = InsydeWheaSupportEntry
+
+[Sources]
+  WheaSupportDxe.c
+  WheaSupportDxe.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+  $(INSYDE_APEI_PKG)/$(INSYDE_APEI_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  UefiLib
+
+  WheaLib
+
+[Protocols]
+  gEfiWheaSupportProtocolGuid                    ## PRODUCES IN DXE IF APEI SUPPORTED
+  gEfiIsPlatformSupportWheaGuid                  ## CONSUMES
+  gEfiAcpiSupportProtocolGuid                    ## CONSUMES
+
+[Depex]
+  gEfiAcpiSupportProtocolGuid AND
+  gEfiIsPlatformSupportWheaGuid
+
+[BuildOptions]

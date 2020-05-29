@@ -1,0 +1,38 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#  Module Name:
+#
+#    ConsoleLib.inf
+#
+#  Abstract:
+#
+#  Library function for console wide character support
+#
+
+[defines]
+BASE_NAME            = ConsoleLib
+COMPONENT_TYPE       = LIBRARY
+
+[sources.common]
+  ConsoleLib.c
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation\Efi
+  .
+  ..\Include
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+
+[nmake.common]

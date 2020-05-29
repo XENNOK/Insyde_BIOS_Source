@@ -1,0 +1,61 @@
+## @file
+#  Component description file for SmmOemServicesThunk module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmOemServicesThunk
+  FILE_GUID                      = 696D180A-77E0-46cd-A830-2D5BA71BE188
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SmmOemSvcThunkEntryPoint
+
+[Sources]
+  OemSvcDisableAcpiCallbackThunk.c
+  OemSvcEnableAcpiCallbackThunk.c
+  OemSvcGetAspmOverrideInfoThunk.c
+  OemSvcInstallPnpGpnvTableThunk.c
+  OemSvcInstallPnpStringTableThunk.c
+  OemSvcOsResetCallbackThunk.c
+  OemSvcPowerButtonCallbackThunk.c
+  OemSvcRestoreAcpiCallbackThunk.c
+  OemSvcS1CallbackThunk.c
+  OemSvcS3CallbackThunk.c
+  OemSvcS4CallbackThunk.c
+  OemSvcS5AcLossCallbackThunk.c
+  OemSvcS5CallbackThunk.c
+  OemSvcVariablePreservedTableThunk.c
+  SmmOemServicesThunk.c
+  SmmOemServicesThunk.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  EdkCompatibilityPkg/EdkCompatibilityPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  SmmOemSvcKernelLibDefault
+
+[Protocols]
+  gEfiSmmRuntimeProtocolGuid
+  gSmmOemServicesProtocolGuid
+
+[Depex]
+  gEfiSmmRuntimeProtocolGuid

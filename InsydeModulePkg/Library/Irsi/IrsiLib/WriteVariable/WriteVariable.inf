@@ -1,0 +1,41 @@
+## @file
+#  Component description file for WriteVariable module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WriteVariable
+  FILE_GUID                      = 14960E42-96B6-4C07-91CF-BCA7C87DBC82
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = IrsiLib
+  CONSTRUCTOR                    = IrsiWriteVariableInit
+
+[Sources]
+  WriteVariable.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiLib
+  IrsiRegistrationLib
+
+  
+[Protocols]
+  gIrsiRegistrationProtocolGuid
+
+[Guids]
+  gIrsiServicesGuid

@@ -1,0 +1,62 @@
+## @file
+#
+#  This driver implements TPM2 definition block in ACPI table and 
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PttHciSmm
+  FILE_GUID                      = 8029a5b5-4088-48d2-96e0-f7052bc0a842
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeFtpmSmm
+
+
+[Sources]
+  PttHciSmm.c
+  PttHciSmm.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  
+[LibraryClasses]
+  UefiDriverEntryPoint
+  HobLib
+  IoLib
+
+  CpuPlatformLib
+  
+[Guids]
+
+  
+[Protocols]
+  gEfiFirmwareVolumeProtocolGuid
+  gEfiAcpiTableProtocolGuid
+  gEfiSmmSwDispatchProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdTpmHide
+
+[Depex]
+  gEfiAcpiTableProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gEfiSmmVariableProtocolGuid
+
+[BuildOptions]
+  *_*_*_CC_FLAGS = -D PTT_FLAG
+

@@ -1,0 +1,66 @@
+## @file
+#  Component description file for DdtStatusCodeRuntimeDxe driver
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DdtStatusCodeRuntimeDxe
+  FILE_GUID                      = F797737A-C48B-4FB7-8D15-32AAC4AC965A
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = DdtStatusCodeRuntimeDxeEntry
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  DdtStatusCodeRuntimeDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  PcdLib
+  PrintLib
+  ReportStatusCodeLib
+  DebugLib
+  BaseMemoryLib
+  H2ODebugLib
+  ImageRelocationLib
+  
+[Guids]
+  gEfiEventVirtualAddressChangeGuid             ## CONSUMES ## Event
+  gEfiEventExitBootServicesGuid                 ## CONSUMES ## Event
+  gEfiStatusCodeDataTypeStringGuid              ## CONSUMES
+
+[Protocols]
+  gEfiRscHandlerProtocolGuid                    ## CONSUMES
+  gEfiSmmRscHandlerProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdStatusCodeUseDdt
+  gInsydeTokenSpaceGuid.PcdDdtStatusCodeReportsProgressCode
+
+[Pcd]
+
+[Depex]
+  TRUE

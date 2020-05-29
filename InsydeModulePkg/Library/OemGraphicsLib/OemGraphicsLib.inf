@@ -1,0 +1,71 @@
+## @file
+#  Component description file for the OemGraphicsLib library.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = OemGraphicsLib
+  FILE_GUID                      = F9AB7A73-199E-47f0-AB4A-2B458FD87F31
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = OemGraphicsLib|DXE_CORE DXE_DRIVER DXE_RUNTIME_DRIVER DXE_SAL_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER
+
+[Sources]
+  Graphics.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  DxeServicesLib
+  DebugLib
+  BaseMemoryLib
+  UefiLib
+  MemoryAllocationLib
+  PcdLib
+  DxeOemSvcKernelLibDefault
+  DevicePathLib
+  VariableLib
+  MediaPlayerLib
+  
+[Protocols]
+  gEfiJpegDecoderProtocolGuid
+  gEfiPcxDecoderProtocolGuid
+  gEfiTgaDecoderProtocolGuid
+  gEfiGifDecoderProtocolGuid
+  gEfiOEMBadgingSupportProtocolGuid
+  gEfiConsoleControlProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiUgaDrawProtocolGuid
+  gEfiBootLogoProtocolGuid
+  gEndOfDisableQuietBootGuid
+  gEfiEdidDiscoveredProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gDynamicHotKeyProtocolGuid
+
+[FeaturePcd]
+  gEfiMdePkgTokenSpaceGuid.PcdUgaConsumeSupport
+  gInsydeTokenSpaceGuid.PcdDynamicHotKeySupported
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdDefaultLogoResolution
+  gInsydeTokenSpaceGuid.PcdDefaultHorizontalResolution
+  gInsydeTokenSpaceGuid.PcdDefaultVerticalResolution
+  gEfiMdePkgTokenSpaceGuid.PcdMaximumDevicePathNodeCount
+
+[Guids]
+  gEfiConsoleOutDeviceGuid

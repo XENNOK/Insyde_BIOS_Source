@@ -1,0 +1,48 @@
+## @file
+#  Component description file for WinNtPciHostBridgeDxe driver
+#
+#******************************************************************************
+#* Copyright (c) 2015, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WinNtPciHostBridgeDxe
+  FILE_GUID                      = 039721D7-A128-11d4-9A3B-0090273FC14E
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeWinNtPciHostBridge
+
+[Sources]
+  WinNtPciHostBridgeDxe.h
+  WinNtPciHostBridgeDxe.c
+  WinNtPciRootBridgeIoDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  NtEmulatorPkg/NtEmulatorPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DxeServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  UefiLib
+  DebugLib
+  
+[Protocols]
+  gEfiMetronomeArchProtocolGuid
+  gEfiPciHostBridgeResourceAllocationProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiDevicePathProtocolGuid
+  
+[Depex]
+  gEfiMetronomeArchProtocolGuid

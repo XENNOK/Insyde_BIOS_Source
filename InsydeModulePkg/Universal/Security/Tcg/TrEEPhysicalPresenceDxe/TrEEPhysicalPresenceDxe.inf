@@ -1,0 +1,70 @@
+## @file
+#  Component file for TrEE PhysicalPresenceDxe driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = TrEEPhysicalPresenceDxe
+  FILE_GUID                      = 4D06B832-6987-40f2-B76D-D170B42DB182
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+
+  ENTRY_POINT                    = DriverEntry
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF
+#
+
+[Sources]
+  TrEEPhysicalPresence.c
+  TrEEPhysicalPresenceStrings.uni
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  SecurityPkg/SecurityPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  MemoryAllocationLib
+  UefiLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  BaseMemoryLib
+  DebugLib
+  PrintLib
+  HiiLib
+  Tpm2CommandLib
+  OemGraphicsLib
+  DxeOemSvcKernelLibDefault
+
+[Protocols]
+  gEfiTrEEProtocolGuid
+  gEfiTrEEPhysicalPresenceProtocolGuid
+  gH2ODialogProtocolGuid
+  gEdkiiVariableLockProtocolGuid
+  gEndOfBdsBootSelectionProtocolGuid
+
+[Guids]
+  gEfiTrEEPhysicalPresenceGuid
+  gEfiUsbEnumerationGuid
+
+[Depex]
+  gEfiTrEEProtocolGuid                 AND
+  gEfiVariableArchProtocolGuid         AND
+  gEfiVariableWriteArchProtocolGuid

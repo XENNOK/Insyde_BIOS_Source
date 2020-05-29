@@ -1,0 +1,67 @@
+## @file
+#  Component description file for Int15ServiceSmm module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = Int15ServiceSmm
+  FILE_GUID                      = 7D4E94A9-269A-47a1-80F0-2B0EB42F7B4B
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = Int15ServiceDriverEntryPoint
+
+[Sources]
+  Int15ServiceSmm.c
+  Int15ServiceSmm.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  IoLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  DebugLib
+  DevicePathLib
+  UefiLib
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmRuntimeProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmCpuProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiLegacyRegion2ProtocolGuid
+  gEfiSmmInt15ServiceProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+  gInt15PrivateDataGuid  
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+  gInsydeTokenSpaceGuid.PcdInt15ServiceSmmRomFile
+
+[Depex]
+  <DXE_DEPEX>
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiLegacyBiosProtocolGuid
+    
+  <SMM_DEPEX>
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gInt15PrivateDataGuid

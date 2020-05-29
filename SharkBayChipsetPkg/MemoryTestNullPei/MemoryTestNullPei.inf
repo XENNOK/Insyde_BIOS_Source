@@ -1,0 +1,42 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiMemoryTestNull
+  FILE_GUID                      = 472C4729-94CA-46fa-88E3-76CC2EA0B7F9
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MemoryTestNullEntry
+
+[Sources]
+  MemoryTestNull.c
+#[-start-120627-IB10820071-remove]#  
+#  MemoryTestNull.h
+#  BaseMemoryTest.h
+#[-end-120627-IB10820071-remove]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  PeimEntryPoint
+#[-start-121102-IB10820149-add]#
+  PeiServicesLib
+#[-end-121102-IB10820149-add]#
+  
+[Ppis]
+  gPeiBaseMemoryTestPpiGuid
+  
+[Depex]
+    TRUE

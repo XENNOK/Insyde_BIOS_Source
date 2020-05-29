@@ -1,0 +1,60 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   I2cPolicyDxe.inf
+#;
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = I2cPolicyDxe
+  FILE_GUID                      = 3BC24CD6-ABCD-41ba-8CCB-D8E0EF1CEF85
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = I2cPolicyEntry
+
+[Sources]
+  I2cPolicy.c
+
+#[-start-130102-IB05280028-modify]#
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-end-130102-IB05280028-modify]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DebugLib
+  MemoryAllocationLib
+#[-start-130102-IB05280028-add]#
+  PcdLib
+  DxeOemSvcChipsetLibDefault
+#[-end-130102-IB05280028-add]#
+
+[Protocols]
+  gEfiI2cHidDevicesPolicyProtocolGuid
+
+#[-start-130102-IB05280028-add]#
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdI2cHidDevice01
+  gInsydeTokenSpaceGuid.PcdI2cHidDevice02
+  gInsydeTokenSpaceGuid.PcdI2cHidDevice03
+  gInsydeTokenSpaceGuid.PcdI2cHidDevice04
+  gInsydeTokenSpaceGuid.PcdI2cHidDevice05
+  gInsydeTokenSpaceGuid.PcdI2cHidDevice06
+  gInsydeTokenSpaceGuid.PcdI2cHidDevice07
+  gInsydeTokenSpaceGuid.PcdI2cHidDevice08
+#[-end-130102-IB05280028-add]#
+
+[Depex]
+  TRUE

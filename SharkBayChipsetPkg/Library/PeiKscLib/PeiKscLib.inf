@@ -1,0 +1,33 @@
+## @file
+#  Component description file for PEI KSC library.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION              = 0x00010005
+  BASE_NAME                = PeiKscLib
+  FILE_GUID                = A49860F1-7C0D-4c7c-8D9F-24C11843BF50
+  MODULE_TYPE              = PEIM
+  VERSION_STRING           = 1.0
+  LIBRARY_CLASS            = PeiKscLib 
+
+[Sources]
+  PeiKscLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  BaseLib
+  IoLib  

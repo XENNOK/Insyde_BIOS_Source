@@ -1,0 +1,6 @@
+Version Information of Framework Client BIOS Haswell ACPI Reference Code Design Reference
+
+Revision: 0.5.5
+Release Date: April 3 2012
+Framework Client BIOS Haswell ACPI Reference Code Version: 0.5.5
+CRB BAT version: V067.1 (labeled with "HSW_CPT_UDK10_V067.1_20120329")

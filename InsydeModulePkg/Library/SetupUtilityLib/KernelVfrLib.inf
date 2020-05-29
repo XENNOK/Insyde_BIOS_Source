@@ -1,0 +1,57 @@
+## @file
+#  Component description file for KernelVfrLib library
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = KernelVfrLib
+  FILE_GUID                      = 9068D320-A80B-45F4-907D-C12761C1CF25
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = KernelVfrLib
+
+[Sources]
+  SetupUtilityLibString.uni
+  Main/MainVfr.vfr
+  Security/SecurityVfr.vfr
+  Boot/BootVfr.vfr
+  Exit/ExitVfr.vfr
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+
+[Guids]
+
+[Protocols]
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSysPasswordSupportUserPswd
+  gInsydeTokenSpaceGuid.PcdH2ONetworkSupported
+  gInsydeTokenSpaceGuid.PcdH2ONetworkIpv6Supported
+  gInsydeTokenSpaceGuid.PcdH2OTpmSupported
+  gInsydeTokenSpaceGuid.PcdH2OTpm2Supported
+  gInsydeTokenSpaceGuid.PcdTpmAutoDetection
+  gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+  gInsydeTokenSpaceGuid.Pcd64BitAmlSupported
+  gInsydeTokenSpaceGuid.PcdDefaultSysPasswordMinLength
+  gInsydeTokenSpaceGuid.PcdDefaultSysPasswordMaxLength
+  gInsydeTokenSpaceGuid.PcdHddPasswordMinLength
+  gInsydeTokenSpaceGuid.PcdHddPasswordMaxLength
+  gInsydeTokenSpaceGuid.PcdMultiConfigSupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserSupported
+  gInsydeTokenSpaceGuid.PcdH2OCsmSupported
+  gInsydeTokenSpaceGuid.PcdPlatformBootTimeOut
+  gInsydeTokenSpaceGuid.PcdPlatformBootTimeOutMax

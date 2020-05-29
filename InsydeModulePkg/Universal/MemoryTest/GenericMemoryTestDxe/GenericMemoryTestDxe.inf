@@ -1,0 +1,56 @@
+## @file
+#  Component description file for Generic memory test module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = GenericMemoryTestDxe
+  FILE_GUID                      = EEC9BC9A-2907-4d59-8B86-D1EC67DE62E1
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = GenericMemoryTestEntryPoint
+
+[Sources]
+  GenericMemoryTest.h
+  GenericMemoryTest.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  BaseLib
+  ReportStatusCodeLib
+  DxeServicesTableLib
+  HobLib
+  DebugLib
+
+[Guids]
+  gEfiGenericVariableGuid
+  gEfiHobListGuid
+
+[Protocols]
+  gEfiCpuArchProtocolGuid
+  gEfiGenericMemTestProtocolGuid
+  gEfiPlatformMemTestGuid
+  gEfiVirtualMemoryAccessProtocolGuid
+  gEfiCompatibleMemoryTestedGuid
+
+[Depex]
+  TRUE
+

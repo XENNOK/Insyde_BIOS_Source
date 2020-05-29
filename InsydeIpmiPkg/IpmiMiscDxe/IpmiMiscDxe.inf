@@ -1,0 +1,83 @@
+## @file
+# H2O IPMI Misc module build description file for DXE phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IpmiMiscDxe
+  FILE_GUID                      = 0DE19141-7AEB-46CA-9F87-2D19FEBC99C3
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IpmiMiscDxeEntry
+
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  IpmiMiscDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  PcdLib
+  DebugLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DevicePathLib
+  UefiRuntimeServicesTableLib
+  UefiLib
+  PrintLib
+  IpmiHobLib
+  DxeIpmiPackageLib
+  DxeOemIpmiPackageLibDefault
+
+[Guids]
+  gH2OIpmiHobGuid                            # Consume
+  gEfiGlobalVariableGuid                     # Consume
+  gEfiGenericVariableGuid                    # Consume
+
+[Protocols]
+  gH2OIpmiInterfaceProtocolGuid              # Consume
+  gEfiAcpiTableProtocolGuid                  # Consume
+  gEfiSmbiosProtocolGuid                     # Consume
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareVersionString
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSpmiEnable
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtEnable
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSetBiosVersion
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiBootOption
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiRealBootOrderString
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiRealBootOrderGuid
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiUsbFlashDiskClassify
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiUsbCdromClassify
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiBootOptionEventGuid
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiWdtStartEventGuidList
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiWdtStopEventGuidList
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiBootNext
+
+[Depex]
+  gH2OIpmiInterfaceProtocolGuid    AND
+  gEfiAcpiTableProtocolGuid        AND
+  gEfiSmbiosProtocolGuid
+

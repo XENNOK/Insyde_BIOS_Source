@@ -1,0 +1,65 @@
+## @file
+#  Implement the PEIM of Pei EventMessage
+#  
+#  ***************************************************************************
+#  * Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#  *
+#  * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#  * transmit, broadcast, present, recite, release, license or otherwise exploit
+#  * any part of this publication in any form, by any means, without the prior
+#  * written permission of Insyde Software Corporation.
+#  *
+#  ******************************************************************************
+#  
+##
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = PostMessagePei
+  FILE_GUID                 = 8AB2F241-77FA-49C7-BD2C-FD71A743FD8A
+  MODULE_TYPE               = PEIM
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = PostMessagePeiEntryPoint 
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[Sources]
+  PostMessagePei.c
+  PostMessagePei.h
+	
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  BaseLib
+  HobLib
+
+[Ppis]
+  gH2OPeiEventLogPpiGuid               #CONSUMED
+  gPeiSpeakerInterfacePpiGuid          #CONSUMED
+  gH2OPeiPostMessagePpiGuid            #PRODUCED
+  gEfiPeiRscHandlerPpiGuid             #CONSUMED
+  gEfiPeiReadOnlyVariable2PpiGuid
+  
+[Guids]
+  gH2OPeiPostMessageHobGuid            #PRODUCED
+
+[Pcd]
+  gH2OEventLogPkgTokenSpaceGuid.PcdH2OEventLogSupport
+  gH2OEventLogPkgTokenSpaceGuid.PcdH2OPostBeepSupport
+
+  gH2OEventLogPkgTokenSpaceGuid.PcdPostMessageEn
+  gH2OEventLogPkgTokenSpaceGuid.PcdPostMessageProgressCode
+  gH2OEventLogPkgTokenSpaceGuid.PcdPostMessageErrorCode
+  gH2OEventLogPkgTokenSpaceGuid.PcdPostMessageDebugCode
+  gH2OEventLogPkgTokenSpaceGuid.PcdPostMessageLogPostMsg
+  gH2OEventLogPkgTokenSpaceGuid.PcdPostMessageShowPostMsg
+  gH2OEventLogPkgTokenSpaceGuid.PcdPostMessageBeepPostMsg
+  
+[BuildOptions]
+
+[Depex]
+  TRUE
+

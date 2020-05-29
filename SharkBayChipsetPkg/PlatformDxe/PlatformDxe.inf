@@ -1,0 +1,139 @@
+## @file
+#  Component description file for Platform Policy Initialization driver
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+   INF_VERSION                    = 0x00010005
+   BASE_NAME                      = DxePlatform
+   FILE_GUID                      = 74c83f3a-5ee3-4eb7-b945-702b839fb1a6
+   MODULE_TYPE                    = DXE_DRIVER
+   ENTRY_POINT                    = DxePlatformEntryPoint
+
+[Sources]
+  Platform.c
+  Platform.h
+#[-start-121211-IB05960207-modify]#
+  PchRegTable.c
+#[-end-121211-IB05960207-modify]#
+  KeyboardSetup.c
+  UsbLegacy.c
+  UsbLegacy.h
+#[-start-121108-IB10820155-remove]#
+# OemPlatform.c
+# OemPlatform.h
+#[-end-121108-IB10820155-remove]#
+#[-start-120808-IB10820099-remove]#
+#  XtuDxe.c
+#[-end-120808-IB10820099-remove]#
+#[-start-130118-IB11410043-add]#
+  PlatformOcInit.c
+#[-end-130118-IB11410043-add]#
+
+[Packages]
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec  
+#[-start-120808-IB10820098-add]#
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-end-120808-IB10820098-add]#
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MeLib
+  CmosLib
+  BaseMemoryLib
+  UefiLib
+  HobLib
+  IoLib 
+  BaseLib
+  S3BootScriptLib
+#[-start-120808-IB10820098-add]#
+  EfiRegTableLib
+#[-end-120808-IB10820098-add]#
+#[-start-121108-IB10820155-remove]#
+# EcLib
+#[-end-121108-IB10820155-remove]#
+#[-start-121031-IB10820146-add]#
+  PciExpressLib
+#[-end-121031-IB10820146-add]#
+#[-start-121108-IB10820155-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121108-IB10820155-add]#
+#[-start-130118-IB11410043-add]#
+  OverclockingLib
+#[-end-130118-IB11410043-add]#
+
+[Protocols]
+  gEfiAcpiSupportProtocolGuid                          # CONSUMED
+  gEfiPciIoProtocolGuid                                # CONSUMED
+  gEfiSetupUtilityProtocolGuid                         # CONSUMED
+  gEfiGlobalNvsAreaProtocolGuid                        # CONSUMED
+  gDxePchPlatformPolicyProtocolGuid                    # CONSUMED
+  gEfiIsaIoProtocolGuid                                # CONSUMED
+  gEfiPciRootBridgeIoProtocolGuid                      # CONSUMED
+  gEfiSmbusHcProtocolGuid                              # CONSUMED
+  gDxePlatformSaPolicyGuid                             # CONSUMED
+  gEfiSmmSmbusProtocolGuid                             # CONSUMED
+  gEfiPs2PolicyProtocolGuid                            # PRODUCED
+  gEfiUsbLegacyPlatformProtocolGuid                    # PRODUCED
+  gEfiCRPolicyProtocolGuid                             # PRODUCED
+#[-start-130118-IB11410043-add]#
+  gWdtProtocolGuid                                     # CONSUMED
+#[-end-130118-IB11410043-add]#
+
+[Guids]
+  gPlatformHardwareSwitchGuid
+  gEfiGlobalVariableGuid
+  gEfiConsoleLockGuid
+#[-start-130118-IB11410043-add]#
+  gXTUInfoHobGuid
+#[-end-130118-IB11410043-add]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-121109-IB05280008-add]#
+  gInsydeTokenSpaceGuid.PcdPlatformKeyList
+#[-end-121109-IB05280008-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+  gChipsetPkgTokenSpaceGuid.PcdMemSpdProtectionSupported
+#[-start-120621-IB03530373-modify]#
+  gInsydeTokenSpaceGuid.PcdH2OConsoleRedirectionSupported
+#[-end-120621-IB03530373-modify]#
+#[-start-120808-IB10820098-add]#
+  gChipsetPkgTokenSpaceGuid.PcdXtuSupported
+#[-end-120808-IB10820098-add]#
+  gChipsetPkgTokenSpaceGuid.PcdMeSupported
+
+[Depex]
+#[-start-130118-IB11410043-modify]#
+  gEfiPciRootBridgeIoProtocolGuid AND
+  gEfiSetupUtilityProtocolGuid  AND
+  gEfiVariableArchProtocolGuid  AND
+  gEfiVariableWriteArchProtocolGuid AND
+  gDxePlatformSaPolicyGuid    AND
+  gEfiHiiDatabaseProtocolGuid AND
+  gWdtProtocolGuid
+#[-end-130118-IB11410043-modify]#
+
+#[-start-120808-IB10820098-add]#
+[BuildOptions]
+  *_*_*_CC_FLAGS = -D __HOB__H__        # to avod EFI_HOB_GUID_TYPE redefine
+#[-end-120808-IB10820098-add]#

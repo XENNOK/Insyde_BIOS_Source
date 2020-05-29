@@ -1,0 +1,42 @@
+## @file
+#  Platform Package Declaration file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_VERSION                    = 0x00010005
+  PACKAGE_NAME                   = PlatformPkg
+  PACKAGE_GUID                   = 7e4d7a19-e352-46d7-81b4-75a3a57fbe1d
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  ../MdePkg/Include
+
+[Includes.IA32]
+  ../MdePkg/Include/Ia32
+
+[Includes.X64]
+  ../MdePkg/Include/X64
+
+[PcdsDynamicEx]
+  
+[Guids]
+
+[Ppis]
+
+[Protocols]
+
+[PcdsFeatureFlag]
+
+[PcdsFixedAtBuild]
+
+[PcdsDynamic]
+

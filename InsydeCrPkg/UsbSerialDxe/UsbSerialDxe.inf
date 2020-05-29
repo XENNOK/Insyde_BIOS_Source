@@ -1,0 +1,61 @@
+## @file
+#  Component description file for UsbSerialDxe driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corp. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbSerialDxe
+  FILE_GUID                      = B875C779-1EBF-44F6-A757-C66DF0D51EEE
+  MODULE_TYPE                    = DXE_DRIVER
+  BINARY_VERSION                 = 10.01
+
+[Binaries.Ia32]
+  PE32|Ia32/UsbSerialDxe.efi
+
+[Binaries.X64]
+  PE32|X64/UsbSerialDxe.efi
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  DevicePathLib
+  MemoryAllocationLib
+  BaseLib
+  UefiLib
+  DebugLib
+  ReportStatusCodeLib
+
+[Protocols]
+  gEfiDevicePathProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiCRPolicyProtocolGuid
+  gEfiSerialIoProtocolGuid
+  gUsbSerialControllerIoProtocolGuid
+
+[FixedPcd]
+  gEfiMdePkgTokenSpaceGuid.PcdUartDefaultBaudRate|115200
+  gEfiMdePkgTokenSpaceGuid.PcdUartDefaultDataBits|8
+  gEfiMdePkgTokenSpaceGuid.PcdUartDefaultParity|1
+  gEfiMdePkgTokenSpaceGuid.PcdUartDefaultStopBits|1
+  
+[Depex]
+  TRUE
+  
+#[BuildOptions]
+#  DEBUG_*_X64_CC_FLAGS = /Od

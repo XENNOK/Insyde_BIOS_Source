@@ -1,0 +1,82 @@
+## @file
+#  Component description file for UsbCore Dxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbCoreDxe
+  FILE_GUID                      = 31FD7EAF-80A7-435e-8E0A-3F185F8667DD
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  ENTRY_POINT                    = UsbCoreDriverEntryPoint
+
+[Sources]
+  UsbCoreDxe.c
+  UsbCoreDxe.h
+  UsbCmds.c
+  UsbCmds.h
+  MemMng.c
+  MemMng.h
+  UsbPciIo.c
+  UsbPciIo.h
+  Legacy.c
+  Legacy.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  DevicePathLib
+  DebugLib
+  ReportStatusCodeLib
+  IoLib
+
+[Guids]
+  gEfiEventExitBootServicesGuid
+  gEfiSmmPeiSmramMemoryReserveGuid
+  gEfiHobListGuid
+
+[Protocols]
+  gEfiUsbCoreProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiUsbIoProtocolGuid
+  gEfiLegacy8259ProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiCpuArchProtocolGuid
+  gEfiTimerArchProtocolGuid
+  gEfiUsbLegacyPlatformProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmControl2ProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmUsbDispatch2ProtocolGuid
+  gEfiSmmCpuProtocolGuid
+  gEfiAcpiSupportProtocolGuid
+
+[Depex]
+  <DXE_DEPEX>
+  gEfiPciRootBridgeIoProtocolGuid AND
+  gEfiCpuArchProtocolGuid AND
+  gEfiTimerArchProtocolGuid
+
+  <SMM_DEPEX>
+  gEfiUsbCoreProtocolGuid AND
+  gEfiSmmControl2ProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gEfiSmmUsbDispatch2ProtocolGuid

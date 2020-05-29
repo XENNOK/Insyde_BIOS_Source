@@ -1,0 +1,1931 @@
+/** @file
+  Define this to include compiler fail-cases in the code
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#include <ChipsetSetupConfig.h>
+
+//
+//          Form 4: Power Menu
+//
+
+//[-start-120316-IB06460376-modify]//
+formset
+#if FeaturePcdGet(PcdH2OFormBrowserSupported)
+  guid     = FORMSET_ID_GUID_POWER,
+#else
+  guid     = SYSTEM_CONFIGURATION_GUID,
+#endif
+  title    = STRING_TOKEN(STR_POWER_TITLE),
+  help     = STRING_TOKEN(STR_BLANK_STRING),
+  classguid = SETUP_UTILITY_FORMSET_CLASS_GUID,
+  class    = SETUP_UTILITY_CLASS,
+  subclass = EFI_USER_ACCESS_THREE,
+#if defined(SETUP_IMAGE_SUPPORT) && FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+  image     = IMAGE_TOKEN (IMAGE_POWER);
+#endif
+
+  varstore CHIPSET_CONFIGURATION,            // This is the data structure type
+    varid = CONFIGURATION_VARSTORE_ID,      // Optional VarStore ID
+    name  = SystemConfig,                    // Define referenced name in vfr
+    guid  = SYSTEM_CONFIGURATION_GUID;      // GUID of this buffer storage
+
+  form
+    formid = ROOT_FORM_ID,
+
+    title = STRING_TOKEN(STR_POWER_TITLE);
+
+    subtitle
+      text = STRING_TOKEN(STR_BLANK_STRING);
+
+    goto 0x40,
+      prompt = STRING_TOKEN(STR_CPU_CONTROL_STRING),
+#if defined(SETUP_IMAGE_SUPPORT) && FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+      help = STRING_TOKEN(STR_CPU_CONTROL_HELP),
+      image = IMAGE_TOKEN (IMAGE_CPU_CONTROL),;
+#else
+      help = STRING_TOKEN(STR_CPU_CONTROL_HELP);
+#endif
+    goto 0x41,
+      prompt = STRING_TOKEN(STR_PLAT_POWER_MANGE_STRING),
+      help = STRING_TOKEN(STR_PLAT_POWER_MANGE_HELP);
+
+    subtitle
+      text = STRING_TOKEN(STR_BLANK_STRING);
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+
+    oneof
+      varid       = SystemConfig.WakeOnPME,
+      questionid = KEY_WAKE_ON_PME,
+      prompt      = STRING_TOKEN(STR_WAKE_ON_PME_STRING),
+      help        = STRING_TOKEN(STR_WAKE_ON_PME_HELP),
+//[-start-130307-IB03780481-modify]//
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),    value = 0, flags = DEFAULT | INTERACTIVE;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),     value = 1, flags = 0       | INTERACTIVE;
+//[-end-130307-IB03780481-modify]//
+    endoneof;
+
+    oneof
+      varid       = SystemConfig.WakeOnModemRing,
+      prompt      = STRING_TOKEN(STR_WAKE_ON_MODEM_STRING),
+      help        = STRING_TOKEN(STR_WAKE_ON_MODEM_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),    value = 0, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_ENABLED_TEXT),     value = 1, flags = 0;
+    endoneof;
+
+    oneof
+      varid       = SystemConfig.WakeOnS5,
+      prompt      = STRING_TOKEN(STR_WAKE_ON_S5_STRING),
+      help        = STRING_TOKEN(STR_WAKE_ON_S5_HELP),
+      option text = STRING_TOKEN(STR_DISABLED_TEXT),            value = 0, flags = DEFAULT;
+      option text = STRING_TOKEN(STR_WAKE_BY_EVERY_DAY_TEXT),   value = 1, flags = 0;
+      option text = STRING_TOKEN(STR_WAKE_BY_DAY_OF_MONTH_TEXT),value = 2, flags = 0;
+    endoneof;
+    endif;
+
+
+    //
+    // hide option when Disable
+    //
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqval SystemConfig.WakeOnS5 == 0;
+
+     time
+       varid = SystemConfig.WakeOnS5Time,
+       prompt = STRING_TOKEN(STR_WAKE_ON_S5_TIME_PROMPT),
+       help = STRING_TOKEN(STR_TIME_HELP),
+       flags = STORAGE_NORMAL,
+       default = 00:00:00,
+     endtime;
+    endif;
+    endif;
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqvallist SystemConfig.WakeOnS5 == 0 1;
+
+      numeric
+        varid       = SystemConfig.WakeOnS5DayOfMonth,
+        prompt      = STRING_TOKEN(STR_WAKE_DAY_OF_MONTH_PROMPT),
+        help        = STRING_TOKEN(STR_DATE_DAY_HELP),
+        minimum     = 1,
+        maximum     = 31,
+        step        = 1,
+        default     = 1,
+      endnumeric;
+    endif;
+    endif;
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+      ideqval SystemConfig.Lan == 0;
+      oneof
+        varid       = SystemConfig.WakeOnLan,
+        prompt      = STRING_TOKEN(STR_WAKE_ON_LAN_STRING),
+        help        = STRING_TOKEN(STR_WAKE_ON_LAN_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),    value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),     value = 1, flags = DEFAULT;
+      endoneof;
+    endif;
+    endif;
+
+//[-start-120510-IB08360189-add]//
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.S5LongRunTest,
+        prompt      = STRING_TOKEN(STR_S5_LONG_RUN_TEST_STRING),
+        help        = STRING_TOKEN(STR_S5_LONG_RUN_TEST_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),    value = 0, flags = DEFAULT;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),     value = 1, flags = 0;
+      endoneof;
+    endif;
+//[-end-120510-IB08360189-add]//
+
+    subtitle
+      text = STRING_TOKEN(STR_BLANK_STRING);
+
+
+  endform;
+
+    //
+    //  Form 0x40: Advanced CPU Control
+    //
+    form
+      formid = 0x40, title = STRING_TOKEN(STR_CPU_CONTROL_STRING);
+
+      subtitle  text = STRING_TOKEN(STR_CPU_CONTROL_STRING);
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+
+//[-start-120522-IB06460400-add]//
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.HardwarePrefetcher,
+          prompt      = STRING_TOKEN(STR_HARDWARE_PREFETCHER_STRING),
+          help        = STRING_TOKEN(STR_HARDWARE_PREFETCHER_HELP),
+//[-start-121026-IB06460460-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = 0;
+//#else
+          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = 0;
+          option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-121026-IB06460460-modify]//
+        endoneof;
+      endif;
+//[-end-120522-IB06460400-add]//
+
+    grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+    suppressif
+        ideqval SystemConfig.AESSupport == 0;
+      oneof
+        varid   = SystemConfig.AESEnable,
+        prompt  = STRING_TOKEN(STR_AES_PROMPT),
+        help    = STRING_TOKEN(STR_AES_PROMPT_HELP),
+//[-start-121026-IB06460460-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//        option text = STRING_TOKEN(STR_ENABLE_TEXT), value = 1, flags = 0|RESET_REQUIRED;
+//        option text = STRING_TOKEN(STR_DISABLE_TEXT), value = 0, flags = DEFAULT |RESET_REQUIRED;
+//#else
+        option text = STRING_TOKEN(STR_ENABLE_TEXT), value = 1, flags = DEFAULT|RESET_REQUIRED;
+        option text = STRING_TOKEN(STR_DISABLE_TEXT), value = 0, flags = 0 |RESET_REQUIRED;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-121026-IB06460460-modify]//
+      endoneof;
+    endif;
+    endif;
+//[-start-130812-IB05670190-modify]//
+#if FeaturePcdGet(PcdTXTSupported)
+//[-end-130812-IB05670190-modify]//
+      grayoutif
+      ideqval SystemConfig.TpmDeviceOk == 0
+      OR
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.TXTSupport == 0;
+      oneof
+        varid   = SystemConfig.TXT,
+        questionid = KEY_TXT,
+        prompt  = STRING_TOKEN(STR_TXT_PROMPT),
+        help    = STRING_TOKEN(STR_TXT_PROMPT_HELP),
+        option text = STRING_TOKEN(STR_DISABLE_TEXT), value = 0, flags = DEFAULT |INTERACTIVE|RESET_REQUIRED;
+        option text = STRING_TOKEN(STR_ENABLE_TEXT), value = 1, flags = 0|INTERACTIVE|RESET_REQUIRED;
+      endoneof;
+    endif;
+    endif;
+#endif
+
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.ISTConfig,
+        prompt      = STRING_TOKEN(STR_IST_CONFIGURATION_STRING),
+        help        = STRING_TOKEN(STR_IST_CONFIGURATION_HELP),
+//[-start-121026-IB06460460-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//        option text = STRING_TOKEN(STR_DISABLED_TEXT),        value = 0, flags = DEFAULT;
+//        option text = STRING_TOKEN(STR_ENABLED_TEXT),         value = 1, flags = 0;
+//#else
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),        value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),         value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-121026-IB06460460-modify]//
+      endoneof;
+      endif;
+
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.CoreActive,
+          questionid  = KEY_COREACTIVE_FULL_RESET,
+          prompt      = STRING_TOKEN(STR_CORE_ACTIVE_STRING),
+          help        = STRING_TOKEN(STR_CORE_ACTIVE_HELP),
+          option text = STRING_TOKEN(STR_ALL_CORE_TXT),    value = 0, flags = DEFAULT | INTERACTIVE;
+          option text = STRING_TOKEN(STR_1_CORE_TXT),      value = 1, flags = 0 | INTERACTIVE;
+          option text = STRING_TOKEN(STR_2_CORE_TXT),      value = 2, flags = 0 | INTERACTIVE;
+          option text = STRING_TOKEN(STR_3_CORE_TXT),      value = 3, flags = 0 | INTERACTIVE;
+        endoneof;
+        oneof
+          varid       = SystemConfig.HTSupport,
+          prompt      = STRING_TOKEN(STR_HT_SUPPORT_STRING),
+          help        = STRING_TOKEN(STR_HT_SUPPORT_HELP),
+          option text = STRING_TOKEN(STR_AUTO_TEXT),      value = 1, flags = DEFAULT|RESET_REQUIRED;
+          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = 0|RESET_REQUIRED;
+        endoneof;
+      endif;
+//[-start-120522-IB06460400-add]//
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.BistOnReset,
+          prompt      = STRING_TOKEN(STR_BIST_STRING),
+          help        = STRING_TOKEN(STR_BIST_HELP),
+          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = 0;
+        endoneof;
+      endif;
+
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.Pfat,
+          prompt      = STRING_TOKEN(STR_PFAT_STRING),
+          help        = STRING_TOKEN(STR_PFAT_HELP),
+//[-start-121003-IB05300339-modify]//
+          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT | RESET_REQUIRED;
+          option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = 0;
+//[-end-121003-IB05300339-modify]//
+        endoneof;
+      endif;
+//[-end-120522-IB06460400-add]//
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.ExecuteDisableBit,
+          prompt      = STRING_TOKEN(STR_NX_MODE_STRING),
+          help        = STRING_TOKEN(STR_NX_MODE_HELP),
+//[-start-121026-IB06460460-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = 0;
+//#else
+          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = 0;
+          option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-121026-IB06460460-modify]//
+        endoneof;
+      endif;
+
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.VTSupport,
+          questionid  = KEY_VT_CONFIG,
+          prompt      = STRING_TOKEN(STR_VT_SUPPORT_STRING),
+          help        = STRING_TOKEN(STR_VT_SUPPORT_HELP),
+//[-start-121026-IB06460460-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = 0|INTERACTIVE;
+//          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = DEFAULT|INTERACTIVE;
+//#else
+          option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = DEFAULT|INTERACTIVE;
+          option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = 0|INTERACTIVE;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-121026-IB06460460-modify]//
+        endoneof;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.LimitCpuidMaximumValue,
+          prompt      = STRING_TOKEN(STR_LIMIT_CPUID_STRING),
+          help        = STRING_TOKEN(STR_LIMIT_CPUID_HELP),
+          option text = STRING_TOKEN(STR_DISABLED_TEXT),        value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN(STR_ENABLED_TEXT),         value = 1, flags = 0;
+        endoneof;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        TRUE;
+        oneof
+          varid       = SystemConfig.xAPICMode,
+          prompt      = STRING_TOKEN ( STR_X_APIC_MODE_STRING ),
+          help        = STRING_TOKEN ( STR_X_APIC_MODE_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+        endoneof;
+      endif;
+      endif;
+
+//[-start-120522-IB06460400-add]//
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.BootInLfm,
+          prompt      = STRING_TOKEN(STR_BOOT_PERF_MODE_STRING),
+          help        = STRING_TOKEN(STR_BOOT_PERF_MODE_HELP),
+          option text = STRING_TOKEN(STR_MAX_NON_TURBO_PERF_TEXT),  value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN(STR_MAX_BATTERY_TEXT),   value = 1, flags = 0;
+          option text = STRING_TOKEN(STR_TURBO_PERF_TEXT),   value = 2, flags = 0;
+        endoneof;
+      endif;
+//[-end-120522-IB06460400-add]//
+
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.CStates,
+        prompt      = STRING_TOKEN(STR_CSTATES_CONFIGURATION_STRING),
+        help        = STRING_TOKEN(STR_CSTATES_CONFIGURATION_HELP),
+//[-start-120727-IB06460249-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//        option text = STRING_TOKEN(STR_DISABLED_TEXT),        value = 0, flags = DEFAULT;
+//        option text = STRING_TOKEN(STR_ENABLED_TEXT),         value = 1, flags = 0;
+//#else
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),        value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),         value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-120727-IB06460249-modify]//
+      endoneof;
+      endif;
+
+      //
+      // C-State sub settings
+      //
+//[-start-120320-IB06460377-modify]//
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.EnCStates,
+          prompt      = STRING_TOKEN ( STR_ENCSTATES_STRING ),
+          help        = STRING_TOKEN ( STR_ENCSTATES_HELP ),
+//[-start-120727-IB06460249-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//#else
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-120727-IB06460249-modify]//
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.EnableC3,
+          prompt      = STRING_TOKEN ( STR_ENABLEC3_STRING ),
+          help        = STRING_TOKEN ( STR_ENABLEC3_HELP ),
+//[-start-120727-IB06460249-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT ),  value = 1, flags = 0;
+//#else
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT ),  value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-120727-IB06460249-modify]//
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.EnableC6,
+          prompt      = STRING_TOKEN ( STR_ENABLEC6_STRING ),
+          help        = STRING_TOKEN ( STR_ENABLEC6_HELP ),
+//[-start-120727-IB06460249-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//#else
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-120727-IB06460249-modify]//
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0
+        OR
+        ideqval SystemConfig.EnableC6 == 0;
+        oneof
+          varid       = SystemConfig.C6Latency,
+          prompt      = STRING_TOKEN ( STR_C6LATENCY_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_HELP ),
+          option text = STRING_TOKEN ( STR_SHORT_LATENCY_TEXT  ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_LONG_LATENCY_TEXT   ), value = 1, flags = 0;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.EnableC7,
+          prompt      = STRING_TOKEN ( STR_ENABLEC7_STRING ),
+          help        = STRING_TOKEN ( STR_ENABLEC7_HELP ),
+//[-start-120727-IB06460249-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_C7_TEXT       ), value = 1, flags = 0;
+//          option text = STRING_TOKEN ( STR_C7S_TEXT      ), value = 2, flags = 0;
+//#else
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_C7_TEXT       ), value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_C7S_TEXT      ), value = 2, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-120727-IB06460249-modify]//
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0
+        OR
+        ideqval SystemConfig.EnableC7 == 0;
+        oneof
+          varid       = SystemConfig.C7Latency,
+          prompt      = STRING_TOKEN ( STR_C7LATENCY_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_HELP ),
+          option text = STRING_TOKEN ( STR_SHORT_LATENCY_TEXT  ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_LONG_LATENCY_TEXT   ), value = 1, flags = DEFAULT;
+        endoneof;
+      endif;
+      endif;
+
+//[-start-120727-IB06460249-add]//
+//[-start-130523-IB05160449-modify]//
+//[-start-130812-IB05670190-modify]//
+#if FeaturePcdGet(PcdUltFlag)
+//[-end-130812-IB05670190-modify]//
+//[-end-130523-IB05160449-modify]//
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.EnableC8,
+          prompt      = STRING_TOKEN ( STR_ENABLEC8_STRING ),
+          help        = STRING_TOKEN ( STR_ENABLEC8_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT ),  value = 1, flags = DEFAULT;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.EnableC9,
+          prompt      = STRING_TOKEN ( STR_ENABLEC9_STRING ),
+          help        = STRING_TOKEN ( STR_ENABLEC9_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT ),  value = 1, flags = DEFAULT;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.EnableC10,
+          prompt      = STRING_TOKEN ( STR_ENABLEC10_STRING ),
+          help        = STRING_TOKEN ( STR_ENABLEC10_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT ),  value = 1, flags = DEFAULT;
+        endoneof;
+      endif;
+      endif;
+#endif
+//[-end-120727-IB06460249-add]//
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.CStateAutoDemotion,
+          prompt      = STRING_TOKEN ( STR_CSTATE_AUTO_DEMOTION_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_AUTO_DEMOTION_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT )            , value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_C1_AUTO_DEMOTION_TEXT )    , value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_C3_AUTO_DEMOTION_TEXT )    , value = 2, flags = 0;
+          option text = STRING_TOKEN ( STR_C1_C3_AUTO_DEMOTION_TEXT ) , value = 3, flags = DEFAULT;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.CStateAutoUnDemotion,
+          prompt      = STRING_TOKEN ( STR_CSTATE_AUTO_UNDEMOTION_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_AUTO_UNDEMOTION_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT )              , value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_C1_AUTO_UNDEMOTION_TEXT )    , value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_C3_AUTO_UNDEMOTION_TEXT )    , value = 2, flags = 0;
+          option text = STRING_TOKEN ( STR_C1_C3_AUTO_UNDEMOTION_TEXT ) , value = 3, flags = DEFAULT;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.PkgCStateDemotion,
+          prompt      = STRING_TOKEN ( STR_PKG_CSTATE_DEMOTION_STRING ),
+          help        = STRING_TOKEN ( STR_PKG_CSTATE_DEMOTION_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.PkgCStateUnDemotion,
+          prompt      = STRING_TOKEN ( STR_PKG_CSTATE_UNDEMOTION_STRING ),
+          help        = STRING_TOKEN ( STR_PKG_CSTATE_UNDEMOTION_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+          varid       = SystemConfig.CStatePreWake,
+          prompt      = STRING_TOKEN ( STR_CSTATE_PREWAKE_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_PREWAKE_HELP ),
+//[-start-120727-IB06460249-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//#else
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-120727-IB06460249-modify]//
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        oneof
+//[-start-120730-IB06460249-modify]//
+          varid       = SystemConfig.PkgCStateLimit,
+          prompt      = STRING_TOKEN ( STR_PKG_CSTATE_LIMIT_STRING ),
+          help        = STRING_TOKEN ( STR_PKG_CSTATE_LIMIT_HELP ),
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C0C1_TEXT    ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C2_TEXT      ), value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C3_TEXT      ), value = 2, flags = 0;
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C6_TEXT      ), value = 3, flags = 0;
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C7_TEXT      ), value = 4, flags = 0;
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C7S_TEXT     ), value = 5, flags = 0;
+//[-start-130523-IB05160449-modify]//
+//[-start-130812-IB05670190-modify]//
+#if FeaturePcdGet(PcdUltFlag)
+//[-end-130812-IB05670190-modify]//
+//[-end-130523-IB05160449-modify]//
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C8_TEXT      ), value = 6, flags = 0;
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C9_TEXT      ), value = 7, flags = 0;
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_C10_TEXT     ), value = 8, flags = 0;
+#endif
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_NOLIMIT_TEXT ), value = 254, flags = 0;
+          option text = STRING_TOKEN ( STR_PKG_CSTATE_AUTO_TEXT    ), value = 255, flags = DEFAULT;
+//[-end-120730-IB06460249-modify]//
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        subtitle  text = STRING_TOKEN ( STR_C3LATENCY_CTL_STRING );
+        oneof
+          varid       = SystemConfig.CstateLatencyControl0TimeUnit,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_HELP ),
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1_TEXT        ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32_TEXT       ), value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1024_TEXT     ), value = 2, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32768_TEXT    ), value = 3, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1048576_TEXT  ), value = 4, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_33554432_TEXT ), value = 5, flags = 0;
+        endoneof;
+        numeric
+          varid       = SystemConfig.CstateLatencyControl0Irtl,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_HELP ),
+          minimum     = 0,
+          maximum     = 1023,
+          step        = 1,
+//[-start-130108-IB06460484-modify]//
+          default     = 66,
+//[-end-130108-IB06460484-modify]//
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        subtitle  text = STRING_TOKEN ( STR_C67_SHORT_LATENCY_CTL_STRING );
+        oneof
+          varid       = SystemConfig.CstateLatencyControl1TimeUnit,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_HELP ),
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1_TEXT        ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32_TEXT       ), value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1024_TEXT     ), value = 2, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32768_TEXT    ), value = 3, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1048576_TEXT  ), value = 4, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_33554432_TEXT ), value = 5, flags = 0;
+        endoneof;
+        numeric
+          varid       = SystemConfig.CstateLatencyControl1Irtl,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_HELP ),
+          minimum     = 0,
+          maximum     = 1023,
+          step        = 1,
+//[-start-130108-IB06460484-modify]//
+//[-start-121221-IB06460480-modify]//
+//[-start-120813-IB04770240-modify]//
+          default     = 106,
+//[-end-120813-IB04770240-modify]//
+//[-end-121221-IB06460480-modify]//
+//[-end-130108-IB06460484-modify]//
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        subtitle  text = STRING_TOKEN ( STR_C67_LONG_LATENCY_CTL_STRING );
+        oneof
+          varid       = SystemConfig.CstateLatencyControl2TimeUnit,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_HELP ),
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1_TEXT        ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32_TEXT       ), value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1024_TEXT     ), value = 2, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32768_TEXT    ), value = 3, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1048576_TEXT  ), value = 4, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_33554432_TEXT ), value = 5, flags = 0;
+        endoneof;
+        numeric
+          varid       = SystemConfig.CstateLatencyControl2Irtl,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_HELP ),
+          minimum     = 0,
+          maximum     = 1023,
+          step        = 1,
+//[-start-130108-IB06460484-modify]//
+//[-start-121221-IB06460480-modify]//
+//[-start-120808-IB04770240-modify]//
+          default     = 145,
+//[-end-120808-IB04770240-modify]//
+//[-end-121221-IB06460480-modify]//
+//[-end-130108-IB06460484-modify]//
+        endnumeric;
+      endif;
+      endif;
+//[-end-120320-IB06460377-modify]//
+//[-start-120727-IB06460249-add]//
+//[-start-130523-IB05160449-modify]//
+//[-start-130812-IB05670190-modify]//
+#if FeaturePcdGet(PcdUltFlag)
+//[-end-130812-IB05670190-modify]//
+//[-end-130523-IB05160449-modify]//
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        subtitle  text = STRING_TOKEN ( STR_C8_LATENCY_CTL_STRING );
+        oneof
+          varid       = SystemConfig.CstateLatencyControl3TimeUnit,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_HELP ),
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1_TEXT        ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32_TEXT       ), value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1024_TEXT     ), value = 2, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32768_TEXT    ), value = 3, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1048576_TEXT  ), value = 4, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_33554432_TEXT ), value = 5, flags = 0;
+        endoneof;
+        numeric
+          varid       = SystemConfig.CstateLatencyControl3Irtl,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_HELP ),
+          minimum     = 0,
+          maximum     = 1023,
+          step        = 1,
+//[-start-130108-IB06460484-modify]//
+          default     = 228,
+//[-end-130108-IB06460484-modify]//
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        subtitle  text = STRING_TOKEN ( STR_C9_LATENCY_CTL_STRING );
+        oneof
+          varid       = SystemConfig.CstateLatencyControl4TimeUnit,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_HELP ),
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1_TEXT        ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32_TEXT       ), value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1024_TEXT     ), value = 2, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32768_TEXT    ), value = 3, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1048576_TEXT  ), value = 4, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_33554432_TEXT ), value = 5, flags = 0;
+        endoneof;
+        numeric
+          varid       = SystemConfig.CstateLatencyControl4Irtl,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_HELP ),
+          minimum     = 0,
+          maximum     = 1023,
+          step        = 1,
+//[-start-130108-IB06460484-modify]//
+          default     = 325,
+//[-end-130108-IB06460484-modify]//
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.CStates == 0;
+        subtitle  text = STRING_TOKEN ( STR_C10_LATENCY_CTL_STRING );
+        oneof
+          varid       = SystemConfig.CstateLatencyControl5TimeUnit,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_TIME_HELP ),
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1_TEXT        ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32_TEXT       ), value = 1, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1024_TEXT     ), value = 2, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_32768_TEXT    ), value = 3, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_1048576_TEXT  ), value = 4, flags = 0;
+          option text = STRING_TOKEN ( STR_CSTATE_TIME_33554432_TEXT ), value = 5, flags = 0;
+        endoneof;
+        numeric
+          varid       = SystemConfig.CstateLatencyControl5Irtl,
+          prompt      = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_STRING ),
+          help        = STRING_TOKEN ( STR_CSTATE_LATENCY_CTL_LATENCY_HELP ),
+          minimum     = 0,
+          maximum     = 1023,
+          step        = 1,
+//[-start-130108-IB06460484-modify]//
+//[-start-120925-IB03780461-modify]//
+          default     = 495,
+//[-end-120925-IB03780461-modify]//
+//[-end-130108-IB06460484-modify]//
+        endnumeric;
+      endif;
+      endif;
+#endif
+//[-end-120727-IB06460249-add]//
+
+      subtitle  text = STRING_TOKEN ( STR_BLANK_STRING );
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.EcTurboCtrlMode,
+          prompt      = STRING_TOKEN(STR_EC_TURBO_CTRL_STRING),
+          help        = STRING_TOKEN(STR_EC_TURBO_CTRL_HELP),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+        endoneof;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EcTurboCtrlMode == 0;
+        oneof
+          varid       = SystemConfig.EcBrickCap,
+          prompt      = STRING_TOKEN ( STR_EC_BRICK_CAP_STRING ),
+          help        = STRING_TOKEN ( STR_EC_BRICK_CAP_HELP ),
+          option text = STRING_TOKEN ( STR_90W_AC_BRICK_TEXT ), value = 1, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_65W_AC_BRICK_TEXT ), value = 2, flags = 0;
+          option text = STRING_TOKEN ( STR_75W_AC_BRICK_TEXT ), value = 3, flags = 0;
+        endoneof;
+
+        numeric
+          varid       = SystemConfig.EcPollingPeriod,
+          prompt      = STRING_TOKEN ( STR_EC_POLLING_PERIOD_STRING ),
+          help        = STRING_TOKEN ( STR_EC_POLLING_PERIOD_HELP ),
+          minimum     = 1,
+          maximum     = 255,
+          step        = 1,
+          default     = 1,
+        endnumeric;
+
+        numeric
+          varid       = SystemConfig.EcGuardBandVal,
+          prompt      = STRING_TOKEN ( STR_EC_GUARD_BAND_VAL_STRING ),
+          help        = STRING_TOKEN ( STR_EC_GUARD_BAND_VAL_HELP ),
+          minimum     = 0,
+          maximum     = 20,
+          step        = 1,
+          default     = 0,
+        endnumeric;
+
+        numeric
+          varid       = SystemConfig.EcAlgorithmSel,
+          prompt      = STRING_TOKEN ( STR_EC_ALGORITHM_SEL_STRING ),
+          help        = STRING_TOKEN ( STR_EC_ALGORITHM_SEL_HELP ),
+          minimum     = 1,
+          maximum     = 10,
+          step        = 1,
+          default     = 1,
+        endnumeric;
+      endif;
+      endif;
+
+//[-start-120403-IB05300308-add]//
+      subtitle  text = STRING_TOKEN (STR_BLANK_STRING);
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+        oneof
+          varid       = SystemConfig.EnableCppc,
+          prompt      = STRING_TOKEN (STR_CPPC_SUPPORT_STRING),
+          help        = STRING_TOKEN (STR_CPPC_SUPPORT_HELP  ),
+          option text = STRING_TOKEN (STR_DISABLED_TEXT      ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN (STR_ENABLED_TEXT       ), value = 1, flags = 0;
+        endoneof;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EnableCppc == 0;
+        oneof
+          varid       = SystemConfig.EnableCppcPlatformSCI,
+          prompt      = STRING_TOKEN (STR_CPPC_PLATFORM_SCI_STRING),
+          help        = STRING_TOKEN (STR_CPPC_PLATFORM_SCI_HELP  ),
+          option text = STRING_TOKEN (STR_DISABLED_TEXT           ), value = 1, flags = DEFAULT;
+          option text = STRING_TOKEN (STR_ENABLED_TEXT            ), value = 2, flags = 0;
+        endoneof;
+      endif;
+      endif;
+//[-end-120403-IB05300308-add]//
+
+      subtitle  text = STRING_TOKEN ( STR_BLANK_STRING );
+
+     grayoutif
+     ideqval SystemConfig.UserAccessLevel == 2
+     AND
+     ideqval SystemConfig.SetUserPass == 1;
+     suppressif
+        ideqval SystemConfig.TurboCap == 0;
+     oneof
+       varid       = SystemConfig.EnableTurboMode,
+       prompt      = STRING_TOKEN(STR_TURBOMODE_STRING),
+       help        = STRING_TOKEN(STR_TURBOMODE_HELP),
+//[-start-121206-IB07360228-remove]//
+////[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//       option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//       option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//#else
+//[-end-121206-IB07360228-remove]//
+       option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+       option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = DEFAULT;
+//[-start-121206-IB07360228-remove]//
+//#endif
+//
+////[-end-120629-IB05330352-modify]//
+//[-end-121206-IB07360228-remove]//
+     endoneof;
+     endif;
+     endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EnableTurboMode == 0;
+        oneof
+          varid       = SystemConfig.EnergyEfficientPState,
+          prompt      = STRING_TOKEN ( STR_ENERGY_EFFICIENT_STRING ),
+          help        = STRING_TOKEN ( STR_ENERGY_EFFICIENT_HELP ),
+//[-start-121026-IB06460460-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//#else
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-121026-IB06460460-modify]//
+        endoneof;
+
+//[-start-120522-IB06460400-add]//
+        numeric
+          varid       = SystemConfig.EnergyPolicy,
+          prompt      = STRING_TOKEN( STR_ENERGY_POLICY_STRING ),
+          help        = STRING_TOKEN( STR_ENERGY_POLICY_HELP ),
+          minimum     = 0,
+          maximum     = 15,
+          step        = 1,
+          default     = 0,
+        endnumeric;
+//[-end-120522-IB06460400-add]//
+
+        oneof
+          varid       = SystemConfig.TurboPowerLimitMsrLock,
+          prompt      = STRING_TOKEN ( STR_TURBOLIMIT_MSR_LOCK_STRING ),
+          help        = STRING_TOKEN ( STR_TURBOLIMIT_MSR_LOCK_HELP ),
+//[-start-121026-IB06460460-modify]//
+//[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//#else
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = DEFAULT;
+//#endif
+//[-end-120629-IB05330352-modify]//
+//[-end-121026-IB06460460-modify]//
+        endoneof;
+
+      endif;
+      endif;
+
+//[-start-120523-IB06460400-modify]//
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EnableTurboMode == 0
+        OR
+        ideqval SystemConfig.ConfigTDPCapability == 1;
+        oneof
+          varid       = SystemConfig.LongTermPowerLimitOverride,
+          prompt      = STRING_TOKEN ( STR_EN_OVERRIDE_TURBO_STRING ),
+          help        = STRING_TOKEN ( STR_EN_OVERRIDE_TURBO_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EnableTurboMode == 0
+        OR
+        ideqval SystemConfig.LongTermPowerLimitOverride == 0
+        OR
+        ideqval SystemConfig.ConfigTDPCapability == 1;
+        numeric
+          varid       = SystemConfig.LongDurationPowerLimit,
+          prompt      = STRING_TOKEN( STR_POWER_LIMIT1_STRING ),
+          help        = STRING_TOKEN( STR_POWER_LIMIT1_HELP ),
+          minimum     = 0,
+          maximum     = 99,     // Msr 0x614[14:0] / (1 << (Msr 0x606[3:0])) ==> 0x118 / 2^3
+          step        = 1,
+          default     = 0,
+        endnumeric;
+
+        numeric
+          varid       = SystemConfig.LongDurationTimeWindow,
+          prompt      = STRING_TOKEN( STR_POWER_LIMIT1_TIME_STRING ),
+          help        = STRING_TOKEN( STR_POWER_LIMIT1_TIME_HELP ),
+          minimum     = 0,
+          maximum     = 128,
+          step        = 1,
+          default     = 0,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EnableTurboMode == 0;
+        oneof
+          varid       = SystemConfig.ShortTermPowerLimitOverride,
+          prompt      = STRING_TOKEN ( STR_POWER_LIMIT2_OVERRIDE_STRING ),
+          help        = STRING_TOKEN ( STR_POWER_LIMIT2_OVERRIDE_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = DEFAULT;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EnableTurboMode == 0
+        OR
+        ideqval SystemConfig.ShortTermPowerLimitOverride == 0
+        OR
+        ideqval SystemConfig.ConfigTDPCapability == 1;
+        numeric
+          varid       = SystemConfig.ShortDurationPowerLimit,
+          prompt      = STRING_TOKEN( STR_POWER_LIMIT2_STRING ),
+          help        = STRING_TOKEN( STR_POWER_LIMIT2_HELP ),
+          minimum     = 0,
+          maximum     = 99,
+          step        = 1,
+          default     = 0,
+        endnumeric;
+      endif;
+      endif;
+
+//[-start-120925-IB03780459-remove]//
+//      grayoutif
+//        ideqval SystemConfig.UserAccessLevel == 2
+//        AND
+//        ideqval SystemConfig.SetUserPass == 1;
+//      suppressif
+//        ideqval SystemConfig.EnableTurboMode == 0;
+//        oneof
+//          varid       = SystemConfig.DdrPowerLimitLock,
+//          prompt      = STRING_TOKEN( STR_DDR_POWER_LIMIT_LOCK_STRING ),
+//          help        = STRING_TOKEN( STR_DDR_POWER_LIMIT_LOCK_HELP ),
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//        endoneof;
+//      endif;
+//      endif;
+//
+//      grayoutif
+//        ideqval SystemConfig.UserAccessLevel == 2
+//        AND
+//        ideqval SystemConfig.SetUserPass == 1;
+//      suppressif
+//        ideqval SystemConfig.EnableTurboMode == 0;
+//        oneof
+//          varid       = SystemConfig.DdrLongTermPowerLimitOverride,
+//          prompt      = STRING_TOKEN ( STR_DDR_LONG_TERM_PWL_OVERRIDE_STRING ),
+//          help        = STRING_TOKEN ( STR_DDR_LONG_TERM_PWL_OVERRIDE_HELP ),
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//        endoneof;
+//      endif;
+//      endif;
+//
+//      grayoutif
+//        ideqval SystemConfig.UserAccessLevel == 2
+//        AND
+//        ideqval SystemConfig.SetUserPass == 1;
+//      suppressif
+//        ideqval SystemConfig.EnableTurboMode == 0
+//        OR
+//        ideqval SystemConfig.LongTermPowerLimitOverride == 0
+//        OR
+//        ideqval SystemConfig.DdrLongTermPowerLimitOverride == 0;
+//        numeric
+//          varid       = SystemConfig.DdrLongTermPowerLimit,
+//          prompt      = STRING_TOKEN( STR_DDR_LONG_TERM_POWER_LIMIT_STRING ),
+//          help        = STRING_TOKEN( STR_DDR_LONG_TERM_POWER_LIMIT_HELP ),
+//          minimum     = 0,
+//          maximum     = 99,
+//          step        = 1,
+//          default     = 0,
+//        endnumeric;
+//
+//        numeric
+//          varid       = SystemConfig.DdrLongTermTimeWindow,
+//          prompt      = STRING_TOKEN( STR_DDR_LONG_TERM_TIME_WINDOW_STRING ),
+//          help        = STRING_TOKEN( STR_DDR_LONG_TERM_TIME_WINDOW_HELP ),
+//          minimum     = 0,
+//          maximum     = 128,
+//          step        = 1,
+//          default     = 0,
+//        endnumeric;
+//      endif;
+//      endif;
+//
+//      grayoutif
+//        ideqval SystemConfig.UserAccessLevel == 2
+//        AND
+//        ideqval SystemConfig.SetUserPass == 1;
+//      suppressif
+//        ideqval SystemConfig.EnableTurboMode == 0;
+//        oneof
+//          varid       = SystemConfig.DdrShortTermPowerLimitOverride,
+//          prompt      = STRING_TOKEN ( STR_DDR_SHORT_TERM_PWL_OVERRIDE_STRING ),
+//          help        = STRING_TOKEN ( STR_DDR_SHORT_TERM_PWL_OVERRIDE_HELP ),
+////[-start-120629-IB05330352-modify]//
+//#if FeaturePcdGet(PcdUltFlag)
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = DEFAULT;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = 0;
+//#else
+//          option text = STRING_TOKEN ( STR_DISABLED_TEXT ), value = 0, flags = 0;
+//          option text = STRING_TOKEN ( STR_ENABLED_TEXT  ), value = 1, flags = DEFAULT;
+//#endif
+////[-end-120629-IB05330352-modify]//
+//        endoneof;
+//      endif;
+//      endif;
+//
+//      grayoutif
+//        ideqval SystemConfig.UserAccessLevel == 2
+//        AND
+//        ideqval SystemConfig.SetUserPass == 1;
+//      suppressif
+//        ideqval SystemConfig.EnableTurboMode == 0
+//        OR
+//        ideqval SystemConfig.DdrShortTermPowerLimitOverride == 0;
+//        numeric
+//          varid       = SystemConfig.DdrShortTermPowerLimit,
+//          prompt      = STRING_TOKEN( STR_DDR_SHORT_TERM_POWER_LIMIT_STRING ),
+//          help        = STRING_TOKEN( STR_DDR_SHORT_TERM_POWER_LIMIT_HELP ),
+//          minimum     = 0,
+//          maximum     = 99,
+//          step        = 1,
+//          default     = 0,
+//        endnumeric;
+//      endif;
+//      endif;
+////[-end-120523-IB06460400-modify]//
+//[-end-120925-IB03780459-remove]//
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EnableTurboMode == 0;
+        numeric
+          varid       = SystemConfig.PrimaryPlaneCurrentLimit,
+          prompt      = STRING_TOKEN( STR_PRI_PLANE_CURRENT_LMT_STRING ),
+          help        = STRING_TOKEN( STR_PRI_PLANE_CURRENT_LMT_HELP ),
+          minimum     = 0,
+          maximum     = 8191,
+          step        = 1,
+          default     = 0,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.EnableTurboMode == 0;
+        numeric
+          varid       = SystemConfig.SecondaryPlaneCurrentLimit,
+          prompt      = STRING_TOKEN( STR_SEC_PLANE_CURRENT_LMT_STRING ),
+          help        = STRING_TOKEN( STR_SEC_PLANE_CURRENT_LMT_HELP ),
+          minimum     = 0,
+          maximum     = 8191,
+          step        = 1,
+          default     = 0,
+        endnumeric;
+      endif;
+      endif;
+
+      subtitle text = STRING_TOKEN ( STR_BLANK_STRING );
+
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0;
+      goto 0x42,
+      prompt = STRING_TOKEN(STR_CTDP_CONFIGURATIONS_STRING),
+      help = STRING_TOKEN(STR_CTDP_CONFIGURATIONS_HELP);
+      endif;
+    endform;
+
+    //
+    //  Form 0x41: Platform Power Managment Control
+    //
+    form
+      formid = 0x41, title = STRING_TOKEN(STR_PLAT_POWER_MANGE_STRING);
+
+
+      subtitle  text = STRING_TOKEN(STR_PLAT_POWER_MANGE_STRING);
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+
+      grayoutif
+      ideqval SystemConfig.UserAccessLevel == 2
+      AND
+      ideqval SystemConfig.SetUserPass == 1;
+      oneof
+        varid       = SystemConfig.PciClockRatRun,
+        prompt      = STRING_TOKEN(STR_PCI_CLOCK_RUN_STRING),
+        help        = STRING_TOKEN(STR_PCI_CLOCK_RUN_HELP),
+        option text = STRING_TOKEN(STR_DISABLED_TEXT),  value = 0, flags = 0;
+        option text = STRING_TOKEN(STR_ENABLED_TEXT),   value = 1, flags = DEFAULT;
+      endoneof;
+
+      endif;
+
+
+    endform;
+
+    //
+    //  Form 0x42: Config TDP Configurations
+    //
+    form
+      formid = 0x42, title = STRING_TOKEN(STR_CTDP_CONFIGURATIONS_STRING);
+
+      subtitle  text = STRING_TOKEN(STR_CTDP_CONFIGURATIONS_STRING);
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_MAX_TURBO_POWER_LIMIT_STRING),
+          text   = STRING_TOKEN(STR_CTDP_MAX_DEFAULT_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_MIN_TURBO_POWER_LIMIT_STRING),
+          text   = STRING_TOKEN(STR_CTDP_MIN_DEFAULT_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_ADDITIONAL_LEVELS_STRING),
+          text   = STRING_TOKEN(STR_CTDP_ADDITIONAL_LEVELS_DATA_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_NOMINAL_STRING),
+          text   = STRING_TOKEN(STR_CTDP_NOMINAL_DATA_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_LEVEL1_STRING),
+          text   = STRING_TOKEN(STR_CTDP_LEVEL1_DATA_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_LEVEL2_STRING),
+          text   = STRING_TOKEN(STR_CTDP_LEVEL2_DATA_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_CONTROL_STRING),
+          text   = STRING_TOKEN(STR_CTDP_CONTROL_DATA_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_TURBO_RATIO_STRING),
+          text   = STRING_TOKEN(STR_CTDP_TURBO_RATIO_DATA_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_CURRENT_LONG_TERM_POWER_LIMIT_STRING),
+          text   = STRING_TOKEN(STR_CTDP_CURRENT_LONG_TERM_POWER_LIMIT_DATA_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      grayoutif  TRUE;
+        text
+          help   = STRING_TOKEN(STR_BLANK_STRING),
+          text   = STRING_TOKEN(STR_CTDP_CURRENT_SHORT_TERM_POWER_LIMIT_STRING),
+          text   = STRING_TOKEN(STR_CTDP_CURRENT_SHORT_TERM_POWER_LIMIT_DATA_STRING),
+          flags  = 0,
+          key    = 0;
+      endif;
+
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0;
+        oneof
+          varid       = SystemConfig.ConfigTDPLevel,
+          prompt      = STRING_TOKEN ( STR_CTDP_BOOT_MODE_STRING ),
+          help        = STRING_TOKEN ( STR_CTDP_BOOT_MODE_HELP ),
+          option text = STRING_TOKEN ( STR_CTDP_BOOT_MODE_NOMINAL_TEXT ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_CTDP_BOOT_MODE_UP_TEXT      ), value = 2, flags = 0;
+          option text = STRING_TOKEN ( STR_CTDP_BOOT_MODE_DOWN_TEXT    ), value = 1, flags = 0;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0;
+        oneof
+          varid       = SystemConfig.ConfigTDPLock,
+          prompt      = STRING_TOKEN ( STR_CTDP_LOCK_STRING ),
+          help        = STRING_TOKEN ( STR_CTDP_LOCK_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT     ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT      ), value = 1, flags = 0;
+        endoneof;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0;
+        oneof
+          varid       = SystemConfig.ConfigTdpCustom,
+          prompt      = STRING_TOKEN ( STR_CTDP_CUSTOM_STRING ),
+          help        = STRING_TOKEN ( STR_CTDP_CUSTOM_HELP ),
+          option text = STRING_TOKEN ( STR_DISABLED_TEXT     ), value = 0, flags = DEFAULT;
+          option text = STRING_TOKEN ( STR_ENABLED_TEXT      ), value = 1, flags = 0;
+        endoneof;
+      endif;
+      endif;
+
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+      goto 0x43,
+      prompt = STRING_TOKEN(STR_CTDP_CUSTOM_CONFIG_FORM_STRING),
+      help = STRING_TOKEN(STR_CTDP_CUSTOM_CONFIG_FORM_HELP);
+      endif;
+    endform;
+
+
+    //
+    //  Form 0x43: Custom Configurable TDP Setting
+    //
+    form
+      formid = 0x43, title = STRING_TOKEN(STR_CTDP_CUSTOM_CONFIG_FORM_STRING);
+
+      subtitle  text = STRING_TOKEN(STR_CTDP_CUSTOM_CONFIG_FORM_STRING);
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomTdpCount,
+          prompt      = STRING_TOKEN( STR_CTDP_COUNT_STRING ),
+          help        = STRING_TOKEN( STR_CTDP_COUNT_HELP ),
+          minimum     = 1,
+          maximum     = 3,
+          step        = 1,
+          default     = 1,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomBootModeIndex,
+          prompt      = STRING_TOKEN( STR_CTDP_BOOT_INDEX_STRING ),
+          help        = STRING_TOKEN( STR_CTDP_BOOT_INDEX_HELP ),
+          minimum     = 0,
+          maximum     = 2,
+          step        = 1,
+          default     = 0,
+        endnumeric;
+      endif;
+      endif;
+
+
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+
+      subtitle  text = STRING_TOKEN(STR_CTDP_CUSTOM_CONFIG_SETTING_1_STRING);
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit10,
+          prompt      = STRING_TOKEN( STR_LONG_TERM_POWER_LIMIT_STRING ),
+          help        = STRING_TOKEN( STR_LONG_TERM_POWER_LIMIT_HELP ),
+          minimum     = 0,
+          maximum     = 32767,
+          step        = 1,
+          default     = 40,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit20,
+          prompt      = STRING_TOKEN( STR_SHORT_TERM_POWER_LIMIT_STRING ),
+          help        = STRING_TOKEN( STR_SHORT_TERM_POWER_LIMIT_HELP ),
+          minimum     = 0,
+          maximum     = 32767,
+          step        = 1,
+          default     = 50,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit1Time0,
+          prompt      = STRING_TOKEN( STR_LONG_TERM_TIME_WINDOW_STRING ),
+          help        = STRING_TOKEN( STR_LONG_TERM_TIME_WINDOW_HELP ),
+          minimum     = 0,
+          maximum     = 128,
+          step        = 1,
+          default     = 28,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomTurboActivationRatio0,
+          prompt      = STRING_TOKEN( STR_CTDP_TURBO_RATIO_STRING ),
+          help        = STRING_TOKEN( STR_CTDP_TURBO_RATIO_HELP ),
+          minimum     = 0,
+          maximum     = 255,
+          step        = 1,
+          default     = 20,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.UserAccessLevel == 2
+        AND
+        ideqval SystemConfig.SetUserPass == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomConfigTdpControl0,
+          prompt      = STRING_TOKEN( STR_CTDP_CONFIG_TDP_CONTROL_STRING ),
+          help        = STRING_TOKEN( STR_CTDP_CONFIG_TDP_CONTROL_HELP ),
+          minimum     = 0,
+          maximum     = 2,
+          step        = 1,
+          default     = 0,
+        endnumeric;
+      endif;
+      endif;
+
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+
+      subtitle  text = STRING_TOKEN(STR_CTDP_CUSTOM_CONFIG_SETTING_2_STRING);
+      grayoutif
+        ideqval SystemConfig.CustomTdpCount == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit11,
+          prompt      = STRING_TOKEN( STR_LONG_TERM_POWER_LIMIT_STRING ),
+          help        = STRING_TOKEN( STR_LONG_TERM_POWER_LIMIT_HELP ),
+          minimum     = 0,
+          maximum     = 32767,
+          step        = 1,
+          default     = 40,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.CustomTdpCount == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit21,
+          prompt      = STRING_TOKEN( STR_SHORT_TERM_POWER_LIMIT_STRING ),
+          help        = STRING_TOKEN( STR_SHORT_TERM_POWER_LIMIT_HELP ),
+          minimum     = 0,
+          maximum     = 32767,
+          step        = 1,
+          default     = 50,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.CustomTdpCount == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit1Time1,
+          prompt      = STRING_TOKEN( STR_LONG_TERM_TIME_WINDOW_STRING ),
+          help        = STRING_TOKEN( STR_LONG_TERM_TIME_WINDOW_HELP ),
+          minimum     = 0,
+          maximum     = 128,
+          step        = 1,
+          default     = 28,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.CustomTdpCount == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomTurboActivationRatio1,
+          prompt      = STRING_TOKEN( STR_CTDP_TURBO_RATIO_STRING ),
+          help        = STRING_TOKEN( STR_CTDP_TURBO_RATIO_HELP ),
+          minimum     = 0,
+          maximum     = 255,
+          step        = 1,
+          default     = 22,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqval SystemConfig.CustomTdpCount == 1;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomConfigTdpControl1,
+          prompt      = STRING_TOKEN( STR_CTDP_CONFIG_TDP_CONTROL_STRING ),
+          help        = STRING_TOKEN( STR_CTDP_CONFIG_TDP_CONTROL_HELP ),
+          minimum     = 0,
+          maximum     = 2,
+          step        = 1,
+          default     = 1,
+        endnumeric;
+      endif;
+      endif;
+
+      subtitle  text = STRING_TOKEN(STR_BLANK_STRING);
+
+      subtitle  text = STRING_TOKEN(STR_CTDP_CUSTOM_CONFIG_SETTING_3_STRING);
+      grayoutif
+        ideqvallist SystemConfig.CustomTdpCount == 1 2;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit12,
+          prompt      = STRING_TOKEN( STR_LONG_TERM_POWER_LIMIT_STRING ),
+          help        = STRING_TOKEN( STR_LONG_TERM_POWER_LIMIT_HELP ),
+          minimum     = 0,
+          maximum     = 32767,
+          step        = 1,
+          default     = 40,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqvallist SystemConfig.CustomTdpCount == 1 2;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit22,
+          prompt      = STRING_TOKEN( STR_SHORT_TERM_POWER_LIMIT_STRING ),
+          help        = STRING_TOKEN( STR_SHORT_TERM_POWER_LIMIT_HELP ),
+          minimum     = 0,
+          maximum     = 32767,
+          step        = 1,
+          default     = 50,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqvallist SystemConfig.CustomTdpCount == 1 2;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomPowerLimit1Time2,
+          prompt      = STRING_TOKEN( STR_LONG_TERM_TIME_WINDOW_STRING ),
+          help        = STRING_TOKEN( STR_LONG_TERM_TIME_WINDOW_HELP ),
+          minimum     = 0,
+          maximum     = 128,
+          step        = 1,
+          default     = 28,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqvallist SystemConfig.CustomTdpCount == 1 2;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomTurboActivationRatio2,
+          prompt      = STRING_TOKEN( STR_CTDP_TURBO_RATIO_STRING ),
+          help        = STRING_TOKEN( STR_CTDP_TURBO_RATIO_HELP ),
+          minimum     = 0,
+          maximum     = 255,
+          step        = 1,
+          default     = 25,
+        endnumeric;
+      endif;
+      endif;
+
+      grayoutif
+        ideqvallist SystemConfig.CustomTdpCount == 1 2;
+      suppressif
+        ideqval SystemConfig.ConfigTDPCapability == 0
+        OR
+        ideqval SystemConfig.ConfigTdpCustom == 0;
+        numeric
+          varid       = SystemConfig.CustomConfigTdpControl2,
+          prompt      = STRING_TOKEN( STR_CTDP_CONFIG_TDP_CONTROL_STRING ),
+          help        = STRING_TOKEN( STR_CTDP_CONFIG_TDP_CONTROL_HELP ),
+          minimum     = 0,
+          maximum     = 2,
+          step        = 1,
+          default     = 2,
+        endnumeric;
+      endif;
+      endif;
+
+  endform;
+
+endformset;
+//[-end-120316-IB06460376-modify]//

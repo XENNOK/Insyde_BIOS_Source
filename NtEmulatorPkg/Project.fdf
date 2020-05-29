@@ -1,0 +1,42 @@
+## @file
+#  Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+!import NtEmulatorPkg/Package.fdf
+
+################################################################################
+#
+# FV Section
+#
+# [FV] section is used to define what components or modules are placed within a flash
+# device file.  This section also defines order the components and modules are positioned
+# within the image.  The [FV] section consists of define statements, set statements and
+# module statements.
+#
+################################################################################
+[FV.FvRecovery]
+#
+# Disable unused drivers
+#
+!disable MdeModulePkg/Universal/Network/DpcDxe/DpcDxe.inf
+!disable MdeModulePkg/Universal/Network/ArpDxe/ArpDxe.inf
+!disable MdeModulePkg/Universal/Network/Dhcp4Dxe/Dhcp4Dxe.inf
+!disable MdeModulePkg/Universal/Network/Ip4ConfigDxe/Ip4ConfigDxe.inf
+!disable MdeModulePkg/Universal/Network/Ip4Dxe/Ip4Dxe.inf
+!disable MdeModulePkg/Universal/Network/MnpDxe/MnpDxe.inf
+!disable MdeModulePkg/Universal/Network/VlanConfigDxe/VlanConfigDxe.inf
+!disable MdeModulePkg/Universal/Network/Mtftp4Dxe/Mtftp4Dxe.inf
+!disable MdeModulePkg/Universal/Network/Tcp4Dxe/Tcp4Dxe.inf
+!disable MdeModulePkg/Universal/Network/Udp4Dxe/Udp4Dxe.inf
+!disable NtEmulatorPkg/SnpNtEmulatorDxe/SnpNtEmulatorDxe.inf
+!disable MdeModulePkg/Universal/Network/UefiPxeBcDxe/UefiPxeBcDxe.inf
+!disable MdeModulePkg/Universal/Network/IScsiDxe/IScsiDxe.inf

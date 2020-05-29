@@ -1,0 +1,53 @@
+## @file
+#  Component description file for HddSpindown Driver
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  BASE_NAME                      = HddSpindownDxe
+  FILE_GUID                      = F5BE2E0B-269B-4d1d-83DC-083183A20DD7
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  ENTRY_POINT                    = HddSpindownEntry
+
+[Sources]
+  HddSpindown.c
+  HddSpindown.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  SmmServicesTableLib
+  BaseMemoryLib
+  DevicePathLib
+
+[Guids]
+  gEfiDiskInfoIdeInterfaceGuid
+  gEfiDiskInfoAhciInterfaceGuid
+
+[Protocols]
+  gHddSpindownProtocolGuid
+  gEfiAtaPassThruProtocolGuid
+  gEfiDiskInfoProtocolGuid
+  gEfiDevicePathProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+
+[Depex]
+  gEfiAtaPassThruProtocolGuid

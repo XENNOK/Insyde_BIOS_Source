@@ -1,0 +1,50 @@
+## @file
+#  Component description file for SmmUsbDispatch2OnSmmUsbDispatchThunk module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmUsbDispatch2OnSmmUsbDispatchThunk
+  FILE_GUID                      = EE1BB93E-54C5-4b17-9496-A20085950561
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = SmmUsbDispatch2ThunkMain
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[Sources]
+  SmmUsbDispatch2OnSmmUsbDispatchThunk.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  EdkCompatibilityPkg/EdkCompatibilityPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  SmmServicesTableLib
+  BaseLib
+  DebugLib
+
+[Protocols]
+  gEfiSmmUsbDispatchProtocolGuid           # PROTOCOL ALWAYS_CONSUMED
+  gEfiSmmUsbDispatch2ProtocolGuid          # PROTOCOL ALWAYS_PRODUCED
+
+[Depex]
+  gEfiSmmUsbDispatchProtocolGuid
+

@@ -1,0 +1,135 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   CPUPolicy.inf
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CpuPolicyDxe
+  FILE_GUID                      = 15B9B6DA-00A9-4DE7-B8E8-ED7AFB88F16E
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = CPUPolicyEntry
+
+[Sources]
+  CpuPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+#[-start-121114-IB11410022-add]#
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+#[-end-121114-IB11410022-add]#
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  UefiLib
+  CpuPlatformLib
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+
+[Protocols]
+  gEfiHiiStringProtocolGuid
+  gEfiGenericMemTestProtocolGuid
+  gNonCSMSupportProtocolGuid  
+  gFrameworkEfiMpServiceProtocolGuid
+  gExitPmAuthProtocolGuid
+  gDxeCpuPlatformPolicyProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+#[-start-121114-IB11410022-add]#
+  gEfiSmmAccessProtocolGuid
+#[-end-121114-IB11410022-add]#
+
+[Guids]
+  gSmramCpuDataVariableGuid
+#[-start-121003-IB10820132-add]#
+  gAcpiVariableSetGuid
+#[-end-121003-IB10820132-add]#
+#[-start-121114-IB11410022-add]#
+  gSmramCpuDataHeaderGuid
+#[-end-121114-IB11410022-add]#
+  gSystemConfigurationGuid
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdTXTSupported
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeSize
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-121003-IB10820132-add]#
+#[-start-121210-IB11410028-remove]#
+#  gChipsetPkgTokenSpaceGuid.PcdMaxCoreFrequencyValue
+#[-end-121210-IB11410028-remove]#
+  gChipsetPkgTokenSpaceGuid.PcdMaxCoreFrequencyExponent
+  gChipsetPkgTokenSpaceGuid.PcdMaxFsbFrequencyValue
+  gChipsetPkgTokenSpaceGuid.PcdMaxFsbFrequencyExponent
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigMachineCheckEnable
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigMonitorMwaitEnable
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigDebugInterfaceEnable
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigDebugInterfaceLockEnable
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigMachineCheckStatusClean
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigIsColdReset
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigFviReport
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigBspSelection
+#[-start-121210-IB11410028-add]#
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigApIdleManner
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigApHandoffManner
+#[-end-121210-IB11410028-add]#
+  gChipsetPkgTokenSpaceGuid.PcdTxtFunctionConfigResetAux
+  gChipsetPkgTokenSpaceGuid.PcdpFunctionEnablesThermalMonitor
+  gChipsetPkgTokenSpaceGuid.PcdpFunctionEnablesLakeTiny
+  gChipsetPkgTokenSpaceGuid.PcdpFunctionEnablesTimedMwait
+  gChipsetPkgTokenSpaceGuid.PcdpFunctionEnablesDisableProcHotOut
+  gChipsetPkgTokenSpaceGuid.PcdpFunctionEnablesDisableVRThermalAlert
+  gChipsetPkgTokenSpaceGuid.PcdpFunctionEnablesProcHotResponce
+  gChipsetPkgTokenSpaceGuid.PcdpCustomRatioTableNumberOfEntries
+  gChipsetPkgTokenSpaceGuid.PcdpCustomRatioTableCpuid
+  gChipsetPkgTokenSpaceGuid.PcdpCustomRatioTableMaxRatio
+  gChipsetPkgTokenSpaceGuid.PcdPowerMgmtConfigRfiFreqTunningOffsetIsNegative
+  gChipsetPkgTokenSpaceGuid.PcdPowerMgmtConfigRfiFreqTunningOffset
+  gChipsetPkgTokenSpaceGuid.PcdpPpmLockEnablesPmgCstCfgCtrlLock
+  gChipsetPkgTokenSpaceGuid.PcdpPpmLockEnablesOverclockingLock
+  gChipsetPkgTokenSpaceGuid.PcdpPpmLockEnablesProcHotLock
+  gChipsetPkgTokenSpaceGuid.PcdMeMiscConfigFviSmbiosType
+#[-start-121003-IB10820132-add]#
+#[-start-121031-IB10820146-add]#
+#[-start-121210-IB11410028-remove]#
+#  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigMwaitHandoff
+#[-end-121210-IB11410028-remove]#
+#[-end-121031-IB10820146-add]#
+#[-start-121222-IB11410036-add]#
+  gChipsetPkgTokenSpaceGuid.PcdpFunctionEnablesPl1ThermalControl
+#[-end-121222-IB11410036-add]#
+#[-start-130131-IB05280043-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPowerLimit3
+  gChipsetPkgTokenSpaceGuid.PcdPowerLimit3Time
+  gChipsetPkgTokenSpaceGuid.PcdPowerLimit3DutyCycle
+  gChipsetPkgTokenSpaceGuid.PcdPowerLimit3Lock
+#[-end-130131-IB05280043-add]#
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid AND
+#[-start-121114-IB11410022-add]#
+  gEfiSmmAccessProtocolGuid AND
+#[-end-121114-IB11410022-add]#
+  gEfiHiiDatabaseProtocolGuid AND
+#[-start-121225-IB05280025-modify]#
+  gEfiSmmStatusCodeProtocolGuid
+#[-end-121225-IB05280025-modify]#

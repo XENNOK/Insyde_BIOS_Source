@@ -1,0 +1,40 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+[defines]
+  BASE_NAME       = StdLib
+  COMPONENT_TYPE  = LIBRARY
+
+[sources.common]
+  baselib.c
+
+[sources.ia32]
+  ia32\setjmp.c
+
+[sources.x64]
+  x64\setjmp.asm
+
+[includes.common]
+  .
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EFI_SOURCE)\Include\stdlib
+
+[libraries.common]
+  EfiCommonLib
+
+[nmake.common]
+  C_STD_INCLUDE=

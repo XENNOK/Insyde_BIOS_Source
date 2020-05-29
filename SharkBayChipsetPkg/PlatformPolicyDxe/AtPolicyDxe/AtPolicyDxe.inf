@@ -1,0 +1,49 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   AtPolicy.inf
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AtPolicyDxe
+  FILE_GUID                      = CA5E3DF0-940A-48f1-8C14-DB2FB5998B36
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = AtPolicyInitEntryPoint
+
+[Sources]
+  AtPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+  gDxePlatformAtPolicyGuid
+  gMeBiosPayloadDataProtocolGuid  
+#[-start-121003-IB10820132-add]#
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdAtAtAmBypass
+#[-end-121003-IB10820132-add]#
+
+[Depex]
+  gEfiHeciProtocolGuid AND
+  gDxePlatformMePolicyGuid

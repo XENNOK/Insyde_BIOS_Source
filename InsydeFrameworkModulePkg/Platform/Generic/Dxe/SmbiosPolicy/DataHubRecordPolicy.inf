@@ -1,0 +1,54 @@
+//;******************************************************************************
+//;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+[defines]
+BASE_NAME            = DataHubRecordPolicy
+FILE_GUID            = 3ED700B5-3A13-43be-9450-00122E8B83D7
+COMPONENT_TYPE       = BS_DRIVER
+
+[sources.common]
+ DataHubRecordPolicy.c
+ DataHubRecordPolicy.h
+
+[includes.common]
+  .
+  $(EFI_SOURCE)\Include
+  $(EFI_SOURCE)\Include\Dxe
+  $(EFI_SOURCE)\Library\Dxe\Include
+  $(EFI_SOURCE)\
+  $(EFI_SOURCE)\Core\Dxe
+  $(EFI_SOURCE)\Guid\Dxe
+
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation
+  $(EFI_SOURCE)\Framework
+  .
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EFI_SOURCE)
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EFI_SOURCE)\Edk\Foundation\Guid\DataHubRecords
+  $(EFI_SOURCE)\Include\OemServices
+  
+[libraries.common]
+  EfiDriverLib
+  ProtocolLib
+  GuidLib
+  PrintLib
+  ArchProtocolLib
+  EfiScriptLib
+  
+[nmake.common]
+  C_STD_INCLUDE=
+  IMAGE_ENTRY_POINT=Enter
+  DPX_SOURCE=DataHubRecordPolicy.dxs

@@ -1,0 +1,46 @@
+## @file
+#  Component description file for I2C TouchPanel DXE module
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = I2cTouchPanelDxe
+  FILE_GUID                      = 03068297-DDA5-4ccd-BBFA-7E09AE025177
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = I2cTouchPanelEntryPoint
+
+[Sources]
+  ComponentName.c
+  I2cTouchPanel.h
+  I2cTouchPanel.c
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  HidDescriptorLib
+
+[Protocols]
+  gEfiI2cIoProtocolGuid
+  gEfiAdapterInformationProtocolGuid
+  gEfiAbsolutePointerProtocolGuid
+
+[Guids]
+  gI2cHidDeviceInfoGuid

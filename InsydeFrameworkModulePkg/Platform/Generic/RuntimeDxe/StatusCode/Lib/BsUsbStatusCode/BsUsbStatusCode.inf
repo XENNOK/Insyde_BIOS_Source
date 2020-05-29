@@ -1,0 +1,60 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#/*++
+#
+# Intel Corporation.
+#
+#
+#  Module Name:
+#
+#    BsUsbStatusCode.inf
+#
+#  Abstract:
+#
+#    Library producing a Usb port status code functionality.
+#
+#--*/
+
+[defines]
+BASE_NAME            = BsUsbStatusCodeLib
+COMPONENT_TYPE       = LIBRARY
+
+[sources.common]
+  BsUsbStatusCode.c
+  BsUsbStatusCode.h
+  Misc.c
+  Misc.h
+
+[sources.ia32]
+  Ia32\CpuIoAccess.asm
+
+[sources.x64]
+  x64\CpuIoAccess.asm
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Efi
+  .
+  ..\Include
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Include\Pei
+  $(EDK_SOURCE)\Foundation\Library\Pei\Include
+  $(EDK_SOURCE)\Foundation\Core\Pei\Include
+
+[libraries.platform]
+
+[nmake.common]

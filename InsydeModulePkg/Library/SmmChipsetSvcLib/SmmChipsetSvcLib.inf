@@ -1,0 +1,53 @@
+## @file
+# Instance of SMM Chipset Services Library
+#
+# The SMM Chipset Services Library provides wrapper functions for the H2O 
+# SMM Chipset Services protocol, which provides an interface into the Chipset layer
+# for the Kernel and Platform drivers and libraries.
+#
+# ***************************************************************************
+# * Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+# *
+# * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+# * transmit, broadcast, present, recite, release, license or otherwise exploit
+# * any part of this publication in any form, by any means, without the prior
+# * written permission of Insyde Software Corporation.
+# *
+# ******************************************************************************
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmChipsetSvcLib
+  FILE_GUID                      = 983b9276-d041-4842-9882-39aad6a56348
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  LIBRARY_CLASS                  = SmmChipsetSvcLib|DXE_SMM_DRIVER
+  CONSTRUCTOR                    = SmmChipsetSvcLibConstructor
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  SmmChipsetSvcLib.c
+  SmmCsSvcEnableFdWrites.c
+  SmmCsSvcLegacyRegionAccessCtrl.c
+  SmmCsSvcResetSystem.c
+  SmmCsSvcSataComReset.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  SmmServicesTableLib
+  DebugLib
+  
+[Guids]
+
+[Protocols]
+  gH2OSmmChipsetServicesProtocolGuid
+
+[Pcd]
+
+

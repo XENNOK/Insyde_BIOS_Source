@@ -1,0 +1,57 @@
+## @file
+#
+#  Component description file for Heci DXE driver
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsHeciDxe
+  FILE_GUID                      = 55E76644-78A5-4a82-A900-7126A5798892
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeHECI
+
+[Sources]
+  SpsHeciDxe.c
+  SpsHeciCore.c
+  SpsHeciHpet.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  DxeServicesTableLib
+  S3BootScriptLib
+  PciExpressLib
+  TimerLib
+  PciLib
+  IoLib
+
+  SpsMeLib
+
+[Guids]
+
+[Protocols]
+  gSpsDxeHeciProtocolGuid                        ## PRODUCES
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[Depex]
+  gEfiPciRootBridgeIoProtocolGuid
+
+[BuildOptions]
+

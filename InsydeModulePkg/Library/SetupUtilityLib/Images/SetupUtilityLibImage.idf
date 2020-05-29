@@ -1,0 +1,25 @@
+//;******************************************************************************
+//;* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+//; 
+//; Module Name:
+//; 
+//;   SetupUtilityLibImage.idf
+//; 
+//; Abstract:
+//; 
+//;   Images for setup utility library
+//; 
+
+!if gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+#image IMAGE_MAIN               "ImageMain.png"
+#image IMAGE_SECURITY           "ImageSecurity.png"
+#image IMAGE_BOOT               "ImageBoot.png"
+#image IMAGE_EXIT               "ImageExit.png"
+!endif

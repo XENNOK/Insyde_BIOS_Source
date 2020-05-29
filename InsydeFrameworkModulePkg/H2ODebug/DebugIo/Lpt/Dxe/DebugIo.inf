@@ -1,0 +1,33 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2010, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name:
+#;
+#;   DebugComm.inf
+#;
+#; Abstract:
+#;
+#;   Component description file for DebugIo DXE module
+#;
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = LptDebugIo2
+  FILE_GUID            = D719DBFC-A4ED-4cab-A478-A701B51B95D6
+  MODULE_TYPE          = DXE_DRIVER
+
+[Binaries.Ia32]
+  PE32|Ia32\LptDebugIo2.efi|*
+
+[Binaries.X64]
+  PE32|X64\LptDebugIo2.efi|*
+
+[Depex]
+  TRUE

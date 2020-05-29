@@ -1,0 +1,78 @@
+## @file
+#  Component description file for Platform Reset runtime driver
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#/*++
+# This file contains a 'Sample Driver' and is licensed as such
+# under the terms of your license agreement with Intel or your
+# vendor.  This file may be modified by the user, subject to
+# the additional terms of the license agreement
+#--*/
+#/*++
+#
+#  Copyright (c)  2010 - 2011 Intel Corporation. All rights reserved
+#  This software and associated documentation (if any) is furnished
+#  under a license and may only be used or copied in accordance
+#  with the terms of the license. Except as permitted by such
+#  license, no part of this software or documentation may be
+#  reproduced, stored in a retrieval system, or transmitted in any
+#  form or by any means without the express written consent of
+#  Intel Corporation.
+#
+#  Module Name:
+#
+#    PlatformReset.inf
+#
+#  Abstract:
+#
+#    Component description file for Platform Reset runtime driver
+#
+#--*/
+
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PlatformResetRuntimeDxe
+  FILE_GUID                      = 0790dc86-f827-4590-a0e2-6b9f9f038ddb
+  MODULE_TYPE                    = DXE_RUNTIME_DRIVER
+  ENTRY_POINT                    = InitializePlatformReset
+
+[Sources]
+  PlatformReset.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-start-121109-IB10820159-add]#
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-end-121109-IB10820159-add]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint  
+  UefiRuntimeServicesTableLib
+  UefiBootServicesTableLib
+  UefiRuntimeLib
+  MeLib
+#[-start-121109-IB10820159-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121109-IB10820159-add]#
+
+[Protocols]
+  gPchResetProtocolGuid                                 #CONSUMED
+  gEfiSmmBase2ProtocolGuid                              #CONSUMED
+  gEfiResetArchProtocolGuid                             #CONSUMED
+  gMePlatformGetResetTypeGuid                           #CONSUMED
+
+[Depex]
+  gPchResetProtocolGuid AND 
+  gEfiSmmBase2ProtocolGuid

@@ -1,0 +1,64 @@
+## @file
+#  
+#IsaAcpi declaration file
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IsaAcpi
+  FILE_GUID                      = 38A0EC22-FBE7-4911-8BC1-176E0D6C1DBD
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IsaAcpiDriverEntryPoint
+  
+[Sources]
+  IsaAcpiDriver.h
+  IsaAcpiDriver.c
+  IsaAcpi.h
+  IsaAcpi.c
+  DmaControllerInit.h
+  DmaControllerInit.c
+
+[Protocols] 
+  gEfiPciIoProtocolGuid
+  gEfiCpuIo2ProtocolGuid                            
+  gEfiIsaAcpiProtocolGuid      
+  gEfiIsaPnp303DeviceProtocolGuid    
+  gEfiIsaPnp401DeviceProtocolGuid     
+  gEfiIsaPnp501DeviceProtocolGuid 
+  gEfiIsaPnp510DeviceProtocolGuid   
+  gEfiIsaPnp604DeviceProtocolGuid   
+  gEfiIsaPnpB02fDeviceProtocolGuid  
+  gEfiIsaPnpF03DeviceProtocolGuid
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec     
+
+[LibraryClasses]
+  UefiLib
+  DebugLib
+  PostCodeLib
+  BaseMemoryLib
+  DevicePathLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  DxeChipsetSvcLib
+
+[Protocols]
+
+[Pcd] 
+ 
+[Depex]
+  TRUE 

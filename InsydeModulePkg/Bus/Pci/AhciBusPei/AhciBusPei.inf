@@ -1,0 +1,47 @@
+## @file
+#  Component description file for AHCI PEIM
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#;******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AhciBusPei
+  FILE_GUID                      = 4AA65902-3ED3-43b3-A52B-FC1D6C077AE4
+  MODULE_TYPE                    = PEIM
+  BINARY_VERSION                 = 02.02.23.0610.00
+
+[Binaries.Ia32]
+  PE32|Ia32/AhciBusPei.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  BaseMemoryLib
+  PcdLib
+  PeiServicesLib
+
+[Ppis]
+  gEfiPeiStallPpiGuid            # PPI CONSUMED
+  gPeiAhciControllerPpiGuid      # PPI CONSUMED
+  gEfiEndOfPeiSignalPpiGuid      # PPI CONSUMED
+  gEfiPeiVirtualBlockIoPpiGuid   # PPI PRODUCES
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdAhciPcieMemBaseAddress
+  gInsydeTokenSpaceGuid.PcdAhciPcieBridgeAddress
+
+[Depex]
+  gPeiAhciControllerPpiGuid AND
+  gPeiBootInRecoveryModePpiGuid

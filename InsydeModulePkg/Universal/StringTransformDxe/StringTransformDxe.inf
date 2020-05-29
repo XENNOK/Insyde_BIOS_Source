@@ -1,0 +1,49 @@
+## @file
+# Mulit Config module build description file for DXE phase.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                = 0x00010005
+  BASE_NAME                  = StringTransformDxe
+  FILE_GUID                  = A2811523-56BA-4765-A1AC-AD36F1920AA1
+  MODULE_TYPE                = DXE_DRIVER
+  VERSION_STRING             = 1.0
+  ENTRY_POINT                = StringTransformDxeEntry
+
+[Sources]
+  StringTransformDxe.c
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DebugLib
+  BaseLib
+  BvdtLib
+
+[Protocols]
+  gStringTransformProtocolGuid
+  gEfiSmbiosProtocolGuid
+
+[BuildOptions]
+ *_*_*_CC_FLAGS = /Od
+  
+[Depex]
+  gEfiSmbiosProtocolGuid
+

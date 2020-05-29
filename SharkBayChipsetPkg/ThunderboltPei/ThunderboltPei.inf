@@ -1,0 +1,79 @@
+## @file
+# 
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = ThunderboltPeim
+  FILE_GUID            = 17E67698-E4C6-4c22-A257-41D98B172741
+  MODULE_TYPE          = PEIM
+  VERSION_STRING       = 1.0
+  ENTRY_POINT          = ThunderboltPeimEntryPoint
+
+[Sources]
+  ThunderboltPeim.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-start-121105-IB10820150-add]#
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+#[-end-121105-IB10820150-add]#
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  DebugLib
+  IoLib
+#[-start-130425-IB05160441-add]#
+  TbtLib
+#[-end-130425-IB05160441-add]#
+#[-start-130709-IB05400426-add]#
+  PeiOemSvcChipsetLibDefault
+#[-end-130709-IB05400426-add]#
+
+[Guids]
+  gEfiGlobalVariableGuid
+  gSystemConfigurationGuid
+
+[Ppis]
+  gEfiPeiMemoryDiscoveredPpiGuid
+  gEfiPeiReadOnlyVariable2PpiGuid
+  gEfiPeiStallPpiGuid
+#[-start-130425-IB05160441-add]#
+  gEfiPeiMemoryDiscoveredPpiGuid
+#[-end-130425-IB05160441-add]#
+
+#[-start-121105-IB10820150-add]#
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltGpioConnectIc
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltGpioToPch
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltGpioToSio
+  gChipsetPkgTokenSpaceGuid.PcdGpioLvl
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+#[-end-121105-IB10820150-add]#
+#[-start-130227-IB05280051-add]#
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltChip
+#[-end-130227-IB05280051-add]#
+#[-start-130425-IB05160441-add]#
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-end-130425-IB05160441-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Depex]
+  TRUE
+

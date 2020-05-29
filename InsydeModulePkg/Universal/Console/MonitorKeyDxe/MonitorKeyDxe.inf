@@ -1,0 +1,58 @@
+## @file
+#  MonitoryKeyDxe
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MonitorKeyDxe
+  FILE_GUID                      = 27BEDA18-AE2B-43c2-AF6B-74952441DE28
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0 
+  ENTRY_POINT                    = MonitorKeyFilterInstall
+
+[Sources]
+  MonitorKey.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseMemoryLib
+  
+[Guids]
+  gEfiGenericVariableGuid
+  
+[Protocols]
+  gEfiUsbLegacyPlatformProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiMonitorKeyFilterProtocolGuid
+  gDynamicHotKeyProtocolGuid
+
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdPlatformKeyList
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdDynamicHotKeySupported
+
+[Depex]
+!IF "$(DYNAMIC_HOTKEY_SUPPORT)" == "YES"
+  gDynamicHotKeyProtocolGuid
+!ELSE
+  TRUE
+!ENDIF

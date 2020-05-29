@@ -1,0 +1,67 @@
+## @file
+#  FtwLiteOnFtwThunk
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+## 
+#
+# Copyright (c) 2009 - 2010, Intel Corporation. All rights reserved.<BR>
+#
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License
+#  which accompanies this distribution. The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.php
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FtwLiteOnFtwThunk
+  FILE_GUID                      = 95684C0E-07A3-45FD-9568-D2BEECDCC9C6
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = FtwLiteInitialize
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[Sources]
+  FtwLiteOnFtwThunk.c
+  FtwLiteOnFtwThunk.h
+
+[Sources.X64]
+
+[Sources.IA32]
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  EdkCompatibilityPkg/EdkCompatibilityPkg.dec
+  InsydeFrameworkModulePkg/InsydeFrameworkModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  BaseLib
+
+[Protocols]
+  gEfiFaultTolerantWriteLiteProtocolGuid          ## PRODUCES
+  gEfiFaultTolerantWriteProtocolGuid              ## CONSUMES
+
+[Depex]
+  gEfiFaultTolerantWriteProtocolGuid AND
+  gEfiFirmwareVolumeBlockProtocolGuid

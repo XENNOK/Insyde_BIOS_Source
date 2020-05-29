@@ -1,0 +1,37 @@
+## @file
+#  Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[FV.RECOVERYFV]
+!if gChipsetPkgTokenSpaceGuid.PcdH2OIpmiSupport
+INF InsydeIpmiPkg/IpmiInterfacePei/IpmiInterfacePei.inf
+!endif
+
+[FV.DXEFV]
+!if gChipsetPkgTokenSpaceGuid.PcdH2OIpmiSupport
+INF InsydeIpmiPkg/IpmiInterfaceDxeSmm/IpmiInterfaceDxe.inf
+INF InsydeIpmiPkg/IpmiInterfaceDxeSmm/IpmiInterfaceSmm.inf
+INF InsydeIpmiPkg/IpmiFruDxeSmm/IpmiFruDxe.inf
+INF InsydeIpmiPkg/IpmiFruDxeSmm/IpmiFruSmm.inf
+INF InsydeIpmiPkg/IpmiSelDataDxeSmm/IpmiSelDataDxe.inf
+INF InsydeIpmiPkg/IpmiSelDataDxeSmm/IpmiSelDataSmm.inf
+INF InsydeIpmiPkg/IpmiSelInfoDxeSmm/IpmiSelInfoDxe.inf
+INF InsydeIpmiPkg/IpmiSelInfoDxeSmm/IpmiSelInfoSmm.inf
+INF InsydeIpmiPkg/IpmiMiscDxe/IpmiMiscDxe.inf
+INF InsydeIpmiPkg/IpmiSdrDxeSmm/IpmiSdrDxe.inf
+INF InsydeIpmiPkg/IpmiSdrDxeSmm/IpmiSdrSmm.inf
+INF InsydeIpmiPkg/IpmiUtilityDxe/IpmiUtilityDxe.inf
+!if gH2OIpmiPkgTokenSpaceGuid.PcdIpmiConfigInDeviceManager
+INF InsydeIpmiPkg/IpmiDmConfigDxe/IpmiDmConfigDxe.inf
+!endif
+!endif
+

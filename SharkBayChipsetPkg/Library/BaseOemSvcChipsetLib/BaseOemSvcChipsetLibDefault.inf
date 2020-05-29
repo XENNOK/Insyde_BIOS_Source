@@ -1,0 +1,41 @@
+## @file
+#  Component description file for BASE OEM Services Chipset Lib Default instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = BaseOemSvcChipsetLibDefault
+  FILE_GUID                      = 03714F5B-62A0-4dec-92DB-B7290EBDADFE
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = BaseOemSvcChipsetLibDefault
+
+[Sources]
+#[-start-130916-IB05670200-remove]#
+#  UpdateFlashDevice.c
+#[-start-130808-IB05670200-remove]#
+#[-start-130808-IB06720232-add]#
+  OemSvcEcSaveRestoreKbc.c
+  OemSvcEcPowerState.c
+  OemSvcEcVersion.c
+  OemSvcEcSetDswMode.c
+  OemSvcEcGetLidState.c
+#[-end-130808-IB06720232-add]#
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseOemSvcChipsetLib
+

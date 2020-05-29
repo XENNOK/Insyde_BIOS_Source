@@ -1,0 +1,64 @@
+## @file
+#
+#  Component description file for Alert Standard Format driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AlertStandardFormatDxe
+  FILE_GUID                      = 33C6406D-2F6B-41B5-8705-52BAFB633C09
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0  
+  ENTRY_POINT                    = AlertStandardFormatDriverEntryPoint
+
+[Sources]
+  AlertStandardFormatDxe.c
+  AlertStandardFormatDxe.h
+
+[Packages]
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  AslUpdateLib
+  HobLib
+  AmtLib
+
+[Guids]
+  gEfiHobListGuid
+  gEfiConsoleLockGuid
+  gEfiGenericVariableGuid
+  gAmtForcePushPetPolicyGuid
+
+[Protocols]
+  gEfiAcpiTableProtocolGuid
+  gEfiHeciProtocolGuid
+  gEfiDataHubProtocolGuid
+  gEfiAlertStandardFormatProtocolGuid
+  
+[Pcd]
+
+[Depex]
+  gEfiDataHubProtocolGuid AND
+  gEfiHeciProtocolGuid AND
+  gEfiAcpiSupportProtocolGuid AND
+  gDxePlatformAmtPolicyGuid
+
+[BuildOptions]

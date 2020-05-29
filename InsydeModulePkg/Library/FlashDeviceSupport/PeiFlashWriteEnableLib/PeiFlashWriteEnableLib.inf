@@ -1,0 +1,39 @@
+## @file
+#  Library classes for enabling/disabling flash write access
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FlashWriteEnableLib
+  FILE_GUID                      = 41F03A75-9D44-4B44-8F55-0A2B24C25077
+  MODULE_TYPE                    = PEIM
+  LIBRARY_CLASS                  = FlashWriteEnableLib
+
+[Sources]
+  FlashWriteEnableLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  PeiChipsetSvcLib
+
+[Guids]
+
+[Ppis]
+
+
+
+

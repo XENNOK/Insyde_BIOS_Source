@@ -1,0 +1,144 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+# This file contains 'Framework Code' and is licensed as such
+# under the terms of your license agreement with Intel or your
+# vendor.  This file may not be modified, except as allowed by
+# additional terms of your license agreement.
+#
+#/*++
+#
+# Copyright (c) 1999 - 2006 Intel Corporation. All rights reserved
+# This software and associated documentation (if any) is furnished
+# under a license and may only be used or copied in accordance
+# with the terms of the license. Except as permitted by such
+# license, no part of this software or documentation may be
+# reproduced, stored in a retrieval system, or transmitted in any
+# form or by any means without the express written consent of
+# Intel Corporation.
+#
+# Module Name:
+#
+#   PpiLib.inf
+#
+# Abstract:
+#
+#   Component description file for the PEI protocol library for all build tips.
+#
+#--*/
+[defines]
+  BASE_NAME       = PpiLib
+  COMPONENT_TYPE  = LIBRARY
+
+[sources.common]
+  AcpiPolicy\AcpiPolicy.c
+  AcpiPolicy\AcpiPolicy.h
+  AtaController\AtaController.c
+  AtaController\AtaController.h
+  AtaPolicy\AtaPolicy.c
+  AtaPolicy\AtaPolicy.h
+  CacheControl\CacheControl.c
+  CacheControl\CacheControl.h
+  Capsule\Capsule.c
+  Capsule\Capsule.h
+  DmaController\DmaController.c
+  DmaController\DmaController.h
+  FrequencyControl\FrequencyControl.c
+  FrequencyControl\FrequencyControl.h
+  FrequencyControlPolicy\FrequencyControlPolicy.c
+  FrequencyControlPolicy\FrequencyControlPolicy.h
+  Metronome\Metronome.c
+  Metronome\Metronome.h
+  OperatorPresence\OperatorPresence.c
+  OperatorPresence\OperatorPresence.h
+  PciEx\PciEx.c
+  PciEx\PciEx.h
+  PlatformDimm\PlatformDimm.c
+  PlatformDimm\PlatformDimm.h
+  PlatformMemoryRange\PlatformMemoryRange.c
+  PlatformMemoryRange\PlatformMemoryRange.h
+  PlatformMemorySize\PlatformMemorySize.c
+  PlatformMemorySize\PlatformMemorySize.h
+  RomCorrupt\RomCorrupt.c
+  RomCorrupt\RomCorrupt.h
+  SimpleSerial\SimpleSerial.c
+  SimpleSerial\SimpleSerial.h
+  SmbusPolicy\SmbusPolicy.c
+  SmbusPolicy\SmbusPolicy.h
+  SmmControl\SmmControl.c
+  SmmControl\SmmControl.h
+  Speaker\Speaker.c
+  Speaker\Speaker.h
+  SStateBootMode\SStateBootMode.c
+  SStateBootMode\SStateBootMode.h
+  TcoWatchdog\TcoWatchdog.c
+  TcoWatchdog\TcoWatchdog.h
+  UsbController\UsbController.c
+  UsbController\UsbController.h
+  UsbHostController\UsbHostController.c
+  UsbHostController\UsbHostController.h
+  UsbHcPolicy\UsbHcPolicy.c
+  UsbHcPolicy\UsbHcPolicy.h
+  UsbIo\UsbIo.c
+  UsbIo\UsbIo.h
+  Verify\Verify.c
+  Verify\Verify.h
+  WarmResetDetected\WarmResetDetected.c
+  WarmResetDetected\WarmResetDetected.h
+  MemoryIntrinsics\MemoryIntrinsics.c
+  MemoryIntrinsics\MemoryIntrinsics.h
+  CpuOnlyReset\CpuOnlyReset.c
+  CpuOnlyReset\CpuOnlyReset.h
+  PostBootScriptTable\PostBootScriptTable.c
+  PostBootScriptTable\PostBootScriptTable.h
+  CpuPowerRequirement\CpuPowerRequirement.c
+  CpuPowerRequirement\CpuPowerRequirement.h
+  VarHob\VarHob.c
+  VarHob\VarHob.h
+  EventLog\EventLog.c
+  EventLog\EventLog.h
+  OemServices\OemServices.c
+  OemServices\OemServices.h
+  SioInitialized\SioInitialized.c
+  SioInitialized\SioInitialized.h
+  S3RestoreAcpiCallback\S3RestoreAcpiCallback.c
+  S3RestoreAcpiCallback\S3RestoreAcpiCallback.h
+  SdController\SdController.c
+  SdController\SdController.c
+  ChipsetLibServices\ChipsetLibServices.c
+  ChipsetLibServices\ChipsetLibServices.h
+  AhciController\AhciController.c
+  AhciController\AhciController.h
+  FirmwareAuthentication\FirmwareAuthentication.c
+  FirmwareAuthentication\FirmwareAuthentication.h
+  Tpm2InterfacePei\Tpm2InterfacePei.c
+  Tpm2InterfacePei\Tpm2InterfacePei.h
+  TpmPolicyPei\TpmPolicyPei.c
+  TpmPolicyPei\TpmPolicyPei.h
+
+[includes.common]
+  $(EFI_SOURCE)\Platform\Generic
+  $(EFI_SOURCE)
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Include\Pei
+  $(EDK_SOURCE)\Foundation\Library\Pei\Include
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EFI_SOURCE)\Include\Oemservices
+
+[nmake.common]
+  C_STD_INCLUDE =

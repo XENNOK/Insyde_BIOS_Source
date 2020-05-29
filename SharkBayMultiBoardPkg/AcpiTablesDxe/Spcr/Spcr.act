@@ -1,0 +1,76 @@
+/** @file
+  This file contains a structure definition for the ACPI Serial Port Console
+  Redirection Table (SPCR).  The contents of this file should only be modified
+  for bug fixes, no porting is required.  The table layout is defined in
+  SerialPortConsoleRedirectionTable.h and the table contents are defined in
+  Acpi2_0.h and Spcr.h.
+  
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+
+//
+// Statements that include other files
+//
+
+#include <Spcr.h>
+#include <IndustryStandard/Acpi30.h>
+
+//
+// Serial Port Console Redirection Table
+// Please modify all values in Spcr.h only.
+//
+EFI_ACPI_SERIAL_PORT_CONSOLE_REDIRECTION_TABLE SPCR = {
+  {
+    EFI_ACPI_3_0_SERIAL_PORT_CONSOLE_REDIRECTION_TABLE_SIGNATURE,
+    sizeof (EFI_ACPI_SERIAL_PORT_CONSOLE_REDIRECTION_TABLE),
+    EFI_ACPI_SERIAL_PORT_CONSOLE_REDIRECTION_TABLE_REVISION,
+    0,
+    EFI_ACPI_OEM_ID,
+    EFI_ACPI_OEM_TABLE_ID,
+    EFI_ACPI_OEM_REVISION,
+    EFI_ACPI_CREATOR_ID,
+    EFI_ACPI_CREATOR_REVISION,
+  },
+
+  SPCR_INTERFACE_TYPE,
+  SPCR_RESERVED01,
+  SPCR_BASE_ADDRESS,
+  SPCR_INTERRUPT_TYPE,
+  SPCR_IRQ_NUM,
+  SPCR_GLOBAL_SYS_INTERRUPT,
+  SPCR_BAUD_RATE,
+  SPCR_PARITY,
+  SPCR_STOP_BITS,
+  SPCR_FLOW_CONTROL,
+  SPCR_TERMINAL_TYPE,
+  SPCR_RESERVED02,
+  SPCR_PCI_DID,
+  SPCR_PCI_VID,
+  SPCR_PCI_BUS,
+  SPCR_PCI_DEV,
+  SPCR_PCI_FUNC,
+  SPCR_PCI_FLAGS,
+  SPCR_PCI_SEG,
+  SPCR_RESERVED03
+};
+
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&SPCR;
+}

@@ -1,0 +1,236 @@
+## @file
+# This package provides the modules that implement IPMI stack by Insyde Software
+# Corporation. It also provides the defintions (including PPIs/PROTOCOLs/GUIDs
+# and library classes) and libraries instances, which are used for those modules.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = InsydeIpmiPkg
+  PACKAGE_GUID                   = 5EAB0013-46AC-465E-83CD-1A87A218E72C
+  PACKAGE_VERSION                = 0.91
+  H2O_IPMI_PACKAGE_VERSION       = 05.04.07.0009
+
+[Includes]
+  Include
+
+[LibraryClasses]
+  IpmiCommonLib|Include/Library/IpmiCommonLib.h
+  IpmiInterfaceLib|Include/Library/IpmiInterfaceLib.h
+  IpmiSdrLib|Include/Library/IpmiSdrLib.h
+  IpmiFruLib|Include/Library/IpmiFruLib.h
+  IpmiSelDataLib|Include/Library/IpmiSelDataLib.h
+  IpmiSelInfoLib|Include/Library/IpmiSelInfoLib.h
+  IpmiHobLib|Include/Library/IpmiHobLib.h
+
+  PeiIpmiLpcLib|Include/Library/PeiIpmiLpcLib.h
+  PeiIpmiSioLib|Include/Library/PeiIpmiSioLib.h
+
+  PeiIpmiPackageLib|Include/Library/PeiIpmiPackageLib.h
+  PeiOemIpmiPackageLib|Include/Library/PeiOemIpmiPackageLib.h
+
+  DxeIpmiPackageLib|Include/Library/DxeIpmiPackageLib.h
+  DxeOemIpmiPackageLib|Include/Library/DxeOemIpmiPackageLib.h
+
+  DxeIpmiDmConfigVfrLib|Include/Library/DxeIpmiDmConfigVfrLib.h
+  DxeOemIpmiDmConfigLib|Include/Library/DxeOemIpmiDmConfigLib.h
+
+  SmmIpmiPackageLib|Include/Library/SmmIpmiPackageLib.h
+  SmmOemIpmiPackageLib|Include/Library/SmmOemIpmiPackageLib.h
+
+[Guids]
+  gH2OIpmiHobGuid                       = {0x545869d9, 0xf49f, 0x4ddf, {0x81, 0xfd, 0x92, 0x7a, 0xb2, 0x7e, 0xe5, 0x9d}}
+  gH2OIpmiPkgTokenSpaceGuid             = {0x03a6b6ab, 0xe143, 0x40f4, {0xaf, 0xba, 0x2a, 0xec, 0x8c, 0x3b, 0x9b, 0xc9}}
+
+[Ppis]
+  gH2OIpmiInterfacePpiGuid              = {0xd7c7d1fe, 0x2548, 0x46e0, {0x96, 0xf9, 0x82, 0xb1, 0xe4, 0x1a, 0xfd, 0x4d}}
+
+[Protocols]
+  gH2OIpmiInterfaceProtocolGuid         = {0xbb46188c, 0x7157, 0x4fec, {0xa1, 0xd8, 0xc0, 0xbb, 0xfc, 0xe0, 0x3b, 0xc7}}
+  gH2OSmmIpmiInterfaceProtocolGuid      = {0xFF2184AF, 0x1367, 0x477a, {0x84, 0x7B, 0xFF, 0x09, 0x65, 0x92, 0x6C, 0xFC}}
+  gH2OIpmiFruProtocolGuid               = {0xe2816bf2, 0x6c03, 0x44c7, {0xa8, 0x6b, 0xfe, 0x44, 0x74, 0x71, 0xf5, 0x1a}}
+  gH2OSmmIpmiFruProtocolGuid            = {0xD291BE9E, 0x01EC, 0x4e14, {0xB4, 0x7E, 0x03, 0x59, 0x64, 0xD2, 0x9F, 0xC5}}
+  gH2OIpmiSdrProtocolGuid               = {0x80b57671, 0xaf44, 0x425f, {0x98, 0x8c, 0x53, 0xd1, 0xa4, 0xf8, 0x0f, 0x7b}}
+  gH2OSmmIpmiSdrProtocolGuid            = {0xDE083EA7, 0x7495, 0x4439, {0xBF, 0xB6, 0xC4, 0xF5, 0xDD, 0xB9, 0xA2, 0x6F}}
+  gH2OIpmiSelDataProtocolGuid           = {0x27cf90da, 0x36d4, 0x43c0, {0xaf, 0xbb, 0x56, 0x1b, 0xf0, 0xad, 0xf6, 0x86}}
+  gH2OSmmIpmiSelDataProtocolGuid        = {0xCFCDB243, 0x4B9F, 0x42c2, {0x9D, 0x02, 0x19, 0x67, 0xCF, 0xC8, 0x2F, 0x82}}
+  gH2OIpmiSelInfoProtocolGuid           = {0x86e61ac4, 0x75f9, 0x47bc, {0x86, 0xf7, 0xa7, 0x59, 0xb8, 0xa9, 0xab, 0x6e}}
+  gH2OSmmIpmiSelInfoProtocolGuid        = {0x36E31F07, 0xBCDA, 0x4061, {0x8E, 0xFD, 0x1A, 0xD6, 0x95, 0xE2, 0xA0, 0xE0}}
+  gH2OIpmiUtilityProtocolGuid           = {0x6d8be92c, 0xd97e, 0x431d, {0x8a, 0xdf, 0xd3, 0xf8, 0x0d, 0x53, 0x51, 0x45}}
+
+[PcdsFeatureFlag]
+  #
+  # PeiIpmiLpcLib's IpmiProgramLpc function provide common method to program PCH LPC I/O Decode Ranges Register for BMC.
+  # TRUE : Package.dsc will build PeiIpmiLpcLib to program PCH LPC I/O Decode Ranges Register.
+  # FALSE: Package.dsc will build PeiIpmiLpcLibNull,
+  #        OEM can implement specific method in PeiOemIpmiPackageLib's OemIpmiProgramLpc function.
+  # (If set TRUE, program LPC even if PcdIpmiEnable set Disable.)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiLpcDecode|FALSE|BOOLEAN|0x00000001
+  #
+  # PeiIpmiSioLib's IpmiProgramSio function provide common method to program Super I/O configuration for BMC.
+  # TRUE : Package.dsc will build PeiIpmiSioLib to program Super I/O if current IPMI base address is required to be configured.
+  #        Currently only PliotII/PliotIII series BMCs can change its KCS address by Super I/O interface.
+  # FALSE: Package.dsc will build PeiIpmiSioLibNull,
+  #        OEM can implement specific method in PeiOemIpmiPackageLib's OemIpmiProgramSio function.
+  # (If set TRUE, program SIO even if PcdIpmiEnable set Disable.)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSioConfig|FALSE|BOOLEAN|0x00000002
+  #
+  # Select IPMI Config Menu diplay place. (FALSE:Displayed in SCU, TRUE:Displayed in Device Manager)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiConfigInDeviceManager|TRUE|BOOLEAN|0x00000003
+
+[PcdsFixedAtBuild]
+  #
+  # IPMI Interface Type (1:KCS, 2:SMIC, 3:BT, 4:SSIF)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiInterfaceType|0x01|UINT8|0x10000001
+  #
+  # IPMI Address Type (0:Memory, 1:IO)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiAddressType|0x01|UINT8|0x10000002
+  #
+  # Base address and register offset for SMM
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSmmBaseAddress|0xCA2|UINT16|0x10000003
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSmmRegOffset|0x1|UINT16|0x10000004
+  #
+  # Base address and register offset for DXE (FW)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiPostBaseAddress|0xCA2|UINT16|0x10000005
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiPostRegOffset|0x1|UINT16|0x10000006
+  #
+  # Base address and register offset for OS
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiOsBaseAddress|0xCA2|UINT16|0x10000007
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiOsRegOffset|0x1|UINT16|0x10000008
+  #
+  # ACPI Timer Address and Max Value
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiAcpiTimerAddress|0x0408|UINT16|0x10000009
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiAcpiTimerMaxValue|0x1000000|UINT32|0x1000000A
+  #
+  # One command maximum execution time for PEI, in seconds.
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiPeiExecuteTime|0x5|UINT8|0x1000000B
+  #
+  # One command maximum execution time for DXE, in seconds.
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiDxeExecuteTime|0x5|UINT8|0x1000000C
+  #
+  # One command maximum execution time for SMM, in seconds.
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSmmExecuteTime|0x5|UINT8|0x1000000D
+  #
+  # Retry limit for PEI (Available when system interface is KCS)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiPeiRetryAfterIdle|0x3|UINT8|0x1000000E
+  #
+  # Retry limit for DXE (Available when system interface is KCS)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiDxeRetryAfterIdle|0x3|UINT8|0x1000000F
+  #
+  # Retry limit for SMM (Available when system interface is KCS)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSmmRetryAfterIdle|0x3|UINT8|0x10000010
+  #
+  # UEFI variable name that contains real boot device order
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiRealBootOrderString|L"BootOrder"|VOID*|0x10000011
+  #
+  # GUID for variable name that contains real boot device order (0:gEfiGlobalVariableGuid, 1:gEfiGenericVariableGuid)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiRealBootOrderGuid|0x00|UINT8|0x10000012
+  #
+  # Set USB Flash Disk as Removable media or Hard-drive (0:Removable media, 1:Hard-drive)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiUsbFlashDiskClassify|0x00|UINT8|0x10000013
+  #
+  # Set USB CD/DVD as Removable media or ATAPI CD/DVD (0:Removable media, 1:CD/DVD)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiUsbCdromClassify|0x00|UINT8|0x10000014
+  #
+  # Select the policy when variable can not be found in config init. (0:Keep BMC current state, 1:Set BMC to default)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiInitConfigDefaultPolicy|0x00|UINT8|0x10000015
+  #
+  # Listen Event GUID to enter Setup Utility when Boot device selector is "Force boot into BIOS Setup"
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiBootOptionEventGuid|{0}|VOID*|0x10000016
+  #
+  # Listen Event GUIDs to Start Watchdog Timer
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiWdtStartEventGuidList|{0}|VOID*|0x10000017
+  #
+  # Listen Event GUIDs to Stop Watchdog Timer
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiWdtStopEventGuidList|{0}|VOID*|0x10000018
+  #
+  # Retry times for detect corresponding register is decoded by BMC.
+  # If set to "0", IpmiWaitBmcDecode function will not be executed.
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiWaitBmcDecodeRetry|0x00|UINT8|0x10000019
+  #
+  # Retry interval for detect corresponding register is decoded by BMC.
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiWaitBmcDecodeInterval|0x00|UINT8|0x1000001A
+
+[PcdsDynamic, PcdsDynamicEx]
+  #
+  # H2O IPMI feature active or not. (1:Enable, 0:Disable)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiEnable|0x01|UINT8|0x20000001
+  #
+  # The max time IPMI Interface module waits for BMC ready, in seconds.
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWarmupTime|0x00|UINT8|0x20000002
+  #
+  # Start IPMI watchdog timer at start of POST. (1:Start, 0:Not Start)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtEnable|0x00|UINT8|0x20000003
+  #
+  # If IPMI watchdog timer expires, what action should it do?
+  # (0:No Action, 1:Hard Reset, 2:Power Down, 3:Power Cycle)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtAction|0x01|UINT8|0x20000004
+  #
+  # IPMI watchdog timer expires time, in minutes.
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtTimeout|0x05|UINT8|0x20000005
+  #
+  # IPMI don't log when watchdog timer expires. (0:Log, 1:Don't log)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtNotLog|0x00|UINT8|0x20000006
+  #
+  # IPMI watchdog timer use logged on expiration (0:Reserved, 1:BIOS FRB2, 2:BIOS/POST, 3:OS Load, 4:SMS/OS, 5:OEM)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdBmcWdtTimerUse|0x01|UINT8|0x20000007
+  #
+  # Publish SPMI ACPI table for OS. (1:Publish, 0:Not Publish)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSpmiEnable|0x01|UINT8|0x20000008
+  #
+  # Send BIOS version string to BMC or not using standard IPMI command during POST.
+  # (1:Send, 0:Not Send)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiSetBiosVersion|0x00|UINT8|0x20000009
+  #
+  # Enable IPMI boot option request or not during POST. (1:Enable, 0:Disable)
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiBootOption|0x00|UINT8|0x2000000A
+  #
+  # Store boot device number for BootNext used by IPMI
+  #
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiBootNext|0xFFFF|UINT16|0x2000000B
+

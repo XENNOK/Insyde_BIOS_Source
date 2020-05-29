@@ -1,0 +1,126 @@
+## @file
+#  Component description file for DxeOemSvcKernelLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeOemSvcKernelLib
+  FILE_GUID                      = 9AC5355F-90C2-4f08-B458-82791C55AE27
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeOemSvcKernelLib|DXE_CORE DXE_DRIVER DXE_RUNTIME_DRIVER DXE_SAL_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER SMM_CORE
+
+[Sources]
+  OemSvcCsm16ReferSwitch.c
+  OemSvcGetHotplugBridgeInfo.c
+#[-start-130411-IB06720212-remove]#
+#  OemSvcGetSsidSvidInfo.c
+#[-end-130411-IB06720212-remove]#
+  OemSvcInstallDmiSwitchTable.c
+#[-start-130430-IB06720225-remove]#
+#  OemSvcInstallIrqRoutingTable.c
+#[-end-130430-IB06720225-remove]#
+  OemSvcInstallLegacyBiosOemSlp.c
+  OemSvcInstallOptionRomTable.c
+  OemSvcInstallPciSkipTable.c
+  OemSvcDxeInstallPnpGpnvTable.c
+#[-start-140120-IB07390125-remove]#
+#  OemSvcDxeInstallPnpStringTable.c
+#[-end-140120-IB07390125-remove]#
+  OemSvcInstallPostKeyTable.c
+#[-start-130430-IB06720225-remove]#
+##[-start-121114-IB06720133-add]#
+#  OemSvcIrqPriority.c
+#  OemSvcSetPirqPriority.c
+##[-end-121114-IB06720133-add]#
+#[-end-130430-IB06720225-remove]#
+  OemSvcLogoResolution.c
+  OemSvcUpdateFormLen.c
+  OemSvcPrepareInstallMpTable.c
+#[-start-131231-IB07390120-add]#
+  OemSvcDxeUpdateSmbiosRecord.c
+#[-end-131231-IB07390120-add]#
+#[-start-140115-IB07390124-add]#
+  OemSvcUpdateSsidSvidInfo.c
+#[-end-140115-IB07390124-add]#
+  OemSvcAdjustNavigationMenu.c
+
+[Packages]
+#[-start-131231-IB07390120-modify]#
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+ #[-end-131231-IB07390120-modify]#
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(PROJECT_PKG)/Project.dec
+#[-start-140305-IB07390127-add]#
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-end-140305-IB07390127-add]#
+
+[LibraryClasses]
+  MemoryAllocationLib
+  UefiRuntimeServicesTableLib
+  HobLib
+  BaseMemoryLib
+  UefiBootServicesTableLib
+  PcdLib
+  BaseLib
+  DebugLib
+#[-start-131231-IB07390120-add]#
+  CommonPciLib
+  PciExpressLib
+#[-end-131231-IB07390120-add]#
+#[-start-140115-IB07390124-add]#
+  S3BootScriptLib
+#[-end-140115-IB07390124-add]#
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiOEMBadgingSupportProtocolGuid
+  gEfiBmpDecoderProtocolGuid
+  gEfiJpegDecoderProtocolGuid
+  gEfiTgaDecoderProtocolGuid
+  gEfiGifDecoderProtocolGuid
+  gEfiPcxDecoderProtocolGuid
+  gEfiHiiDatabaseProtocolGuid
+
+[Guids]
+  gEfiGlobalVariableGuid                      ## CONSUMES
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdFrontPageSupported
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+
+#[-start-131231-IB07390120-add]#
+[PCD]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareVersionString
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFirmwareReleaseDateString
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+#[-end-131231-IB07390120-add]#
+#[-start-140305-IB07390127-add]#
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE0Base
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE0Size
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE1Base
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE1Size
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE2Base
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE2Size
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE3Base
+  gChipsetPkgTokenSpaceGuid.PcdFlashNvStorageGPNVHANDLE3Size
+#[-end-140305-IB07390127-add]#
+#[-start-140321-IB10300105-add]#
+  gInsydeTokenSpaceGuid.PcdHotKeyFlashSupported
+#[-end-140321-IB10300105-add]#

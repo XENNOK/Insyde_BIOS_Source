@@ -1,0 +1,138 @@
+## @file
+#  Component description file for SetupUtilityLib library
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SetupUtilityLib
+  FILE_GUID                      = 912E59DC-3A1E-4f21-81B3-E347FE045398
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SetupUtilityLib
+  STRGATHER_RESERVE_SIZE         = 0x1000
+
+[Sources]
+  CopyRightString.uni
+  SetupUtilityLibString.uni
+  Images/SetupUtilityLibImage.idf
+  Boot/Images/BootDevImage.idf
+
+  Main/MainVfr.vfr
+  Main/Main.c
+  Main/SystemInformation.c
+  Main/Language.c
+
+  Security/SecurityVfr.vfr
+  Security/Security.c
+  Security/Password.c
+
+  Boot/BootVfr.vfr
+  Boot/BbsType.c
+  Boot/Boot.c
+  Boot/BootMenu.c
+  Boot/BootMenuEx.c
+
+  Exit/ExitVfr.vfr
+  Exit/Exit.c
+  Exit/ExitFunc.c
+
+  SetupFuncs.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  HiiLib
+  HiiExLib
+  PrintLib
+  DevicePathLib
+  BvdtLib
+  OemGraphicsLib
+  DxeOemSvcKernelLibDefault
+  DxeChipsetSvcLib
+  BaseSetupDefaultLib
+  VariableLib
+  MultiConfigBaseLib
+  VariableSupportLib
+
+[Guids]
+  gEfiIfrTianoGuid                              ## CONSUMES ## Guid
+  gEfiGlobalVariableGuid
+  gSaveHddPasswordGuid
+  gEfiGenericVariableGuid
+
+[Protocols]
+  gEfiHiiConfigAccessProtocolGuid               ## PRODUCES
+  gEfiSmbiosProtocolGuid
+  gEfiBootOptionPolicyProtocolGuid
+  gEfiDiskInfoProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiHddPasswordServiceProtocolGuid
+  gEfiSysPasswordServiceProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiTcgProtocolGuid
+  gEfiTrEEProtocolGuid
+
+  gEfiConsoleControlProtocolGuid                ## Following protocols will be removed when OemGraphics library has check-in.
+  gEndOfDisableQuietBootGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiUgaDrawProtocolGuid
+  gEfiUsbIoProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+  gInsydeTokenSpaceGuid.PcdSysPasswordSupportUserPswd
+  gInsydeTokenSpaceGuid.PcdH2ONetworkSupported
+  gInsydeTokenSpaceGuid.PcdH2ONetworkIpv6Supported
+  gInsydeTokenSpaceGuid.PcdH2OTpmSupported
+  gInsydeTokenSpaceGuid.PcdH2OTpm2Supported
+  gInsydeTokenSpaceGuid.PcdTpmAutoDetection
+  gInsydeTokenSpaceGuid.PcdTpm2Enable
+  gInsydeTokenSpaceGuid.Pcd64BitAmlSupported
+  gInsydeTokenSpaceGuid.PcdMultiConfigSupported
+  gInsydeTokenSpaceGuid.PcdH2OCsmSupported
+  gInsydeTokenSpaceGuid.PcdPlatformBootTimeOut
+  gInsydeTokenSpaceGuid.PcdLegacyBootTypeOrder
+  gInsydeTokenSpaceGuid.PcdPlatformBootTimeOutMax
+
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiSize
+  gEfiIntelFrameworkModulePkgTokenSpaceGuid.PcdShellFile
+  gInsydeTokenSpaceGuid.PcdMiniShellFile
+  gInsydeTokenSpaceGuid.PcdMaxCheckPasswordCount
+  gInsydeTokenSpaceGuid.PcdDefaultSysPasswordMinLength
+  gInsydeTokenSpaceGuid.PcdDefaultSysPasswordMaxLength
+  gInsydeTokenSpaceGuid.PcdHddPasswordMinLength
+  gInsydeTokenSpaceGuid.PcdHddPasswordMaxLength
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserSupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+
+[BuildOptions]
+  MSFT:*_*_*_VFRPP_FLAGS = -DSETUP_IMAGE_SUPPORT /FI$(MODULE_NAME)IdfDefs.h
+  GCC:*_*_*_VFRPP_FLAGS  = -DSETUP_IMAGE_SUPPORT --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)IdfDefs.h
+

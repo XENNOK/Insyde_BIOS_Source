@@ -1,0 +1,54 @@
+## @file
+# Mulit Config Tool build description file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                = 0x00010005
+  BASE_NAME                  = GenMultiConfigRegion
+  FILE_GUID                  = DD90FCDD-AE85-4cc3-A6AE-F0C9834AAF30
+  MODULE_TYPE                = USER_DEFINED
+  VERSION_STRING             = 1.0
+
+  MODULE_AUTORUN_TOOL        = $(BIN_DIR)\$(BASE_NAME)
+  AUTORUN_PARAM              = $(BUILD_DIR)\FV\MultiConfig.bin
+
+[Sources]
+  GenMultiConfigRegion.c
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+
+[LibraryClasses]
+  DebugLib
+  PcdLib
+  BaseLib
+  BaseMemoryLib
+  MultiConfigBaseLib
+  ToolLib
+  
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashAreaBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashAreaSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMultiConfigBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMultiConfigSize
+  gInsydeTokenSpaceGuid.PcdMultiConfigSourceFile
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdMultiConfigSupported
+  
+[BuildOptions]
+  MSFT:*_*_IA32_DLINK_FLAGS == /out:"$(BIN_DIR)\$(BASE_NAME).exe" /base:0x10000000 /NOLOGO /SUBSYSTEM:CONSOLE /NODEFAULTLIB /IGNORE:4086 /MAP /OPT:REF /MACHINE:I386 /LTCG Kernel32.lib MSVCRT.lib
+

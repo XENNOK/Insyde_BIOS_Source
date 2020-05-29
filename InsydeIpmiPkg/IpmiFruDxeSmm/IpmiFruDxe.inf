@@ -1,0 +1,60 @@
+## @file
+# H2O IPMI FRU module build description file for DXE phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IpmiFruDxe
+  FILE_GUID                      = 5C7FE7A6-73FA-42D4-98A3-9FE600352CE5
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IpmiFruDxeEntry
+
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  IpmiFruDxe.c
+  IpmiFruCommon.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  PcdLib
+  DebugLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  IpmiInterfaceLib
+  IpmiCommonLib
+  DxeOemIpmiPackageLibDefault
+
+[Guids]
+
+[Protocols]
+  gH2OIpmiFruProtocolGuid                    # Produce
+
+[FeaturePcd]
+
+[Depex]
+  gH2OIpmiInterfaceProtocolGuid
+

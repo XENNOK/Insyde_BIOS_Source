@@ -1,0 +1,23 @@
+## @file
+#  Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[FV.RECOVERYFV]
+
+[FV.DXEFV]
+INF IntelFrameworkModulePkg/Universal/SectionExtractionDxe/SectionExtractionDxe.inf
+INF IntelFrameworkModulePkg/Universal/CpuIoDxe/CpuIoDxe.inf
+INF IntelFrameworkModulePkg/Bus/Isa/IsaBusDxe/IsaBusDxe.inf
+INF IntelFrameworkModulePkg/Universal/DataHubDxe/DataHubDxe.inf
+INF IntelFrameworkModulePkg/Universal/DataHubStdErrDxe/DataHubStdErrDxe.inf
+INF IntelFrameworkModulePkg/Universal/Console/VgaClassDxe/VgaClassDxe.inf
+

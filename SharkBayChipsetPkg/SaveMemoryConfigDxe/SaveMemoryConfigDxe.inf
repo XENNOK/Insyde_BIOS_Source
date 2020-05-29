@@ -1,0 +1,63 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SaveMemoryConfig
+  FILE_GUID                      = E8F8CCFB-E880-0361-BCD1-FE248B2A307E
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = SaveMemoryConfigEntry
+    
+[Sources]
+  SaveMemoryConfig.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+   
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  HobLib
+  IoLib  
+
+[Protocols]  
+  gEfiVariableWriteArchProtocolGuid                # CONSUMED
+  gEfiVariableArchProtocolGuid                     # CONSUMED
+  gSaveMemoryConfigDoneGuid                     #  PRODUCES
+   
+[Guids]   
+  gMrcS3RestoreVariableGuid  
+#[-start-120712-IB10820082-add]#    
+  gDDR3LVoltageHobGuid
+  gDDR3LVoltageVariableGuid
+#[-end-120712-IB10820082-add]#
+  
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-120731-IB10820094-add]#  
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+#[-end-120731-IB10820094-add]#  
+
+#[-start-120712-IB10820082-add]#    
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdDdr3lvSupported      
+#[-end-120712-IB10820082-add]#
+  
+[BuildOptions]  
+  *_*_*_CC_FLAGS = -D __HOB__H__             # to avod efi_HOB_GENERIC_HERDER refdifine on memoryinfoHob.h
+  
+[Depex]
+  gEfiVariableWriteArchProtocolGuid        AND
+  gEfiVariableArchProtocolGuid

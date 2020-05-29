@@ -1,0 +1,55 @@
+## @file
+#  Component description file for DebugMaskPei driver
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DebugMaskPei
+  FILE_GUID                      = EB00DB50-C654-460F-8D7A-0E444FD32B45
+  MODULE_TYPE                    = PEIM 
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = DebugMaskPeiEntry
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+
+[Sources]
+  DebugMaskPei.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  HobLib
+  
+[Guids]
+  gEfiGenericVariableGuid
+  
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid                      ## CONSUMES
+
+[FixedPcd]
+
+[FeaturePcd]
+
+[Pcd]
+
+[Depex]
+  TRUE

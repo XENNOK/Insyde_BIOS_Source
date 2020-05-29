@@ -1,0 +1,49 @@
+## @file
+#  Component description file for XhciSmiDispatcher module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = XhciSmiDispatcher
+  FILE_GUID                      = 5FC364AD-4D63-4b80-B10C-0C8780ADA917
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = XhciSmiDispatcherDriverEntryPoint
+
+[Sources]
+  XhciSmiDispatcher.c
+  XhciSmiDispatcher.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  SmmServicesTableLib
+  BaseMemoryLib
+  IoLib
+  PciLib
+  PcdLib
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmUsbDispatch2ProtocolGuid
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdXhciAddonCardSetting
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmUsbDispatch2ProtocolGuid

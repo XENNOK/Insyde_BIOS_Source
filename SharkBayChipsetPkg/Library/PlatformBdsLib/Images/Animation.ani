@@ -1,0 +1,37 @@
+//;******************************************************************************
+//;* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+//; 
+//; Module Name:
+//; 
+//;   Animation.ani
+//; 
+//; Abstract:
+//; 
+//;   Animations for platform BDS library
+//; 
+
+!if gInsydeTokenSpaceGuid.PcdH2OFormBrowserSupported != TRUE
+!if gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+#animation ANI_CONTINUE            "GraphicsContinue.gif"
+#animation ANI_SCU                 "GraphicsSCU.gif"
+#animation ANI_BOOT_MANAGER        "GraphicsBootManager.gif"
+#animation ANI_DEVICE_MANAGER      "GraphicsDeviceManagement.gif"
+#animation ANI_BOOT_FROM_FILE      "GraphicsBootFromFile.gif"
+#animation ANI_SECURE_BOOT_OPTION  "GraphicsSecureBootOption.gif"
+#animation ANI_BACKGROUND          "GraphicsBackground.gif"
+!else
+#animation ANI_CONTINUE            "Continue.gif"
+#animation ANI_SCU                 "SCU.gif"
+#animation ANI_BOOT_MANAGER        "BootManager.gif"
+#animation ANI_DEVICE_MANAGER      "DeviceManagement.gif"
+#animation ANI_BOOT_FROM_FILE      "BootFromFile.gif"
+#animation ANI_SECURE_BOOT_OPTION  "SecureBootOption.gif"
+!endif
+!endif

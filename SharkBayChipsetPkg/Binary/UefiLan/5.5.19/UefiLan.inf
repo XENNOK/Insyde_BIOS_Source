@@ -1,0 +1,29 @@
+## @file
+#  Component description file for include binary UEFI LAN Driver module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = E5519X3
+  FILE_GUID            = 7FECA3CE-F18C-4dce-9465-4DEB949298C9
+  MODULE_TYPE          = UEFI_DRIVER
+  VERSION_STRING       = 1.0
+
+[Binaries]
+#  PE32|GigUndi.efi|*
+  PE32|E5519X3.efi|*
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[Depex]
+  gEfiNetworkStackUndiDependencyGuid

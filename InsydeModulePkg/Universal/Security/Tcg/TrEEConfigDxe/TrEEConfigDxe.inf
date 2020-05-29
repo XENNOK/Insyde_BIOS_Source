@@ -1,0 +1,68 @@
+## @file
+#  Component file for TrEE configuration module.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = TrEEConfigDxe
+  FILE_GUID                 = 8376BDCA-5E03-4735-951A-4A74141E5886
+  MODULE_TYPE               = DXE_DRIVER
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = TrEEConfigDriverEntryPoint
+
+[Sources]
+  TrEEConfigDriver.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  SecurityPkg/SecurityPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiLib
+  DebugLib
+  PcdLib
+  BaseMemoryLib
+  VariableLib
+  BaseLib
+  HobLib  
+  
+[Guids]
+  gSystemConfigurationGuid
+  gEfiTpmDeviceInstanceTpm12Guid
+  
+[Protocols]
+  gEfiTcgProtocolGuid
+  gEfiTpmPhysicalPresenceProtocolGuid
+  gEfiTrEEPhysicalPresenceProtocolGuid
+  gEfiTrEEProtocolGuid
+  gEfiSetupUtilityProtocolGuid  
+  gEndOfBdsBootSelectionProtocolGuid
+  
+[Pcd]
+  gEfiSecurityPkgTokenSpaceGuid.PcdTpmInstanceGuid
+  gInsydeTokenSpaceGuid.PcdTpmAutoDetection
+  gInsydeTokenSpaceGuid.PcdTpm2Enable
+  gInsydeTokenSpaceGuid.PcdTpmHide
+
+[Depex]
+  gEfiCpuIoProtocolGuid AND
+  gEfiResetArchProtocolGuid AND
+  gEfiVariableArchProtocolGuid AND
+  gEfiVariableWriteArchProtocolGuid AND
+  gEfiSetupUtilityProtocolGuid
+  

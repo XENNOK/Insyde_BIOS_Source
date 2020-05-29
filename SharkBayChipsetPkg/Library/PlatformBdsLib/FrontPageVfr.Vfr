@@ -1,0 +1,192 @@
+/** @file
+  FrontPageVfr.Vfr
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+///**
+//
+//    Browser formset.
+//
+//  Copyright (c) 2007 - 2011, Intel Corporation. All rights reserved.<BR>
+//  This program and the accompanying materials
+//  are licensed and made available under the terms and conditions of the BSD License
+//  which accompanies this distribution.  The full text of the license may be found at
+//  http://opensource.org/licenses/bsd-license.php
+//
+//  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+//
+//**/
+
+#include <Guid/BdsHii.h>
+#include "PlatformBdsLibStrDefs.h"
+
+#define FRONT_PAGE_CLASS               0x0000
+#define FRONT_PAGE_SUBCLASS            0x0002
+
+#define FRONT_PAGE_FORM_ID             0x1000
+
+#define FRONT_PAGE_ITEM_ONE            0x0001
+#define FRONT_PAGE_ITEM_TWO            0x0002
+#define FRONT_PAGE_ITEM_THREE          0x0003
+#define FRONT_PAGE_ITEM_FOUR           0x0004
+#define FRONT_PAGE_ITEM_FIVE           0x0005
+#define FRONT_PAGE_ITEM_SIX            0x0006
+#define FRONT_PAGE_ITEM_SEVEN          0x0007
+#define FRONT_PAGE_ITEM_MEBX           0x0101
+
+
+#define FRONT_PAGE_KEY_CONTINUE        0x1000
+#define FRONT_PAGE_KEY_LANGUAGE        0x1234
+#define FRONT_PAGE_KEY_BOOT_MANAGER    0x1064
+#define FRONT_PAGE_KEY_DEVICE_MANAGER  0x8567
+#define FRONT_PAGE_KEY_BOOT_MAINTAIN   0x9876
+#define FRONT_PAGE_KEY_SECURE_BOOT     0x4367
+#define FRONT_PAGE_KEY_SETUP_UTILITY   0x2000
+#define FRONT_PAGE_KEY_MEBX            0x2101
+
+#define LABEL_SELECT_LANGUAGE          0x1000
+#define LABEL_TIMEOUT                  0xFFFF
+#define LABEL_END                      0xffff
+#define FRONT_PAGE_BOOT_FROM_FILE_ID           0x2001
+#define FRONT_PAGE_BOOT_FROM_FILE_TAIL_ID      0x20FF
+
+formset
+  guid     = FRONT_PAGE_FORMSET_GUID,
+  title    = STRING_TOKEN(STR_FRONT_PAGE_TITLE),
+  help     = STRING_TOKEN(STR_NULL_STRING),
+  classguid = FRONT_PAGE_FORMSET_GUID,
+  class    = FRONT_PAGE_CLASS,
+  subclass = FRONT_PAGE_SUBCLASS,
+//[-start-130812-IB05670190-modify]
+#if FeaturePcdGet(PcdGraphicsSetupSupported)
+//[-end-130812-IB05670190-modify]
+  animation  = ANIMATION_TOKEN (ANI_BACKGROUND);
+#endif
+  form formid = FRONT_PAGE_FORM_ID,
+       title  = STRING_TOKEN(STR_FRONT_PAGE_TITLE);
+
+    banner
+      title = STRING_TOKEN(STR_FRONT_PAGE_COMPUTER_MODEL),
+      line  1,
+      align left;
+
+    banner
+      title = STRING_TOKEN(STR_FRONT_PAGE_CPU_MODEL),
+      line  2,
+      align left;
+
+    banner
+      title = STRING_TOKEN(STR_FRONT_PAGE_CPU_SPEED),
+      line  2,
+      align right;
+
+    banner
+      title = STRING_TOKEN(STR_FRONT_PAGE_BIOS_VERSION),
+      line  3,
+      align left;
+
+    banner
+      title = STRING_TOKEN(STR_FRONT_PAGE_MEMORY_SIZE),
+      line  3,
+      align right;
+
+
+    text
+      help    = STRING_TOKEN(STR_CONTINUE_HELP),
+      text    = STRING_TOKEN(STR_CONTINUE_PROMPT),
+      text    = STRING_TOKEN(STR_NULL_STRING),
+      flags   = INTERACTIVE,
+#if FeaturePcdGet(PcdH2OFormBrowserSupported)
+#if FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+      key     = FRONT_PAGE_KEY_CONTINUE,
+      image   = IMAGE_TOKEN (IMAGE_CONTINUE);
+#else
+      key     = FRONT_PAGE_KEY_CONTINUE;
+#endif
+#else
+      key     = FRONT_PAGE_KEY_CONTINUE,
+      animation = ANIMATION_TOKEN (ANI_CONTINUE);
+#endif
+
+    goto FRONT_PAGE_ITEM_THREE,
+      prompt  = STRING_TOKEN(STR_BOOT_MANAGER),
+      help    = STRING_TOKEN(STR_BOOT_MANAGER_HELP),
+#if !FeaturePcdGet(PcdH2OFormBrowserSupported)
+      animation = ANIMATION_TOKEN (ANI_BOOT_MANAGER),
+#endif
+      flags   = INTERACTIVE,
+#if FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+      key     = FRONT_PAGE_KEY_BOOT_MANAGER,
+      image   = IMAGE_TOKEN (IMAGE_BOOT_MANAGER),;
+#else
+      key     = FRONT_PAGE_KEY_BOOT_MANAGER;
+#endif
+
+    goto FRONT_PAGE_ITEM_FOUR,
+      prompt  = STRING_TOKEN(STR_DEVICE_MANAGER),
+      help    = STRING_TOKEN(STR_DEVICE_MANAGER_HELP),
+#if !FeaturePcdGet(PcdH2OFormBrowserSupported)
+      animation = ANIMATION_TOKEN (ANI_DEVICE_MANAGER),
+#endif
+      flags   = INTERACTIVE,
+#if FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+      key     = FRONT_PAGE_KEY_DEVICE_MANAGER,
+      image   = IMAGE_TOKEN (IMAGE_DEVICE_MANAGER),;
+#else
+      key     = FRONT_PAGE_KEY_DEVICE_MANAGER;
+#endif
+
+    label FRONT_PAGE_BOOT_FROM_FILE_ID;
+    //
+    // Add this label to make sure IfrLibUpdateForm () can remove data between these
+    // two labels
+    //
+    label FRONT_PAGE_BOOT_FROM_FILE_TAIL_ID;
+
+    goto FRONT_PAGE_ITEM_SIX,
+      prompt  = STRING_TOKEN(STR_SETUP_UTILITY),
+      help    = STRING_TOKEN(STR_SETUP_UTILITY_HELP),
+#if !FeaturePcdGet(PcdH2OFormBrowserSupported)
+      animation = ANIMATION_TOKEN (ANI_SCU),
+#endif
+      flags   = INTERACTIVE ,
+#if FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+      key     = FRONT_PAGE_KEY_SETUP_UTILITY,
+      image   = IMAGE_TOKEN (IMAGE_SCU),;
+#else
+      key     = FRONT_PAGE_KEY_SETUP_UTILITY;
+#endif
+//[-start-130812-IB05670190-modify]
+#if FeaturePcdGet(PcdMe5MbSupported)
+//[-end-130812-IB05670190-modify]
+    goto FRONT_PAGE_ITEM_MEBX,
+      prompt  = STRING_TOKEN(STR_MEBX),
+      help    = STRING_TOKEN(STR_MEBX_HELP),
+#if !FeaturePcdGet(PcdH2OFormBrowserSupported)
+      animation = ANIMATION_TOKEN (ANI_MEBX),
+#endif
+      flags   = INTERACTIVE ,
+#if FeaturePcdGet(PcdH2OFormBrowserLocalMetroDESupported)
+      key     = FRONT_PAGE_KEY_MEBX,
+      image   = IMAGE_TOKEN (IMAGE_MEBX),;
+#else
+      key     = FRONT_PAGE_KEY_MEBX;
+#endif
+#endif
+
+    label LABEL_TIMEOUT;
+  endform;
+
+
+
+endformset;

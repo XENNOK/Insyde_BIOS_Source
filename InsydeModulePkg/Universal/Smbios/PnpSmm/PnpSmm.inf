@@ -1,0 +1,70 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PnpSmm
+  FILE_GUID                      = CC1BAA36-11EB-45cc-9ADC-7565E273AC70
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = SmmPnpInit
+
+[sources]
+  PnpSmm.c
+  PnpDmi.c
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  HobLib
+  UefiLib
+  IoLib
+  DebugLib
+  SmmOemSvcKernelLibDefault
+  FlashDevicesLib
+
+[Guids]
+  gEfiHobListGuid
+  gEfiFlashMapHobGuid
+  gEfiSmbiosTableGuid
+
+[Protocols]
+  gEfiSmmFwBlockServiceProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmCpuProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageDmiSize
+  gInsydeTokenSpaceGuid.PcdDefaultGpnvMapBufferSize
+  gInsydeTokenSpaceGuid.PcdSmbiosUpdatableStringTable
+
+[Depex]
+  <DXE_DEPEX>
+    TRUE
+  <SMM_DEPEX>
+    gEfiSmmBase2ProtocolGuid AND
+    gEfiSmmSwDispatch2ProtocolGuid AND
+    gEfiSmmFwBlockServiceProtocolGuid
+

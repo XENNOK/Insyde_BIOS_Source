@@ -1,0 +1,95 @@
+## @file
+#
+#  Component description file for Platform Policy Initialization driver
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+# This file contains an 'Intel Peripheral Driver' and is
+# licensed for Intel CPUs and chipsets under the terms of your
+# license agreement with Intel or your vendor.  This file may
+# be modified by the user, subject to additional terms of the
+# license agreement
+#
+#/*++
+#
+#  Copyright (c)  1999 - 2003 Intel Corporation. All rights reserved
+#  This software and associated documentation (if any) is furnished
+#  under a license and may only be used or copied in accordance
+#  with the terms of the license. Except as permitted by such
+#  license, no part of this software or documentation may be
+#  reproduced, stored in a retrieval system, or transmitted in any
+#  form or by any means without the express written consent of
+#  Intel Corporation.
+#
+#  Module Name:
+#
+#    Icc.inf
+#
+#  Abstract:
+#
+#    Component description file for Platform Policy Initialization driver
+#
+#--*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IccInit
+  FILE_GUID                      = 0F5EF786-17A0-40c6-BC18-1B3272A00987
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IccInitEntryPoint
+
+[Sources]
+  IccDxe.c
+  IccDxe.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  UefiLib
+  HobLib
+  PcdLib
+  IoLib
+  CmosLib
+  MeLib
+  
+[Guids]
+  gEfiHobListGuid                                ## CONSUMES ## GUID
+  gSetupDefaultHobGuid                           ## CONSUMES ## GUID
+  gDxePlatformICCPolicyGuid                      ## CONSUMES
+  
+[Protocols]
+  gEfiSetupUtilityProtocolGuid                   ## CONSUMES
+  gMeBiosPayloadDataProtocolGuid                 ## CONSUMES
+  gEfiWatchdogTimerArchProtocolGuid              ## CONSUMES
+  gEfiPciRootBridgeIoProtocolGuid                ## CONSUMES
+  gEfiPciHostBridgeEndResourceAllocationNotifyGuid ## CONSUMES
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress   ## CONSUMES
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Depex]
+  gEfiPciRootBridgeIoProtocolGuid AND
+  gEfiVariableArchProtocolGuid AND
+  gEfiVariableWriteArchProtocolGuid AND
+  gDxePlatformICCPolicyGuid AND
+  gEfiHeciProtocolGuid AND
+  gEfiSetupUtilityProtocolGuid
+

@@ -1,0 +1,37 @@
+        TITLE   INT15OPROM.EQU 
+;;******************************************************************************
+;;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+;;*
+;;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;;* any part of this publication in any form, by any means, without the prior
+;;* written permission of Insyde Software Corporation.
+;;*
+;;******************************************************************************
+;;
+;; Abstract:
+;;
+
+EFI_DWORD_REGS  STRUCT 1
+  RegEAX       DD ?
+  RegEBX       DD ?
+  RegECX       DD ?
+  RegEDX       DD ?
+  RegESI       DD ?
+  RegEDI       DD ?
+  RegEFlags    DD ?
+  RegES        DW ?
+  RegCS        DW ?
+  RegSS        DW ?
+  RegDS        DW ?
+  RegFS        DW ?
+  RegGS        DW ?
+  RegEBP       DD ?
+  RegESP       DD ?
+EFI_DWORD_REGS ENDS
+ 
+INT15_PRIVATE_INFO struct 1
+  CpuRegisters     EFI_DWORD_REGS {}
+  InSmmFlag        DW ?
+  SmmInt15CallBack DQ ?
+INT15_PRIVATE_INFO ENDS

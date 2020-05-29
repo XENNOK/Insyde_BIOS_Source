@@ -1,0 +1,150 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+# This file contains 'Framework Code' and is licensed as such
+# under the terms of your license agreement with Intel or your
+# vendor.  This file may not be modified, except as allowed by
+# additional terms of your license agreement.
+#
+#/*++
+#
+# Copyright (c)  1999 - 2006 Intel Corporation. All rights reserved
+# This software and associated documentation (if any) is furnished
+# under a license and may only be used or copied in accordance
+# with the terms of the license. Except as permitted by such
+# license, no part of this software or documentation may be
+# reproduced, stored in a retrieval system, or transmitted in any
+# form or by any means without the express written consent of
+# Intel Corporation.
+#
+#  Module Name:
+#
+#    GuidLib.inf
+#
+#  Abstract:
+#
+#    Component description file for the GuidLib
+#
+#--*/
+
+[defines]
+  BASE_NAME       =   GuidLib
+  COMPONENT_TYPE  =   LIBRARY
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation\Include\Pei
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\FrameWork
+  $(EDK_SOURCE)\Foundation\FrameWork\Include
+  $(EDK_SOURCE)\Foundation\Library\Pei\Include
+  $(EFI_SOURCE)\Include
+  $(EFI_SOURCE)\Efi\Include
+  $(EFI_SOURCE)\Framework\Include
+  $(EFI_SOURCE)\Include\IndustryStandard
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Core\Dxe
+  $(EFI_SOURCE)\Include\Pei
+  $(EFI_SOURCE)\Library\Pei\Include
+  $(EDK_SOURCE)\Framework
+
+[nmake.common]
+  C_STD_INCLUDE =
+
+[sources.common]
+  AcpiVariable\AcpiVariable.h
+  AcpiVariable\AcpiVariable.c
+  CapsuleOnDataCD\CapsuleOnDataCD.h
+  CapsuleOnDataCD\CapsuleOnDataCD.c
+  CapsuleOnFatFloppyDisk\CapsuleOnFatFloppyDisk.h
+  CapsuleOnFatFloppyDisk\CapsuleOnFatFloppyDisk.c
+  CapsuleOnFatIdeDisk\CapsuleOnFatIdeDisk.h
+  CapsuleOnFatIdeDisk\CapsuleOnFatIdeDisk.c
+  CapsuleOnFatUsbDisk\CapsuleOnFatUsbDisk.h
+  CapsuleOnFatUsbDisk\CapsuleOnFatUsbDisk.c
+  CpuFrequency\CpuFrequency.h
+  CpuFrequency\CpuFrequency.c
+  EventLogHob\EventLogHob.c
+  EventLogHob\EventLogHob.h
+  EfiVpdData\EfiVpdData.h
+  EfiVpdData\EfiVpdData.c
+  HddPassWordVariable\HddPassWordVariable.h
+  HddPassWordVariable\HddPassWordVariable.c
+  Ihisi\Ihisi.c
+  Ihisi\Ihisi.h
+  LegacyBios\LegacyBios.h
+  LegacyBios\LegacyBios.c
+  MemoryConfigData\MemoryConfigData.h
+  MemoryConfigData\MemoryConfigData.c
+  PowerOnHob\PowerOnHob.h
+  PowerOnHob\PowerOnHob.c
+  Smm\Smm.h
+  Smm\Smm.c
+  SerialStatusCodeEnabler\SerialStatusCodeEnabler.c
+  SerialStatusCodeEnabler\SerialStatusCodeEnabler.h
+  SystemErrorStoreGuid\SystemErrorStoreGuid.h
+  SystemErrorStoreGuid\SystemErrorStoreGuid.c
+  SystemPasswordVariable\SystemPasswordVariable.c
+  SystemPasswordVariable\SystemPasswordVariable.h
+  PciGInfoHob\PciGInfoHob.c
+  PciGInfoHob\PciGInfoHob.h
+  Jpeg\Jpeg.c
+  Jpeg\Jpeg.h
+  Pcx\Pcx.c
+  Pcx\Pcx.h
+  MicrocodeVariable\MicrocodeVariable.c
+  MicrocodeVariable\MicrocodeVariable.h
+  AsfAddress\AsfAddress.c
+  AsfAddress\AsfAddress.h
+  PciExpressBaseAddress\PciExpressBaseAddress.c
+  PciExpressBaseAddress\PciExpressBaseAddress.h
+  TcgVariable\TcgVariable.c
+  TcgVariable\TcgVariable.h
+  ConsoleLock\ConsoleLock.c
+  ConsoleLock\ConsoleLock.h
+  SmartBootPolicy\SmartBootPolicy.c
+  SmartBootPolicy\SmartBootPolicy.h
+  KbcInitialized\KbcInitialized.c
+  KbcInitialized\KbcInitialized.h
+  PlatformHardwareSwitch\PlatformHardwareSwitch.c
+  PlatformHardwareSwitch\PlatformHardwareSwitch.h
+  Ldm\Ldm.c
+  Ldm\Ldm.h
+  RecoveryFileAddress\RecoveryFileAddress.c
+  RecoveryFileAddress\RecoveryFileAddress.h
+  LegacyFree\LegacyFree.c
+  LegacyFree\LegacyFree.h
+  ImageAuthentication\ImageAuthentication.c
+  ImageAuthentication\ImageAuthentication.h
+  WinCertificate\WinCertificate.c
+  WinCertificate\WinCertificate.h
+  NetworkEventGroup\NetworkEventGroup.c
+  NetworkEventGroup\NetworkEventGroup.h
+  HiiDriverHealthFormset\HiiDriverHealthFormset.c
+  HiiDriverHealthFormset\HiiDriverHealthFormset.h
+  AdminPassword\AdminPassword.c
+  AdminPassword\AdminPassword.h
+  UsbEnumeration\UsbEnumeration.c
+  UsbEnumeration\UsbEnumeration.h
+  ReturnFromImage\ReturnFromImage.c
+  ReturnFromImage\ReturnFromImage.h
+  EfiSystemResourceTable\EfiSystemResourceTable.c
+  EfiSystemResourceTable\EfiSystemResourceTable.h
+  UnPlugVGAGuid\UnPlugVGAGuid.c
+  UnPlugVGAGuid\UnPlugVGAGuid.h
+  SecureFlashInfo\SecureFlashInfo.c
+  SecureFlashInfo\SecureFlashInfo.h
+  BootOrderHook\BootOrderHook.c
+  BootOrderHook\BootOrderHook.h
+  InsydeModuleHii\InsydeModuleHii.c
+  InsydeModuleHii\InsydeModuleHii.h

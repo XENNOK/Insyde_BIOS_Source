@@ -1,0 +1,47 @@
+## @file
+#  Component description file for I2C Mouse DXE module
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = I2cMouseDxe
+  FILE_GUID                      = 220E57C8-4E71-493f-91B8-0F7F820A1DA2
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = I2cMouseEntryPoint
+
+[Sources]
+  ComponentName.c
+  I2cMouse.c
+  I2cMouse.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  HidDescriptorLib
+
+[Protocols]
+  gEfiI2cIoProtocolGuid
+  gEfiAdapterInformationProtocolGuid
+  gEfiSimplePointerProtocolGuid
+
+[Guids]
+  gI2cHidDeviceInfoGuid

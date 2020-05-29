@@ -1,0 +1,132 @@
+
+-------------------------------------------------------
+ Flash Image Tool  -  9/16/2014  -  17:29:43 
+-------------------------------------------------------
+
+
+Command line: ""
+Environment variables:
+	$CurWorkDir 	= "."
+	$WorkingDir 	= "."
+	$SourceDir 	= "."
+	$DestDir 	= "."
+	$UserVar1 	= "."
+	$UserVar2 	= "."
+	$UserVar3 	= "."
+
+Using vsccommn.bin with timestamp 17:50:05 06/28/2013 GMT.
+Loading file "E:\Testing\Kernel_05_04_34\SharkBayMultiBoardPkg\ME_Kit\Tools\System Tools\Flash Image Tool\ICBD_70K.xml".
+USER ACTION: Changing Sku Type.
+Loading ICC Settings from XML
+Initializing Profile "WiMax" from "Standard"
+Initializing Profile "3G" from "Standard"
+Initializing Profile "Overclocking" from "Standard"
+Initializing Profile "Overclocking" from "Overclocking"
+File "E:\Testing\Kernel_05_04_34\SharkBayMultiBoardPkg\ME_Kit\Tools\System Tools\Flash Image Tool\ICBD_70K.xml" loaded.
+Program terminated.
+-------------------
+
+
+-------------------------------------------------------
+ Flash Image Tool  -  9/16/2014  -  17:29:53 
+-------------------------------------------------------
+
+
+
+fitc.exe [/h] [/?] [/b] [/o <file>] [/rombypass <true|false>] [/sku <value>]
+         [/me <file>] [/gbe <file>] [/bios <file>] [/pdr <file>] [/w <path>]
+         [/s <path>] [/d <path>] [/u1 <value>] [/u2 <value>] [/u3 <value>]
+         [/i <enable|disable>] [/flashcount <1|2>] [/flashsize1 <size>]
+         [/flashsize2 <size>] [/save <file>] [XML or BIN file]
+
+/h                 Display Help.
+/?                 Display command line options.
+/b                 Build the flash image. Does NOT display the GUI.
+/o                 Overrides the output file path.
+/rombypass         Overrides the ROM bypass settings in the XML file.
+/sku               Sets the SKU type to use.
+/me                Overrides the binary source file for the ME region.
+/gbe               Overrides the binary source file for the GbE region.
+/bios              Overrides the binary source file for the BIOS region.
+/pdr               Overrides the binary source file for the PDR region.
+/w                 Overrides the $WorkingDir environment variable.
+/s                 Overrides the $SourceDir environment variable.
+/d                 Overrides the $DestDir environment variable.
+/u1                Overrides the $UserVar1 environment variable.
+/u2                Overrides the $UserVar2 environment variable.
+/u3                Overrides the $UserVar3 environment variable.
+/i                 Overrides intermediate file generation.
+/flashcount        Overrides the number of flash components.
+/flashsize1        Overrides the size of the 1st flash component 
+                   (0=512KB,1=1MB,2=2MB,3=4MB,4=8MB,5=16MB,6=32MB,7=64MB).
+/flashsize2        Overrides the size of the 2nd flash component 
+                   (0=512KB,1=1MB,2=2MB,3=4MB,4=8MB,5=16MB,6=32MB,7=64MB).
+/save              Save's the XML file.
+[XML or BIN file]  The XML configuration (create) or BIN (decompose) file.
+
+Program terminated.
+-------------------
+
+
+-------------------------------------------------------
+ Flash Image Tool  -  9/16/2014  -  17:31:16 
+-------------------------------------------------------
+
+
+Command line: "ICBD_70K.xml"
+Environment variables:
+	$CurWorkDir 	= "."
+	$WorkingDir 	= "."
+	$SourceDir 	= "."
+	$DestDir 	= "."
+	$UserVar1 	= "."
+	$UserVar2 	= "."
+	$UserVar3 	= "."
+
+Using vsccommn.bin with timestamp 17:50:05 06/28/2013 GMT.
+Loading file "ICBD_70K.xml".
+USER ACTION: Changing Sku Type.
+Loading ICC Settings from XML
+Initializing Profile "WiMax" from "Standard"
+Initializing Profile "3G" from "Standard"
+Initializing Profile "Overclocking" from "Standard"
+Initializing Profile "Overclocking" from "Overclocking"
+File "ICBD_70K.xml" loaded.
+Program terminated.
+-------------------
+
+
+-------------------------------------------------------
+ Flash Image Tool  -  9/16/2014  -  17:31:29 
+-------------------------------------------------------
+
+
+Command line: "/b ICBD_70K.xml"
+Environment variables:
+	$CurWorkDir 	= "."
+	$WorkingDir 	= "."
+	$SourceDir 	= "."
+	$DestDir 	= "."
+	$UserVar1 	= "."
+	$UserVar2 	= "."
+	$UserVar3 	= "."
+
+Using vsccommn.bin with timestamp 17:50:05 06/28/2013 GMT.
+Loading file "ICBD_70K.xml".
+USER ACTION: Changing Sku Type.
+Loading ICC Settings from XML
+Initializing Profile "WiMax" from "Standard"
+Initializing Profile "3G" from "Standard"
+Initializing Profile "Overclocking" from "Standard"
+Initializing Profile "Overclocking" from "Overclocking"
+File "ICBD_70K.xml" loaded.
+Building ROM image to save as ".\ICBD_70K.bin".
+
+----------- Building: 17:31:29 --- ".\ICBD_70K.bin" -----------
+
+ERROR: GbE Region: Failed to get the length of file ".\70K\Decomp\GbE Region.bin"!
+
+ERROR: The build failed! The build thread return code was 102.
+Program terminated.
+-------------------
+

@@ -1,0 +1,51 @@
+## @file
+#  Component description file for PchUfs PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PchUfsPei
+  FILE_GUID                      = 28D68488-5A7C-49ad-8A21-552E26EFF2FF
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializePchUfs
+
+[Sources]
+  PchUfs.c
+  PchUfs.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec 
+
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  PeimEntryPoint
+  TimerLib
+  BaseLib
+
+[Ppis]
+  gPeiUfsControllerPpiGuid
+  gEfiEndOfPeiSignalPpiGuid
+  gEfiPciCfg2PpiGuid
+
+[Pcd]
+
+
+[Depex]
+  gEfiPciCfg2PpiGuid     AND
+  gEfiPeiMemoryDiscoveredPpiGuid AND
+  gEfiPeiBootInRecoveryModePpiGuid

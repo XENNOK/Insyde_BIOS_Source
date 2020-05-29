@@ -1,0 +1,52 @@
+## @file
+#
+#  Component description file for SPS HECI functionality in SMM.
+#  Note: Only for SPS.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmSpsHeciLib
+  FILE_GUID                      = F9890D22-AECB-48DE-BF7C-841070B5D1C0
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SpsHeciLib | DXE_SMM_DRIVER
+
+[Sources]
+  SpsHeciLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+
+[LibraryClasses]
+#  TimerLib
+  
+#  SpsMeChipsetLib
+#  SpsPolicyLib
+
+[Guids]
+#  gSpsInfoHobGuid                                ## CONSUMES
+
+[Ppis]
+#  gSpsPolicyPpiGuid
+
+[Protocols]
+  gSpsSmmHeciProtocolGuid
+
+[Pcd]
+#  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[BuildOptions]
+

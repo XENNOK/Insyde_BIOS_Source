@@ -1,0 +1,73 @@
+## @file
+#  Component description file for PeiOemSvcKernelLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012-2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiOemSvcKernelLib
+  FILE_GUID                      = BFCAACD2-EAC7-479b-800D-850E4D185893
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PeiOemSvcKernelLib|PEI_CORE PEIM
+  
+[Sources]
+  OemSvcChangeBootMode.c
+  OemSvcChipsetModifyClockGenInfo.c
+  OemSvcDetectRecoveryRequest.c
+  OemSvcGetVerbTable.c
+  OemSvcInitPlatformStage2.c
+  OemSvcIsBootWithNoChange.c
+#[-start-130124-IB10130023-add]#
+  OemSvcSetRecoveryRequest.c
+#[-end-130124-IB10130023-add]#
+#[-start-130307-12360001-add]#
+  OemSvcGetWaitTimerAfterHdaInit.c
+#[-end-130307-12360001-add]#
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  PerformancePkg/PerformancePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(PROJECT_PKG)/Project.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  PcdLib
+  CmosLib
+  PeiServicesLib
+  IoLib
+  DebugLib
+  HobLib
+  PeiServicesTablePointerLib
+  
+[Guids]
+  gEfiGenericVariableGuid
+  gPlatformHardwareSwitchGuid
+  
+[Ppis]
+  gEfiPeiReadOnlyVariablePpiGuid
+  gEfiPeiReadOnlyVariable2PpiGuid
+//[-start-130131-IB10130023-add]//
+  gEfiPeiBootInRecoveryModePpiGuid
+//[-end-130131-IB10130023-add]//
+  
+[Pcd]
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdAMTSupported
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+  

@@ -1,0 +1,75 @@
+## @file
+#  Component description file for PCH USB PEIM
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+#
+# This file contains a 'Sample Driver' and is licensed as such
+# under the terms of your license agreement with Intel or your
+# vendor.  This file may be modified by the user, subject to  
+# the additional terms of the license agreement               
+#
+#/*++
+#
+# Copyright (c) 2009 - 2012 Intel Corporation. All rights reserved
+# This software and associated documentation (if any) is furnished
+# under a license and may only be used or copied in accordance
+# with the terms of the license. Except as permitted by such
+# license, no part of this software or documentation may be
+# reproduced, stored in a retrieval system, or transmitted in any
+# form or by any means without the express written consent of
+# Intel Corporation.
+#
+# Module Name:
+#
+#   PchUsb.inf
+#
+# Abstract:
+#
+#   Component description file for PCH USB PEIM
+#
+#--*/
+
+[defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = PchUsb
+  FILE_GUID            = 6B4FDBD2-47E1-4a09-BA8E-8E041F208B95
+  MODULE_TYPE          = PEIM
+  VERSION_STRING       = 1.0
+  ENTRY_POINT          = InitializePchUsb  
+
+[Sources]
+  PchEhci.c
+  PchUsb.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PchPlatformLib
+  
+[Guids]
+
+[Ppis]
+  gPchUsbPolicyPpiGuid
+  
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+    
+[Depex]     
+  gEfiPeiLoadFilePpiGuid AND
+  gEfiPeiMasterBootModePpiGuid AND
+  gPchUsbPolicyPpiGuid

@@ -1,0 +1,56 @@
+## @file
+#  Component description file for AspmOverrideDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AspmOverrideDxe
+  FILE_GUID                      = A8913EC1-C00C-4c3a-A245-077C0CA35738
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = AspmOverrideEntryPoint
+
+[Sources]
+  AspmOverrideDxe.c
+  AspmOverrideDxe.h
+ 
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  
+[LibraryClasses]
+  IoLib
+  DebugLib
+  UefiLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  PciExpressLib
+  SmmOemSvcKernelLibDefault 
+
+[Protocols]
+  gEfiOverrideAspmProtocolGuid
+  gEfiSmmRuntimeProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmControl2ProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPcieAspmDevs
+
+[Depex]
+  <SMM_DEPEX>
+  gEfiSmmSwDispatch2ProtocolGuid
+

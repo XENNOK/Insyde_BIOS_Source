@@ -1,0 +1,33 @@
+## @file
+#  Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[FV.RECOVERYFV]
+
+INF InsydeFrameworkModulePkg/Compatibility/PeiSmbus2OnPeiSmbusThunk/PeiSmbus2OnPeiSmbusThunk.inf
+INF InsydeFrameworkModulePkg/Compatibility/FvFileLoaderOnLoadFileThunk/FvFileLoaderOnLoadFileThunk.inf
+INF InsydeFrameworkModulePkg/Compatibility/PeiOemServicesThunk/PeiOemServicesThunk.inf
+
+[FV.DXEFV]
+
+INF InsydeFrameworkModulePkg/Compatibility/SmmRuntime/SmmRuntime.inf
+INF InsydeFrameworkModulePkg/Compatibility/ChipsetLibServices/Dxe/ChipsetLibServicesDxe.inf
+INF InsydeFrameworkModulePkg/Compatibility/ChipsetLibServices/Smm/ChipsetLibServicesSmm.inf
+
+INF InsydeFrameworkModulePkg/Compatibility/SmmUsbDispatch2OnSmmUsbDispatchThunk/SmmUsbDispatch2OnSmmUsbDispatchThunk.inf
+INF InsydeFrameworkModulePkg/Compatibility/PiSmbiosRecordOnDataHubRecordThunk/PiSmbiosRecordOnDataHubRecordThunk.inf
+INF InsydeFrameworkModulePkg/Compatibility/SmmSwDispatch2OnSmmSwDispatchThunk/SmmSwDispatch2OnSmmSwDispatchThunk.inf
+INF InsydeFrameworkModulePkg/Compatibility/PiSmmStatusCodeThunk/PiSmmStatusCodeThunk.inf
+INF InsydeFrameworkModulePkg/Compatibility/DxeOemServicesThunk/DxeOemServicesThunk.inf
+INF InsydeFrameworkModulePkg/Compatibility/SmmOemServicesThunk/SmmOemServicesThunk.inf
+
+

@@ -1,0 +1,339 @@
+## @file
+#  Package declaration file for InsydeFlashDevicePkg
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = InsydeFlashDevicePkg
+  PACKAGE_GUID                   = B3101206-1B2B-4893-9855-62098C71D0D0
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+
+[Guids]
+  gH2OFlashDeviceGuid                 = { 0xcbdef572, 0x719d, 0x426e, {0x8a, 0x43, 0x75, 0xae, 0x91, 0x3c, 0xff, 0xb2}}
+  gH2OFlashDeviceEnableGuid           = { 0x993189c6, 0xdacf, 0x4e29, {0xb9, 0x44, 0xb0, 0x02, 0x3b, 0x6a, 0x1d, 0xa6}}
+  gH2OFlashDeviceMfrNameGuid          = { 0x2f779836, 0x610c, 0x4615, {0xa4, 0x62, 0x54, 0xe7, 0x3e, 0xf1, 0x61, 0x92}}
+  gH2OFlashDevicePartNameGuid         = { 0xe9a68f2a, 0x13f1, 0x4505, {0xb6, 0xa1, 0xe1, 0x82, 0x18, 0x8a, 0xc4, 0x9a}}
+  gH2OFlashDeviceConfigGuid           = { 0xec17a54e, 0xfec1, 0x431b, {0xad, 0x9c, 0xb4, 0xf0, 0xbc, 0x6e, 0x2e, 0x56}}
+  gH2OFlashMemoryMappedGuid           = { 0x4a71b316, 0x7027, 0x48a1, {0xa2, 0x60, 0xdd, 0x91, 0x31, 0x75, 0xfe, 0x64}}
+
+[Ppis]
+  gH2OFlashPpiGuid                    = { 0x2f893559, 0xbf26, 0x4cad, {0xa4, 0x6b, 0x7d, 0x48, 0xdc, 0x70, 0x22, 0xaf}}
+
+[Protocols]
+  gH2OFlashProtocolGuid               = { 0xd6ba94d6, 0xa5c7, 0x4180, {0x9c, 0x73, 0x58, 0x15, 0xd4, 0xf6, 0xd4, 0x1d}}
+  gH2OSmmFlashProtocolGuid            = { 0x0e54d9d0, 0x6288, 0x48e1, {0x99, 0xbc, 0xa7, 0x02, 0x80, 0x12, 0xfd, 0x6e}}
+
+[PcdsFeatureFlag]
+  #
+  # Flash device technology group enable/disable PCDs
+  #
+  gH2OFlashDeviceGuid.PcdLpcEnable|FALSE|BOOLEAN|0x01000001
+  gH2OFlashDeviceGuid.PcdSpiEnable|TRUE|BOOLEAN|0x01000002
+
+  #
+  # Manufacturer group enable/disable PCDs
+  #
+  gH2OFlashDeviceGuid.PcdSstEnable|TRUE|BOOLEAN|0x02000001
+  gH2OFlashDeviceGuid.PcdAtmelEnable|TRUE|BOOLEAN|0x02000002
+  gH2OFlashDeviceGuid.PcdWinbondEnable|TRUE|BOOLEAN|0x02000003
+  gH2OFlashDeviceGuid.PcdMxicEnable|TRUE|BOOLEAN|0x02000004
+  gH2OFlashDeviceGuid.PcdIntelEnable|TRUE|BOOLEAN|0x02000005
+  gH2OFlashDeviceGuid.PcdStEnable|TRUE|BOOLEAN|0x02000006
+  gH2OFlashDeviceGuid.PcdPmcEnable|TRUE|BOOLEAN|0x02000007
+  gH2OFlashDeviceGuid.PcdGdEnable|TRUE|BOOLEAN|0x02000008
+
+  #
+  # Individual Flash Device enable/disable PCDs
+  #
+  gH2OFlashDeviceEnableGuid.PcdSst25lf040SpiEnable|TRUE|BOOLEAN|0x000040BF
+  gH2OFlashDeviceEnableGuid.PcdSst25lf040aSpiEnable|TRUE|BOOLEAN|0x000044BF
+  gH2OFlashDeviceEnableGuid.PcdSst25lf080aSpiEnable|TRUE|BOOLEAN|0x000080BF
+  gH2OFlashDeviceEnableGuid.PcdSst25vf080bSpiEnable|TRUE|BOOLEAN|0x008E25BF
+  gH2OFlashDeviceEnableGuid.PcdSst25vf016bSpiEnable|TRUE|BOOLEAN|0x000041BF
+  gH2OFlashDeviceEnableGuid.PcdAtmel25df041SpiEnable|TRUE|BOOLEAN|0x0000441F
+  gH2OFlashDeviceEnableGuid.PcdAtmel25df081aSpiEnable|TRUE|BOOLEAN|0x0000451F
+  gH2OFlashDeviceEnableGuid.PcdAtmel26df161SpiEnable|TRUE|BOOLEAN|0x0000461F
+  gH2OFlashDeviceEnableGuid.PcdAtmel26df321SpiEnable|TRUE|BOOLEAN|0x0000471F
+  gH2OFlashDeviceEnableGuid.PcdWinbondW25q64bvSpiEnable|TRUE|BOOLEAN|0x001740EF
+  gH2OFlashDeviceEnableGuid.PcdWinbondW25q128bvSpiEnable|TRUE|BOOLEAN|0x001840EF
+  gH2OFlashDeviceEnableGuid.PcdAtmel25df641SpiEnable|TRUE|BOOLEAN|0x0000481F
+  gH2OFlashDeviceEnableGuid.PcdMxic25l8005SpiEnable|TRUE|BOOLEAN|0x001420C2
+  gH2OFlashDeviceEnableGuid.PcdMxic25l1605aSpiEnable|TRUE|BOOLEAN|0x001520C2
+  gH2OFlashDeviceEnableGuid.PcdMxic25l6405dSpiEnable|TRUE|BOOLEAN|0x001720C2
+  gH2OFlashDeviceEnableGuid.PcdMxic25l12805dSpiEnable|TRUE|BOOLEAN|0x001820C2
+  gH2OFlashDeviceEnableGuid.PcdMxic25l25635eSpiEnable|TRUE|BOOLEAN|0x001920C2
+  gH2OFlashDeviceEnableGuid.PcdMxic25u6435fSpiEnable|TRUE|BOOLEAN|0x003725C2
+  gH2OFlashDeviceEnableGuid.PcdStM25pe80SpiEnable|TRUE|BOOLEAN|0x00148020
+  gH2OFlashDeviceEnableGuid.PcdPmc25lv040SpiEnable|TRUE|BOOLEAN|0x00007E9D
+  gH2OFlashDeviceEnableGuid.PcdGd25lq16SpiEnable|TRUE|BOOLEAN|0x001560C8
+  gH2OFlashDeviceEnableGuid.PcdGd25lq64cSpiEnable|TRUE|BOOLEAN|0x001760C8
+  gH2OFlashDeviceEnableGuid.PcdSst49lf008aLpcEnable|TRUE|BOOLEAN|0x00005ABF
+  gH2OFlashDeviceEnableGuid.PcdSst39vf080LpcEnable|TRUE|BOOLEAN|0x0000D8BF
+  gH2OFlashDeviceEnableGuid.PcdIntel82802acLpcEnable|TRUE|BOOLEAN|0x0000AC89
+  gH2OFlashDeviceEnableGuid.PcdSst49lf004aLpcEnable|TRUE|BOOLEAN|0x000060BF
+  gH2OFlashDeviceEnableGuid.PcdPmc49fl004tLpcEnable|TRUE|BOOLEAN|0x00006E9D
+  gH2OFlashDeviceEnableGuid.PcdWinbond39v040fpaLpcEnable|TRUE|BOOLEAN|0x000034DA
+  gH2OFlashDeviceEnableGuid.PcdSt50flw040aLpcEnable|TRUE|BOOLEAN|0x00000820
+  gH2OFlashDeviceEnableGuid.PcdCommonvidCommondidSpiEnable|FALSE|BOOLEAN|0x12345678
+
+[PcdsDynamic]
+  gH2OFlashDeviceGuid.PcdActiveFlashDeviceId|0x00000000|UINT32|0x20000001
+
+[PcdsDynamicEx]
+
+  #
+  # SST 25LF040
+  #
+  gH2OFlashDeviceGuid.PcdSst25lf040Spi|{0}|VOID*|0x000040BF
+  gH2OFlashDeviceMfrNameGuid.PcdSst25lf040SpiMfrName|"SST"|VOID*|0x000040BF
+  gH2OFlashDevicePartNameGuid.PcdSst25lf040SpiPartName|"25LF040"|VOID*|0x000040BF
+  gH2OFlashDeviceConfigGuid.PcdSst25lf040SpiConfig|{0}|VOID*|0x000040BF
+
+  #
+  # SST 25LF040A
+  #
+  gH2OFlashDeviceGuid.PcdSst25lf040aSpi|{0}|VOID*|0x000044BF
+  gH2OFlashDeviceMfrNameGuid.PcdSst25lf040aSpiMfrName|"SST"|VOID*|0x000044BF
+  gH2OFlashDevicePartNameGuid.PcdSst25lf040aSpiPartName|"25LF040A"|VOID*|0x000044BF
+  gH2OFlashDeviceConfigGuid.PcdSst25lf040aSpiConfig|{0}|VOID*|0x000044BF
+
+  #
+  # SST 25LF080A
+  #
+  gH2OFlashDeviceGuid.PcdSst25lf080aSpi|{0}|VOID*|0x000080BF
+  gH2OFlashDeviceMfrNameGuid.PcdSst25lf080aSpiMfrName|"SST"|VOID*|0x000080BF
+  gH2OFlashDevicePartNameGuid.PcdSst25lf080aSpiPartName|"25LF080A"|VOID*|0x000080BF
+  gH2OFlashDeviceConfigGuid.PcdSst25lf080aSpiConfig|{0}|VOID*|0x000080BF
+
+  #
+  # SST 25VF080B
+  #
+  gH2OFlashDeviceGuid.PcdSst25vf080bSpi|{0}|VOID*|0x008E25BF
+  gH2OFlashDeviceMfrNameGuid.PcdSst25vf080bSpiMfrName|"SST"|VOID*|0x008E25BF
+  gH2OFlashDevicePartNameGuid.PcdSst25vf080bSpiPartName|"25VF080B"|VOID*|0x008E25BF
+  gH2OFlashDeviceConfigGuid.PcdSst25vf080bSpiConfig|{0}|VOID*|0x008E25BF
+
+  #
+  # SST 25VF016B
+  #
+  gH2OFlashDeviceGuid.PcdSst25vf016bSpi|{0}|VOID*|0x000041BF
+  gH2OFlashDeviceMfrNameGuid.PcdSst25vf016bSpiMfrName|"SST"|VOID*|0x000041BF
+  gH2OFlashDevicePartNameGuid.PcdSst25vf016bSpiPartName|"25VF016B"|VOID*|0x000041BF
+  gH2OFlashDeviceConfigGuid.PcdSst25vf016bSpiConfig|{0}|VOID*|0x000041BF
+
+  #
+  # ATMEL 25DF041
+  #
+  gH2OFlashDeviceGuid.PcdAtmel25df041Spi|{0}|VOID*|0x0000441F
+  gH2OFlashDeviceMfrNameGuid.PcdAtmel25df041SpiMfrName|"ATMEL"|VOID*|0x0000441F
+  gH2OFlashDevicePartNameGuid.PcdAtmel25df041SpiPartName|"25DF041"|VOID*|0x0000441F
+  gH2OFlashDeviceConfigGuid.PcdAtmel25df041SpiConfig|{0}|VOID*|0x0000441F
+
+  #
+  # ATMEL 25DF081A
+  #
+  gH2OFlashDeviceGuid.PcdAtmel25df081aSpi|{0}|VOID*|0x0000451F
+  gH2OFlashDeviceMfrNameGuid.PcdAtmel25df081aSpiMfrName|"ATMEL"|VOID*|0x0000451F
+  gH2OFlashDevicePartNameGuid.PcdAtmel25df081aSpiPartName|"25DF081A"|VOID*|0x0000451F
+  gH2OFlashDeviceConfigGuid.PcdAtmel25df081aSpiConfig|{0}|VOID*|0x0000451F
+
+  #
+  # ATMEL 26DF161
+  #
+  gH2OFlashDeviceGuid.PcdAtmel26df161Spi|{0}|VOID*|0x0000461F
+  gH2OFlashDeviceMfrNameGuid.PcdAtmel26df161SpiMfrName|"ATMEL"|VOID*|0x0000461F
+  gH2OFlashDevicePartNameGuid.PcdAtmel26df161SpiPartName|"26DF161"|VOID*|0x0000461F
+  gH2OFlashDeviceConfigGuid.PcdAtmel26df161SpiConfig|{0}|VOID*|0x0000461F
+
+  #
+  # ATMEL 26DF321
+  #
+  gH2OFlashDeviceGuid.PcdAtmel26df321Spi|{0}|VOID*|0x0000471F
+  gH2OFlashDeviceMfrNameGuid.PcdAtmel26df321SpiMfrName|"ATMEL"|VOID*|0x0000471F
+  gH2OFlashDevicePartNameGuid.PcdAtmel26df321SpiPartName|"26DF321"|VOID*|0x0000471F
+  gH2OFlashDeviceConfigGuid.PcdAtmel26df321SpiConfig|{0}|VOID*|0x0000471F
+
+  #
+  # ATMEL 25DF641
+  #
+  gH2OFlashDeviceGuid.PcdAtmel25df641Spi|{0}|VOID*|0x0000481F
+  gH2OFlashDeviceMfrNameGuid.PcdAtmel25df641SpiMfrName|"ATMEL"|VOID*|0x0000481F
+  gH2OFlashDevicePartNameGuid.PcdAtmel25df641SpiPartName|"25DF641"|VOID*|0x0000481F
+  gH2OFlashDeviceConfigGuid.PcdAtmel25df641SpiConfig|{0}|VOID*|0x0000481F
+
+  #
+  # WINBOND W25Q64BV
+  #
+  gH2OFlashDeviceGuid.PcdWinbondW25q64bvSpi|{0}|VOID*|0x001740EF
+  gH2OFlashDeviceMfrNameGuid.PcdWinbondW25q64bvSpiMfrName|"WINBOND"|VOID*|0x001740EF
+  gH2OFlashDevicePartNameGuid.PcdWinbondW25q64bvSpiPartName|"W25Q64BV"|VOID*|0x001740EF
+  gH2OFlashDeviceConfigGuid.PcdWinbondW25q64bvSpiConfig|{0}|VOID*|0x001740EF
+
+  #
+  # WINBOND W25Q128BV
+  #
+  gH2OFlashDeviceGuid.PcdWinbondW25q128bvSpi|{0}|VOID*|0x001840EF
+  gH2OFlashDeviceMfrNameGuid.PcdWinbondW25q128bvSpiMfrName|"WINBOND"|VOID*|0x001840EF
+  gH2OFlashDevicePartNameGuid.PcdWinbondW25q128bvSpiPartName|"W25Q128BV"|VOID*|0x001840EF
+  gH2OFlashDeviceConfigGuid.PcdWinbondW25q128bvSpiConfig|{0}|VOID*|0x001840EF
+
+  #
+  # MXIC 25L8005
+  #
+  gH2OFlashDeviceGuid.PcdMxic25l8005Spi|{0}|VOID*|0x001420C2
+  gH2OFlashDeviceMfrNameGuid.PcdMxic25l8005SpiMfrName|"MXIC"|VOID*|0x001420C2
+  gH2OFlashDevicePartNameGuid.PcdMxic25l8005SpiPartName|"25L8005"|VOID*|0x001420C2
+  gH2OFlashDeviceConfigGuid.PcdMxic25l8005SpiConfig|{0}|VOID*|0x001420C2
+
+  #
+  # MXIC 25L1605A
+  #
+  gH2OFlashDeviceGuid.PcdMxic25l1605aSpi|{0}|VOID*|0x001520C2
+  gH2OFlashDeviceMfrNameGuid.PcdMxic25l1605aSpiMfrName|"MXIC"|VOID*|0x001520C2
+  gH2OFlashDevicePartNameGuid.PcdMxic25l1605aSpiPartName|"25L1605A"|VOID*|0x001520C2
+  gH2OFlashDeviceConfigGuid.PcdMxic25l1605aSpiConfig|{0}|VOID*|0x001520C2
+
+  #
+  # MXIC 25L16405D
+  #
+  gH2OFlashDeviceGuid.PcdMxic25l6405dSpi|{0}|VOID*|0x001720C2
+  gH2OFlashDeviceMfrNameGuid.PcdMxic25l6405dSpiMfrName|"MXIC"|VOID*|0x001720C2
+  gH2OFlashDevicePartNameGuid.PcdMxic25l6405dSpiPartName|"25L16405D"|VOID*|0x001720C2
+  gH2OFlashDeviceConfigGuid.PcdMxic25l6405dSpiConfig|{0}|VOID*|0x001720C2
+
+  #
+  # MXIC 25L112805D
+  #
+  gH2OFlashDeviceGuid.PcdMxic25l12805dSpi|{0}|VOID*|0x001820C2
+  gH2OFlashDeviceMfrNameGuid.PcdMxic25l12805dSpiMfrName|"MXIC"|VOID*|0x001820C2
+  gH2OFlashDevicePartNameGuid.PcdMxic25l12805dSpiPartName|"25L112805D"|VOID*|0x001820C2
+  gH2OFlashDeviceConfigGuid.PcdMxic25l12805dSpiConfig|{0}|VOID*|0x001820C2
+
+  #
+  # MXIC 25L125635E
+  #
+  gH2OFlashDeviceGuid.PcdMxic25l25635eSpi|{0}|VOID*|0x001920C2
+  gH2OFlashDeviceMfrNameGuid.PcdMxic25l25635eSpiMfrName|"MXIC"|VOID*|0x001920C2
+  gH2OFlashDevicePartNameGuid.PcdMxic25l25635eSpiPartName|"25L125635E"|VOID*|0x001920C2
+  gH2OFlashDeviceConfigGuid.PcdMxic25l25635eSpiConfig|{0}|VOID*|0x001920C2
+
+  #
+  # MXIC 25U6435F
+  #
+  gH2OFlashDeviceGuid.PcdMxic25u6435fSpi|{0}|VOID*|0x003725C2
+  gH2OFlashDeviceMfrNameGuid.PcdMxic25u6435fSpiMfrName|"MXIC"|VOID*|0x003725C2
+  gH2OFlashDevicePartNameGuid.PcdMxic25u6435fSpiPartName|"25U6435F"|VOID*|0x003725C2
+  gH2OFlashDeviceConfigGuid.PcdMxic25u6435fSpiConfig|{0}|VOID*|0x003725C2
+
+  #
+  # ST M25PE80
+  #
+  gH2OFlashDeviceGuid.PcdStM25pe80Spi|{0}|VOID*|0x00148020
+  gH2OFlashDeviceMfrNameGuid.PcdStM25pe80SpiMfrName|"ST"|VOID*|0x00148020
+  gH2OFlashDevicePartNameGuid.PcdStM25pe80SpiPartName|"M25PE80"|VOID*|0x00148020
+  gH2OFlashDeviceConfigGuid.PcdStM25pe80SpiConfig|{0}|VOID*|0x00148020
+
+  #
+  # PMC 25LV040
+  #
+  gH2OFlashDeviceGuid.PcdPmc25lv040Spi|{0}|VOID*|0x00007E9D
+  gH2OFlashDeviceMfrNameGuid.PcdPmc25lv040SpiMfrName|"PMC"|VOID*|0x00007E9D
+  gH2OFlashDevicePartNameGuid.PcdPmc25lv040SpiPartName|"25LV040"|VOID*|0x00007E9D
+  gH2OFlashDeviceConfigGuid.PcdPmc25lv040SpiConfig|{0}|VOID*|0x00007E9D
+
+  #
+  # GD 25LQ16
+  #
+  gH2OFlashDeviceGuid.PcdGd25lq16Spi|{0}|VOID*|0x001560C8
+  gH2OFlashDeviceMfrNameGuid.PcdGd25lq16SpiMfrName|"GD"|VOID*|0x001560C8
+  gH2OFlashDevicePartNameGuid.PcdGd25lq16SpiPartName|"25LQ16"|VOID*|0x001560C8
+  gH2OFlashDeviceConfigGuid.PcdGd25lq16SpiConfig|{0}|VOID*|0x001560C8
+
+  #
+  # GD 25LQ64C
+  #
+  gH2OFlashDeviceGuid.PcdGd25lq64cSpi|{0}|VOID*|0x001760C8
+  gH2OFlashDeviceMfrNameGuid.PcdGd25lq64cSpiMfrName|"GD"|VOID*|0x001760C8
+  gH2OFlashDevicePartNameGuid.PcdGd25lq64cSpiPartName|"25LQ64C"|VOID*|0x001760C8
+  gH2OFlashDeviceConfigGuid.PcdGd25lq64cSpiConfig|{0}|VOID*|0x001760C8
+
+  #
+  # Common SPI
+  #
+  gH2OFlashDeviceGuid.PcdCommonvidCommondidSpi|{0}|VOID*|0x12345678
+  gH2OFlashDeviceMfrNameGuid.PcdCommonvidCommondidSpiMfrName|"COMMONVID"|VOID*|0x12345678
+  gH2OFlashDevicePartNameGuid.PcdCommonvidCommondidSpiPartName|"COMMONDID"|VOID*|0x12345678
+  gH2OFlashDeviceConfigGuid.PcdCommonvidCommondidSpiConfig|{0}|VOID*|0x12345678
+
+  #
+  # SST 49LF008A
+  #
+  gH2OFlashDeviceGuid.PcdSst49lf008aLpc|{0}|VOID*|0x00005ABF
+  gH2OFlashDeviceMfrNameGuid.PcdSst49lf008aLpcMfrName|"SST"|VOID*|0x00005ABF
+  gH2OFlashDevicePartNameGuid.PcdSst49lf008aLpcPartName|"49LF008A"|VOID*|0x00005ABF
+  gH2OFlashDeviceConfigGuid.PcdSst49lf008aLpcConfig|{0}|VOID*|0x00005ABF
+
+  #
+  # SST 39VF080
+  #
+  gH2OFlashDeviceGuid.PcdSst39vf080Lpc|{0}|VOID*|0x0000D8BF
+  gH2OFlashDeviceMfrNameGuid.PcdSst39vf080LpcMfrName|"SST"|VOID*|0x0000D8BF
+  gH2OFlashDevicePartNameGuid.PcdSst39vf080LpcPartName|"39VF080"|VOID*|0x0000D8BF
+  gH2OFlashDeviceConfigGuid.PcdSst39vf080LpcConfig|{0}|VOID*|0x0000D8BF
+
+  #
+  # INTEL 82802AC
+  #
+  gH2OFlashDeviceGuid.PcdIntel82802acLpc|{0}|VOID*|0x0000AC89
+  gH2OFlashDeviceMfrNameGuid.PcdIntel82802acLpcMfrName|"INTEL"|VOID*|0x0000AC89
+  gH2OFlashDevicePartNameGuid.PcdIntel82802acLpcPartName|"82802AC"|VOID*|0x0000AC89
+  gH2OFlashDeviceConfigGuid.PcdIntel82802acLpcConfig|{0}|VOID*|0x0000AC89
+
+  #
+  # SST 49LF004A
+  #
+  gH2OFlashDeviceGuid.PcdSst49lf004aLpc|{0}|VOID*|0x000060BF
+  gH2OFlashDeviceMfrNameGuid.PcdSst49lf004aLpcMfrName|"SST"|VOID*|0x000060BF
+  gH2OFlashDevicePartNameGuid.PcdSst49lf004aLpcPartName|"49LF004A"|VOID*|0x000060BF
+  gH2OFlashDeviceConfigGuid.PcdSst49lf004aLpcConfig|{0}|VOID*|0x000060BF
+
+  #
+  # PMC 49FL004T
+  #
+  gH2OFlashDeviceGuid.PcdPmc49fl004tLpc|{0}|VOID*|0x00006E9D
+  gH2OFlashDeviceMfrNameGuid.PcdPmc49fl004tLpcMfrName|"PMC"|VOID*|0x00006E9D
+  gH2OFlashDevicePartNameGuid.PcdPmc49fl004tLpcPartName|"49FL004T"|VOID*|0x00006E9D
+  gH2OFlashDeviceConfigGuid.PcdPmc49fl004tLpcConfig|{0}|VOID*|0x00006E9D
+
+  #
+  # WINBOND 39V040FPA
+  #
+  gH2OFlashDeviceGuid.PcdWinbond39v040fpaLpc|{0}|VOID*|0x000034DA
+  gH2OFlashDeviceMfrNameGuid.PcdWinbond39v040fpaLpcMfrName|"WINBOND"|VOID*|0x000034DA
+  gH2OFlashDevicePartNameGuid.PcdWinbond39v040fpaLpcPartName|"39V040FPA"|VOID*|0x000034DA
+  gH2OFlashDeviceConfigGuid.PcdWinbond39v040fpaLpcConfig|{0}|VOID*|0x000034DA
+
+  #
+  # ST 50FLW40A
+  #
+  gH2OFlashDeviceGuid.PcdSt50flw040aLpc|{0}|VOID*|0x00000820
+  gH2OFlashDeviceMfrNameGuid.PcdSt50flw040aLpcMfrName|"ST"|VOID*|0x00000820
+  gH2OFlashDevicePartNameGuid.PcdSt50flw040aLpcPartName|"50FLW040A"|VOID*|0x00000820
+  gH2OFlashDeviceConfigGuid.PcdSt50flw040aLpcConfig|{0}|VOID*|0x00000820
+
+[PcdsFixedAtBuild,PcdsPatchableInModule,PcdsDynamic, PcdsDynamicEx]
+  gH2OFlashDeviceGuid.PcdFlashAccessMap|{0}|VOID*|0x30000001

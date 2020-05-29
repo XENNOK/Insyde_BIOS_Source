@@ -1,0 +1,295 @@
+## @file
+#  PlatformBdsLib
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+##
+#
+#  Provide NULL implementation for PlatformBdsLib library class interfaces which
+#  should be implemented by OEM.
+#
+#  Copyright (c) 2007 - 2010, Intel Corporation. All rights reserved.<BR>
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License
+#  which accompanies this distribution.  The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.php
+#
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PlatformBdsLib
+  FILE_GUID                      = 143B5044-7C1B-4904-9778-EA16F1F3D554
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PlatformBdsLib|DXE_DRIVER
+  CONSTRUCTOR                    = PlatformBdsLibConstructor
+
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  Images/Animation.ani
+  Images/GraphicsContinue.gif
+  Images/GraphicsSCU.gif
+  Images/GraphicsBootManager.gif
+  Images/GraphicsDeviceManagement.gif
+  Images/GraphicsBootFromFile.gif
+  Images/GraphicsBackground.gif
+  Images/GraphicsSecureBootOption.gif
+  Images/Continue.gif
+  Images/SCU.gif
+  Images/BootManager.gif
+  Images/DeviceManagement.gif
+  Images/BootFromFile.gif
+  Images/SecureBootOption.gif
+#[-start-120626-IB03530375-modify]#
+  Images/MEBx.gif
+  Images/PlatformAnimation.ani
+#[-end-120626-IB03530375-modify]#
+  Images/Image.idf
+  Images/PlatformImage.idf
+#[-start-121029-IB04770247-add]#
+  Isvt.asm
+#[-end-121029-IB04770247-add]#
+
+  BdsPlatformStrings.uni
+  Strings.uni
+  BootDevicesDisplayStrings.uni
+  BdsPlatform.h
+
+  BdsPlatform.c
+  PlatformData.c
+  OemHotKey.c
+  OemBootDisplayDevice.c
+  BootDevicesDisplay.c
+  VideoOutputPortSelection.c
+  String.c
+
+  FrontPage.c
+  FrontPage.h
+  FrontPageVfr.Vfr
+  FrontPageStrings.uni
+
+#[-start-120626-IB03530375-modify]#
+#[-start-131204-IB09740048-remove]#
+  #BdsCR.c
+  #BdsCR.h
+#[-end-131204-IB09740048-remove]#
+  AsfSupport.c
+  AsfSupport.h
+#[-end-120626-IB03530375-modify]#
+
+#[-start-140321-IB10300105-add]#
+ BiosFlashFunc.c
+#[-end-140321-IB10300105-add]#
+
+[Packages]
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  #[-start-140514-IB10300110-add]#
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+#[-end-140514-IB10300110-add]#
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  #[-start-131202-IB09740048-add]#
+  InsydeCrPkg/InsydeCrPkg.dec
+  #[-end-131202-IB09740048-add]#
+
+[LibraryClasses]
+  BaseLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  BaseMemoryLib
+  DebugLib
+  PcdLib
+  GenericBdsLib
+  GenericUtilityLib
+  UefiLib
+  HiiLib
+  ReportStatusCodeLib
+  PrintLib
+  PerformanceLib
+  HobLib
+  DevicePathLib
+  OemGraphicsLib
+  PostCodeLib
+  IoLib
+#[-start-120625-IB03530375-modify]#
+  AmtLib
+  DxeServicesLib
+#[-end-120625-IB03530375-modify]#
+  DxeOemSvcKernelLibDefault
+#[-start-130403-IB09720138-add]#
+  FlashDevicesLib
+#[-end-130403-IB09720138-add]#
+#[-start-131011-IB05400449-add]#
+  DxeIpmiBdsLib
+#[-end-131011-IB05400449-add]#
+#[-start-140514-IB10300110-add]#
+  WatchDogLib
+#[-end-140514-IB10300110-add]#
+
+[Guids]
+  gFrontPageFormSetGuid
+  gEfiIfrTianoGuid
+  gBootMaintFormSetGuid
+  gFileExploreFormSetGuid
+  gEfiGlobalVariableGuid
+  gEfiGenericVariableGuid
+  gEfiCapsuleVendorGuid
+  gFdTableInfoHobGuid
+  gEfiRecoveryFileAddressGuid
+#[-start-130516-12360009-add]#
+  gEfiAcpi20TableGuid
+  gEfiAcpiTableGuid
+#[-end-130516-12360009-add]#
+
+[Protocols]
+  gEfiLegacyRegionProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiHiiConfigAccessProtocolGuid
+  gEfiSmbiosProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiBootLogoProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  gConOutDevStartedProtocolGuid
+  gExitPmAuthProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gPlatformGopPolicyProtocolGuid
+  gEfiOEMBadgingSupportProtocolGuid
+#[-start-130403-IB09720138-remove]#
+#   gChipsetLibServicesProtocolGuid
+#[-end-130403-IB09720138-remove]#
+  gEfiUgaSplashProtocolGuid
+  gEfiConsoleControlProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gH2ODialogProtocolGuid
+  gEfiSkipScanRemovableDevProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiIsaAcpiProtocolGuid
+  gEfiMsioIsaAcpiProtocolGuid
+  gEfiSerialIoProtocolGuid
+  gTerminalEscCodeProtocolGuid
+  gEfiAlertStandardFormatProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+  gEfiSimpleNetworkProtocolGuid
+  gEfiLoadFileProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiDiskInfoProtocolGuid
+  gEfiIderControllerDriverProtocolGuid
+  gEfiAcpiS3SaveProtocolGuid
+  gEfiCRPolicyProtocolGuid
+  gConsoleRedirectionServiceProtocolGuid
+  gCRBdsHookProtocolGuid
+#[-start-120625-IB03530375-modify]#
+  gDxePlatformAmtPolicyGuid
+  gEfiFirmwareVolumeProtocolGuid
+  gMeBiosPayloadDataProtocolGuid
+  gDxePlatformMePolicyGuid
+#[-end-120625-IB03530375-modify]#
+#[-start-130218-IB07250301-add]#
+  gH2OSwitchableGraphicsEventProtocolGuid
+#[-end-130218-IB07250301-add]#
+#[-start-120914-IB04320202-modify]#
+  gAlertAtHandlerGuid
+#[-end-120914-IB04320202-modify]#
+#[-start-130401-IB06690222-add]#
+  gEfiDxeSmmReadyToLockProtocolGuid             # PROTOCOL PRODUCED
+#[-end-130401-IB06690222-add]#
+#[-start-130625-IB11120016-add]#
+  gStartOfShadowRomProtocolGuid
+  gEndOfShadowRomProtocolGuid
+  gStartOfFrontPageProtocolGuid
+  gEndOfFrontPageProtocolGuid
+#[-end-130625-IB11120016-add]#
+#[-start-140416-IB09740077-add]#
+  gCrSrvManagerProtocolGuid
+#[-end-140416-IB09740077-add]#
+
+#[-start-140321-IB10300105-add]#
+  gFileSelectUIProtocolGuid
+  gInternalFlashBiosProtocolGuid
+  gBiosFlashUIProtocolGuid
+#[-end-140321-IB10300105-add]#
+
+#[-start-140514-IB10300110-add]#
+  gH2OEventLogProtocolGuid
+  gWatchDogHookProtocolGuid
+#[-end-140514-IB10300110-add]#
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdBootLogoOnlyEnable
+  gInsydeTokenSpaceGuid.PcdFrontPageSupported
+  gInsydeTokenSpaceGuid.PcdH2OConsoleRedirectionSupported
+#[-start-120625-IB03530375-add]#
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+  gChipsetPkgTokenSpaceGuid.PcdMrcRmt
+  gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+#[-end-120625-IB03530375-add]#
+  gChipsetPkgTokenSpaceGuid.PcdCommonSpiSupported
+#[-start-130218-IB07250301-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSwitchableGraphicsSupported
+#[-end-130218-IB07250301-add]#
+#[-start-140225-IB10920078-add]#
+  gChipsetPkgTokenSpaceGuid.PcdIntelSwitchableGraphicsSupported
+#[-end-140225-IB10920078-add]#
+#[-start-130121-IB05280036-add]#
+  gChipsetPkgTokenSpaceGuid.PcdAntiTheftSupported
+#[-end-130121-IB05280036-add]#
+#[-start-130204-IB10820230-add]#
+  gChipsetPkgTokenSpaceGuid.PcdQ2LServiceSupport
+#[-end-130204-IB10820230-add]#
+#[-start-130411-IB09720138-add]#
+  gChipsetPkgTokenSpaceGuid.PcdDisplaySpiNotSupport
+#[-end-130411-IB09720138-add]#
+#[-start-130812-IB05670190-add]#
+  gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+#[-end-130812-IB05670190-add]#
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserSupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+#[-start-140321-IB10300105-add]#
+  gInsydeTokenSpaceGuid.PcdHotKeyFlashSupported
+#[-end-140321-IB10300105-add]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLangCodes
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLang
+  gEfiIntelFrameworkModulePkgTokenSpaceGuid.PcdShellFile
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+#[-start-130618-IB05400417-add]#
+  gChipsetPkgTokenSpaceGuid.PcdHeadlessSystem
+#[-end-130618-IB05400417-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+#[-start-140512-IB10300110-add]#
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogMask
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+#[-end-140512-IB10300110-add]#
+
+[BuildOptions]
+  MSFT:*_*_*_VFRPP_FLAGS = /FI$(MODULE_NAME)IdfDefs.h /FI$(MODULE_NAME)AniDefs.h
+  GCC:*_*_*_VFRPP_FLAGS  = --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)IdfDefs.h --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)AniDefs.h
+

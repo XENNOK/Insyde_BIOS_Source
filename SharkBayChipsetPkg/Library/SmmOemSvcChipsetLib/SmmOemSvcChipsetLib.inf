@@ -1,0 +1,56 @@
+## @file
+#  Component description file for Smm OEM Services Chipset Lib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+#[-start-121107-IB10820153-modify]#
+  BASE_NAME                      = SmmOemSvcChipsetLib
+#[-end-121107-IB10820153-modify]#
+  FILE_GUID                      = DBC5E61B-263B-4f82-90D0-B8A02F3EB504
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+#[-start-121107-IB10820153-modify]#
+  LIBRARY_CLASS                  = SmmOemSvcChipsetLib|DXE_SMM_DRIVER SMM_CORE
+#[-end-121107-IB10820153-modify]#
+
+[Sources]
+  OemSvcGetSaveRestorePciDeviceOemList.c
+#[-start-121113-IB10820163-add]#
+  OemSvcVbiosHookCallBack.c
+#[-end-121113-IB10820163-add]#
+#[-start-130125-IB10820224-add]#
+  OemSvcIhisiS10HookGetAcStatus.c
+  OemSvcIhisiS10HookGetBatterylife.c
+  OemSvcIhisiS10HookGetPermission.c
+  OemSvcIhisiS11HookFbtsApCheck.c
+  OemSvcIhisiS12HookGetOemFlashMap.c
+  OemSvcIhisiS20HookFetsDoBeforeFlashing.c
+  OemSvcIhisiS20HookFetsDoAfterFlashing.c
+  OemSvcIhisiS20HookFetsEcFlash.c
+  OemSvcIhisiS20HookFetsEcIdle.c
+  OemSvcIhisiS21HookFetsGetPartInfo.c
+  OemSvcIhisiS41T1VbiosFunction.c
+  OemSvcIhisiS41T54LogoUpdateFunction.c
+  OemSvcIhisiS41T55CheckBiosSignBySystemBiosFunction.c
+  OemSvcIhisiS41ReservedFunction.c
+  OemSvcIhisiS41T50HookOa30ReadWriteFunction.c
+#[-end-130125-IB10820224-add]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-start-121113-IB10820163-add]#
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+#[-end-121113-IB10820163-add]#

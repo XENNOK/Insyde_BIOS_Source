@@ -1,0 +1,27 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = NvidiaUltOptimusSsdt
+  FILE_GUID                      = 7A614C58-7DF7-4423-B243-094CD6125A44
+  MODULE_TYPE                    = USER_DEFINED
+  VERSION_STRING                 = 1.0
+  EDK_RELEASE_VERSION            = 0x00020000
+  EFI_SPECIFICATION_VERSION      = 0x00020000
+
+[Sources.common]
+  NvidiaUltOptimus/NvidiaUltOptimus.asl
+
+[Packages]
+  MdePkg/MdePkg.dec
+  SharkBayChipsetPkg/SharkBayChipsetPkg.dec

@@ -1,0 +1,47 @@
+## @file
+#  Component description file for DXE KSC library.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION              = 0x00010005
+  BASE_NAME                = WatchDogLib
+  FILE_GUID                = 8B9F4B72-8E50-44dc-A166-E7CBFDFFEAA8
+  MODULE_TYPE              = BASE
+  VERSION_STRING           = 1.0
+  LIBRARY_CLASS            = WatchDogLib
+
+[Sources]
+  WatchDogLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  IoLib
+  PcdLib
+  
+[Protocols]
+
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress  
+  gChipsetPkgTokenSpaceGuid.PcdRcbaBaseAddress
+  gInsydeTokenSpaceGuid.PcdH2ODdtSupported
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogMask
+  
+[Depex]
+  

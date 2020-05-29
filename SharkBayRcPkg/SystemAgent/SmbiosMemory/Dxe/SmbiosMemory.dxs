@@ -1,0 +1,58 @@
+/** @file
+  Dependency expression file for the MemorySubClass Driver.
+
+@copyright
+  Copyright (c)  1999 - 2012 Intel Corporation. All rights reserved
+  This software and associated documentation (if any) is furnished
+  under a license and may only be used or copied in accordance
+  with the terms of the license. Except as permitted by such
+  license, no part of this software or documentation may be
+  reproduced, stored in a retrieval system, or transmitted in any
+  form or by any means without the express written consent of
+  Intel Corporation.
+
+  This file contains a 'Sample Driver' and is licensed as such
+  under the terms of your license agreement with Intel or your
+  vendor.  This file may be modified by the user, subject to
+  the additional terms of the license agreement
+
+**/
+
+//
+// Common for R8 and R9 codebase
+//
+#include "AutoGen.h"
+#include "DxeDepex.h"
+
+//
+// BUILD_WITH_GLUELIB and BUILD_WITH_EDKII_GLUE_LIB are both "defined" in R8 codebase;
+// BUILD_WITH_EDKII_GLUE_LIB is defined in Edk-Dev-Snapshot-20070228 and later version
+// BUILD_WITH_GLUELIB and BUILD_WITH_EDKII_GLUE_LIB are "not defined" in R9 codebase.
+//
+#if defined (BUILD_WITH_GLUELIB) || defined (BUILD_WITH_EDKII_GLUE_LIB)
+#include "EfiDepex.h"
+
+#include EFI_PROTOCOL_DEFINITION (DataHub)
+#if (EFI_SPECIFICATION_VERSION >= 0x0002000A)
+#include EFI_PROTOCOL_DEFINITION (HiiDatabase)
+#else
+#include EFI_PROTOCOL_DEFINITION (Hii)
+#endif
+#include EFI_PROTOCOL_DEFINITION (Smbus)
+#include EFI_PROTOCOL_DEFINITION (PciRootBridgeIo)
+#include EFI_PROTOCOL_DEPENDENCY (SaPlatformPolicy)
+#include EFI_PROTOCOL_DEPENDENCY (MemInfo)
+#endif
+
+DEPENDENCY_START
+  EFI_DATA_HUB_PROTOCOL_GUID            AND
+#if (EFI_SPECIFICATION_VERSION >= 0x0002000A)
+    EFI_HII_DATABASE_PROTOCOL_GUID AND
+#else
+    EFI_HII_PROTOCOL_GUID AND
+#endif
+  EFI_SMBUS_HC_PROTOCOL_GUID            AND
+  EFI_PCI_ROOT_BRIDGE_IO_PROTOCOL_GUID  AND
+  DXE_PLATFORM_SA_POLICY_GUID           AND
+  MEM_INFO_PROTOCOL_GUID                
+DEPENDENCY_END

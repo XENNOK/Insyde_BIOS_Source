@@ -1,0 +1,45 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#
+#  Module Name:
+#;  makefile
+#
+#  Abstract:
+#
+#    This file is used to build the EFI utility.
+#
+#--*/
+
+#
+# Common information
+#
+
+!INCLUDE $(BUILD_DIR)\PlatformTools.env
+
+#
+# Build targets
+#
+
+all: PeiBaseCryptLib
+
+#
+# Build EXE
+#
+PeiBaseCryptLib: $(SOURCE_DIR)\PeiBaseCryptLib.lib
+  copy $(SOURCE_DIR)\PeiBaseCryptLib.lib $(BUILD_DIR)\IA32\PeiBaseCryptLib.lib /y
+
+#
+# Build LIB
+#
+
+clean:
+  @if exist $(BUILD_DIR)\IA32\PeiBaseCryptLib.* del /q $(BUILD_DIR)\IA32\PeiBaseCryptLib.* > NUL
+  @if exist $(DEST_DIR)\*.* del /q $(DEST_DIR)\*.* > NUL

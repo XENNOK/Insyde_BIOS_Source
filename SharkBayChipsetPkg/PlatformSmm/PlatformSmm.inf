@@ -1,0 +1,191 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmPlatform
+  FILE_GUID                      = e4d932f4-31c9-4075-8fa3-4030f7eb767a
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializePlatformSmm
+
+[Sources]
+  Platform.c
+  S5Wakeup.c
+  SaveResFuncs.c
+  DeviceRegTable.c
+#[-start-121022-IB10820142-remove]//
+#  DeviceRegOemTable.c
+#[-end-121022-IB10820142-remove]//
+  APICInit.c
+  IoTrapFunction.c
+  SgS3S4Callback.c
+  Print.c
+  PasswordDialog.c
+  SmmKeyboard.c
+  SmmPassword.c
+[Sources.Ia32]    
+  Ia32/SaveResFuncs.asm   | MSFT
+  Ia32/SaveResFuncs.jwasm | GCC
+
+[Sources.X64]
+  x64/SaveResFuncs.asm   | MSFT
+  x64/SaveResFuncs.jwasm | GCC
+  
+[Packages]
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+#[-start-121214-IB10820196-add]#
+  PcAtChipsetPkg/PcAtChipsetPkg.dec
+#[-end-121214-IB10820196-add]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  DebugLib
+  UefiLib
+  IoLib
+#[-start-130812-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcChipsetLibDefault
+#[-end-130812-IB06720232-modify]#
+  S3BootScriptLib
+  BaseLib
+  TimerLib
+  CmosLib
+  PostCodeLib
+#[-start-121107-IB10820153-modify]#
+  SmmOemSvcChipsetLibDefault
+#[-end-121107-IB10820153-modify]#
+#[-start-121031-IB10820146-add]#
+  PciExpressLib
+#[-end-121031-IB10820146-add]#
+#[-start-121108-IB05280008-add]#
+  SmmOemSvcKernelLibDefault
+#[-end-121108-IB05280008-add]#
+#[-start-121217-IB11410032-add]#
+  PchPlatformLib
+#[-end-121217-IB11410032-add]#
+#[-start-130124-IB04770265-add]#
+  TbtLib
+#[-end-130124-IB04770265-add]#
+#[-start-130709-IB05160465-add]#
+  MemoryAllocationLib
+#[-end-130709-IB05160465-add]#
+  ResetSystemLib
+
+[Guids]
+#[-start-121128-IB07250300-modify]#
+  gH2OSwitchableGraphicsVariableGuid
+#[-end-121128-IB07250300-modify]#
+  gSystemConfigurationGuid
+
+[Protocols]
+  gEfiSmmVariableProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmSxDispatchProtocolGuid
+  gEfiSmmPowerButtonDispatchProtocolGuid
+  gEfiGlobalNvsAreaProtocolGuid
+  gSmmMERegionProtocolGuid
+#[-start-121108-IB05280008-remove]#
+#  gSmmOemServicesProtocolGuid
+#[-end-121108-IB05280008-remove]#
+  gEfiSmmCpuSaveStateProtocolGuid
+  gEfiSmmIchnDispatchProtocolGuid
+  gEfiSmmIchnDispatchExProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiSmmThunkProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  gAcpiEnableCallbackDoneProtocolGuid
+  gAcpiEnableCallbackStartProtocolGuid
+  gAcpiDisableCallbackDoneProtocolGuid
+  gAcpiDisableCallbackStartProtocolGuid
+  gAcpiRestoreCallbackDoneProtocolGuid
+  gAcpiRestoreCallbackStartProtocolGuid
+  gEfiOverrideAspmProtocolGuid
+  gEfiProgramSsidSvidProtocolGuid
+  gEfiCpuIo2ProtocolGuid
+  gEfiSmmIoTrapDispatchProtocolGuid
+  gEfiHddPasswordServiceProtocolGuid
+#[-start-120731-IB10820094-add]#
+#  gEfiSmmVariableProtocolGuid
+#[-end-120731-IB10820094-add]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-120731-IB10820094-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+#[-end-120731-IB10820094-add]#
+#[-start-121015-IB10820135-modify]#
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+#[-end-121015-IB10820135-modify]#
+#[-start-121214-IB10820195-add]#
+  gChipsetPkgTokenSpaceGuid.PcdRcbaBaseAddress
+#[-end-121214-IB10820195-add]#
+#[-start-121214-IB10820196-add]#
+  gPcAtChipsetPkgTokenSpaceGuid.PcdIoApicBaseAddress
+#[-end-121214-IB10820196-add]#
+#[-start-130221-IB05280051-add]#
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltChip
+#[-end-130221-IB05280051-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+#[-start-130118-IB11410043-add]#
+[FixedPcd]
+
+#[-end-130118-IB11410043-add]#
+
+#[-start-120731-IB10820094-add]#
+[FeaturePcd]
+#[-start-121122-IB07250300-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdNvidiaOptimusSupported
+#[-end-121122-IB07250300-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdSmmInt10Enable
+#[-end-120731-IB10820094-add]#
+#[-start-120808-IB10820098-add]#
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+#[-end-120808-IB10820098-add]#
+#[-start-120809-IB10820101-add]#
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+#[-end-120809-IB10820101-add]#
+
+#[-start-120926-IB10820125-remove]#
+#[FeaturePcd]
+#  gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+#[-end-120926-IB10820125-remove]#
+
+[Depex]
+#[-start-120926-IB10820125-remove]
+#[-start-120522-IB05300312-add]#
+# <DXE_DEPEX>
+#   gEfiSetupUtilityProtocolGuid AND
+#   gEfiGlobalNvsAreaProtocolGuid
+#[-end-120522-IB05300312-add]#
+#[-end-120926-IB10820125-remove]#
+
+  <SMM_DEPEX>
+   gEfiSmmBase2ProtocolGuid AND
+   gEfiSmmPowerButtonDispatchProtocolGuid AND
+   gEfiSmmSwDispatch2ProtocolGuid AND
+   gEfiSmmSxDispatchProtocolGuid AND
+   gEfiSmmIchnDispatchExProtocolGuid AND
+#[-start-120925-IB10820124-modify]#
+   gEfiSmmIoTrapDispatchProtocolGuid AND
+   gEfiSmmVariableProtocolGuid
+#[-end-120925-IB10820124-modify]#

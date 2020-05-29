@@ -1,0 +1,29 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2012-2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  BASE_NAME            = SLP20Pubkey
+
+#
+# If you change this, the file names used in UpdateSlic.c modules must be updated.
+#
+  FILE_GUID            = 1A1E2341-A2FB-42c7-8D17-3073D08EB21D
+  COMPONENT_TYPE       = BINARY
+
+[Sources.Common]
+  SLP20Pubkey.bin
+
+[Nmake.Common]
+
+[Depex]
+	TRUE

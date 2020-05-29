@@ -1,0 +1,69 @@
+## @file
+#  Component description file for TrEESmm module.
+#  This driver implements TPM2 definition block in ACPI table and
+#  registers SMI callback functions for physical presence and
+#  MemoryClear to handle the requests from ACPI method.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = TrEESmm
+  FILE_GUID                      = 7E797B21-8336-48f6-A2B5-8B4C4F2CA56F
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeTrEESmm
+
+[Sources]
+  TrEESmm.c
+  Tpm2.asl
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  SecurityPkg/SecurityPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  UefiBootServicesTableLib
+  DebugLib
+  DxeServicesLib
+  Tpm2TisCommLib
+  TpmMeasurementLib
+  VariableLib
+
+[Guids]
+  gEfiTrEEPhysicalPresenceGuid
+  gEfiMemoryOverwriteControlDataGuid
+  gEfiTpmDeviceInstanceTpm20DtpmGuid
+
+[Protocols]
+  gEfiSmmSwDispatch2ProtocolGuid                # PROTOCOL ALWAYS_CONSUMED
+  gEfiSmmVariableProtocolGuid                   # PROTOCOL ALWAYS_CONSUMED
+  gEfiAcpiTableProtocolGuid                     # PROTOCOL ALWAYS_CONSUMED
+
+[Pcd]
+  gEfiSecurityPkgTokenSpaceGuid.PcdTpmInstanceGuid
+  gInsydeTokenSpaceGuid.PcdTpm2ControlArea
+  gInsydeTokenSpaceGuid.PcdTpmHide
+  gInsydeTokenSpaceGuid.PcdDxeTpmPolicy
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+
+[Depex]
+  gEfiAcpiTableProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gEfiSmmVariableProtocolGuid AND
+  gEfiTrEEProtocolGuid

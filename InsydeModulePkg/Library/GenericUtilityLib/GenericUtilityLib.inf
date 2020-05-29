@@ -1,0 +1,150 @@
+## @file
+# It maintain the UI for "Boot Manager, Boot Maintaince Manager, Device Manager" which
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = GenericUtilityLib
+  FILE_GUID                      = BE1A8929-E810-46de-BAFA-8C14B26FB2D5
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = GenericUtilityLib|DXE_DRIVER UEFI_APPLICATION
+  CONSTRUCTOR                    = GenericUtilityLibConstructor
+
+[Sources]
+  DeviceMngr/DeviceManager.h
+  DeviceMngr/DeviceManagerVfr.h
+  DeviceMngr/DeviceManagerVfr.Vfr
+  DeviceMngr/DriverHealthVfr.Vfr
+  DeviceMngr/DeviceManagerStrings.uni
+  DeviceMngr/DeviceManager.c
+
+  BootMngr/BootManager.h
+  BootMngr/BootManagerVfr.Vfr
+  BootMngr/BootManagerStrings.uni
+  BootMngr/BootManager.c
+
+  BootMaint/FormGuid.h
+  BootMaint/BBSsupport.h
+  BootMaint/BootMaint.h
+  BootMaint/FE.vfr
+  BootMaint/FileExplorer.c
+  BootMaint/BootMaint.c
+  BootMaint/BBSsupport.c
+  BootMaint/UpdatePage.c
+  BootMaint/Variable.c
+  BootMaint/Data.c
+  BootMaint/ConsoleOption.c
+  BootMaint/BootOption.c
+  BootMaint/BmLib.c
+  BootMaint/Bm.vfr
+  BootMaint/Bmstring.uni
+
+  SecureBootMgr/SecureBootMgr.c
+  SecureBootMgr/SecureBootMgrStrings.uni
+  SecureBootMgr/SecureBootMgrVfr.Vfr
+  SecureBootMgr/EnrollHash.c
+
+  Password.c
+  PasswordStrings.uni
+  String.c
+  Images/GenericUtilityLibImage.idf
+
+[Sources.IA32]
+  SecureBootMgr/ia32/CallSmmSecureBoot.asm
+  SecureBootMgr/ia32/CallSmmSecureBoot.S
+
+[Sources.X64]
+  SecureBootMgr/x64/CallSmmSecureBoot.asm
+  SecureBootMgr/x64/CallSmmSecureBoot.S
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  HiiLib
+  BaseLib
+  PrintLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  HiiLib
+  DevicePathLib
+  UefiLib
+  OemGraphicsLib
+  KernelConfigLib
+
+[Guids]
+  gEfiGlobalVariableGuid
+  gEfiGenericVariableGuid
+  gEfiCertSha1Guid
+  gEfiCertSha256Guid
+  gEfiHashAlgorithmMD5Guid
+  gEfiHashAlgorithmSha1Guid
+  gEfiHashAlgorithmSha224Guid
+  gEfiHashAlgorithmSha256Guid
+  gEfiHashAlgorithmSha384Guid
+  gEfiHashAlgorithmSha512Guid
+  gBootManagerFormSetGuid
+  gDeviceManagerFormSetGuid
+  gEfiHiiDriverHealthFormsetGuid
+  gDriverHealthFormSetGuid
+  gEfiHiiPlatformSetupFormsetGuid
+  gEfiFileSystemVolumeLabelInfoIdGuid
+  gEfiLegacyDevOrderVariableGuid
+  gEfiCertPkcs7Guid
+  gEfiCertX509Guid
+  gFileExploreFormSetGuid
+  gBootMaintFormSetGuid
+  gEfiIfrTianoGuid
+
+[Protocols]
+  gEfiHashProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiHiiConfigAccessProtocolGuid
+  gEfiHiiConfigRoutingProtocolGuid
+  gEfiLoadFileProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiFormBrowser2ProtocolGuid
+  gEfiComponentNameProtocolGuid
+  gEfiComponentName2ProtocolGuid
+  gEfiHiiDatabaseProtocolGuid
+  gEfiDriverHealthProtocolGuid
+  gEfiSysPasswordServiceProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiBootOptionPolicyProtocolGuid
+  gEfiSerialIoProtocolGuid
+  gEfiFormBrowserExProtocolGuid
+  gH2ODialogProtocolGuid
+
+[Pcd]
+  gEfiIntelFrameworkModulePkgTokenSpaceGuid.PcdSetupConOutColumn
+  gEfiIntelFrameworkModulePkgTokenSpaceGuid.PcdSetupConOutRow
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+  gInsydeTokenSpaceGuid.PcdBackupSecureBootSettingsSupported
+  gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserSupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+
+[BuildOptions]
+  MSFT:*_*_*_VFRPP_FLAGS = /FI$(MODULE_NAME)IdfDefs.h
+  GCC:*_*_*_VFRPP_FLAGS  = --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)IdfDefs.h
+

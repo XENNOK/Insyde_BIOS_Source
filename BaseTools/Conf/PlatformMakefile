@@ -1,0 +1,91 @@
+${makefile_header}
+
+#
+# Platform Macro Definition
+#
+PLATFORM_NAME = ${platform_name}
+PLATFORM_GUID = ${platform_guid}
+PLATFORM_VERSION = ${platform_version}
+PLATFORM_FILE = ${platform_file}
+PLATFORM_DIR = $(WORKSPACE)${separator}${platform_relative_directory}
+PLATFORM_OUTPUT_DIR = ${platform_output_directory}
+
+#
+# Build Configuration Macro Definition
+#
+TOOLCHAIN = ${toolchain_tag}
+TOOLCHAIN_TAG = ${toolchain_tag}
+TARGET = ${build_target}
+
+#
+# Build Directory Macro Definition
+#
+BUILD_DIR = ${platform_build_directory}
+FV_DIR = ${platform_build_directory}${separator}FV
+
+#
+# Shell Command Macro
+#
+${BEGIN}${shell_command_code} = ${shell_command}
+${END}
+
+MAKE = ${make_path}
+MAKE_FILE = ${makefile_path}
+
+#
+# Default target
+#
+all: init build_libraries build_modules
+
+#
+# Initialization target: print build information and create necessary directories
+#
+init:
+\t-@echo Building ... $(PLATFORM_FILE) [${build_architecture_list}]
+\t${BEGIN}-@${create_directory_command}
+\t${END}
+#
+# library build target
+#
+libraries: init build_libraries
+
+#
+# module build target
+#
+modules: init build_libraries build_modules
+
+#
+# Build all libraries:
+#
+build_libraries:
+${BEGIN}\t@"$(MAKE)" $(MAKE_FLAGS) -f ${library_makefile_list} pbuild
+${END}\t@cd $(BUILD_DIR)
+
+#
+# Build all modules:
+#
+build_modules:
+${BEGIN}\t@"$(MAKE)" $(MAKE_FLAGS) -f ${module_makefile_list} pbuild
+${END}\t@cd $(BUILD_DIR)
+
+#
+# Clean intermediate files
+#
+clean:
+\t${BEGIN}-@${library_build_command} clean
+\t${END}${BEGIN}-@${module_build_command} clean
+\t${END}@cd $(BUILD_DIR)
+
+#
+# Clean all generated files except to makefile
+#
+cleanall:
+${BEGIN}\t${cleanall_command}
+${END}
+
+#
+# Clean all library files
+#
+cleanlib:
+\t${BEGIN}-@${library_build_command} cleanall
+\t${END}@cd $(BUILD_DIR)\n\n

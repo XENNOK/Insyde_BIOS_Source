@@ -1,0 +1,37 @@
+//;******************************************************************************
+//;* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+//; 
+//; Module Name:
+//; 
+//;   BootDevImage.idf
+//; 
+//; Abstract:
+//; 
+//;   Images for boot device
+//; 
+
+!if gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+#image IMAGE_DEV_BEV            "LegacyBEV.png"
+#image IMAGE_DEV_CDROM          "LegacyCDROM.png"
+#image IMAGE_DEV_FLOPPY         "LegacyFloppy.png"
+#image IMAGE_DEV_HARDDISK       "LegacyHDD.png"
+#image IMAGE_DEV_NETWORK        "LegacyNetwork.png"
+#image IMAGE_DEV_PCMCIA         "LegacyPCMCIA.png"
+#image IMAGE_DEV_USB            "LegacyUSB.png"
+#image IMAGE_DEV_EFI_CDROM      "UefiCDROM.png"
+#image IMAGE_DEV_EFI_FLOPPY     "UefiFloppy.png"
+#image IMAGE_DEV_EFI_HARDDISK   "UefiHDD.png"
+#image IMAGE_DEV_EFI_MISC       "UefiMisc.png"
+#image IMAGE_DEV_EFI_NETWORK    "UefiNetwork.png"
+#image IMAGE_DEV_EFI_OS         "UefiOS.png"
+#image IMAGE_DEV_EFI_SCSI       "UefiSCSI.png"
+#image IMAGE_DEV_EFI_SHELL      "UefiShell.png"
+#image IMAGE_DEV_EFI_USB        "UefiUsb.png"
+!endif

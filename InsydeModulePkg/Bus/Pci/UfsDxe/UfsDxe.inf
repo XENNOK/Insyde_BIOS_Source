@@ -1,0 +1,54 @@
+## @file
+#  INF file for UfsDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = UfsDxe
+  FILE_GUID            = 67BBC344-84BC-4e5c-B4DF-F5E4A00E1F3B
+  MODULE_TYPE          = DXE_DRIVER
+  BINARY_VERSION       = 01.00.32.0724.00
+
+[Binaries.Ia32]
+  PE32|Ia32/UfsDxe.efi|*
+
+[Binaries.X64]
+  PE32|X64/UfsDxe.efi|*
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  CryptoPkg/CryptoPkg.dec
+
+[LibraryClasses]
+  DevicePathLib
+  UefiDriverEntryPoint
+  DebugLib
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  UefiLib
+  IoLib
+  TimerLib
+  BaseLib
+  PcdLib
+
+[Protocols]
+  gEfiDevicePathProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiExtScsiPassThruProtocolGuid
+  
+[Pcd]
+  
+[Depex]
+   TRUE

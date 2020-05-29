@@ -1,0 +1,113 @@
+## @file
+#  Component description file for PlatformStage1Pei PEIM.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PlatformStage1Pei
+  FILE_GUID            			     = A85027FC-0E09-4FA9-A407-CAD206FB4F1D
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeiInitPlatformStage1EntryPoint
+
+[Sources]
+  Stall.c
+  PlatformStage1Pei.c
+  Init8254.c
+  BootMode.c
+  Memory.c
+  PlatformStage1NotifyCallback.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  PerformancePkg/PerformancePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  PeimEntryPoint
+  PeiServicesLib
+  IoLib
+  PcdLib
+  HobLib
+#[-start-130808-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcKernelLibDefault
+#[-end-130808-IB06720232-modify]#
+  PeiOemSvcKernelLibDefault
+  BaseMemoryLib
+  KernelConfigLib
+  PostCodeLib
+  PeiChipsetSvcLib
+  PrintLib
+  BvdtLib
+  SeamlessRecoveryLib
+  VariableLib
+
+[Guids]
+  gEfiGlobalVariableGuid
+  gFdTableInfoHobGuid
+  gDimmSmbusAddrHobGuid
+  gEfiMemoryTypeInformationGuid
+  gSystemConfigurationGuid
+  gPlatformHardwareSwitchGuid
+
+[Ppis]
+  gPeiAtaPolicyPpiGuid
+  gPeiPlatformMemoryRangePpiGuid
+  gPeiPlatformMemorySizePpiGuid
+  gPeiSmbusPolicyPpiGuid
+  gEfiPeiStallPpiGuid
+  gEfiPeiMasterBootModePpiGuid
+  gEfiPeiMemoryDiscoveredPpiGuid
+  gEfiPeiReadOnlyVariable2PpiGuid
+  gEfiPeiBootInRecoveryModePpiGuid
+  gPeiSStateBootModePpiGuid
+  gPeiCapsulePpiGuid
+  gEmuPeiPpiGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSmBusBaseAddress
+  gInsydeTokenSpaceGuid.PcdSmBusBusDevFunc
+  gInsydeTokenSpaceGuid.PcdPeiAtaBusMasterBaseAddress
+  gInsydeTokenSpaceGuid.PcdMaxSockets
+  gInsydeTokenSpaceGuid.PcdPeiMinMemorySize
+  gInsydeTokenSpaceGuid.PcdPeiRecoveryMinMemorySize
+  gInsydeTokenSpaceGuid.PcdUseFastCrisisRecovery
+  gInsydeTokenSpaceGuid.PcdSmbusAddrChA1
+  gInsydeTokenSpaceGuid.PcdSmbusAddrChA2
+  gInsydeTokenSpaceGuid.PcdSmbusAddrChB1
+  gInsydeTokenSpaceGuid.PcdSmbusAddrChB2
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+  gInsydeTokenSpaceGuid.PcdPeiRecoveryFile
+  gInsydeTokenSpaceGuid.PcdCapsuleImageFolder
+  gInsydeTokenSpaceGuid.PcdPreserveMemoryTable
+  gInsydeTokenSpaceGuid.PcdMemorySpaceSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdUse1GPageTable
+  gInsydeTokenSpaceGuid.Pcd8254Counter1OperatingMode
+  gInsydeTokenSpaceGuid.PcdFlashFvMainBase
+  gInsydeTokenSpaceGuid.PcdFlashFvMainSize
+  gInsydeTokenSpaceGuid.PcdFlashUnsignedFvRegionBase
+  gInsydeTokenSpaceGuid.PcdFlashUnsignedFvRegionSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdUnsignedFvSupported
+
+[Depex]
+  gH2OChipsetServicesPpiGuid

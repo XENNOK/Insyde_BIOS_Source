@@ -1,0 +1,50 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+
+[defines]
+BASE_NAME            = PeiEventLog
+FILE_GUID            = 231B0FF3-8AF8-4cd7-84F4-C2C3EB0923E0
+COMPONENT_TYPE       = PE32_PEIM
+
+[sources.common]
+  PeiEventLog.c
+  PeiEventLog.h
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Sample\Platform\Nt32
+  .
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Include\Pei
+  $(EDK_SOURCE)\Foundation\Library\Pei\Include
+  $(EDK_SOURCE)\Foundation\Core\Pei\Include
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Framework
+  $(EFI_SOURCE)\Library\Dxe\Include
+
+[libraries.common]
+  GuidLib
+  EfiCommonLib
+  PpiLib
+  PeiLib
+  SimpleCpuIoLib
+  CmosLib
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=PeiEventLogInit
+  DPX_SOURCE=PeiEventLog.dxs
+

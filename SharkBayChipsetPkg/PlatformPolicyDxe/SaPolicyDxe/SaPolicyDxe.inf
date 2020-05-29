@@ -1,0 +1,123 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   SAPolicy.inf
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SaPolicyDxe
+  FILE_GUID                      = 67A54A24-3F4F-4048-8787-3E5AA2A0B7D2
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = SAPolicyEntry
+
+[Sources]
+  SaPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  HobLib
+#[-start-130812-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcChipsetLibDefault
+#[-end-130812-IB06720232-modify]#
+#[-start-121031-IB10820146-add]#
+  PciExpressLib
+#[-end-121031-IB10820146-add]#
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+
+[Protocols]
+  gDxePlatformSaPolicyGuid
+  gEfiSetupUtilityProtocolGuid
+#[-start-121031-IB10820146-add]#
+  gPlatformGopPolicyProtocolGuid
+#[-end-121031-IB10820146-add]#
+#[-start-121121-IB11410023-add]#
+  gEfiPlatformInfoProtocolGuid
+#[-end-121121-IB11410023-add]#
+#[-start-121123-IB11410024-add]#
+  gSaGlobalNvsAreaProtocolGuid
+  gMemInfoProtocolGuid
+#[-end-121123-IB11410024-add]#
+#[-start-140521-IB05400527-add]#
+  gEfiGlobalNvsAreaProtocolGuid
+#[-end-140521-IB05400527-add]#
+
+[Guids]
+  gDimmSmbusAddrHobGuid
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+  gChipsetPkgTokenSpaceGuid.PcdMrcRmt
+
+#[-start-121002-IB10820131-add]#
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-end-121002-IB10820131-add]#
+#[-start-121003-IB10820132-add]#
+  gChipsetPkgTokenSpaceGuid.PcdMemConfigRmtBdatEnable
+  gChipsetPkgTokenSpaceGuid.PcdMemConfigMrcTimeMeasure
+  gChipsetPkgTokenSpaceGuid.PcdMemConfigMrcFastBoot
+  gChipsetPkgTokenSpaceGuid.PcdMeMiscConfigFviSmbiosType
+  gChipsetPkgTokenSpaceGuid.PcdDxeCpuConfigFviReport
+  gChipsetPkgTokenSpaceGuid.PcdDxePlatformRapidStartPolicyRaidModeSataPortNumber
+#[-start-130110-IB11410040-modify]#
+#  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegAspm0
+#  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegAspm1
+#  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegAspm2
+#  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegAspmL0s0
+#  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegAspmL0s1
+#  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegAspmL0s2
+  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegDeEmphasis0
+#  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegDeEmphasis1
+#  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegDeEmphasis2
+#[-end-130110-IB11410040-modify]#
+  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegDmiDeEmphasis
+  gChipsetPkgTokenSpaceGuid.PcdPcieConfigPegDmiIot
+  gChipsetPkgTokenSpaceGuid.PcdMemoryConfigChannelASlotMap
+  gChipsetPkgTokenSpaceGuid.PcdMemoryConfigChannelBSlotMap
+  gChipsetPkgTokenSpaceGuid.PcdSaDefaultSvidSidSubSystemVendorId
+  gChipsetPkgTokenSpaceGuid.PcdSaDefaultSvidSidSubSystemId
+#[-start-130118-IB11410043-remove]#
+#  gChipsetPkgTokenSpaceGuid.PcdMiscConfigAudioEnable
+#[-end-130118-IB11410043-remove]#
+#[-end-121003-IB10820132-add]#
+#[-start-130131-IB05280043-add]#
+  gChipsetPkgTokenSpaceGuid.PcdIuerStatusVal
+  gChipsetPkgTokenSpaceGuid.PcdSaHdaVerbTableNum
+#[-end-130131-IB05280043-add]#
+#[-start-140220-IB10920078-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSgVbiosConfigSgDgpuLoadVbios
+  gChipsetPkgTokenSpaceGuid.PcdSgVbiosConfigSgDgpuExecuteVbioss
+  gChipsetPkgTokenSpaceGuid.PcdSgVbiosConfigSgDgpuVbiosSource 
+  gChipsetPkgTokenSpaceGuid.PcdIntelSwitchableGraphicsSupported
+#[-end-140220-IB10920078-add]#
+#[-start-140521-IB05400527-add]#
+  gChipsetPkgTokenSpaceGuid.PcdMmioMem64Length
+  gInsydeTokenSpaceGuid.Pcd64BitAmlSupported
+#[-end-140521-IB05400527-add]#
+  
+[Depex]
+  gDxePchPlatformPolicyProtocolGuid AND
+#[-start-121121-IB11410023-modify]#
+  gEfiSetupUtilityProtocolGuid AND
+  gEfiPlatformInfoProtocolGuid
+#[-end-121121-IB11410023-modify]#

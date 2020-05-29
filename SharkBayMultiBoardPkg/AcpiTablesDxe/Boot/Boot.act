@@ -1,0 +1,43 @@
+/** @file
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#include <Boot.h>
+
+EFI_ACPI_2_0_SIMPLE_BOOT_FLAG_STRUCTURE BOOT = {
+  EFI_ACPI_2_0_SIMPLE_BOOT_FLAG_TABLE_SIGNATURE,
+  sizeof (EFI_ACPI_2_0_SIMPLE_BOOT_FLAG_STRUCTURE),
+  EFI_ACPI_2_0_SIMPLE_BOOT_FLAG_STRUCTURE_REVISION,
+  0,                                                    // Checksum
+  EFI_ACPI_OEM_ID,
+  EFI_ACPI_OEM_TABLE_ID,
+  EFI_ACPI_OEM_REVISION,
+  EFI_ACPI_CREATOR_ID,
+  EFI_ACPI_CREATOR_REVISION,
+//  EFI_ACPI_CMOS_INDEX,
+  SimpleBootFlag,
+  EFI_ACPI_RESERVED_BYTE,
+  EFI_ACPI_RESERVED_WORD
+
+};
+
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&BOOT;
+}

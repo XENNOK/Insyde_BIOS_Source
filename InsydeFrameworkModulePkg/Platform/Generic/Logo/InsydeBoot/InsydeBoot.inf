@@ -1,0 +1,39 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2010, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+#/*++
+#
+# Copyright (c)  1999 - 2002 Intel Corporation. All rights reserved
+# This software and associated documentation (if any) is furnished
+# under a license and may only be used or copied in accordance
+# with the terms of the license. Except as permitted by such
+# license, no part of this software or documentation may be
+# reproduced, stored in a retrieval system, or transmitted in any
+# form or by any means without the express written consent of
+# Intel Corporation.
+#
+#  Module Name:
+#
+#    A7N8IMBW.inf
+#
+#  Abstract:
+#
+--*/
+
+[defines]
+BASE_NAME            = InsydeBoot
+FILE_GUID            = 931F77D1-10FE-48bf-AB72-773D389E3FAA
+COMPONENT_TYPE       = LOGO
+BUILD_TYPE           = CUSTOM_MAKEFILE
+FFS_EXT              = FFS
+
+[sources.common]
+
+[nmake.common]

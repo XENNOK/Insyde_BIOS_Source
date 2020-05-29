@@ -1,0 +1,33 @@
+## @file
+#  Component description file for PeiOemIpmiPackageLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiOemIpmiPackageLib
+  FILE_GUID                      = D3270C15-D251-4c58-9544-2512891CDD36
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PeiOemIpmiPackageLib|PEI_CORE PEIM
+
+[Sources]
+  OemIpmiWaitBmc.c
+  OemIpmiUpdatePolicy.c
+  OemIpmiProgramLpc.c
+  OemIpmiProgramSio.c
+  OemIpmiPeiAfterInstallInterface.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+

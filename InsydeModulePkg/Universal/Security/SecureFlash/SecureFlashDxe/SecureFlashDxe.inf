@@ -1,0 +1,71 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SecureFlashDxe
+  FILE_GUID                      = 6B1AB225-2E47-4a61-8FF5-B8EA42EE3EA8
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+
+  ENTRY_POINT                    = SecureFlashDxeEntry
+
+[sources]
+  SecureFlashDxe.c
+  TianoDecompress.c
+  TianoDecompress.h
+
+[Sources.Ia32]
+  Ia32/SecureFlashSmm.asm
+  Ia32/SecureFlashSmm.S
+
+[Sources.X64]
+  X64/SecureFlashSmm.asm
+  X64/SecureFlashSmm.S
+
+[Sources.Arm]
+  Arm/SecureFlashSmm.c
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  UefiRuntimeServicesTableLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  MemoryAllocationLib
+  HobLib
+  UefiLib
+
+[Guids]
+  gEfiHobListGuid
+  gEfiCertX509Guid
+  gSecureFlashInfoGuid
+  gEfiUsbEnumerationGuid
+
+[Protocols]
+  gEfiConsoleControlProtocolGuid
+  gEfiFirmwareVolumeProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiLoadFileProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+  gInsydeTokenSpaceGuid.PcdSecureFlashCertificateFile
+  gInsydeTokenSpaceGuid.PcdReservedMemorySizeForSecureFlash
+
+[Depex]
+  gEfiVariableArchProtocolGuid
+

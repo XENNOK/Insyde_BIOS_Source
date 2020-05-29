@@ -1,0 +1,51 @@
+#/** @file
+#
+#  Component description file for PostMessage DXE driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WatchDogReportStatusCodeDxe
+  FILE_GUID                      = 7A201038-F613-4d80-86E2-B9A88277D20A
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = WatchDogReportStatusCodeDxeEntryPoint
+
+[Sources]
+  WatchDogReportStatusCodeDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  WatchDogLib
+  PcdLib
+  
+[Protocols]
+  gEfiRscHandlerProtocolGuid                   # CONSUMED
+
+[Guids]
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+  
+[Depex]
+  TRUE
+   

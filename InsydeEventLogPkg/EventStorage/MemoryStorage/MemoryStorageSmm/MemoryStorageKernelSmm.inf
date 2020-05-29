@@ -1,0 +1,52 @@
+## @file
+#
+#  Component description file for MemoryStorageKernel SMM Driver.
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#    
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MemoryStorageKernelSmm
+  FILE_GUID                      = 5A112448-0523-4621-B96C-CF32F6AEF3A4
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MemoryStorageKernelSmmEntry
+
+[Sources]
+  MemoryStorageKernelSmm.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseMemoryLib
+  CmosLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  
+[Protocols]
+  gEfiSmmBase2ProtocolGuid                     # CONSUMED
+  gH2OSmmMemoryStorageProtocolGuid             # PRODUCED
+  
+[Guids]
+  gH2OMemoryStorageVariableGuid                # PRODUCED
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid 

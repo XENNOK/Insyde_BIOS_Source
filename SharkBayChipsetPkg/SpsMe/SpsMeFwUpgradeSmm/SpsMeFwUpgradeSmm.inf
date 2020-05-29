@@ -1,0 +1,62 @@
+## @file
+#
+#  Component description file for Server Platform Services(SPS) ME Firmware Upgrade SMM driver
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SpsMeFwUpgradeSmm
+  FILE_GUID                      = B103081B-02C6-4909-8B4D-A7B9280BB587
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = SpsMeFwUpgradeSmmEntryPoint
+
+[Sources]
+  SpsMeFwUpgradeSmm.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  MemoryAllocationLib
+  PciLib
+
+  SpsMeLib
+  TimerLib
+
+[Guids]
+
+[Protocols]
+  gSpsSmmMeUpgradeProtocolGuid                   ## PRODUCES
+
+  gEfiSmmFwBlockServiceProtocolGuid              ## CONSUMES
+  gEfiSmmRuntimeProtocolGuid                     ## CONSUMES
+
+  gSpsDxeMeUpgradeProtocolGuid                   ## CONSUMES
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[Depex]
+  gSpsDxeMeUpgradeProtocolGuid AND
+  gSpsSmmHeciProtocolGuid
+
+
+[BuildOptions]
+

@@ -1,0 +1,68 @@
+## @file
+#  This library implements variable related function for DXE/SMM.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeVariableLib
+  FILE_GUID                      = C5CE96BD-323A-4ad3-9DF1-0D5EE9DB40C1
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = VariableLib
+  CONSTRUCTOR                    = DxeVariableLibConstructor
+  DESTRUCTOR                     = DxeVariableLibDestruct
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF
+#
+
+[Sources]
+  DxeVariable.c
+
+[Sources.IA32]
+  ia32/CallSmmSensitiveVariable.asm
+  ia32/CallSmmSensitiveVariable.S
+
+[Sources.X64]
+  x64/CallSmmSensitiveVariable.asm
+  x64/CallSmmSensitiveVariable.S
+
+[Sources.Arm]
+  Arm/CallSmmSensitiveVariable.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  MemoryAllocationLib
+  IrsiRegistrationLib
+  VariableSupportLib
+  PcdLib
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmVariableProtocolGuid
+
+[Guids]
+  gEfiEventExitBootServicesGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSoftwareSmiPort
+

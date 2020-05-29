@@ -1,0 +1,31 @@
+## @file
+#
+#  Delay for at least the request number of microseconds.  Timer used is DMA 
+#  refresh timer, which has 15us granularity. You can call with any number of 
+#  microseconds, but this implementation cannot support 1us granularity.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmStallLib
+  FILE_GUID                      = 74426F1D-5F6B-4e5b-BF2C-3CEB88B64A60
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = StallLib
+
+[Sources]
+  SmmStall.c
+
+[Packages]  
+  MdePkg/MdePkg.dec
+    

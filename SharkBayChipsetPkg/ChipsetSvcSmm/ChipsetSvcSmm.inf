@@ -1,0 +1,92 @@
+## @file
+#  Implement the Driver of SmmChipsetSvc.
+#  
+#  ***************************************************************************
+#  * Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#  *
+#  * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#  * transmit, broadcast, present, recite, release, license or otherwise exploit
+#  * any part of this publication in any form, by any means, without the prior
+#  * written permission of Insyde Software Corporation.
+#  *
+#  ******************************************************************************
+#  
+##
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = ChipsetSvcSmm
+  FILE_GUID                 = D359DE86-0A1B-47bc-95D2-1D1F8FFF0AD8
+  MODULE_TYPE               = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION  = 0x0001000A
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = ChipsetSvcSmmEntryPoint
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-start-130124-IB08460028-add]#
+  PerformancePkg/PerformancePkg.dec
+#[-end-130124-IB08460028-add]#
+#[-start-130808-IB06720232-add]#
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+#[-end-130808-IB06720232-add]#
+
+[Sources]
+  ChipsetSvcSmm.c
+  ComponentName.c
+  ComponentName.h
+#[-start-121210-IB08460021-add]#
+  ResetSystem.c
+  LegacyRegionAccessCtrl.c
+  EnableFdWrites.c
+#[-end-121210-IB08460021-add]#
+#[-start-130124-IB08460028-add]#
+  SataComReset.c
+#[-end-130124-IB08460028-add]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  BaseLib
+  DebugLib
+  PcdLib
+  UefiLib
+  PciCf8Lib
+  IoLib
+#[-start-130808-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcKernelLibDefault
+#[-end-130808-IB06720232-modify]#
+#[-start-130208-IB10820234-add]#
+  PciExpressLib
+#[-end-130208-IB10820234-add]#
+
+[Protocols]
+  gEfiDriverSupportedEfiVersionProtocolGuid
+  gEfiComponentName2ProtocolGuid
+  gEfiComponentNameProtocolGuid
+  gH2OSmmChipsetServicesProtocolGuid
+
+[Guids]
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-130124-IB08460028-add]#
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+#[-end-130124-IB08460028-add]#
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdEcSharedFlashSupported
+  gChipsetPkgTokenSpaceGuid.PcdEcIdlePerWriteBlockSupported
+#[-start-130204-IB10820229-add]#
+  gChipsetPkgTokenSpaceGuid.PcdDisableCacheSupportInEnableFdWrites
+#[-end-130204-IB10820229-add]#
+
+[Depex]
+  TRUE

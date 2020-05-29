@@ -1,0 +1,2340 @@
+#include "HiiLayoutPkgDxeIdfDefs.h"
+
+#define SCU_DEFAULT_LAYOUT_ID                  0x0002
+#define SCU_LGDE_LAYOUT_ID                     0x0003
+#define SCU_RTDE_LAYOUT_ID                     0x0004
+#define SCU_RBDE_LAYOUT_ID                     0x0005
+#define SCU_LCDE_LAYOUT_ID                     0x0006
+#define SCU_LMDE_LAYOUT_ID                     0x0007
+#define FRONT_PAGE_LGDE_LAYOUT_ID              0x0008
+#define COMMON_PAGE_LGDE_LAYOUT_ID             0x0009
+#define SCU_OEM_LAYOUT_ID                      0x0010
+#define BOOT_MANAGER_LTDE_LAYOUT_ID            0x0011
+#define BOOT_FROM_FILE_LTDE_LAYOUT_ID          0x0012
+
+#define SCREEN_PANEL_ID                        0x0001
+#define OWNER_DRAW_PANEL_ID                    0x0002
+#define TITLE_PANEL_ID                         0x0003
+#define SETUP_MENU_PANEL_ID                    0x0004
+#define SETUP_PAGE_PANEL_ID                    0x0005
+#define HELP_TEXT_PANEL_ID                     0x0006
+#define HOTKEY_PANEL_ID                        0x0007
+#define QUESTION_PANEL_ID                      0x0008
+#define SETUP_PAGE_2_PANEL_ID                  0x0009
+
+#define SETUP_UTILITY_FORMSET_CLASS_GUID {0x9f85453e, 0x2f03, 0x4989, 0xad, 0x3b, 0x4a, 0x84, 0x07, 0x91, 0xaf, 0x3a}
+
+#define ADVANCED_VFR_ID                        0x0002
+#define EVENT_LOG_FORM_ID                      0x0003
+
+#define H2O_PANEL_TYPE_SCREEN                  0x00000000 // default
+#define H2O_PANEL_TYPE_HOTKEY                  0x00000001
+#define H2O_PANEL_TYPE_HELP_TEXT               0x00000002
+#define H2O_PANEL_TYPE_SETUP_MENU              0x00000004
+#define H2O_PANEL_TYPE_SETUP_PAGE              0x00000008
+#define H2O_PANEL_TYPE_FORM_TITLE              0x00000010
+#define H2O_PANEL_TYPE_QUESTION                0x00000020
+#define H2O_PANEL_TYPE_OWNER_DRAW              0x00000040
+#define H2O_PANEL_TYPE_SETUP_PAGE2             0x00000080
+
+#define OEM_TEXT_GRAY                          rgb0xFF808285
+#define OEM_BK_GRAY                            rgb0xFFE6E7E8
+#define OEM_ORANGE                             rgb0xFFE45620
+#define OEM_BLUE                               rgb0xFF19BEEC
+
+//
+// vfr
+//
+vfr
+  vfrid = ADVANCED_VFR_ID ,
+  source = AdvanceVfr.vfr;
+
+  formset
+    guid = SETUP_UTILITY_FORMSET_CLASS_GUID,
+    layout = SCU_DEFAULT_LAYOUT_ID;
+
+    form
+      formid = EVENT_LOG_FORM_ID;
+    endform;
+
+  endformset;
+
+endvfr;
+
+//
+// LTDE styles for boot manager
+//
+style
+  .LtdeBootManagerScreen
+  property {
+    visibility : false;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+    foreground-color : lightgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerTitle
+  property {
+    foreground-color : white;
+    background-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerTitle panel
+  property {
+    visibility : true;
+    border-width : 1em;
+    left   : 0%;
+    top    : 0em;
+    right  : 100%;
+    bottom : 2em;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerSetupMenu
+  property {
+    foreground-color : black;
+    background-color : cyan;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerSetupMenu panel
+  property {
+    visibility : false;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerSetupPage
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerSetupPage panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 3em;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerSetupPage :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerSetupPage :grayout
+  property {
+    foreground-color : black;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerSetupPage :selectable
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerSetupPage :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion
+  property {
+    foreground-color : lightgray;
+    background-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion panel
+  property {
+    visibility : false;
+    border-width : 1em;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion :help
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion :selectable
+  property {
+    foreground-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion :focus
+  property {
+    foreground-color : white;
+    background-color : cyan;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion :disabled
+  property {
+    foreground-color : black;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeBootManagerQuestion :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+//
+// LTDE layout for boot manager
+//
+layout
+  layoutid = BOOT_MANAGER_LTDE_LAYOUT_ID;
+
+  panel
+    panelid = SCREEN_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SCREEN;
+    style = .LtdeBootManagerScreen;
+  endpanel;
+
+  panel
+    panelid = TITLE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_FORM_TITLE;
+    style = .LtdeBootManagerTitle;
+  endpanel;
+  
+  panel
+    panelid = SETUP_MENU_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_MENU;
+    style = .LtdeBootManagerSetupMenu;
+  endpanel;
+  
+  panel
+    panelid = SETUP_PAGE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE;
+    style = .LtdeBootManagerSetupPage;
+  endpanel;
+  
+  panel
+    panelid = QUESTION_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_QUESTION;
+    style = .LtdeBootManagerQuestion;
+  endpanel;
+endlayout;
+
+//
+// LTDE styles for boot from file
+//
+style
+  .LtdeBootFromFileScreen
+  property {
+    visibility : false;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+    foreground-color : lightgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileTitle
+  property {
+    foreground-color : white;
+    background-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileTitle panel
+  property {
+    visibility : true;
+    border-width : 1em;
+    left   : 0%;
+    top    : 0em;
+    right  : 100%;
+    bottom : 2em;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileSetupMenu
+  property {
+    foreground-color : black;
+    background-color : cyan;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileSetupMenu panel
+  property {
+    visibility : false;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileSetupPage
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileSetupPage panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 3em;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileSetupPage :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileSetupPage :grayout
+  property {
+    foreground-color : black;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileSetupPage :selectable
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileSetupPage :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion
+  property {
+    foreground-color : lightgray;
+    background-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion panel
+  property {
+    visibility : false;
+    border-width : 1em;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion :help
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion :selectable
+  property {
+    foreground-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion :focus
+  property {
+    foreground-color : white;
+    background-color : cyan;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion :disabled
+  property {
+    foreground-color : black;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeBootFromFileQuestion :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+//
+// LTDE layout for boot from file
+//
+layout
+  layoutid = BOOT_FROM_FILE_LTDE_LAYOUT_ID;
+
+  panel
+    panelid = SCREEN_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SCREEN;
+    style = .LtdeBootFromFileScreen;
+  endpanel;
+
+  panel
+    panelid = TITLE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_FORM_TITLE;
+    style = .LtdeBootFromFileTitle;
+  endpanel;
+  
+  panel
+    panelid = SETUP_MENU_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_MENU;
+    style = .LtdeBootFromFileSetupMenu;
+  endpanel;
+  
+  panel
+    panelid = SETUP_PAGE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE;
+    style = .LtdeBootFromFileSetupPage;
+  endpanel;
+  
+  panel
+    panelid = QUESTION_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_QUESTION;
+    style = .LtdeBootFromFileQuestion;
+  endpanel;
+endlayout;
+
+//
+// LTDE styles
+//
+style
+  .LtdeScreen
+  property {
+    visibility : false;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+    foreground-color : lightgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeTitle
+  property {
+    foreground-color : black;
+    background-color : cyan;
+  }
+endstyle;
+
+style
+  .LtdeTitle panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 0em;
+    right  : 100%;
+    bottom : 0em;
+  }
+endstyle;
+
+style
+  .LtdeTitle :highlight
+  property {
+    foreground-color : white;
+ }
+endstyle;
+
+style
+  .LtdeTitle :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LtdeTitle :selectable
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeTitle :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeTitle :disabled
+  property {
+    foreground-color : blue;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeTitle :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeSetupMenu
+  property {
+    foreground-color : lightgray;
+    background-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeSetupMenu panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 1em;
+    right  : 100%;
+    bottom : 1em;
+  }
+endstyle;
+
+style
+  .LtdeSetupMenu :highlight
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeSetupMenu :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LtdeSetupMenu :selectable
+  property {
+    foreground-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeSetupMenu :focus
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeSetupMenu :disabled
+  property {
+    foreground-color : blue;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeSetupMenu :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeSetupPage
+  property {
+    foreground-color : black;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeSetupPage panel
+  property {
+    visibility : true;
+    border-width : 1em;
+    left   : 0%;
+    top    : 2em;
+    right  : 67%;
+    bottom : -2em;
+  }
+endstyle;
+
+style
+  .LtdeSetupPage :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeSetupPage :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LtdeSetupPage :selectable
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeSetupPage :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeSetupPage :disabled
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeSetupPage :enabled
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeHelpText
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeHelpText panel
+  property {
+    visibility : true;
+    border-width : 1em;
+    left   : 67%;
+    top    : 2em;
+    right  : 100%;
+    bottom : -2em;
+  }
+endstyle;
+
+style
+  .LtdeHelpText :highlight
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeHelpText :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LtdeHelpText :selectable
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeHelpText :focus
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeHelpText :disabled
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeHelpText :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeHotkey
+  property {
+    foreground-color : black;
+    background-color : cyan;
+  }
+endstyle;
+
+style
+  .LtdeHotkey panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : -1em;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .LtdeHotkey :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeHotkey :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LtdeHotkey :selectable
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeHotkey :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeHotkey :disabled
+  property {
+    foreground-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeHotkey :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LtdeQuestion
+  property {
+    foreground-color : lightgray;
+    background-color : blue;
+  }
+endstyle;
+
+style
+  .LtdeQuestion panel
+  property {
+    visibility : false;
+    border-width : 1em;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .LtdeQuestion :help
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeQuestion :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LtdeQuestion :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LtdeQuestion :selectable
+  property {
+    foreground-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeQuestion :focus
+  property {
+    foreground-color : white;
+    background-color : cyan;
+  }
+endstyle;
+
+style
+  .LtdeQuestion :disabled
+  property {
+    foreground-color : black;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .LtdeQuestion :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+//
+// LTDE layout
+//
+layout
+  layoutid = SCU_DEFAULT_LAYOUT_ID;
+
+  panel
+    panelid = SCREEN_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SCREEN;
+    style = .LtdeScreen;
+  endpanel;
+
+  panel
+    panelid = TITLE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_FORM_TITLE;
+    style = .LtdeTitle;
+  endpanel;
+
+  panel
+    panelid = SETUP_MENU_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_MENU;
+    style = .LtdeSetupMenu;
+  endpanel;
+
+  panel
+    panelid = SETUP_PAGE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE;
+    style = .LtdeSetupPage;
+  endpanel;
+
+  panel
+    panelid = HELP_TEXT_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HELP_TEXT;
+    style = .LtdeHelpText;
+  endpanel;
+
+  panel
+    panelid = HOTKEY_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HOTKEY;
+    style = .LtdeHotkey;
+  endpanel;
+
+  panel
+    panelid = QUESTION_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_QUESTION;
+    style = .LtdeQuestion;
+  endpanel;
+endlayout;
+
+//
+// LGDE Styles
+//
+style
+  .LgdeScreen
+  property {
+    visibility : false;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+    foreground-color : lightgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LgdeOwnerDraw
+  property {
+    foreground-color : lightgray;
+    background-color : black;
+    font-size : 20;
+    font-name : ttf;
+    padding-left   : 10px;
+    padding-top    : 10px;
+    padding-right  : 10px;
+    padding-bottom : 10px;
+  }
+endstyle;
+
+style
+  .LgdeOwnerDraw panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 14%;
+  }
+endstyle;
+
+style
+  .LgdeTitle
+  property {
+    foreground-color : white;
+    background-color : darkgray;
+    font-size : 25;
+    font-name : ttf;
+    padding-left   : 30px;
+    padding-top    : 5px;
+    padding-right  : 30px;
+    padding-bottom : 5px;
+  }
+endstyle;
+
+style
+  .LgdeTitle panel
+  property {
+    visibility : true;
+    left   : 12%;
+    top    : 14%;
+    right  : 100%;
+    bottom : 23%;
+  }
+endstyle;
+
+style
+  .LgdeTitle :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LgdeSetupMenu
+  property {
+    foreground-color : blue;
+    background-color : black;
+    background-image : IMAGE_MENU_BACKGROUND_NORMAL;
+    font-size : 19;
+    font-name : ttf;
+    padding-left   : 10px;
+    padding-top    : 50px;
+    padding-right  : 10px;
+    padding-bottom : 10px;
+    help-image-display : top;
+  }
+endstyle;
+
+style
+  .LgdeSetupMenu panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 14%;
+    right  : 12%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .LgdeSetupMenu :highlight
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+    background-image : IMAGE_MENU_BACKGROUND_HOT;
+  }
+endstyle;
+
+style
+  .LgdeSetupMenu :grayout
+  property {
+    foreground-color : darkgray;
+    background-image : IMAGE_MENU_BACKGROUND_NORMAL;
+  }
+endstyle;
+
+style
+  .LgdeSetupMenu :selectable
+  property {
+    foreground-color : white;
+    background-image : IMAGE_MENU_BACKGROUND_NORMAL;
+  }
+endstyle;
+
+style
+  .LgdeSetupMenu :focus
+  property {
+    foreground-color : blue;
+    background-color : lightgray;
+    background-image : IMAGE_MENU_BACKGROUND_HOT;
+  }
+endstyle;
+
+style
+  .LgdeSetupPage
+  property {
+    foreground-color : darkgray;
+    background-color : lightgray;
+    background-image : IMAGE_SETUP_MENU_TEXT_OP_BKG;
+    font-size : 19;
+    font-name : ttf;
+    padding-left   : 40px;
+    padding-top    : 20px;
+    padding-right  : 10px;
+    padding-bottom : 20px;
+    help-image-display : left;
+  }
+endstyle;
+
+style
+  .LgdeSetupPage panel
+  property {
+    visibility : true;
+    border-width : 1em;
+    left   : 12%;
+    top    : 23%;
+    right  : 65%;
+    bottom : 87%;
+  }
+endstyle;
+
+style
+  .LgdeSetupPage :highlight
+  property {
+    foreground-color : white;
+    background-color : blue;
+  }
+endstyle;
+
+style
+  .LgdeSetupPage :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LgdeSetupPage :selectable
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LgdeSetupPage :focus
+  property {
+    foreground-color : white;
+    background-color : blue;
+  }
+endstyle;
+
+style
+  .LgdeSetupPage :disabled
+  property {
+    foreground-color : blue;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LgdeSetupPage :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LgdeHelpText
+  property {
+    foreground-color : darkgray;
+    background-color : lightgray;
+    font-size : 19;
+    font-name : ttf;
+    padding-left   : 10px;
+    padding-top    : 10px;
+    padding-right  : 10px;
+    padding-bottom : 10px;
+  }
+endstyle;
+
+style
+  .LgdeHelpText panel
+  property {
+    visibility : true;
+    border-width : 1em;
+    left   : 65%;
+    top    : 23%;
+    right  : 100%;
+    bottom : 87%;
+  }
+endstyle;
+
+style
+  .LgdeHotkey
+  property {
+    foreground-color : white;
+    background-color : black;
+    font-size : 15;
+    font-name : ttf;
+    padding-left   : 50px;
+    padding-top    : 19px;
+    padding-right  : 0px;
+    padding-bottom : 19px;
+  }
+endstyle;
+
+style
+  .LgdeHotkey panel
+  property {
+    visibility : true;
+    left   : 12%;
+    top    : 87%;
+    right  : 100%;
+    bottom : 100%;
+    resolution : horizontal;
+  }
+endstyle;
+
+style
+  .LgdeHotkey :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LgdeHotkey :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LgdeHotkey :selectable
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LgdeHotkey :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LgdeQuestion
+  property {
+    foreground-color : black;
+    background-color : blue;
+    font-size : 20;
+    font-name : ttf;
+    padding-left   : 10px;
+    padding-top    : 10px;
+    padding-right  : 10px;
+    padding-bottom : 10px;
+  }
+endstyle;
+
+style
+  .LgdeQuestion panel
+  property {
+    visibility : false;
+    border-width : 1em;
+    left   : 60%;
+    top    : 50%;
+    right  : 100%;
+    bottom : 85%;
+  }
+endstyle;
+
+style
+  .LgdeQuestion :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LgdeQuestion :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .LgdeQuestion :selectable
+  property {
+    foreground-color : black;
+  }
+endstyle;
+
+style
+  .LgdeQuestion :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .LgdeQuestion :disabled
+  property {
+    foreground-color : darkgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .LgdeQuestion :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+//
+// LGDE layout
+//
+layout
+  layoutid = SCU_LGDE_LAYOUT_ID;
+
+  panel
+    panelid = SCREEN_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SCREEN;
+    style = .LgdeScreen;
+  endpanel;
+
+  panel
+    panelid = OWNER_DRAW_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_OWNER_DRAW;
+    style = .LgdeOwnerDraw;
+  endpanel;
+
+  panel
+    panelid = TITLE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_FORM_TITLE;
+    style = .LgdeTitle;
+  endpanel;
+
+  panel
+    panelid = SETUP_MENU_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_MENU;
+    style = .LgdeSetupMenu;
+  endpanel;
+
+  panel
+    panelid = SETUP_PAGE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE;
+    style = .LgdeSetupPage;
+  endpanel;
+
+  panel
+    panelid = HELP_TEXT_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HELP_TEXT;
+    style = .LgdeHelpText;
+  endpanel;
+
+  panel
+    panelid = HOTKEY_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HOTKEY;
+    style = .LgdeHotkey;
+  endpanel;
+
+  panel
+    panelid = QUESTION_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_QUESTION;
+    style = .LgdeQuestion;
+  endpanel;
+endlayout;
+
+//
+// LGDE front page Styles
+//
+style
+  .FrontPageLgdeOwnerDraw panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 14%;
+  }
+endstyle;
+
+
+style
+  .FrontPageLgdeSetupPage panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 14%;
+    right  : 100%;
+    bottom : 87%;
+  }
+endstyle;
+
+
+style
+  .FrontPageLgdeHotkey panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 87%;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+//
+// LGDE front page layout
+//
+layout
+  layoutid = FRONT_PAGE_LGDE_LAYOUT_ID;
+
+  panel
+    panelid   = OWNER_DRAW_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_OWNER_DRAW;
+    style     = .FrontPageLgdeOwnerDraw;
+  endpanel;
+
+  panel
+    panelid   = SETUP_PAGE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE;
+    style     = .FrontPageLgdeSetupPage;
+  endpanel;
+
+  panel
+    panelid   = HOTKEY_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HOTKEY;
+    style     = .FrontPageLgdeHotkey;
+  endpanel;
+endlayout;
+
+//
+// LGDE common page Styles
+//
+style
+  .CommonPageLgdeOwnerDraw panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 14%;
+  }
+endstyle;
+
+style
+  .CommonPageLgdeTitle panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 14%;
+    right  : 100%;
+    bottom : 23%;
+  }
+endstyle;
+
+style
+  .CommonPageLgdeSetupPage panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 23%;
+    right  : 65%;
+    bottom : 87%;
+  }
+endstyle;
+
+style
+  .CommonPageLgdeHelpText panel
+  property {
+    visibility : true;
+    left   : 65%;
+    top    : 23%;
+    right  : 100%;
+    bottom : 87%;
+  }
+endstyle;
+
+style
+  .CommonPageLgdeHotkey panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 87%;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+//
+// LGDE front page layout
+//
+layout
+  layoutid = COMMON_PAGE_LGDE_LAYOUT_ID;
+
+  panel
+    panelid   = OWNER_DRAW_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_OWNER_DRAW;
+    style     = .CommonPageLgdeOwnerDraw;
+  endpanel;
+
+  panel
+    panelid   = TITLE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_FORM_TITLE;
+    style     = .CommonPageLgdeTitle;
+  endpanel;
+
+  panel
+    panelid   = SETUP_PAGE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE;
+    style     = .CommonPageLgdeSetupPage;
+  endpanel;
+
+  panel
+    panelid   = HELP_TEXT_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HELP_TEXT;
+    style     = .CommonPageLgdeHelpText;
+  endpanel;
+
+  panel
+    panelid   = HOTKEY_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HOTKEY;
+    style     = .CommonPageLgdeHotkey;
+  endpanel;
+endlayout;
+
+//
+// RTDE styles
+//
+style
+  .RtdeScreen
+  property {
+    visibility : false;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+    foreground-color : lightgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeTitle
+  property {
+    foreground-color : black;
+    background-color : red;
+  }
+endstyle;
+
+style
+  .RtdeTitle panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 0em;
+    right  : 100%;
+    bottom : 0em;
+  }
+endstyle;
+
+style
+  .RtdeTitle :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .RtdeTitle :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .RtdeTitle :selectable
+  property {
+    foreground-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeTitle :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .RtdeTitle :disabled
+  property {
+    foreground-color : lightgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeTitle :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeSetupMenu
+  property {
+    foreground-color : lightgray;
+    background-color : darkgray;
+  }
+endstyle;
+
+style
+  .RtdeSetupMenu panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 1em;
+    right  : 100%;
+    bottom : 1em;
+  }
+endstyle;
+
+style
+  .RtdeSetupMenu :highlight
+  property {
+    foreground-color : darkgray;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeSetupMenu :grayout
+endstyle;
+
+style
+  .RtdeSetupMenu :selectable
+endstyle;
+
+style
+  .RtdeSetupMenu :focus
+  property {
+    foreground-color : darkgray;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeSetupMenu :disabled
+  property {
+    foreground-color : darkgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeSetupMenu :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeSetupPage
+  property {
+    foreground-color : red;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeSetupPage panel
+  property {
+    visibility : true;
+    border-width : 1em;
+    left   : 0%;
+    top    : 2em;
+    right  : 67%;
+    bottom : -2em;
+  }
+endstyle;
+
+style
+  .RtdeSetupPage :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .RtdeSetupPage :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .RtdeSetupPage :selectable
+  property {
+    foreground-color : red;
+  }
+endstyle;
+
+style
+  .RtdeSetupPage :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .RtdeSetupPage :disabled
+  property {
+    foreground-color : red;
+  }
+endstyle;
+
+style
+  .RtdeSetupPage :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeHelpText
+  property {
+    foreground-color : darkgray;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeHelpText panel
+  property {
+    visibility : true;
+    border-width : 1em;
+    left   : 68%;
+    top    : 2em;
+    right  : 100%;
+    bottom : -2em;
+  }
+endstyle;
+
+style
+  .RtdeHelpText :highlight
+  property {
+    foreground-color : red;
+  }
+endstyle;
+
+style
+  .RtdeHelpText :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .RtdeHelpText :selectable
+  property {
+    foreground-color : red;
+  }
+endstyle;
+
+style
+  .RtdeHelpText :focus
+  property {
+    foreground-color : red;
+  }
+endstyle;
+
+style
+  .RtdeHelpText :disabled
+  property {
+    foreground-color : red;
+  }
+endstyle;
+
+style
+  .RtdeHelpText :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeHotkey
+  property {
+    foreground-color : black;
+    background-color : red;
+  }
+endstyle;
+
+style
+  .RtdeHotkey panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : -1em;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .RtdeHotkey :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .RtdeHotkey :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .RtdeHotkey :selectable
+  property {
+    foreground-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeHotkey :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .RtdeHotkey :disabled
+  property {
+    foreground-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeHotkey :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeQuestion
+  property {
+    foreground-color : lightgray;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .RtdeQuestion panel
+  property {
+    visibility : false;
+    border-width : 1em;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+  }
+endstyle;
+
+style
+  .RtdeQuestion :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .RtdeQuestion :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .RtdeQuestion :selectable
+  property {
+    foreground-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeQuestion :focus
+  property {
+    foreground-color : white;
+    background-color : red;
+  }
+endstyle;
+
+style
+  .RtdeQuestion :disabled
+  property {
+    foreground-color : black;
+    background-color : lightgray;
+  }
+endstyle;
+
+style
+  .RtdeQuestion :enabled
+  property {
+    foreground-color : lightgray;
+    background-color : red;
+  }
+endstyle;
+
+//
+// RTDE layout
+//
+layout
+  layoutid = SCU_RTDE_LAYOUT_ID;
+
+  panel
+    panelid = SCREEN_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SCREEN;
+    style = .RtdeScreen;
+  endpanel;
+
+  panel
+    panelid = TITLE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_FORM_TITLE;
+    style = .RtdeTitle;
+  endpanel;
+
+  panel
+    panelid = SETUP_MENU_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_MENU;
+    style = .RtdeSetupMenu;
+  endpanel;
+
+  panel
+    panelid = SETUP_PAGE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE;
+    style = .RtdeSetupPage;
+  endpanel;
+
+  panel
+    panelid = HELP_TEXT_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HELP_TEXT;
+    style = .RtdeHelpText;
+  endpanel;
+
+  panel
+    panelid = HOTKEY_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HOTKEY;
+    style = .RtdeHotkey;
+  endpanel;
+
+  panel
+    panelid = QUESTION_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_QUESTION;
+    style = .RtdeQuestion;
+  endpanel;
+endlayout;
+
+//
+// OEM Styles
+//
+style
+  .OemScreen
+  property {
+    visibility : false;
+    left   : 0%;
+    top    : 0%;
+    right  : 100%;
+    bottom : 100%;
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .OemTitle
+  property {
+    foreground-color : OEM_ORANGE;
+    background-color : white;
+    font-size : 48;
+    font-name : ttf;
+    padding-left   : 30px;
+    padding-top    : 5px;
+    padding-right  : 30px;
+    padding-bottom : 5px;
+  }
+endstyle;
+
+style
+  .OemTitle panel
+  property {
+    visibility : true;
+    left   : 45%;
+    top    : 10%;
+    right  : 99%;
+    bottom : 20%;
+    scrollbar-color : OEM_BLUE;
+    scrollbar-width : 15px;
+  }
+endstyle;
+
+style
+  .OemSetupMenu
+  property {
+    foreground-color : OEM_TEXT_GRAY;
+    background-color : black;
+    font-size : 24;
+    font-name : ttf;
+    padding-left   : 10px;
+    padding-top    : 5px;
+    padding-right  : 10px;
+    padding-bottom : 5px;
+  }
+endstyle;
+
+style
+  .OemSetupMenu panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 90%;
+    right  : 70%;
+    bottom : 99%;
+    resolution : horizontal;
+    scrollbar-color : OEM_BLUE;
+    scrollbar-width : 15px;
+  }
+endstyle;
+
+style
+  .OemSetupMenu :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .OemSetupMenu :focus
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .OemSetupPage
+  property {
+    foreground-color : black;
+    background-color : OEM_BK_GRAY;
+    font-size : 20;
+    font-name : ttf;
+    padding-left   : 10px;
+    padding-top    : 10px;
+    padding-right  : 10px;
+    padding-bottom : 10px;
+  }
+endstyle;
+
+style
+  .OemSetupPage panel
+  property {
+    visibility : true;
+    left   : 0%;
+    top    : 10%;
+    right  : 45%;
+    bottom : 90%;
+    scrollbar-color : OEM_BLUE;
+    scrollbar-width : 15px;
+  }
+endstyle;
+
+style
+  .OemSetupPage goto
+  property {
+    font-size : 30;
+    help-text-show : true;
+    help-text-font-size : 14;
+  }
+endstyle;
+
+style
+  .OemSetupPage :highlight
+  property {
+    foreground-color : white;
+    background-color : OEM_ORANGE;
+  }
+endstyle;
+
+style
+  .OemSetupPage :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .OemSetupPage :selectable
+  property {
+    foreground-color : black;
+  }
+endstyle;
+
+style
+  .OemSetupPage :focus
+  property {
+    foreground-color : white;
+    background-color : OEM_ORANGE;
+  }
+endstyle;
+
+style
+  .OemSetupPage :disabled
+  property {
+    foreground-color : OEM_ORANGE;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .OemSetupPage :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .OemSetupPage2
+  property {
+    foreground-color : black;
+    background-color : white;
+    font-size : 20;
+    font-name : ttf;
+    padding-left   : 50px;
+    padding-top    : 10px;
+    padding-right  : 10px;
+    padding-bottom : 10px;
+  }
+endstyle;
+
+style
+  .OemSetupPage2 panel
+  property {
+    visibility : true;
+    left   : 45%;
+    top    : 20%;
+    right  : 99%;
+    bottom : 90%;
+    scrollbar-color : OEM_BLUE;
+    scrollbar-width : 15px;
+  }
+endstyle;
+
+style
+  .OemSetupPage2 :highlight
+  property {
+    foreground-color : white;
+    background-color : OEM_ORANGE;
+  }
+endstyle;
+
+style
+  .OemSetupPage2 :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .OemSetupPage2 :selectable
+  property {
+    foreground-color : black;
+  }
+endstyle;
+
+style
+  .OemSetupPage2 :focus
+  property {
+    foreground-color : white;
+    background-color : OEM_ORANGE;
+  }
+endstyle;
+
+style
+  .OemSetupPage2 :disabled
+  property {
+    foreground-color : OEM_ORANGE;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .OemSetupPage2 :enabled
+  property {
+    foreground-color : white;
+    background-color : black;
+  }
+endstyle;
+
+style
+  .OemHotkey
+  property {
+    foreground-color : OEM_ORANGE;
+    background-color : black;
+    font-size : 24;
+    font-name : ttf;
+    padding-left   : 10px;
+    padding-top    : 5px;
+    padding-right  : 10px;
+    padding-bottom : 5px;
+  }
+endstyle;
+
+style
+  .OemHotkey panel
+  property {
+    visibility : true;
+    left   : 70%;
+    top    : 90%;
+    right  : 99%;
+    bottom : 99%;
+    resolution : horizontal;
+    scrollbar-color : OEM_BLUE;
+    scrollbar-width : 15px;
+  }
+endstyle;
+
+style
+  .OemHotkey :focus
+  property {
+    foreground-color : OEM_ORANGE;
+  }
+endstyle;
+
+style
+  .OemQuestion
+  property {
+    foreground-color : white;
+    background-color : OEM_ORANGE;
+    font-size : 24;
+    font-name : ttf;
+    padding-left   : 10px;
+    padding-top    : 10px;
+    padding-right  : 10px;
+    padding-bottom : 10px;
+  }
+endstyle;
+
+style
+  .OemQuestion panel
+  property {
+    visibility : false;
+    border-width : 1em;
+    left   : 0%;
+    top    : 0%;
+    right  : 99%;
+    bottom : 99%;
+    scrollbar-color : OEM_BLUE;
+    scrollbar-width : 15px;
+  }
+endstyle;
+
+style
+  .OemQuestion :highlight
+  property {
+    foreground-color : white;
+  }
+endstyle;
+
+style
+  .OemQuestion :grayout
+  property {
+    foreground-color : darkgray;
+  }
+endstyle;
+
+style
+  .OemQuestion :selectable
+  property {
+    foreground-color : OEM_BK_GRAY;
+  }
+endstyle;
+
+style
+  .OemQuestion :focus
+  property {
+    foreground-color : black;
+    background-color : OEM_BK_GRAY;
+  }
+endstyle;
+
+style
+  .OemQuestion :disabled
+  property {
+    foreground-color : OEM_ORANGE;
+    background-color : OEM_BK_GRAY;
+  }
+endstyle;
+
+style
+  .OemQuestion :enabled
+  property {
+    foreground-color : black;
+    background-color : OEM_BK_GRAY;
+  }
+endstyle;
+
+//
+// OEM layout
+//
+layout
+  layoutid = SCU_OEM_LAYOUT_ID;
+
+  panel
+    panelid = SCREEN_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SCREEN;
+    style = .OemScreen;
+  endpanel;
+
+  panel
+    panelid = TITLE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_FORM_TITLE;
+    style = .OemTitle;
+  endpanel;
+
+  panel
+    panelid = SETUP_MENU_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_MENU;
+    style = .OemSetupMenu;
+  endpanel;
+
+  panel
+    panelid = SETUP_PAGE_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE;
+    style = .OemSetupPage;
+  endpanel;
+
+  panel
+    panelid = SETUP_PAGE_2_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_SETUP_PAGE2;
+    style = .OemSetupPage2;
+  endpanel;
+
+  panel
+    panelid = HOTKEY_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_HOTKEY;
+    style = .OemHotkey;
+  endpanel;
+
+  panel
+    panelid = QUESTION_PANEL_ID,
+    paneltype = H2O_PANEL_TYPE_QUESTION;
+    style = .OemQuestion;
+  endpanel;
+endlayout;
+

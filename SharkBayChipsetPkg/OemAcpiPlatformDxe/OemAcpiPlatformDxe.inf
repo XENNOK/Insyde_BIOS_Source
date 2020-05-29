@@ -1,0 +1,72 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+   INF_VERSION                    = 0x00010005
+   BASE_NAME                      = OemAcpiPlatform
+   FILE_GUID                      = 9B182CEE-AED5-4d95-B2A9-A2CF6CDFEAA8
+   MODULE_TYPE                    = DXE_DRIVER
+   ENTRY_POINT                    = InstallOemAcpiPlatform
+
+[Sources]
+  OemAcpiPlatform.c
+  UpdateOemTableID.c
+#[-start-121107-IB10820153-remove]#
+#  UpdateDsdt.c
+#[-end-121107-IB10820153-remove]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+#[-start-121107-IB10820154-add]#
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec  
+#[-end-121107-IB10820154-add]#
+#[-start-121108-IB10820155-add]#
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-end-121108-IB10820155-add]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint 
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiLib
+#[-start-121219-IB10820205-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121219-IB10820205-add]#
+#[-start-130912-IB12360024-add]#
+  PcdLib
+  BaseMemoryLib
+#[-end-130912-IB12360024-add]#
+
+[Protocols]
+  gEfiAcpiSupportProtocolGuid                        # CONSUMED
+  gEfiPciIoProtocolGuid                              # CONSUMED
+  gEfiSetupUtilityProtocolGuid                       # CONSUMED
+  gEfiGlobalNvsAreaProtocolGuid
+
+#[-start-120731-IB10820094-add]#
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdXtuSupported
+#[-end-120731-IB10820094-add]#
+
+#[-start-130912-IB12360024-add]#
+[FixedPcd]
+  gChipsetPkgTokenSpaceGuid.PcdOemId
+  gChipsetPkgTokenSpaceGuid.PcdOemTableId
+#[-end-130912-IB12360024-add]#
+
+[Depex]
+  gEfiAcpiSupportProtocolGuid AND
+  gEfiPciIoProtocolGuid AND
+  gEfiSetupUtilityProtocolGuid

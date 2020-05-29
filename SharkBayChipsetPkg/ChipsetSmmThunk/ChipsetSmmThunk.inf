@@ -1,0 +1,60 @@
+## @file
+#   Component description file for SmmThunk module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#* Copyright (c)  2005 - 2012 Intel Corporation. All rights reserved
+#* This software and associated documentation (if any) is furnished
+#* under a license and may only be used or copied in accordance
+#* with the terms of the license. Except as permitted by such
+#* license, no part of this software or documentation may be
+#* reproduced, stored in a retrieval system, or transmitted in any
+#* form or by any means without the express written consent of
+#* Intel Corporation.
+#
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmChipsetThunk
+  FILE_GUID                      = 82E740BE-B395-455a-BD79-C11FE9D2EDCF
+  MODULE_TYPE                    = DXE_SMM_DRIVER 
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = InitializeChipsetSmmThunkProtocol
+  
+[Sources]
+  ChipsetSmmThunkDriver.c
+  ChipsetSmmThunkDriver.h
+  x86Thunk.c
+  x86Thunk.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec    
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib 
+  DebugLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  StallLib  
+  IoLib
+  
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmThunkProtocolGuid
+
+[Depex]
+  gEfiLegacyBiosProtocolGuid    AND
+  gEfiSmmBase2ProtocolGuid

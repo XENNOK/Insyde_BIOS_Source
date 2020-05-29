@@ -1,0 +1,73 @@
+## @file
+#  Component description file for PeiOemServicesThunk module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiOemServicesThunk
+  FILE_GUID                      = DB482EFC-88E9-4e17-976B-A3C2CBF86554
+  MODULE_TYPE                    = PEIM
+  ENTRY_POINT                    = PeiOemSvcThunkEntryPoint
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64
+#
+
+[Sources]
+  PeiOemServicesThunk.c
+  PeiOemServicesThunk.h
+  OemSvcBootModeCreateFvThunk.c
+  OemSvcChangeBootModeThunk.c
+  OemSvcChipsetAfterModifyClockGenThunk.c
+  OemSvcChipsetModifyClockGenInfoThunk.c
+  OemSvcGetProtectTableThunk.c
+  OemSvcGetSmartBootPolicyThunk.c
+  OemSvcDetectRecoveryRequestThunk.c
+  OemSvcGetVerbTableThunk.c
+  OemSvcHookWhenRecoveryFailThunk.c
+  OemSvcInitMemoryDiscoverCallbackThunk.c
+  OemSvcInitPlatformStage1Thunk.c
+  OemSvcInitPlatformStage2Thunk.c
+  OemSvcIsBootWithNoChangeThunk.c
+  OemSvcModifySetupVarPlatformStage2Thunk.c
+  OemSvcSetRecoveryRequestThunk.c
+  OemSvcSetDimmSmbusAddrThunk.c
+  OemSvcSetPlatformHardwareSwitchThunk.c
+  OemSvcSioPeiInitThunk.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  EdkCompatibilityPkg/EdkCompatibilityPkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec 
+  InsydeFrameworkModulePkg/InsydeFrameworkModulePkg.dec 
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  PeiOemSvcKernelLibDefault
+  PeiChipsetSvcLib
+
+[Ppis]
+  gOemServicesPpiGuid                 ## PRODUCES
+  gEfiPeiMemoryDiscoveredPpiGuid          
+  gEfiPeiReadOnlyVariablePpiGuid
+  gEfiPeiReadOnlyVariable2PpiGuid
+
+[Depex]
+  TRUE
+

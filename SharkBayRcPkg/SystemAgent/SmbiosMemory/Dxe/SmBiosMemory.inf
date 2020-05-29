@@ -1,0 +1,86 @@
+## @file
+#  Component description file for SmbiosMemory instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmbiosMemory
+  FILE_GUID                      = EDA39402-F375-4496-92D3-83B43CB8A76A
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SmbiosMemoryEntry
+ 
+  
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  SmbiosMemory.c
+  SmbiosMemory.h
+  SmbiosMemoryStrings.uni
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+   
+
+[LibraryClasses]
+  PcdLib
+  HobLib
+  HiiLib
+  BaseLib
+  DebugLib
+  PrintLib
+  BaseMemoryLib
+  CommonSmbiosLib
+  DxeChipsetSvcLib
+  MemoryAllocationLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  
+
+[Protocols]
+  gEfiSmbiosProtocolGuid                     # PROTOCOL ALWAYS_CONSUMED
+  gEfiSmbusHcProtocolGuid
+#[-start-130322-IB10040025-add]#
+  gEfiDataHubProtocolGuid
+  gMemInfoProtocolGuid
+  gEfiSmmSmbusProtocolGuid
+  gDxePlatformSaPolicyGuid
+  
+
+[Guids]
+  gEfiMemorySubClassGuid  
+  
+#[-start-130610-IB05400414-add]#
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdDefaultMemoryDeviceFormFactor
+#[-end-130610-IB05400414-add]#
+  
+[Depex]
+  gEfiSmbiosProtocolGuid AND
+  gEfiSmbusHcProtocolGuid AND
+  gEfiHiiDatabaseProtocolGuid AND 
+  gEfiVariableArchProtocolGuid AND
+  gH2OChipsetServicesProtocolGuid AND
+  gEfiVariableWriteArchProtocolGuid

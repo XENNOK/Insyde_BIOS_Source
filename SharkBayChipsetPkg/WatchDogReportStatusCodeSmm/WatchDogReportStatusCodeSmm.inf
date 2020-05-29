@@ -1,0 +1,52 @@
+#/** @file
+#
+#  Component description file for PostMessage SMM driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = WatchDogReportStatusCodeSmm
+  FILE_GUID                      = 9FE10324-D10E-4CF2-99C4-F1B5A0B4732A
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = WatchDogReportStatusCodeSmmEntryPoint
+
+[Sources]
+  WatchDogReportStatusCodeSmm.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  SmmServicesTableLib
+  WatchDogLib
+  PcdLib
+  
+[Protocols]
+  gEfiSmmRscHandlerProtocolGuid                # CONSUMED
+
+[Guids]
+
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+
+[Depex]
+  TRUE  

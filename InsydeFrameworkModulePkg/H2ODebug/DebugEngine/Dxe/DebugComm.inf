@@ -1,0 +1,33 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2010, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name:
+#;
+#;   DebugComm.inf
+#;
+#; Abstract:
+#;
+#;   Component description file for DebugComm PEI module
+#;
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = DebugComm2 
+  FILE_GUID            = 4803B88E-9E66-45dc-8709-FC75D39CAF1D
+  MODULE_TYPE          = DXE_DRIVER
+
+[Binaries.Ia32]
+  PE32|Ia32\DebugComm2.efi|*
+
+[Binaries.X64]
+  PE32|X64\DebugComm2.efi|*
+
+[Depex]
+  TRUE

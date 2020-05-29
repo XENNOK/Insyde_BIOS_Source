@@ -1,0 +1,92 @@
+## @file
+#  Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[FV.RECOVERYFV]
+
+#[-start-140325-IB08400258-modify]#
+!if gH2OEventLogPkgTokenSpaceGuid.PcdBiosEventStorageSupport
+  INF $(INSYDE_EVENTLOG_PKG)/EventStorage/BiosStorage/BiosStoragePei/BiosStoragePei.inf
+!endif
+#[-end-140325-IB08400258-modify]#
+
+!if gH2OEventLogPkgTokenSpaceGuid.PcdH2OEventLogSupport
+INF $(INSYDE_EVENTLOG_PKG)/EventLog/EventLogPei/EventLogPei.inf
+!endif
+
+!if gH2OEventLogPkgTokenSpaceGuid.PcdH2OPostMessageSupport
+INF $(INSYDE_EVENTLOG_PKG)/PostMessage/PostMessagePei/PostMessagePei.inf
+!endif
+
+#[-start-140325-IB08400258-modify]#
+!if gH2OEventLogPkgTokenSpaceGuid.PcdBmcSelEventStorageSupport
+  INF $(INSYDE_EVENTLOG_PKG)/EventStorage/BmcSelStorage/BmcSelStoragePei/BmcSelStoragePei.inf
+!endif
+#[-end-140325-IB08400258-modify]#
+
+#[-start-140306-IB08400249-add]#
+!if gH2OEventLogPkgTokenSpaceGuid.PcdStoreDebugMsgEnPei
+INF $(INSYDE_EVENTLOG_PKG)/DebugMessage/StoreDebugMessagePei/StoreDebugMessagePei.inf
+!endif
+#[-end-140306-IB08400249-add]#
+
+[FV.DXEFV]
+
+#[-start-140325-IB08400258-modify]#
+!if gH2OEventLogPkgTokenSpaceGuid.PcdBiosEventStorageSupport
+INF $(INSYDE_EVENTLOG_PKG)/EventStorage/BiosStorage/BiosStorageDxe/BiosStorageKernelDxe.inf
+INF $(INSYDE_EVENTLOG_PKG)/EventStorage/BiosStorage/BiosStorageDxe/BiosStorageChipsetDxe.inf 
+
+INF $(INSYDE_EVENTLOG_PKG)/EventStorage/BiosStorage/BiosStorageSmm/BiosStorageKernelSmm.inf
+INF $(INSYDE_EVENTLOG_PKG)/EventStorage/BiosStorage/BiosStorageSmm/BiosStorageChipsetSmm.inf 
+
+!endif
+#[-end-140325-IB08400258-modify]#
+
+!if gH2OEventLogPkgTokenSpaceGuid.PcdH2OEventLogSupport
+INF $(INSYDE_EVENTLOG_PKG)/EventLog/EventLogDxe/EventLogDxe.inf
+INF $(INSYDE_EVENTLOG_PKG)/EventLog/EventLogSmm/EventLogSmm.inf
+
+INF $(INSYDE_EVENTLOG_PKG)/EventStorage/MemoryStorage/MemoryStorageDxe/MemoryStorageKernelDxe.inf 
+INF $(INSYDE_EVENTLOG_PKG)/EventStorage/MemoryStorage/MemoryStorageDxe/MemoryStorageChipsetDxe.inf
+
+INF $(INSYDE_EVENTLOG_PKG)/EventStorage/MemoryStorage/MemoryStorageSmm/MemoryStorageKernelSmm.inf
+INF $(INSYDE_EVENTLOG_PKG)/EventStorage/MemoryStorage/MemoryStorageSmm/MemoryStorageChipsetSmm.inf
+
+#[-start-140325-IB08400258-modify]#
+!if gH2OEventLogPkgTokenSpaceGuid.PcdBmcSelEventStorageSupport
+  INF $(INSYDE_EVENTLOG_PKG)/EventStorage/BmcSelStorage/BmcSelEventStorageDxe/BmcSelEventStorageDxe.inf
+  INF $(INSYDE_EVENTLOG_PKG)/EventStorage/BmcSelStorage/BmcSelEventStorageSmm/BmcSelEventStorageSmm.inf
+  INF $(INSYDE_EVENTLOG_PKG)/BmcSelStringTranslationDxe/BmcSelStringTranslationDxe.inf
+!endif
+#[-end-140325-IB08400258-modify]#
+
+!if $(GCC)!=Gcc    #BugBug: gcc fails to build this module
+INF $(INSYDE_EVENTLOG_PKG)/EventLogViewerDxe/EventLogViewerDxe.inf
+!endif
+
+!endif
+
+!if gH2OEventLogPkgTokenSpaceGuid.PcdH2OPostMessageSupport
+INF  $(INSYDE_EVENTLOG_PKG)/PostMessage/PostMessageDxe/PostMessageDxe.inf
+INF  $(INSYDE_EVENTLOG_PKG)/PostMessage/PostMessageSmm/PostMessageSmm.inf
+!endif
+
+#[-start-140306-IB08400249-add]#
+!if gH2OEventLogPkgTokenSpaceGuid.PcdStoreDebugMsgEn
+INF APRIORI $(INSYDE_EVENTLOG_PKG)/DebugMessage/StoreDebugMessageDxe/StoreDebugMessageDxe.inf 
+#[-start-140311-IB08400251-add]#
+INF APRIORI $(INSYDE_EVENTLOG_PKG)/DebugMessage/StoreDebugMessageSmm/StoreDebugMessageSmm.inf
+#[-end-140311-IB08400251-add]#
+!endif
+#[-end-140306-IB08400249-add]#
+

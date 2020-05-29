@@ -1,0 +1,55 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+[defines]
+BASE_NAME            = SmmPnp
+FILE_GUID            = CC1BAA36-11EB-45cc-9ADC-7565E273AC70
+COMPONENT_TYPE       = RT_DRIVER
+
+[sources.common]
+  SmmPnp.c
+  PnpDmi.c
+  Pnp.c
+
+[libraries.common]
+  EfiGuidLib
+  ProtocolLib
+  EdkProtocolLib
+  EdkFrameworkProtocolLib
+  EfiProtocolLib
+  EfiRuntimeLib
+  EfiSmmDriverLib
+  HobLib
+  CmosLib
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EFI_SOURCE)\Framework
+  $(EDK_SOURCE)\Foundation
+  .
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\Include
+  $(EFI_SOURCE)\Include\OemServices
+  $(EFI_SOURCE)\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EFI_SOURCE)\Library\Include  
+
+  $(BUILD_DIR)\$(PROCESSOR)
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=SmmPnpInit
+  DPX_SOURCE=SmmPnp.dxs

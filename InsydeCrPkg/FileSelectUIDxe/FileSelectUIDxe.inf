@@ -1,0 +1,72 @@
+## @file
+# 
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FileSelectUIDxe
+  FILE_GUID                      = 93755C1C-BE15-4d5a-BF95-5F9753853CB6
+  MODULE_TYPE                    = DXE_DRIVER
+  BINARY_VERSION                 = 10.02  
+
+[Binaries.Ia32]
+  PE32|Ia32/FileSelectUIDxe.efi
+
+[Binaries.X64]
+  PE32|X64/FileSelectUIDxe.efi
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  PrintLib
+  OemGraphicsLib
+  ConsoleLib
+  DevicePathLib
+  
+[Guids]
+  gEfiFileInfoGuid
+  gEfiGenericVariableGuid
+  gEfiGlobalVariableGuid
+  gEfiFileSystemInfoGuid
+  gEfiDiskInfoIdeInterfaceGuid
+  gEfiDiskInfoScsiInterfaceGuid
+  gEfiDiskInfoUsbInterfaceGuid
+  gEfiDiskInfoAhciInterfaceGuid
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiSimpleTextOutProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiConsoleControlProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiDiskInfoProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  gFileSelectUIProtocolGuid
+
+[Depex]
+  gEfiSimpleFileSystemProtocolGuid
+  

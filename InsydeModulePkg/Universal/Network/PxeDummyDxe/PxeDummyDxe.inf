@@ -1,0 +1,40 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2014, Insyde Software Corp. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#  Module Name:
+#
+#    PxeDummy.inf
+#
+#  Abstract:
+#
+#    This driver will install fake
+#      EFI_PXE_BASE_CODE_PROTOCOL
+#
+
+[defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PxeDummyDxe
+  FILE_GUID                      = F0F1588E-9028-4eb8-8031-F233B48EA0B7
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+
+[Binaries.Ia32]
+  PE32|Ia32/PxeDummyDxe.efi|*
+
+[Binaries.X64]
+  PE32|X64/PxeDummyDxe.efi|*
+
+[Binaries.ARM]
+  PE32|Arm/PxeDummyDxe.efi|*
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[Depex]
+  gNetworkLockerProtocolGuid

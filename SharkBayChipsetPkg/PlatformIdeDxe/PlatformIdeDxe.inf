@@ -1,0 +1,43 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PlatformIde
+  FILE_GUID                        = FDA14FA3-AFFC-469a-B7BB-34BCDD4AC096
+  MODULE_TYPE                   = DXE_DRIVER
+  ENTRY_POINT                    = InitializePlatformIde
+
+[Sources]
+  PlatformIde.c
+  SbPlatformIde.c
+  OemPlatformIde.c
+  
+[Packages]
+  MdePkg/MdePkg.dec 
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  UefiDriverEntryPoint   
+  UefiBootServicesTableLib  
+  MemoryAllocationLib
+  
+[Protocols]
+  gEfiSetupUtilityProtocolGuid                 #CONSUMED
+  gEfiPlatformIdeProtocolGuid                #PRODUCES
+  
+[Depex]
+  gEfiSetupUtilityProtocolGuid
+

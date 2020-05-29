@@ -1,0 +1,41 @@
+## @file
+#  H2O Console Redirection package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[FV.DXEFV]
+!if gInsydeTokenSpaceGuid.PcdH2OConsoleRedirectionSupported == 1
+INF InsydeCrPkg/CrHookDxe/CrHookDxe.inf
+INF InsydeCrPkg/CrPolicyDxe/CrPolicyDxe.inf
+INF InsydeCrPkg/IsaSerialDxe/IsaSerialDxe.inf
+INF InsydeCrPkg/TerminalDxe/TerminalDxe.inf
+!if gInsydeCrTokenSpaceGuid.PcdCRPciSerialSupported == 1
+INF InsydeCrPkg/PciSerialDxe/PciSerialDxe.inf
+!endif
+!if gInsydeCrTokenSpaceGuid.PcdCRSrvManagerSupported == 1
+INF InsydeCrPkg/CrSrvManagerDxe/CrSrvManagerDxe.inf
+!if gInsydeTokenSpaceGuid.PcdSecureFlashSupported == 0 
+INF InsydeCrPkg/CrBiosFlashDxe/CrBiosFlashDxe.inf
+!endif
+INF InsydeCrPkg/CrFileTransferDxe/CrFileTransferDxe.inf
+INF InsydeCrPkg/FileSelectUIDxe/FileSelectUIDxe.inf
+!endif
+!if gInsydeCrTokenSpaceGuid.PcdCROverUsbSupported == 1 
+INF InsydeCrPkg/UsbSerialDxe/UsbSerialDxe.inf
+!if gInsydeTokenSpaceGuid.PcdH2ODdtSupported != 1
+INF InsydeCrPkg/CrDdtCableDxe/CrDdtCableDxe.inf
+!endif
+INF InsydeCrPkg/CrPl2303Dxe/CrPl2303Dxe.inf
+!endif
+FILE FREEFORM = PCD (gInsydeCrTokenSpaceGuid.PcdConsoleRedirectionOpRomFile) {
+    SECTION RAW = InsydeCrPkg/Csm/ConsoleRedirection/ConsoleRedirection.bin
+  }
+!endif

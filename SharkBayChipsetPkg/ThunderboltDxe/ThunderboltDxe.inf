@@ -1,0 +1,79 @@
+## @file
+# 
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = ThunderboltDxe
+  FILE_GUID            = F9FAD636-FD19-49ce-99C2-2C995B6EC002
+  MODULE_TYPE          = DXE_DRIVER
+  VERSION_STRING       = 1.0
+  ENTRY_POINT          = ThunderboltDxeEntryPoint
+
+[Sources]
+  ThunderboltDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+#[-start-121114-IB11410022-remove]#
+##[-start-121113-IB10820162-add]#
+#  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+#  $(PROJECT_PKG)/Project.dec
+##[-end-121113-IB10820162-add]#
+#[-end-121114-IB11410022-remove]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  IoLib
+  DebugLib
+#[-start-130424-IB05160441-modify]#
+  PcdLib
+#[-end-130424-IB05160441-modify]#
+
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+  gEfiSmmControl2ProtocolGuid
+  gExitPmAuthProtocolGuid
+#[-start-130424-IB05160441-add]#
+  gEfiGlobalNvsAreaProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+#[-end-130424-IB05160441-add]#
+
+#[-start-121114-IB11410022-remove]#
+##[-start-121113-IB10820162-add]#
+#[FeaturePcd]
+#  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+#
+#[Pcd]
+#  gChipsetPkgTokenSpaceGuid.PcdThunderBoltGpioConnectIc
+#  gChipsetPkgTokenSpaceGuid.PcdThunderBoltGpioToPch
+#  gChipsetPkgTokenSpaceGuid.PcdThunderBoltGpioToSio
+#  gChipsetPkgTokenSpaceGuid.PcdGpioLvl
+#  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+##[-end-121113-IB10820162-add]#
+#[-end-121114-IB11410022-remove]#
+
+[Pcd]
+#[-start-130424-IB05160441-add]#
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltChip
+#[-end-130424-IB05160441-add]#
+
+[Depex]
+#[-start-130424-IB05160441-modify]#
+  gEfiSetupUtilityProtocolGuid AND
+  gEfiGlobalNvsAreaProtocolGuid
+#[-end-130424-IB05160441-modify]#

@@ -1,0 +1,42 @@
+## @file
+#  Component description file for GetBatteryInfo module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = GetBatteryInfo
+  FILE_GUID                      = 4DA406CD-201A-40A6-BFB9-907E1AC834C2
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = IrsiLib
+  CONSTRUCTOR                    = IrsiGetBatteryInfoInit
+
+[Sources]
+  GetBatteryInfo.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiLib
+  BaseMemoryLib
+  IrsiRegistrationLib
+
+  
+[Protocols]
+  gIrsiRegistrationProtocolGuid
+
+[Guids]
+  gIrsiServicesGuid

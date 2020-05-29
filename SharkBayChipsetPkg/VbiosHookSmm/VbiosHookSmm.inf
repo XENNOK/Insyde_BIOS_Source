@@ -1,0 +1,66 @@
+## @file
+#  Component description file for VbiosHook module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = VbiosHook
+  FILE_GUID                      = 87E4A8F8-B74A-40b5-B019-E10A5DE11236
+#[-start-121113-IB10820163-modify]#
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+#[-end-121113-IB10820163-modify]#
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = VbiosHookEntryPoint
+
+[Sources]
+  VbiosHook.c
+
+[Packages]
+#[-start-130110-IB11410040-modify]#
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+#[-end-130110-IB11410040-modify]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+#[-start-121031-IB10820146-add]#
+  PciExpressLib
+#[-end-121031-IB10820146-add]#
+#[-start-121113-IB10820163-add]#
+  DebugLib
+  SmmOemSvcChipsetLibDefault
+#[-end-121113-IB10820163-add]#
+#[-start-130110-IB11410040-add]#
+#[-start-130812-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcChipsetLibDefault
+#[-end-130812-IB06720232-modify]#
+#[-end-130110-IB11410040-add]#
+#[-start-130130-IB05280043-add]#
+  PciLib
+#[-end-130130-IB05280043-add]#
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+  gEfiSmmInt15ServiceProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[Depex]
+  gEfiSmmInt15ServiceProtocolGuid

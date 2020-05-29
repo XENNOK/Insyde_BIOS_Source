@@ -1,0 +1,49 @@
+#/** @file
+#
+#  Component description file for MemoryStorageChipset driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MemoryStorageChipsetSmm
+  FILE_GUID                      = 82180E9E-FB32-4086-AB38-370BB29134E3
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MemoryStorageChipsetEntryPoint
+
+[Sources]
+  MemoryStorageChipsetSmm.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  SmmServicesTableLib
+  
+[Protocols]
+  gEfiSmmBase2ProtocolGuid                     # CONSUMED
+  gH2OSmmMemoryStorageProtocolGuid             # CONSUMED
+  gH2OSmmEventStorageProtocolGuid              # PRODUCED
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid AND
+  gH2OSmmMemoryStorageProtocolGuid 

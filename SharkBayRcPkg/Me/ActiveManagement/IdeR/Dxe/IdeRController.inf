@@ -1,0 +1,49 @@
+## @file
+#
+#  Component description file for IDE-R Controller Driver module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION           = 0x00010005
+  BASE_NAME             = IdeRController
+  FILE_GUID             = C4F2D007-37FD-422D-B63D-7ED73886E6CA
+  MODULE_TYPE           = DXE_DRIVER
+  VERSION_STRING        = 1.0
+  ENTRY_POINT           = InitializeIdeRControllerDriver
+
+[Sources]
+  IdeRController.h
+  IdeRController.c
+  IdeRControllerName.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiLib
+  AmtLib
+
+[Guids]
+
+[Protocols]
+  gEfiPciIoProtocolGuid                          ## CONSUMES
+  gEfiDevicePathProtocolGuid                     ## CONSUMES
+  gEfiIdeControllerInitProtocolGuid              ## CONSUMES
+  gEfiIderControllerDriverProtocolGuid           ## CONSUMES
+
+[Depex]
+  TRUE
+
+[BuildOptions]

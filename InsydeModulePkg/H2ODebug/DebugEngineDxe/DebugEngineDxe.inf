@@ -1,0 +1,30 @@
+## @file
+#  Component description file for DebugEngine PEI module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION          = 0x00010005
+  BASE_NAME            = DebugEngineDxe
+  FILE_GUID            = 4803B88E-9E66-45dc-8709-FC75D39CAF1D
+  MODULE_TYPE          = DXE_DRIVER
+
+[Binaries.Ia32]
+  PE32|Ia32/DebugEngineDxe.efi|*
+
+[Binaries.X64]
+  PE32|X64/DebugEngineDxe.efi|*
+
+[Binaries.Arm]
+  PE32|Arm/DebugEngineDxe.efi|*
+
+[Depex]
+  TRUE

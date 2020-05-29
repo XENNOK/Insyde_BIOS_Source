@@ -1,0 +1,73 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SwitchableGraphicsDxe
+  FILE_GUID                      = 697CFA95-B1F2-4ed7-A0D2-7AC6E47B3C99
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SwitchableGraphicsDxeInitEntry
+
+[Sources]
+  SwitchableGraphicsDxe.c
+  SwitchableGraphicsDxe.h
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdePkg/MdePkg.dec 
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  AcpiPlatformLib
+  BaseMemoryLib
+  CommonPciLib
+  DxeServicesLib
+  HobLib
+  IoLib
+  MemoryAllocationLib
+  PciExpressLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiLib
+  UefiRuntimeServicesTableLib
+
+[Guids]
+  gEfiHobListGuid
+  gH2OSgInformationDataHobGuid
+  gH2OSwitchableGraphicsVariableGuid
+
+[Protocols]
+  gEfiAcpiTableProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+  gEfiGlobalNvsAreaProtocolGuid
+  gEfiLegacyBiosProtocolGuid
+  gEfiLegacyRegionProtocolGuid
+  gEfiPciIoProtocolGuid
+  gH2OSwitchableGraphicsInfoProtocolGuid
+  gH2OSwitchableGraphicsEventProtocolGuid
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdSwitchableGraphicsSupported
+  gChipsetPkgTokenSpaceGuid.PcdNvidiaOptimusSupported
+  gChipsetPkgTokenSpaceGuid.PcdAmdPowerXpressSupported
+
+#[BuildOptions]
+#  DEBUG_*_X64_CC_FLAGS = /Od
+
+[Depex]
+  TRUE

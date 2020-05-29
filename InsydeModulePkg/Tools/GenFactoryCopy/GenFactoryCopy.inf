@@ -1,0 +1,57 @@
+## @file
+# Variable FV Creation
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = GenFactoryCopy
+  FILE_GUID                      = 46ADD7C8-DE43-418E-8D16-A5C1A0ED346C
+  MODULE_TYPE                    = USER_DEFINED
+  VERSION_STRING                 = 1.0
+
+  MODULE_AUTORUN_TOOL            = "$(MODULE_DIR)/$(BASE_NAME)"
+  AUTORUN_PARAM                  = -i "$(WORKSPACE)/$(PROJECT_PKG)/FactoryCopyInfo/FactoryDefaultConfig.ini" -o "$(WORKSPACE)/$(PROJECT_PKG)/FactoryCopyInfo/FactoryCopy.bin"
+
+[Sources]
+  Dummy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  ToolLib
+
+[Ppis]
+
+
+[Protocols]
+
+[Guids]
+  gEfiCertX509Guid
+[Pcd]
+  #
+  # Do not remove the following PCDs
+  #
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+
+[BuildOptions]
+  MSFT:*_*_IA32_DLINK_FLAGS == /out:"$(BIN_DIR)/$(BASE_NAME).exe" /base:0x10000000 /NOLOGO /SUBSYSTEM:CONSOLE /NODEFAULTLIB /IGNORE:4086 /MAP /OPT:REF /MACHINE:I386 /LTCG Kernel32.lib LIBCMT.lib
+  MSFT:*_*_*_CC_FLAGS = /wd4996 /MT
+   GCC:*_*_IA32_DLINK_FLAGS == -o $(BIN_DIR)/$(BASE_NAME) -m elf_i386 -dynamic-linker /lib/ld-linux.so.2 $(LIB32_PATH)/crt1.o $(LIB32_PATH)/crti.o $(LIB32_PATH)/crtn.o
+   GCC:*_*_*_DLINK2_FLAGS == -lc
+   GCC:*_*_IA32_CC_FLAGS = -m32 -g -fshort-wchar -fno-strict-aliasing -Wall -Wno-unused-result -Wno-unused-value -malign-double -idirafter/usr/include -c -include $(DEST_DIR_DEBUG)/AutoGen.h -DSTRING_ARRAY_NAME=$(BASE_NAME)Strings
+

@@ -1,0 +1,59 @@
+## @file
+#  Component description file for IDE controller Driver module.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IdeBusDxe
+  FILE_GUID                      = 69FD8E47-A161-4550-B01A-5594CEB2B2B2
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  BINARY_VERSION                 = 02.02.33.0819.00
+
+[Binaries.Ia32]
+  PE32|Ia32/IdeBusDxe.efi|*
+
+[Binaries.X64]
+  PE32|X64/IdeBusDxe.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  UefiLib
+  DevicePathLib
+  DebugLib
+  PrintLib
+  IoLib
+  HobLib
+  PerformanceLib
+  PostCodeLib
+  DxeChipsetSvcLib
+  SmmChipsetSvcLib
+  PcdLib
+  VariableLib
+  OemGraphicsLib
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+
+[Depex]
+  <SMM_DEPEX>
+   TRUE

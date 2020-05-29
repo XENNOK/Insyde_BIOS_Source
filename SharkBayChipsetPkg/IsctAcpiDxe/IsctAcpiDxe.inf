@@ -1,0 +1,62 @@
+#/** @file
+#
+#  Component description file for MemoryInit
+#  
+#;******************************************************************************
+#;* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IsctAcpiDxe
+  FILE_GUID                      = CC192A1D-4BC4-44BC-851A-8446B7883DCC
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IsctDxeEntryPoint
+
+
+[Sources]
+  IsctAcpiDxe.c
+
+[Packages]
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib  
+  UefiDriverEntryPoint
+  DebugLib
+  MemoryAllocationLib
+  BaseMemoryLib
+
+[Guids]
+  gIsctAcpiTableStorageGuid
+
+[Protocols]
+  gEfiAcpiTableProtocolGuid
+  gEfiFirmwareVolumeProtocolGuid
+  gIsctNvsAreaProtocolGuid
+  
+[Pcd]
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Depex]
+  gEfiVariableArchProtocolGuid AND
+  gEfiVariableWriteArchProtocolGuid AND
+  gEfiSetupUtilityProtocolGuid
+  

@@ -1,0 +1,65 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   MePolicy.inf
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MePolicyDxe
+  FILE_GUID                      = 24A44CAF-0BF2-4514-90C4-C794B3E778F5
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = MEPolicyEntry
+
+[Sources]
+  MePolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+#[-start-121220-IB10820206-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-121220-IB10820206-add]#
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+  gMeBiosPayloadDataProtocolGuid
+  gEfiHeciProtocolGuid
+  gDxePlatformMePolicyGuid
+  gPlatformMeHookProtocolGuid
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdMrcRmt
+  gInsydeTokenSpaceGuid.PcdH2ODdtSupported
+
+#[-start-121003-IB10820132-add]#
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdMeConfigMeLocalFwUpdEnabled
+  gChipsetPkgTokenSpaceGuid.PcdMeConfigEndOfPostDone
+  gChipsetPkgTokenSpaceGuid.PcdMeConfigMdesForBiosState
+  gChipsetPkgTokenSpaceGuid.PcdMeConfigMdesCapability
+  gChipsetPkgTokenSpaceGuid.PcdMeConfigSvtForPchCap
+  gChipsetPkgTokenSpaceGuid.PcdMeMiscConfigFviSmbiosType
+#[-end-121003-IB10820132-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid

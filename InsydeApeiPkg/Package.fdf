@@ -1,0 +1,24 @@
+## @file
+#  Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[FV.RECOVERYFV]
+
+[FV.DXEFV]
+!if gEfiApeiPkgTokenSpaceGuid.PcdApeiSupport
+INF $(INSYDE_APEI_PKG)/Whea/IsPlatformSupportWhea/IsPlatformSupportWhea.inf
+INF $(INSYDE_APEI_PKG)/Whea/WheaSupport/WheaSupportDxe.inf
+INF $(INSYDE_APEI_PKG)/Whea/WheaPlatform/WheaPlatformSmm.inf
+INF $(INSYDE_APEI_PKG)/Whea/WheaErrorInject/WheaErrorInjectSmm.inf
+INF $(INSYDE_APEI_PKG)/Whea/WheaErrorLog/WheaErrorLogSmm.inf
+!endif

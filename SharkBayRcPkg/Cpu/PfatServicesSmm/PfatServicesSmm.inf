@@ -1,0 +1,71 @@
+#/** @file
+#
+#  Component description file for PFAT module
+#
+#;******************************************************************************
+#;* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#;******************************************************************************
+#;* Copyright (c)  1999 - 2010 Intel Corporation. All rights reserved
+#;*
+#;* This software and associated documentation (if any) is furnished
+#;* under a license and may only be used or copied in accordance
+#;* with the terms of the license. Except as permitted by such
+#;* icense, no part of this software or documentation may be
+#;* reproduced, stored in a retrieval system, or transmitted in any
+#;* form or by any means without the express written consent of
+#;* Intel Corporation.
+#;*
+#;******************************************************************************   
+#
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PfatServicesSmm
+  FILE_GUID                      = 2FB433F5-C915-4fce-B1BD-3CD12E02C4C3
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = InstallPfatProtocol
+
+[Sources]
+  PfatServicesSmm.c
+  PfatServicesSmm.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  PchPlatformLib
+  HobLib
+  DebugLib
+  AslUpdateLib
+
+[Protocols]
+#[-start-130121-IB05160402-modify]#
+  gEfiSmmBase2ProtocolGuid  
+#[-end-130121-IB05160402-modify]#
+  gEfiFirmwareVolumeProtocolGuid
+  gSmmPfatProtocolGuid
+
+[Depex]
+  gEfiSmmBaseProtocolGuid AND 
+  gEfiSmmIoTrapDispatchProtocolGuid
+  

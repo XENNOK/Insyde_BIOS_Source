@@ -1,0 +1,83 @@
+## @file
+#  Package declaration file for InsydeSetupPkg
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = InsydeSetupPkg
+  PACKAGE_GUID                   = 3D91AF0D-4AD6-4bb2-945D-396E9E6DAACF
+  PACKAGE_VERSION                = 0.01
+
+[Includes]
+  Include
+
+[LibraryClasses]
+  ##  @libraryclass  Display Engine.
+  #   This library is only intended to be used by H2O Display Engine modules.
+  DELib|Include/Library/DELib.h
+  LayoutLib|Include/Library/LayoutLib.h
+
+[Guids]
+  gH2ODisplayEngineLocalTextGuid         = { 0x7c808617, 0x7bc1, 0x4745, {0xa4, 0x58, 0x09, 0x28, 0xf8, 0xb9, 0x5e, 0x60} }
+  gH2ODisplayEngineRemoteTextGuid        = { 0xa5d0b0b5, 0x99ca, 0x4be4, {0x80, 0x22, 0xce, 0x29, 0x77, 0x45, 0xb6, 0x1a} }
+  gH2ODisplayEngineLocalGraphicsGuid     = { 0xc6320a42, 0x6ec0, 0x4f2b, {0xad, 0xf7, 0x56, 0x18, 0x57, 0xe5, 0xc0, 0xab} }
+  gH2ODisplayEngineRemoteBrowserGuid     = { 0x6912a75b, 0x62bd, 0x487f, {0xa0, 0x25, 0x89, 0x0d, 0xb4, 0x31, 0x34, 0x13} }
+  gH2ODisplayEngineLocalCommandLineGuid  = { 0x82a56230, 0x4fb3, 0x4d9f, {0x89, 0x81, 0xc8, 0xb8, 0xb6, 0x11, 0xdb, 0x5a} }
+  gH2ODisplayEngineLocalMetroGuid        = { 0xb9e329a2, 0xaba7, 0x4f41, {0x93, 0x98, 0x46, 0xde, 0xc0, 0xae, 0xc1, 0xf7} }
+  gH2ODisplayEngineNullTypeGuid          = { 0xeb1c4cbf, 0x2a54, 0x45d2, {0x9d, 0x6b, 0xe9, 0xea, 0xe7, 0x8e, 0x8f, 0xb6} }
+  gH2ODisplayEngineAllTypeGuid           = { 0x5b3eca28, 0xc2c1, 0x440e, {0x9b, 0xc8, 0xcd, 0x06, 0x95, 0x39, 0xce, 0x06} }
+
+  gH2OSetupTokenSpaceGuid                = { 0xb10d6ebe, 0x282a, 0x4ebd, {0x83, 0xde, 0xeb, 0x89, 0xfb, 0xfa, 0x2a, 0x5a} }
+
+  gH2OHiiLayoutFileGuid                  = { 0x0e8b5f41, 0x6845, 0x484d, {0x8d, 0x53, 0xef, 0xa3, 0x17, 0x4d, 0x0a, 0x0c} }
+
+[Protocols]
+  gLayoutDatabaseProtocolGuid            = { 0x27f4ffbe, 0x6c7f, 0x4814, {0xb2, 0x7d, 0xa1, 0x65, 0xb3, 0x6e, 0x3d, 0x9c} }
+  gH2OFormBrowserProtocolGuid            = { 0xe1c17f13, 0xba6b, 0x42e5, {0x98, 0x5a, 0xb4, 0x18, 0x7c, 0xa0, 0x1a, 0x3f} }
+  gH2ODisplayEngineProtocolGuid          = { 0xb1af258f, 0x1e72, 0x4c7a, {0x80, 0x3f, 0x43, 0x5e, 0x49, 0x03, 0x3d, 0xbb} }
+  #
+  # For tune performance, this protocol should be removed after final version.
+  #
+  gPerformanceMeasureProtocolGuid        = { 0xe911342e, 0x7b6b, 0x4257, {0x83, 0xfb, 0x4f, 0x0f, 0x41, 0xd9, 0x31, 0xdd} }
+
+[PcdsFeatureFlag]
+
+[PcdsFixedAtBuild, PcdsPatchableInModule, PcdsDynamic, PcdsDynamicEx]
+  gH2OSetupTokenSpaceGuid.PcdHotKeyShowHelpMsg|L"F1"|VOID*|0x00000001
+  gH2OSetupTokenSpaceGuid.PcdHotKeyDiscardExit|L"ESC"|VOID*|0x00000002
+  gH2OSetupTokenSpaceGuid.PcdHotKeySelectItemUp|L"UP"|VOID*|0x00000003
+  gH2OSetupTokenSpaceGuid.PcdHotKeySelectItemDn|L"DOWN"|VOID*|0x00000004
+  gH2OSetupTokenSpaceGuid.PcdHotKeySelectPageUp|L"LEFT"|VOID*|0x00000005
+  gH2OSetupTokenSpaceGuid.PcdHotKeySelectPageDn|L"RIGHT"|VOID*|0x00000006
+  gH2OSetupTokenSpaceGuid.PcdHotKeyModifyValueUp|L"F5"|VOID*|0x00000007
+  gH2OSetupTokenSpaceGuid.PcdHotKeyModifyValueDn|L"F6"|VOID*|0x00000008
+  gH2OSetupTokenSpaceGuid.PcdHotKeyLoadDefault|L"F9"|VOID*|0x00000009
+  gH2OSetupTokenSpaceGuid.PcdHotKeySaveAndExit|L"F10"|VOID*|0x0000000a
+  gH2OSetupTokenSpaceGuid.PcdHotKeyEnter|L"Enter"|VOID*|0x0000000b
+
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLtde|0x00000002|UINT32|0x00000010
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLgde|0x00000003|UINT32|0x00000011
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdRtde|0x00000004|UINT32|0x00000012
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdRbde|0x00000005|UINT32|0x00000013
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLcde|0x00000006|UINT32|0x00000014
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLmde|0x00000007|UINT32|0x00000015
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLgdeFrontPage|0x00000008|UINT32|0x00000016
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLgdeCommonPage|0x00000009|UINT32|0x00000017
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLtdeBootManager|0x00000011|UINT32|0x00000018
+  gH2OSetupTokenSpaceGuid.PcdLayoutIdLtdeBootFromFile|0x00000012|UINT32|0x00000019
+
+  gH2OSetupTokenSpaceGuid.PcdDisplayEngineLocalTextColumn|128|UINT32|0x00000020
+  gH2OSetupTokenSpaceGuid.PcdDisplayEngineLocalTextRow|40|UINT32|0x00000021
+  gH2OSetupTokenSpaceGuid.PcdDisplayEngineRemoteTextColumn|128|UINT32|0x00000022
+  gH2OSetupTokenSpaceGuid.PcdDisplayEngineRemoteTextRow|40|UINT32|0x00000023
+  gH2OSetupTokenSpaceGuid.PcdDisplayEngineLocalGraphicsHorizontalResolution|1024|UINT32|0x00000024
+  gH2OSetupTokenSpaceGuid.PcdDisplayEngineLocalGraphicsVerticalResolution|768|UINT32|0x00000025

@@ -1,0 +1,43 @@
+## @file
+#
+#  Component description file for PttHciDevice PEI Library.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PttHciDevicePeiLib
+  FILE_GUID                      = E6823831-547B-4a12-9147-9CA128880722
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PttHciDeviceLib | PEIM
+
+[Sources]
+  PttHciDevicePeiLib.h
+  ../Common/PttHciDeviceLib.c
+  ../Include/PttHciRegs.h
+  ../Include/PttHciDeviceLib.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+
+[Guids]
+
+[Protocols]
+
+
+[BuildOptions]  
+  *_*_*_CC_FLAGS = -D PTT_FLAG
+

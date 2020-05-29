@@ -1,0 +1,39 @@
+## @file
+#
+#  Component description file for Me Library functions for PEIMs
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiMeLib
+  FILE_GUID                      = 057A33FF-C32E-40c8-82B9-2615CC4835BB
+  MODULE_TYPE                    = BASE
+  LIBRARY_CLASS                  = PeiMeLib
+
+[Sources]
+  PeiMePolicyLib.c
+  PeiHeciMsgLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  PeiServicesLib
+
+[Ppis]
+  gPeiMePlatformPolicyPpiGuid                   ## CONSUMES
+  gPlatformMeHookPpiGuid                        ## CONSUMES
+  gEfiPeiHeciPpiGuid                            ## CONSUMES
+  gWdtPpiGuid                                   ## CONSUMES

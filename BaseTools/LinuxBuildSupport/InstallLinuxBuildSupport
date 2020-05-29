@@ -1,0 +1,40 @@
+## @file
+# Linux build support installation script file
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+InstallBuildToolsByAptGet() {
+  sudo apt-get install build-essential subversion gcc-multilib uuid-dev p7zip-full
+  if [ "`uname -m`" == "x86_64" ]; then
+    sudo apt-get -y install libc6-dev-i386 lib32stdc++6 lib32z1
+  fi
+}
+
+InstallBuildToolsByYum() {
+  sudo yum install gcc gcc-c++ subversion libuuid-devel p7zip
+  if [ "`uname -m`" == "x86_64" ]; then
+    sudo yum -y install libuuid-devel.i686 libstdc++.i686 glibc-devel.i686 libzip.i686
+  fi
+}
+
+InstallBuildToolsByUrpm() {
+  su -
+  yum install task-c++-devel glibc-devel subversion libuuid-devel p7zip
+  exit
+}
+
+if command -v apt-get ; then
+  InstallBuildToolsByAptGet
+elif command -v yum ; then
+  InstallBuildToolsByYum
+elif command -v urpmi ; then
+  InstallBuildToolsByUrpm
+fi

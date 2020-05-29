@@ -1,0 +1,72 @@
+## @file
+#  Component description file for DxeOemSvcKernelLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeOemSvcKernelLib
+  FILE_GUID                      = 9AC5355F-90C2-4f08-B458-82791C55AE27
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeOemSvcKernelLib|DXE_CORE DXE_DRIVER DXE_RUNTIME_DRIVER DXE_SAL_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER SMM_CORE
+
+[Sources]
+  OemSvcBootDisplayDeviceReplace.c
+  OemSvcCalculateWriteCmosChecksum.c
+  OemSvcCheckPasswordFailCallBack.c
+  OemSvcCsm16ReferSwitch.c
+  OemSvcDisplayLogo.c
+  OemSvcGetHotplugBridgeInfo.c
+  OemSvcGetMaxCheckPasswordCount.c
+  OemSvcGetOa30MsdmData.c
+  OemSvcGetSlp20PubkeyAndMarkerRom.c
+  OemSvcUpdateSsidSvidInfo.c
+  OemSvcInstallBootMangerKeyTable.c
+  OemSvcInstallDmiSwitchTable.c
+  OemSvcInstallLegacyBiosOemSlp.c
+  OemSvcInstallOptionRomTable.c
+  OemSvcInstallPciRomSwitchTextMode.c
+  OemSvcInstallPciSkipTable.c
+  OemSvcDxeInstallPnpGpnvTable.c
+  OemSvcDxeInstallPnpStringTable.c
+  OemSvcInstallPostKeyTable.c
+  OemSvcLoadDefaultSetupMenu.c
+  OemSvcLogoResolution.c
+  OemSvcUpdateFormLen.c
+  OemSvcPasswordEntryCallBack.c
+  OemSvcPasswordInputFilter.c
+  OemSvcPrepareInstallMpTable.c
+  OemSvcSkipLoadPciOptionRom.c
+  OemSvcUnSkipPciDevice.c
+  OemSvcUpdateBbsTable.c
+  OemSvcVariableForReclaimFailTable.c
+  OemSvcCustomizeWpbtTable.c
+  OemSvcUpdateAcpiFacsHardwareSignature.c
+  OemSvcGetEdidOverride.c
+  OemSvcRegSioDxe.c
+  OemSvcDeviceResourceSioDxe.c
+  OemSvcAfterInitSioDxe.c
+  OemSvcChangeDefaultLogoImage.c
+  OemSvcChangeVbiosBootDisplay.c
+  OemSvcUpdateCRPolicy.c
+  OemSvcDxeUpdateSmbiosRecord.c
+  OemSvcTpmUserConfirmDialog.c
+  OemSvcDxeGetSmbiosReplaceString.c
+  OemSvcAdjustNavigationMenu.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec

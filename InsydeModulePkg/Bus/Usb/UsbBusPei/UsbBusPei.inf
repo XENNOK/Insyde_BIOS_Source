@@ -1,0 +1,47 @@
+## @file
+#  Component description file for UsbBus PEI module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbBusPei
+  FILE_GUID                      = 8401A045-6F70-4505-8471-7015B40355E3
+  MODULE_TYPE                    = PEIM
+  ENTRY_POINT                    = UsbBusPeimEntry
+
+[Sources]
+  UsbBus.c
+  UsbBus.h
+  Hub.c
+  Hub.h
+  UsbHelper.c
+  UsbHelper.h
+  UsbIo.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  BaseMemoryLib
+
+[Ppis]
+  gEfiPeiStallPpiGuid
+  gPeiUsb3HostControllerPpiGuid
+  gPeiUsb3IoPpiGuid
+  
+[Depex]
+  gPeiUsb3HostControllerPpiGuid AND
+  gPeiBootInRecoveryModePpiGuid

@@ -1,0 +1,45 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2012, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name :
+#;
+#;   SrIovPolicy.inf
+#;
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SrIovPolicy
+  FILE_GUID                      = 4A9E81EC-2EE4-4C5C-9B93-EB1DAF559F47
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = SRIOVPolicyEntry
+
+[Sources]
+  SrIovPolicy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+
+[Protocols]
+  gEfiSetupUtilityProtocolGuid
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdSrIovSupport
+  gEfiMdeModulePkgTokenSpaceGuid.PcdAriSupport
+  gEfiMdeModulePkgTokenSpaceGuid.PcdMrIovSupport
+
+[Depex]
+  gEfiSetupUtilityProtocolGuid
+

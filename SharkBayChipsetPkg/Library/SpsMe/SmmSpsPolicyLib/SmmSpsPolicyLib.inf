@@ -1,0 +1,48 @@
+## @file
+#
+#  Component description file for SPS Policy functionality in Smm.
+#  Note: Only for SPS.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmSpsPolicyLib
+  FILE_GUID                      = F7A222E2-896B-466D-8078-67571E00480C
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SpsPolicyLib | DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  CONSTRUCTOR                    = SpsPolicyLibConstructor
+
+[Sources]
+  SpsPolicyLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  SmmServicesTableLib
+  BaseMemoryLib
+  DebugLib
+
+[Guids]
+
+[Protocols]
+  gSpsPolicyProtocolGuid                         ## CONSUMES
+
+[Pcd]
+
+[BuildOptions]
+

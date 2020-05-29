@@ -1,0 +1,312 @@
+/** @file
+
+  Whea driver define headfile.
+
+;******************************************************************************
+;* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#ifndef _WHEA_ACPI_H_
+#define _WHEA_ACPI_H_
+
+//
+// Statements that include other files
+//
+//=================================================
+//  MdePkg\Include\
+//=================================================
+#include <IndustryStandard/Acpi.h>
+
+//=================================================
+//  $(INSYDE_APEI_PKG)\Include\
+//=================================================
+#include <Include/WheaDefs.h>
+
+//
+// Ensure proper structure formats
+//
+#pragma pack(1)
+//
+// 18.3.1 Boot Error Source
+//
+//
+// "BERT" Boot Error Record Table
+//
+#define APEI_WHEA_BERT_TABLE_SIGNATURE           EFI_ACPI_5_0_BOOT_ERROR_RECORD_TABLE_SIGNATURE
+#define APEI_WHEA_BERT_TABLE_REVISION            EFI_ACPI_5_0_BOOT_ERROR_RECORD_TABLE_REVISION
+//
+// Boot Error Record Table (BERT)
+//
+typedef EFI_ACPI_5_0_BOOT_ERROR_RECORD_TABLE_HEADER        APEI_WHEA_BOOT_ERROR_RECORD_TABLE;
+//
+// Boot Error Region Definition
+//
+typedef EFI_ACPI_5_0_BOOT_ERROR_REGION_STRUCTURE           APEI_WHEA_BOOT_ERROR_REGION;
+//
+// Boot Error Severity types
+//
+#define APEI_ERROR_SEVERITY_CORRECTABLE          EFI_ACPI_5_0_ERROR_SEVERITY_CORRECTABLE
+#define APEI_ERROR_SEVERITY_FATAL                EFI_ACPI_5_0_ERROR_SEVERITY_FATAL
+#define APEI_ERROR_SEVERITY_CORRECTED            EFI_ACPI_5_0_ERROR_SEVERITY_CORRECTED
+#define APEI_ERROR_SEVERITY_NONE                 EFI_ACPI_5_0_ERROR_SEVERITY_NONE
+
+//
+// HEST - Hardware Error Source Table
+//
+#define APEI_WHEA_HEST_TABLE_SIGNATURE           EFI_ACPI_5_0_HARDWARE_ERROR_SOURCE_TABLE_SIGNATURE
+#define APEI_WHEA_HEST_TABLE_REVISION            EFI_ACPI_5_0_HARDWARE_ERROR_SOURCE_TABLE_REVISION
+
+typedef EFI_ACPI_5_0_HARDWARE_ERROR_SOURCE_TABLE_HEADER    APEI_WHEA_HARDWARE_ERROR_SOURCE_TABLE;
+
+//
+// 18.3.2.1  IA-32 Architecture Machine Check Exception Structure Definition
+//
+typedef EFI_ACPI_5_0_IA32_ARCHITECTURE_MACHINE_CHECK_EXCEPTION_STRUCTURE  APEI_WHEA_MACHINE_CHECK_EXCEPTION;
+//
+// 18.3.2.1.1  IA-32 Architecture Machine Check Bank Structure Definition
+//
+typedef EFI_ACPI_5_0_IA32_ARCHITECTURE_MACHINE_CHECK_ERROR_BANK_STRUCTURE APEI_WHEA_MACHINE_CHECK_ERROR_BANK;
+#define APEI_WHEA_MACHINE_CHECK_ERROR_DATA_FORMAT_IA32     EFI_ACPI_5_0_IA32_ARCHITECTURE_MACHINE_CHECK_ERROR_DATA_FORMAT_IA32
+#define APEI_WHEA_MACHINE_CHECK_ERROR_DATA_FORMAT_INTEL64  EFI_ACPI_5_0_IA32_ARCHITECTURE_MACHINE_CHECK_ERROR_DATA_FORMAT_INTEL64
+#define APEI_WHEA_MACHINE_CHECK_ERROR_DATA_FORMAT_AMD64    EFI_ACPI_5_0_IA32_ARCHITECTURE_MACHINE_CHECK_ERROR_DATA_FORMAT_AMD64
+
+//
+// 18.3.2.2  IA-32 Architecture Corrected Machine Check Structure Definition
+//
+typedef EFI_ACPI_5_0_IA32_ARCHITECTURE_CORRECTED_MACHINE_CHECK_STRUCTURE   APEI_WHEA_CORRECTED_MACHINE_CHECK;
+//
+// 18.3.2.2.1  IA-32 Architecture NMI Error Structure Definition
+//
+typedef EFI_ACPI_5_0_IA32_ARCHITECTURE_NMI_ERROR_STRUCTURE APEI_WHEA_NMI_ERROR;
+//
+// 18.3.2.3  PCI Express Root Port AER Structure Definition
+//
+typedef EFI_ACPI_5_0_PCI_EXPRESS_ROOT_PORT_AER_STRUCTURE   APEI_WHEA_PCI_EXPRESS_ROOT_PORT_AER;
+//
+// 18.3.2.4  PCI Express Device AER Structure Definition
+//
+typedef EFI_ACPI_5_0_PCI_EXPRESS_DEVICE_AER_STRUCTURE      APEI_WHEA_PCI_EXPRESS_DEVICE_AER;
+//
+// 18.3.2.5  PCI Express/PCI-X Bridge AER Structure Definition
+//
+typedef EFI_ACPI_5_0_PCI_EXPRESS_BRIDGE_AER_STRUCTURE      APEI_WHEA_PCI_EXPRESS_BRIDGE_AER;
+//
+// 18.3.2.6  Generic Hardware Error Source
+//
+//
+// Generic Hardware Error Source Structure Definition
+//
+typedef EFI_ACPI_5_0_GENERIC_HARDWARE_ERROR_SOURCE_STRUCTURE APEI_WHEA_GENERIC_ERROR_SOURCE_ENTRY;
+//
+// 18.3.2.6.1  Generic Error Data
+//
+//
+// Generic Error Status Definition
+//
+typedef EFI_ACPI_5_0_GENERIC_ERROR_STATUS_STRUCTURE        APEI_WHEA_GENERIC_ERROR_STATUS;
+//
+// Generic Error Data Entry Definition
+//
+typedef EFI_ACPI_5_0_GENERIC_ERROR_DATA_ENTRY_STRUCTURE    APEI_WHEA_GENERIC_ERROR_DATA_ENTRY;
+//
+// 18.3.2.7  Hardware Error Notification
+//
+//
+// Hardware Error Notification Structure Definition
+//
+typedef EFI_ACPI_5_0_HARDWARE_ERROR_NOTIFICATION_STRUCTURE APEI_WHEA_HARDWARE_ERROR_NOTIFICATION;
+//
+// 18.5 Error Serialization
+//
+//
+// ERST - Error Record Serialization Table
+//
+#define APEI_WHEA_ERST_TABLE_SIGNATURE           EFI_ACPI_5_0_ERROR_RECORD_SERIALIZATION_TABLE_SIGNATURE
+#define APEI_WHEA_ERST_TABLE_REVISION            EFI_ACPI_5_0_ERROR_RECORD_SERIALIZATION_TABLE_REVISION
+//
+// 18.5.1.2 Serialization Instruction Entries
+//
+typedef EFI_ACPI_5_0_ERST_SERIALIZATION_INSTRUCTION_ENTRY  APEI_WHEA_ERST_SERIALIZATION_INSTRUCTION;
+//
+// 18.6.1 Error Injection Table
+//
+typedef EFI_ACPI_5_0_ERROR_RECORD_SERIALIZATION_TABLE_HEADER  APEI_WHEA_ERST_HEADER;
+//
+// ERST - Error Record Serialization Table
+//
+typedef struct {
+  EFI_ACPI_DESCRIPTION_HEADER               Header;
+  UINT32                                    SerializationHeaderSize;
+  UINT32                                    Resv1;
+  UINT32                                    InstructionEntryCount;
+  APEI_WHEA_ERST_SERIALIZATION_INSTRUCTION  InstructionEntry[16];
+} APEI_WHEA_ERROR_RECORD_SERIALIZATION_TABLE;
+
+//
+// 18.5.1.1  Serialization Actions
+//
+//
+// Error Record Serialization Actions
+//
+#define ACTION_BEGIN_WRITE_OPERATION                  EFI_ACPI_5_0_ERST_BEGIN_WRITE_OPERATION
+#define ACTION_BEGIN_READ_OPERATION                   EFI_ACPI_5_0_ERST_BEGIN_READ_OPERATION
+#define ACTION_BEGIN_CLEAR_OPERATION                  EFI_ACPI_5_0_ERST_BEGIN_CLEAR_OPERATION
+#define ACTION_END_OPERATION                          EFI_ACPI_5_0_ERST_END_OPERATION
+#define ACTION_SET_RECORD_OFFSET                      EFI_ACPI_5_0_ERST_SET_RECORD_OFFSET
+#define ACTION_EXECUTE_OPEARTION                      EFI_ACPI_5_0_ERST_EXECUTE_OPERATION
+#define ACTION_CHECK_BUSY_STATUS                      EFI_ACPI_5_0_ERST_CHECK_BUSY_STATUS
+#define ACTION_GET_COMMAND_STATUS                     EFI_ACPI_5_0_ERST_GET_COMMAND_STATUS
+#define ACTION_GET_RECORD_IDENTIFIER                  EFI_ACPI_5_0_ERST_GET_RECORD_IDENTIFIER
+#define ACTION_SET_RECORD_IDENTIFIER                  EFI_ACPI_5_0_ERST_SET_RECORD_IDENTIFIER
+#define ACTION_GET_RECORD_COUNT                       EFI_ACPI_5_0_ERST_GET_RECORD_COUNT
+#define ACTION_BEGIN_DUMMY_WRITE_OPERATION            EFI_ACPI_5_0_ERST_BEGIN_DUMMY_WRITE_OPERATION
+#define ACTION_GET_NEXT_RECORD_IDENTIFIER             0x0C
+#define ACTION_GET_ERROR_LOG_ADDRESS_RANGE            EFI_ACPI_5_0_ERST_GET_ERROR_LOG_ADDRESS_RANGE
+#define ACTION_GET_ERROR_LOG_ADDRESS_RANGE_LENGTH     EFI_ACPI_5_0_ERST_GET_ERROR_LOG_ADDRESS_RANGE_LENGTH
+#define ACTION_GET_ERROR_LOG_ADDRESS_RANGE_ATTRIBUTES EFI_ACPI_5_0_ERST_GET_ERROR_LOG_ADDRESS_RANGE_ATTRIBUTES
+//
+// Command Status Definition
+//
+#define ERST_STATUS_SUCCESS                           EFI_ACPI_5_0_ERST_STATUS_SUCCESS
+#define ERST_STATUS_NOT_ENOUGH_SPACE                  EFI_ACPI_5_0_ERST_STATUS_NOT_ENOUGH_SPACE
+#define ERST_STATUS_HARDWARE_NOT_AVAILABLE            EFI_ACPI_5_0_ERST_STATUS_HARDWARE_NOT_AVAILABLE
+#define ERST_STATUS_FAILED                            EFI_ACPI_5_0_ERST_STATUS_FAILED
+#define ERST_STATUS_RECORD_STORE_EMPTY                EFI_ACPI_5_0_ERST_STATUS_RECORD_STORE_EMPTY
+#define ERST_STATUS_RECORD_NOT_FOUND                  EFI_ACPI_5_0_ERST_STATUS_RECORD_NOT_FOUND
+//
+// Serialization Instructions
+//
+#define INSTRUCTION_READ_REGISTER                     EFI_ACPI_5_0_ERST_READ_REGISTER
+#define INSTRUCTION_READ_REGISTER_VALUE               EFI_ACPI_5_0_ERST_READ_REGISTER_VALUE
+#define INSTRUCTION_WRITE_REGISTER                    EFI_ACPI_5_0_ERST_WRITE_REGISTER
+#define INSTRUCTION_WRITE_REGISTER_VALUE              EFI_ACPI_5_0_ERST_WRITE_REGISTER_VALUE
+#define INSTRUCTION_NO_OPERATION                      EFI_ACPI_5_0_ERST_NOOP
+
+#define APEI_ERST_READ_REGISTER                       EFI_ACPI_5_0_ERST_READ_REGISTER
+#define APEI_ERST_READ_REGISTER_VALUE                 EFI_ACPI_5_0_ERST_READ_REGISTER_VALUE
+#define APEI_ERST_WRITE_REGISTER                      EFI_ACPI_5_0_ERST_WRITE_REGISTER
+#define APEI_ERST_WRITE_REGISTER_VALUE                EFI_ACPI_5_0_ERST_WRITE_REGISTER_VALUE
+#define APEI_ERST_NO_OPERATION                        EFI_ACPI_5_0_ERST_NOOP
+#define APEI_ERST_LOAD_VAR1                           EFI_ACPI_5_0_ERST_LOAD_VAR1
+#define APEI_ERST_LOAD_VAR2                           EFI_ACPI_5_0_ERST_LOAD_VAR2
+#define APEI_ERST_STORE_VAR1                          EFI_ACPI_5_0_ERST_STORE_VAR1
+#define APEI_ERST_ADD                                 EFI_ACPI_5_0_ERST_ADD
+#define APEI_ERST_SUBTRACT                            EFI_ACPI_5_0_ERST_SUBTRACT
+#define APEI_ERST_ADD_VALUE                           EFI_ACPI_5_0_ERST_ADD_VALUE
+#define APEI_ERST_SUBTRACT_VALUE                      EFI_ACPI_5_0_ERST_SUBTRACT_VALUE
+#define APEI_ERST_STALL                               EFI_ACPI_5_0_ERST_STALL
+#define APEI_ERST_STALL_WHILE_TRUE                    EFI_ACPI_5_0_ERST_STALL_WHILE_TRUE
+#define APEI_ERST_SKIP_NEXT_INSTRUCTION_IF_TRUE       EFI_ACPI_5_0_ERST_SKIP_NEXT_INSTRUCTION_IF_TRUE
+#define APEI_ERST_GOTO                                EFI_ACPI_5_0_ERST_GOTO
+#define APEI_ERST_SET_SRC_ADDRESS_BASE                EFI_ACPI_5_0_ERST_SET_SRC_ADDRESS_BASE
+#define APEI_ERST_SET_DST_ADDRESS_BASE                EFI_ACPI_5_0_ERST_SET_DST_ADDRESS_BASE
+#define APEI_ERST_MOVE_DATA                           EFI_ACPI_5_0_ERST_MOVE_DATA
+//
+// ERST Instruction Flags
+//
+#define FLAG_NOTHING                                  0x00
+#define APEI_WHEA_ERST_PRESERVE_REGISTER              EFI_ACPI_5_0_ERST_PRESERVE_REGISTER
+
+#define ERST_MASK                                     0xFFFFFFFFFFFFFFFF
+
+//
+// 18.6 Error Injection
+//
+//
+// "EINJ" Error Injection Table
+//
+#define APEI_WHEA_EINJ_TABLE_SIGNATURE           EFI_ACPI_5_0_ERROR_INJECTION_TABLE_SIGNATURE
+#define APEI_WHEA_EINJ_TABLE_REVISION            EFI_ACPI_5_0_ERROR_INJECTION_TABLE_REVISION
+//
+// 18.6.2 Injection Instruction Entries
+//
+typedef EFI_ACPI_5_0_EINJ_INJECTION_INSTRUCTION_ENTRY      APEI_WHEA_EINJ_INJECTION_INSTRUCTION;
+//
+// 18.6.1 Error Injection Table
+//
+//
+// EINJ - Error Injection Table
+//
+typedef EFI_ACPI_5_0_ERROR_INJECTION_TABLE_HEADER          APEI_WHEA_EINJ_HEADER;
+
+typedef struct {
+  EFI_ACPI_DESCRIPTION_HEADER          Header;
+  UINT32                               InjectionHeaderSize;
+  UINT32                               Resv1;
+  UINT32                               InstructionEntryCount;
+  APEI_WHEA_EINJ_INJECTION_INSTRUCTION InstructionEntry[9];
+} APEI_WHEA_ERROR_INJECTION_TABLE;
+
+//
+// EINJ Error Injection Actions
+//
+#define APEI_EINJ_BEGIN_INJECTION_OPERATION                EFI_ACPI_5_0_EINJ_BEGIN_INJECTION_OPERATION
+#define APEI_EINJ_GET_TRIGGER_ERROR_ACTION_TABLE           EFI_ACPI_5_0_EINJ_GET_TRIGGER_ERROR_ACTION_TABLE
+#define APEI_EINJ_SET_ERROR_TYPE                           EFI_ACPI_5_0_EINJ_SET_ERROR_TYPE
+#define APEI_EINJ_GET_ERROR_TYPE                           EFI_ACPI_5_0_EINJ_GET_ERROR_TYPE
+#define APEI_EINJ_END_OPERATION                            EFI_ACPI_5_0_EINJ_END_OPERATION
+#define APEI_EINJ_EXECUTE_OPERATION                        EFI_ACPI_5_0_EINJ_EXECUTE_OPERATION
+#define APEI_EINJ_CHECK_BUSY_STATUS                        EFI_ACPI_5_0_EINJ_CHECK_BUSY_STATUS
+#define APEI_EINJ_GET_COMMAND_STATUS                       EFI_ACPI_5_0_EINJ_GET_COMMAND_STATUS
+#define APEI_EINJ_TRIGGER_ERROR                            EFI_ACPI_5_0_EINJ_TRIGGER_ERROR
+
+//
+// EINJ Instruction Flags
+//
+#define APEI_WHEA_EINJ_PRESERVE_REGISTER                   EFI_ACPI_5_0_EINJ_PRESERVE_REGISTER
+
+//
+// 18.6.3 Injection Instructions
+//
+#define APEI_WHEA_EINJ_READ_REGISTER                       EFI_ACPI_5_0_EINJ_READ_REGISTER
+#define APEI_WHEA_EINJ_READ_REGISTER_VALUE                 EFI_ACPI_5_0_EINJ_READ_REGISTER_VALUE
+#define APEI_WHEA_EINJ_WRITE_REGISTER                      EFI_ACPI_5_0_EINJ_WRITE_REGISTER
+#define APEI_WHEA_EINJ_WRITE_REGISTER_VALUE                EFI_ACPI_5_0_EINJ_WRITE_REGISTER_VALUE
+#define APEI_WHEA_EINJ_NOOP                                EFI_ACPI_5_0_EINJ_NOOP
+//
+// EINJ Action Command Status
+//
+#define APEI_WHEA_EINJ_STATUS_SUCCESS                      EFI_ACPI_5_0_EINJ_STATUS_SUCCESS
+#define APEI_WHEA_EINJ_STATUS_UNKNOWN_FAILURE              EFI_ACPI_5_0_EINJ_STATUS_UNKNOWN_FAILURE
+#define APEI_WHEA_EINJ_STATUS_INVALID_ACCESS               EFI_ACPI_5_0_EINJ_STATUS_INVALID_ACCESS
+//
+// EINJ Error Type Definition
+//
+#define APEI_WHEA_EINJ_ERROR_PROCESSOR_CORRECTABLE              EFI_ACPI_5_0_EINJ_ERROR_PROCESSOR_CORRECTABLE
+#define APEI_WHEA_EINJ_ERROR_PROCESSOR_UNCORRECTABLE_NONFATAL   EFI_ACPI_5_0_EINJ_ERROR_PROCESSOR_UNCORRECTABLE_NONFATAL
+#define APEI_WHEA_EINJ_ERROR_PROCESSOR_UNCORRECTABLE_FATAL      EFI_ACPI_5_0_EINJ_ERROR_PROCESSOR_UNCORRECTABLE_FATAL
+#define APEI_WHEA_EINJ_ERROR_MEMORY_CORRECTABLE                 EFI_ACPI_5_0_EINJ_ERROR_MEMORY_CORRECTABLE
+#define APEI_WHEA_EINJ_ERROR_MEMORY_UNCORRECTABLE_NONFATAL      EFI_ACPI_5_0_EINJ_ERROR_MEMORY_UNCORRECTABLE_NONFATAL
+#define APEI_WHEA_EINJ_ERROR_MEMORY_UNCORRECTABLE_FATAL         EFI_ACPI_5_0_EINJ_ERROR_MEMORY_UNCORRECTABLE_FATAL
+#define APEI_WHEA_EINJ_ERROR_PCI_EXPRESS_CORRECTABLE            EFI_ACPI_5_0_EINJ_ERROR_PCI_EXPRESS_CORRECTABLE
+#define APEI_WHEA_EINJ_ERROR_PCI_EXPRESS_UNCORRECTABLE_NONFATAL EFI_ACPI_5_0_EINJ_ERROR_PCI_EXPRESS_UNCORRECTABLE_NONFATAL
+#define APEI_WHEA_EINJ_ERROR_PCI_EXPRESS_UNCORRECTABLE_FATAL    EFI_ACPI_5_0_EINJ_ERROR_PCI_EXPRESS_UNCORRECTABLE_FATAL
+#define APEI_WHEA_EINJ_ERROR_PLATFORM_CORRECTABLE               EFI_ACPI_5_0_EINJ_ERROR_PLATFORM_CORRECTABLE
+#define APEI_WHEA_EINJ_ERROR_PLATFORM_UNCORRECTABLE_NONFATAL    EFI_ACPI_5_0_EINJ_ERROR_PLATFORM_UNCORRECTABLE_NONFATAL
+#define APEI_WHEA_EINJ_ERROR_PLATFORM_UNCORRECTABLE_FATAL       EFI_ACPI_5_0_EINJ_ERROR_PLATFORM_UNCORRECTABLE_FATAL
+
+//
+// 18.6.4 Trigger Action Table
+//
+typedef EFI_ACPI_5_0_EINJ_TRIGGER_ACTION_TABLE             APEI_WHEA_EINJ_TRIGGER_ACTION_TABLE;
+
+typedef struct {
+  UINT16                Type;
+  UINT16                SourceId;
+  UINT8                 Reserved0[2];
+  UINT8                 Flags;
+  UINT8                 Enabled;
+  UINT32                NumberOfRecordsToPreAllocate;
+  UINT32                MaxSectionsPerRecord;
+} PCIE_AER_SOURCE_COMMON;
+
+#pragma pack()
+
+#endif    

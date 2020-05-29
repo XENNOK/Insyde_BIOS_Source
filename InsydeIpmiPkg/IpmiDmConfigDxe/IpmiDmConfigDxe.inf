@@ -1,0 +1,80 @@
+## @file
+# H2O IPMI BMC Config in Device Manager menu driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                     = 0x00010005
+  BASE_NAME                       = IpmiDmConfigDxe
+  FILE_GUID                       = DC2269C4-3425-449b-B023-3B79DE562860
+  MODULE_TYPE                     = DXE_DRIVER
+  VERSION_STRING                  = 1.0
+  ENTRY_POINT                     = IpmiDmConfigDriverEntryPoint
+  UNLOAD_IMAGE                    = IpmiDmConfigDriverUnload
+
+[Sources]
+  IpmiDmConfigDriver.c
+  IpmiDmConfigAccess.c
+  IpmiDmConfigAccessExtract.c
+  IpmiDmConfigAccessRoute.c
+  IpmiDmConfigAccessCallback.c
+  IpmiDmInitConfigData.c
+  IpmiDmInitHiiData.c
+  IpmiDmSyncWithBmc.c
+  IpmiDmUpdateSdrList.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+
+[LibraryClasses]
+  DxeOemIpmiDmConfigLibDefault
+  DxeIpmiDmConfigVfrLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiHiiServicesLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  DevicePathLib
+  BaseLib
+  PrintLib
+  HiiLib
+  UefiLib
+  PcdLib
+  DebugLib
+  IpmiInterfaceLib
+  IpmiCommonLib
+  IpmiHobLib
+
+[Guids]
+  gEfiIfrTianoGuid
+  gH2OIpmiHobGuid
+
+[Protocols]
+  gEfiHiiConfigAccessProtocolGuid       ## PRODUCES
+  gEfiHiiConfigRoutingProtocolGuid      ## CONSUMES
+  gH2OIpmiInterfaceProtocolGuid         ## CONSUMES
+  gH2OIpmiSdrProtocolGuid               ## CONSUMES
+  gH2OIpmiUtilityProtocolGuid           ## CONSUMES
+
+[Pcd]
+  gH2OIpmiPkgTokenSpaceGuid.PcdIpmiInitConfigDefaultPolicy
+
+[Depex]
+  gEfiHiiConfigRoutingProtocolGuid      AND
+  gEfiHiiDatabaseProtocolGuid           AND
+  gEfiVariableArchProtocolGuid          AND
+  gEfiVariableWriteArchProtocolGuid     AND
+  gH2OIpmiInterfaceProtocolGuid         AND
+  gH2OIpmiSdrProtocolGuid
+

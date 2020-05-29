@@ -1,0 +1,131 @@
+## @file
+#  Component description file for H2O Form Browser driver.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = H2OFormBrowserDxe
+  FILE_GUID                      = 9E5DAEB4-4B91-4466-9EBE-81C7E4401E6D
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = FBEntryPoint
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  SetupBrowserStr.uni
+  Setup.c
+  Setup.h
+  IfrParse.c
+  Expression.c
+  Presentation.c
+  Colors.h
+  H2OFormBrowser.c
+  FBConsole.c
+  FBEvent.c
+  FBDialog.c
+  H2ODialog.c
+  Value.c
+  Page.c
+  Statement.c
+  Option.c  
+  FBHotPlug.c
+  FBConSplitter.c
+  String.c
+  Uefi.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeSetupPkg/InsydeSetupPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  PrintLib
+  UefiLib
+  DebugLib
+  HiiLib
+  UefiHiiServicesLib
+[Guids]
+  gH2ODisplayEngineLocalTextGuid
+  gH2ODisplayEngineRemoteTextGuid
+  gH2ODisplayEngineLocalGraphicsGuid
+  gH2ODisplayEngineRemoteBrowserGuid
+  gH2ODisplayEngineLocalCommandLineGuid
+  gH2ODisplayEngineLocalMetroGuid
+  gH2ODisplayEngineNullTypeGuid
+  gH2ODisplayEngineAllTypeGuid
+  gEfiHiiPlatformSetupFormsetGuid
+  gEfiHiiStandardFormGuid
+  gEfiIfrTianoGuid
+  gEfiIfrFrameworkGuid
+  gEfiUsbEnumerationGuid
+  gFrontPageFormSetGuid
+  gEfiConsoleInDeviceGuid
+  gEfiConsoleOutDeviceGuid
+  gReturnFromImageGuid
+
+
+[Protocols]
+  gEfiDevicePathToTextProtocolGuid
+  gEfiSimpleTextInProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiSimplePointerProtocolGuid
+  gEfiAbsolutePointerProtocolGuid
+  gEfiFormBrowser2ProtocolGuid
+  gEdkiiFormBrowserEx2ProtocolGuid              ## PRODUCES
+  gEfiHiiConfigAccessProtocolGuid
+  gEfiUnicodeCollation2ProtocolGuid
+  gEfiUserManagerProtocolGuid
+  gEfiDevicePathFromTextProtocolGuid
+  gH2ODisplayEngineProtocolGuid
+  gH2OFormBrowserProtocolGuid
+  gH2OKeyDescProtocolGuid
+  gH2ODialogProtocolGuid
+  gConsoleRedirectionServiceProtocolGuid
+  gSetupMouseProtocolGuid
+  gEfiCpuArchProtocolGuid
+
+[FeaturePcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFrameworkCompatibilitySupport
+  gEfiMdeModulePkgTokenSpaceGuid.PcdConOutGopSupport
+  gEfiMdeModulePkgTokenSpaceGuid.PcdConOutUgaSupport
+  gEfiMdePkgTokenSpaceGuid.PcdUgaConsumeSupport
+
+
+[FixedPcd]
+  gH2OSetupTokenSpaceGuid.PcdHotKeyShowHelpMsg
+  gH2OSetupTokenSpaceGuid.PcdHotKeyDiscardExit
+  gH2OSetupTokenSpaceGuid.PcdHotKeySelectItemUp
+  gH2OSetupTokenSpaceGuid.PcdHotKeySelectItemDn
+  gH2OSetupTokenSpaceGuid.PcdHotKeySelectPageUp
+  gH2OSetupTokenSpaceGuid.PcdHotKeySelectPageDn
+  gH2OSetupTokenSpaceGuid.PcdHotKeyModifyValueUp
+  gH2OSetupTokenSpaceGuid.PcdHotKeyModifyValueDn
+  gH2OSetupTokenSpaceGuid.PcdHotKeyLoadDefault
+  gH2OSetupTokenSpaceGuid.PcdHotKeySaveAndExit
+  gH2OSetupTokenSpaceGuid.PcdHotKeyEnter
+
+[Depex]
+  gEfiHiiDatabaseProtocolGuid AND gEfiHiiConfigRoutingProtocolGuid
+

@@ -1,0 +1,69 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+BASE_NAME            = SetupDefaultProvider
+FILE_GUID            = 0ecd92e6-9789-4453-8ebb-a046d7ffe97d
+COMPONENT_TYPE       = PE32_PEIM
+[sources.common]
+  SetupDefaultProvider.c
+
+[includes.common]
+  $(EFI_SOURCE)/Framework
+  $(EDK_SOURCE)/Foundation
+  $(EDK_SOURCE)/Foundation/Framework
+  $(EFI_SOURCE)/Platform/Generic
+  $(EDK_SOURCE)/Foundation/Efi
+  .
+  $(EDK_SOURCE)/Foundation/Include
+  $(EDK_SOURCE)/Foundation/Efi/Include
+  $(EDK_SOURCE)/Foundation/Framework/Include
+  $(EDK_SOURCE)/Foundation/Include/IndustryStandard
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)/Include/OemServices
+  $(EFI_SOURCE)/Framework/Ppi/PciCfg
+  $(EDK_SOURCE)/Foundation/Core/Dxe
+  $(EDK_SOURCE)/Foundation/Library/Dxe/Include
+  $(EDK_SOURCE)/Foundation/Include/Pei
+  $(EDK_SOURCE)/Foundation/Library/Pei/Include
+  $(EFI_SOURCE)/Core/Pei/Include
+  $(EDK_SOURCE)/Foundation/Cpu/Pentium/Include
+  $(EFI_SOURCE)/Platform/Generic/MonoStatusCode/Pei
+  $(EFI_SOURCE)/$(DEMOBOARD_FAMILY)/Common
+  $(BIN_DIR)
+  $(BUILD_DIR)/$(PROCESSOR)
+  $(EFI_SOURCE)/Library/Dxe/UefiEfiIfrSupportLib
+  $(EFI_SOURCE)/Platform/Generic/FastRecovery
+  $(EFI_SOURCE)/Platform/Generic/FastRecovery/Include
+  $(EFI_SOURCE)/Foundation/Library/EdkIIGlueLib/Include
+
+[libraries.common]
+  PpiLib
+  EdkPpiLib
+  EdkFrameworkPpiLib
+  GenericGuidLib
+  EdkGuidLib
+  PeiLib
+  ArchProtocolLib
+  EfiCommonLib
+  SimpleCpuIoLib
+  SerialStatusCodeLib
+  ChipsetGuidLib
+  CommonPlatformGuidLib
+  SetupDefaultLib
+  FastRecoveryPpiLib
+  EdkIIGluePeiServicesTablePointerLibMm7
+  
+[nmake.common]
+  IMAGE_ENTRY_POINT=SetupDefaultProviderEntryPoint
+  DPX_SOURCE=SetupDefaultProvider.dxs
+  

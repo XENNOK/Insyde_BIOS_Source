@@ -1,0 +1,65 @@
+## @file
+#  Component Description for CapsuleLoaderTriggerDxe Driver
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CapsuleLoaderTriggerDxe
+  FILE_GUID                      = C62CEB80-FB40-4A46-A5E5-C1D997C36DFC
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = CapsuleLoaderTriggerInit
+
+[Sources]
+  CapsuleLoaderTriggerDxe.c
+  CapsuleLoaderTriggerDxe.h
+  CapsuleSecurity.c
+  WindowsUxSupport.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  UefiDriverEntryPoint
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  PrintLib
+  OemGraphicsLib
+  SeamlessRecoveryLib
+  VariableLib
+
+
+[Guids]
+  gEfiFileInfoGuid
+  gSecureFlashInfoGuid
+  gEfiCertX509Guid
+  gEfiSystemResourceTableGuid
+  gWindowsUxCapsuleGuid
+  gEfiGenericVariableGuid
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdSecureFlashCertificateFile
+  gInsydeTokenSpaceGuid.PcdCapsuleImageFolder
+
+[Depex]
+  gEfiVariableArchProtocolGuid   AND
+  gEfiVariableWriteArchProtocolGuid

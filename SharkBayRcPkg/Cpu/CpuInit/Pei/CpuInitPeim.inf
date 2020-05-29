@@ -1,0 +1,84 @@
+## @file
+#   Component description file for CPU module.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#* Copyright (c)  2005 - 2012 Intel Corporation. All rights reserved
+#* This software and associated documentation (if any) is furnished
+#* under a license and may only be used or copied in accordance
+#* with the terms of the license. Except as permitted by such
+#* license, no part of this software or documentation may be
+#* reproduced, stored in a retrieval system, or transmitted in any
+#* form or by any means without the express written consent of
+#* Intel Corporation.
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CpuInitPeim
+  FILE_GUID                      = EE823470-F4C1-4d43-AFD3-9F69DE50C90D
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeimInitializeCpu
+
+[Sources]
+  CpuInitPeim.c
+  CachePeim.c
+  PfatInit.c
+  CpuOcInit.c
+  BootGuardInit.c
+  
+[Sources.Ia32]
+  Ia32/Cpu.asm    | MSFT
+  Ia32/Cpu.jwasm  | GCC
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  IA32FamilyCpuPkg/IA32FamilyCpuPkg.dec
+  
+[LibraryClasses.common]
+  BaseLib
+  PeimEntryPoint
+  CpuPlatformLib
+  PeiServicesLib
+  HobLib
+  DebugLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  OverclockingLib
+  PeiKscLib
+  BootGuardLib
+
+[Guids] 
+  gEfiHtBistHobGuid
+  
+[Ppis]
+  gEfiPeiMasterBootModePpiGuid
+  gPchInitPpiGuid
+  gPchResetPpiGuid
+  gEfiSecPlatformInformationPpiGuid
+  gPeiCpuPlatformPolicyPpiGuid
+  gWdtPpiGuid
+  gPeiCachePpiGuid
+  gEfiPeiStallPpiGuid
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdMeSupported
+
+[Depex]
+  gPeiCpuPlatformPolicyPpiGuid
+
+[BuildOptions]
+!IF "$(PFAT_SUPPORT)" == "YES"
+    *_*_*_CC_FLAGS = -D PFAT_FLAG -D PFAT_EC_FLAG
+!ENDIF
+    GCC:*_*_*_CC_FLAGS = -Wno-overflow

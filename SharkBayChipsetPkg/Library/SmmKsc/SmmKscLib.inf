@@ -1,0 +1,35 @@
+## @file
+#
+#  SMM KSC library implementation.
+#
+#  These functions need to be SMM safe.  
+#
+#  These functions require the SMM IO library to be present.
+#  Caller must link those libraries and have the proper include path.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmKscLib
+  FILE_GUID                      = DE29DD2E-579D-4046-B8F9-337452A72F56
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SmmKscLib 
+
+[Sources]
+  SmmKscLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]  
+  StallLib

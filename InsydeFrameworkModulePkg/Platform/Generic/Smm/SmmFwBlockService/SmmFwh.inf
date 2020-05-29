@@ -1,0 +1,56 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+[defines]
+BASE_NAME            = SmmFwBlockService
+FILE_GUID            = 74D936FA-D8BD-4633-B64D-6424BDD23D24
+COMPONENT_TYPE       = RT_DRIVER
+
+[sources.common]
+  SmmFwBlockService.c
+
+[libraries.common]
+  GuidLib
+  EfiGuidLib
+  ProtocolLib
+  EdkProtocolLib
+  EdkFrameworkProtocolLib
+  EfiProtocolLib
+  EfiSmmDriverLib
+  HobLib
+  FdSupportLib
+  CpuIA32Lib
+  EcLib
+  ChipsetLib
+  ChipsetGuidLib
+
+[includes.common]
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EFI_SOURCE)\Framework
+  $(EDK_SOURCE)\Foundation
+  .
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)\$(CHIPSET_ROOT)\Library\Include
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Sample\Universal\Variable\RuntimeDxe
+  $(BUILD_DIR)\IA32
+  $(EFI_SOURCE)\Library\Include
+  $(EFI_SOURCE)\$(EC_LIB_PATH)
+  $(EDK_SOURCE)\Foundation\Cpu\Pentium\Include
+  $(EFI_SOURCE)\Chipset
+[nmake.common]
+  IMAGE_ENTRY_POINT=SmmFwBlockServiceInit
+  DPX_SOURCE=SmmFwBlockService.dxs

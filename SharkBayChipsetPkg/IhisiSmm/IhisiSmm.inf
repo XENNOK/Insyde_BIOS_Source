@@ -1,0 +1,151 @@
+## @file
+#  Component description file for IhisiSmm module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IhisiSmm
+  FILE_GUID                      = 7B7B65B6-E350-4139-8FE4-665772D32A47
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IhisiEntryPoint
+
+[Sources]
+  IhisiSmm.h
+  IhisiSmm.c
+  Fbts.h
+  Fbts.c
+  Fets.h
+  Fets.c
+  FbtsOemHook.h
+  FbtsOemHook.c
+  FetsOemHook.h
+  FetsOemHook.c
+  OemFeature.h
+  OemFeature.c
+  Oa30OemHook.h
+  Oa30OemHook.c
+#[-start-130325-IB08340099-add]#
+  BiosGCI.c
+  BiosGCI.h
+#[-end-130325-IB08340099-add]#
+#[-start-130125-IB10820224-remove]#
+#  VbiosOemHook.h
+#  VbiosOemHook.c
+#  LogoUpdateOemHook.h
+#  LogoUpdateOemHook.c
+#  CheckBiosSignOemHook.h
+#  CheckBiosSignOemHook.c
+#  ReservedFunctionOemHook.h
+#  ReservedFunctionOemHook.c
+#[-end-130125-IB10820224-remove]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+#[-start-130813-IB06720232-add]#
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+#[-end-130813-IB06720232-add]#
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  UefiBootServicesTableLib
+  DebugLib
+  FlashDevicesLib
+  PostCodeLib
+  IhisiLib
+  CmosLib
+  HobLib
+  IoLib
+#[-start-130813-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcKernelLibDefault
+#[-end-130813-IB06720232-modify]#
+#[-start-121119-IB05280015-add]#
+  UefiLib
+#[-end-121119-IB05280015-add]#
+#[-start-130125-IB10820224-add]#
+  SmmOemSvcChipsetLibDefault
+#[-end-130125-IB10820224-add]#
+#[-start-130114-IB10310017-add]#
+  SpsBiosLib
+#[-end-130114-IB10310017-add]#
+  VariableLib
+
+[Guids]
+  gEfiFlashMapHobGuid
+#[-start-130808-IB10300050-add]//
+  gCheckFlashAccessGuid  
+#[-end-130808-IB10300050-add]//
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmFwBlockServiceProtocolGuid
+  gEfiSmmTdtProtocolGuid
+#[-start-121119-IB05280015-add]#
+  gEfiGlobalNvsAreaProtocolGuid
+#[-end-121119-IB05280015-add]#
+
+[FeaturePcd]
+  gInsydeTokenSpaceGuid.PcdSecureFlashSupported
+  gChipsetPkgTokenSpaceGuid.PcdAntiTheftSupported
+  gChipsetPkgTokenSpaceGuid.PcdEcSharedFlashSupported
+  gChipsetPkgTokenSpaceGuid.PcdEcIdlePerWriteBlockSupported
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+#[-start-121119-IB05280015-add]#
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+#[-end-121119-IB05280015-add]#
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopyBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageFactoryCopySize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageVariableBase64
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gInsydeTokenSpaceGuid.PcdFlashFvMainBase
+  gInsydeTokenSpaceGuid.PcdFlashFvMainSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMicrocodeSize
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoveryBase
+  gInsydeTokenSpaceGuid.PcdFlashFvRecoverySize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwWorkingSize
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareSize
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMsdmDataBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMsdmDataSize
+#[-start-121214-IB10820195-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchGpioBaseAddress
+#[-end-121214-IB10820195-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+#[-start-130109-IB10310017-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSpsMeSupported
+#[-end-130109-IB10310017-add]#
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+#[-start-121221-IB05280024-add]#
+  gEfiSmmFwBlockServiceProtocolGuid AND
+  gEfiGlobalNvsAreaProtocolGuid
+#[-end-121221-IB05280024-add]#

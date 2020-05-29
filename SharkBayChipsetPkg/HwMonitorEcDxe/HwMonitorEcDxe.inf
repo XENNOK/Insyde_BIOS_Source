@@ -1,0 +1,67 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#/*++
+#
+# Copyright (c)  1999 - 2010 Intel Corporation. All rights reserved
+# This software and associated documentation (if any) is furnished
+# under a license and may only be used or copied in accordance
+# with the terms of the license. Except as permitted by such
+# license, no part of this software or documentation may be
+# reproduced, stored in a retrieval system, or transmitted in any
+# form or by any means without the express written consent of
+# Intel Corporation.
+#
+#  Module Name:
+#
+#    HwMonitorEcDxe.inf
+#
+#  Abstract:
+#
+#   
+#
+#--*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = HwMonitorEc
+  FILE_GUID                         = 8C1000B3-1234-45d8-9E27-147869BFC427
+  MODULE_TYPE                   = DXE_DRIVER
+  ENTRY_POINT                    = InstallHMProtocol 
+
+[Sources]
+  HwMonitorEcDxe.c
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses] 
+  UefiDriverEntryPoint
+  DxeKscLib
+#[-start-130813-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcChipsetLibDefault
+#[-end-130813-IB06720232-modify]#
+  UefiBootServicesTableLib
+  
+[Guids]
+
+[Protocols]
+  gEfiIsaVoltagleDeviceProtocolGuid
+  gEfiIsaFanSpeedDeviceProtocolGuid
+  gEfiIsaTemperatureDeviceProtocolGuid
+  
+[Depex]
+  TRUE
+  

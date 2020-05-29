@@ -1,0 +1,177 @@
+## @file
+# Component description file for SetupBrowserDxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SetupBrowser
+  FILE_GUID                      = 4F921013-4F71-4c6c-BCF8-419B2B801932
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InitializeSetup
+  STRGATHER_RESERVE_SIZE         = 0x1000
+
+[Sources]
+
+  SetupBrowserStr.uni
+  SetupUtilityStr.uni
+  Setup.c
+  Setup.h
+  IfrParse.c
+  Expression.c
+  InputHandler.c
+  Print.c
+  Print.h
+  Presentation.c
+  ProcessOptions.c
+  Ui.c
+  Ui.h
+  SetupUtility.c
+  H2ODialog.c
+
+  ../../../Include/StdLib/stdio.h
+
+  UiLib/Include/UiControls.h
+  UiLib/UiFrame.c
+
+  UiLib/UiRender.c
+  UiLib/UiControls.c
+  UiLib/UiContainer.c
+  UiLib/UiManager.c
+  UiLib/UiDlgBuilder.c
+
+  GraphicsUi/Include/GraphicsUi.h
+  GraphicsUi/UiCellLayout.c
+
+  GraphicsUi/GraphicsUi.c
+  GraphicsUi/GraphicsDialog.c
+
+  GraphicsUi/Layout.uni
+  GraphicsUi/Resource.c
+
+  GraphicsUi/picture/Resource.ani
+  GraphicsUi/picture/btn_up_n.gif
+  GraphicsUi/picture/btn_up_f.gif
+  GraphicsUi/picture/btn_up_p.gif
+  GraphicsUi/picture/btn_down_n.gif
+  GraphicsUi/picture/btn_down_f.gif
+  GraphicsUi/picture/btn_down_p.gif
+  GraphicsUi/picture/btn_picker01_n.gif
+  GraphicsUi/picture/btn_picker01_p.gif
+  GraphicsUi/picture/btn_picker02_n.gif
+  GraphicsUi/picture/btn_picker02_p.gif
+  GraphicsUi/picture/btn_picker03_n.gif
+  GraphicsUi/picture/btn_picker03_p.gif
+  GraphicsUi/picture/btn_picker04_n.gif
+  GraphicsUi/picture/btn_picker04_p.gif
+  GraphicsUi/picture/button.gif
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+  UefiLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  HiiLib
+  PrintLib
+  DevicePathLib
+  OemGraphicsLib
+  DxeOemSvcKernelLibDefault
+  ConsoleLib
+  TimerLib
+  StdLib
+  Win32Lib
+  UefiHiiServicesLib
+  BitBltLib
+  RectLib
+
+[Guids]
+  gEfiIfrTianoGuid
+  gEfiIfrFrameworkGuid
+  gEfiHiiPlatformSetupFormsetGuid
+  gEfiHiiStandardFormGuid
+  gEfiUsbEnumerationGuid
+  gTtfFontFileGuid
+  gH2OIfrExtGuid
+
+[Protocols]
+  gEfiHiiConfigAccessProtocolGuid
+  gEfiHiiStringProtocolGuid
+  gEfiFormBrowser2ProtocolGuid
+  gEfiFormBrowserExProtocolGuid
+  gEfiHiiConfigRoutingProtocolGuid
+  gEfiHiiDatabaseProtocolGuid
+  gEfiUnicodeCollationProtocolGuid
+  gEfiUnicodeCollation2ProtocolGuid
+  gEfiUserManagerProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gSetupMouseProtocolGuid
+  gEfiConsoleControlProtocolGuid
+  gConsoleRedirectionServiceProtocolGuid
+  gEfiGifDecoderProtocolGuid
+  gEfiSimpleTextInputExProtocolGuid
+  gH2ODialogProtocolGuid
+  gEfiSetupUtilityBrowserProtocolGuid
+  ## Following protocols will be removed when OemGraphics library has check-in.
+  gEndOfDisableQuietBootGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiUgaDrawProtocolGuid
+  gEfiSimpleTextInProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiCpuArchProtocolGuid
+  gEfiSimplePointerProtocolGuid
+  gEfiAbsolutePointerProtocolGuid
+  gEfiFirmwareVolume2ProtocolGuid
+  gH2OWindowProtocolGuid
+
+[FeaturePcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFrameworkCompatibilitySupport
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserGrayOutTextStatement
+  gInsydeTokenSpaceGuid.PcdGraphicsSetupSupported
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserSubtitleTextColor
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserFieldTextColor
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserFieldTextHighlightColor
+  gEfiMdeModulePkgTokenSpaceGuid.PcdBrowserFieldBackgroundHighlightColor
+  gInsydeTokenSpaceGuid.PcdReturnDialogCycle
+  gInsydeTokenSpaceGuid.PcdScanCodeToOperationCount
+  gInsydeTokenSpaceGuid.PcdScanCodeToOperation
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitSecond
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitMinute
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitHour
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitDay
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitMonth
+  gInsydeTokenSpaceGuid.PcdRealTimeClockInitYear
+  gInsydeTokenSpaceGuid.PcdDefaultLogoResolution
+  gInsydeTokenSpaceGuid.PcdRealTimeClockYearMin
+  gInsydeTokenSpaceGuid.PcdRealTimeClockYearMax
+
+[Depex]
+  gEfiHiiDatabaseProtocolGuid AND gEfiHiiConfigRoutingProtocolGuid AND gH2OWindowProtocolGuid
+
+[BuildOptions]
+   ARMGCC:*_*_*_CC_FLAGS = -fno-builtin -DGRAPHICS_SETUP_SUPPORT
+   MSFT:*_*_*_CC_FLAGS = /D GRAPHICS_SETUP_SUPPORT

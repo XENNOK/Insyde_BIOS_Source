@@ -1,0 +1,76 @@
+## @file
+#  Implement the driver of BiosStorageKernelSmm.
+#  
+#  ***************************************************************************
+#  * Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#  *
+#  * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#  * transmit, broadcast, present, recite, release, license or otherwise exploit
+#  * any part of this publication in any form, by any means, without the prior
+#  * written permission of Insyde Software Corporation.
+#  *
+#  ******************************************************************************
+#  
+##
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = BiosStorageKernelSmm
+  FILE_GUID                 = 099E1F39-0102-43c3-8CEC-8E897B6562F7
+  MODULE_TYPE               = DXE_SMM_DRIVER  
+  PI_SPECIFICATION_VERSION  = 0x0001000A
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = BiosStorageKernelEntryPoint
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  #IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdeModulePkg/MdeModulePkg.dec  
+  
+[Sources]
+  BiosStorageKernelSmm.c
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  BaseLib
+  UefiLib
+  CmosLib
+  HobLib
+  FlashDevicesLib
+  IoLib
+
+[Protocols]
+  gEfiBiosEventLogProtocolGuid
+  gEfiBiosSmmEventLogProtocolGuid                
+  gEfiNonVolatileVariableProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiSmmVariableProtocolGuid
+#[-start-131119-IB08400215-add]#
+  gEfiSmmCpuProtocolGuid
+#[-end-131119-IB08400215-add]#
+
+[Guids]
+  gEfiHobListGuid
+  gEfiFlashMapHobGuid
+  gBiosEventLogHobGuid
+#[-start-131119-IB08400215-modify]#
+  gH2OEventLogVariableGuid
+#[-end-131119-IB08400215-modify]#
+  
+[Pcd]
+  gH2OEventLogPkgTokenSpaceGuid.PcdBiosEventStorageBase  
+  gH2OEventLogPkgTokenSpaceGuid.PcdBiosEventStorageSize
+  
+[FeaturePcd]  
+  
+[Depex]
+  gEfiSmmBase2ProtocolGuid        AND
+  gEfiSmmSwDispatch2ProtocolGuid

@@ -1,0 +1,302 @@
+H2OFFT (Flash Firmware Tool) for EFI
+
+Version 1.3g
+----------------
+1. fix bugs        : fix command -edt fail in 32bit platform.
+2. fix bugs        : fix Ihisi 10h error in check support status.
+
+Version 1.3f
+----------------
+1. Supports feature : supports type MEMORY in [Multi_FD].
+2. Update behavior to NOT call Ihisi 48h if enable viaESP of [SecureUpdate].
+
+Version 1.3e
+------------
+1. Supports feature: supports EC flash flag of Ihisi 19h.
+2. Supports feature: disable command /forcetype. (For specific OEM/ODM)
+
+Version 1.3d
+------------
+1. Supports feature: add eMMC for visESP (specific BIOS version required)
+2. supports feature: supports Action_20h in [UpdateEC] for passing action code via Ihisi 20h.(For specific OEM/ODM)
+3. fix bugs        : fix NOT protect region in PFAT update.
+4. fix bugs        : fix update error if Ihisi 41h implemented but not supports PFAT.
+5. fix bugs        : fix update error of alias to type#xx (BB_PEI,DXE,EC) in [ForceFlash]. (#31396)
+
+Version 1.3c
+------------
+1. fix bugs        : add warning message for Ihisi 15h fail.
+2. fix bugs        : add warning message for DC not connected when checking both AC and DC. 
+
+Version 1.3b
+------------
+1. fix bugs        : fix CheckByBios of [Bios_Version_Check] not works.
+2. fix bugs        : fix BIOSVFEnable of [BIOSVersionFormat] not works.
+3. fix bugs        : fix update error if alp of [ForceFlash] enabled.
+4. fix bugs        : fix DisableVerify of [Others] not works.
+
+Version 1.3a
+------------
+1. supports feature: supports command -OemCus for specific string of Ihisi 19h; (For specific OEM/ODM)
+2. fix bugs        : fix command -acb NOT check power status.
+
+Version 1.2z
+------------
+1. Upadte iFdPacker to v2.4.0
+    1-a. fix issue of exception occurred in packing EFI flash.
+    1-b. disable UAC.
+
+Version 1.2y
+------------
+1. Supports feature: Add new section [AutoWakeup] with key that can enable auto power on via RTC.
+2. supports feature: supports EC size un-defined in IHISI 21h. (IHISI version required: 2.0.4)
+3. supports feature: supports command "-extrFD" to extract FD in package mode. (IFDPacker version required: 2.3.9)
+                     usage: -extrFD [path]
+4. fix bugs        : fix issue of command "-n", "-r", "-s" not works if update EC only. 
+5. fix bugs        : AP hangs if runs couple times without reboot in some platform. (#0030516)
+6. fix bugs        : update command -g to check file name valid before IHISI 14h.
+7. Upadte iFdPacker to v2.3.9
+    7-a. supports command "-extrFD".
+    7-b. add option x64/ia32 for EFI. 
+8. fix bugs        : update the IHISI version for funcation 10h to 204;
+
+                    Platforms support 0x1F
+                   ------------+--------------------
+                     Broadwell  05.03.51.0014
+                      SharkBay  03.73.06.1067
+                   Bay Trail-T  05.03.47.0033
+                   Bay Trail-M  05.03.47.0021
+                        Kaveri  03.74.03.1015
+                       Mullins  03.74.03.1009
+                        Kabini  03.74.03.2047
+                      Richland  03.74.03.1052
+
+Version 1.2x
+------------
+1. Supports feature: Add IHISI 1Fh to notice BIOS can enter/leave EC idle mode .
+2. Supports feature: Add new key "Elapse" under [UI] which can enable to show Elapse time on screen.
+3. fix cannot flash issue (with update BIOS failed message) on 32bit platform. (#29844, #29840)
+
+Version 1.2w
+------------
+1. supports command -mfg.
+2. fix issue of update error if alp enabled.
+3. apply new utility naming.
+4. Upadte iFdPacker to v2.3.5
+    4-1. update UI
+    4-2. fixs issue to avoid to add duplicate file in H2OFFT folder.
+    4-3. supports new utility nameing.
+    4-4. supports drag to select file or folder.
+
+Version 1.2v
+------------
+1. supports viaESP in [SecureUpdate]. [specific BIOS version required]
+2. fix to stop update if ATP Dtimer check (Ihisi 1Ch) fail.
+3. fix issue of command "-n", "-r" not works. (#28762)
+
+Version 1.2u
+------------
+1. supports EDK2 shell.
+2. fix issue of if ME field omitted in [Multi_FD] enabled.
+3. fix issue of command -ab will check AC plugin.
+4. fix message print cut off when secure boot support but 1Eh not support.
+5. fix to FD filename case insensitive if [Multi_FD] enabled.
+6. fix issue of make log file error when the platform with NOT only one disk.
+7. fix issue of update error if NOT only one NV Storage from Ihisi 1Eh.
+8. supports multi region PEI.
+9. Upadte iFdPacker to v2.3.4
+    9-1. fix issue of incorrent warning message in shell mode.
+
+Version 1.2t
+------------
+1. supports -nopause -forceit -forcetype commands. [For specific OEM/ODM]
+2. supports [UpdateOEMME].
+3. Upadte iFdPacker to v2.2.3
+        3-1. supports to pack resource file in shell mode.
+4. supports command -edt.
+5. Fix issue that cannot update when inputting only BIOS image without ME or others.
+
+Version 1.2s
+------------
+1. Fix IHISI 10h return permission is denied still can flash issue.
+2. supports pause in [FalseComplete].
+3. supports EC_DockWarning in [UpdateEC].
+
+Version 1.2r
+------------
+1. display EC update process.
+2. Fix flash utility won't reboot after EC updating.
+3. Fix DC boundary display incorrect issue.
+4. Update EC flash behavior.
+    When flashing EC, BIOS must provide EC part information by IHISI.
+    Otherwize it will get a "Get EC part infromation fail." error.
+
+Version 1.2q
+------------
+1. Supports IHISI 16h after EC updating.
+2. Update IHISI 10h behavior to call once.
+3. Update IHISI 15h behavior when ME locked.
+
+Version 1.2p
+------------
+1. Supports PFAT update with region protection.
+
+Version 1.2o
+------------
+1. When flashing an unsigned PFAT image, display meaningful error message instead of "file size not match".
+2. Fix error of LauncherAcWarning of [AC_Adapter] for secure update.
+
+Version 1.2n
+------------
+1. Support alp of [ForceFlash] in command filter feature for security flash.
+
+Version 1.2m
+------------
+1. Update OEM message when flashing secure image on normal platform and normal image on secure platform. [For specific OEM/ODM]
+2. Update [BIOSVersionFormat] to support new type D (Don't care field). Detail 
+   usage please reference the descriptions in platform.ini
+3. supports LauncherAcWarning of [AC_Adapter] for AC warning message.
+
+Version 1.2l
+------------
+1. Passing flash status to BIOS when flash complete by IHISI 16h.
+2. Notify BIOS the flash result by IHISI 1Ah.
+
+Version 1.2k
+------------
+1. Fix -acb no effect issue.
+
+Version 1.2j
+------------
+1. Support -unvs, -ufc, -skipsbp in command filter feature.
+2. Add warning message in save BIOS command (-g) when ME is locked.
+3. Upadte iFdPacker to v2.2.8
+    3-1. Support packing multi FD for SHELL package.
+    3-2. Remove argument filter check box.
+
+Version 1.2i
+------------
+1. Supports PFAT image flash on platform PFAT feature disable. (BIOS version required: SharkBay 03.72.37.0018)
+2. Supports PFAT checksum verify.
+3. Supports [Bios_Version_Check] in platform.ini.
+4. Supports [Platform_Check] in platform.ini.
+5. Supports [BIOSVersionFormat] in platform.ini.
+6. Supports command filter feature.
+7. Supports [PlatformVersion] in platform.ini.
+8. Supports [FlashSecureBIOSOverride] in platform.ini.
+9. Supports [Others] in platform.ini.
+10. Supports [Multi FD] in platform.ini.
+
+Version 1.2h
+------------
+1. Add "-acb" command.
+2. Support ini override for secure capsule update.
+3. Upadte iFdPacker to v2.2.7.
+    3-1. Support packing multi FD for DOS package.
+    3-2. Update the behavior of pack platform.ini for secure image for DOS and Shell package.
+         (Don't disable platform.ini pack option when secure image detected for DOS and Shell package.)
+4. Support PFAT image update. (BIOS version required: SharkBay 03.72.37.0018)
+
+Version 1.2g
+------------
+1. Fix model name compare incorrect issue.
+
+Version 1.2f
+------------
+1. Support OEM secure flash behavior. [For specific OEM/ODM]
+2. Add -ec and -ecb command and [UpdateEC] Progress_Bar in platform.ini to support update whole EC image in single IHISI call.
+3. Upadte iFdPacker to v2.2.6.
+    3-1. Fix message error of Windows single package run in DOS mode.
+    3-2. Fix pack error when there is space character in fd path.
+    3-3. Correct help message error.
+
+Version 1.2e
+------------
+1. Add DisableSecureCapsuleFlash flag in [Others] section in platform.ini 
+     to enable/disable flash secure BIOS on normal platform.
+2. Update AT-p behavior. It does NOT check AT-p signature in plaform supported when flash EC only.
+3. Add version check rule for OEM. (it must base on BIOS report.)
+4. Add processing input argument for single package.
+5. Support OEM message when flashing secure image on normal platform and normal image on secure platform.
+6. Upadte iFdPacker to v2.2.5.
+    6-1. Add platform.ini pcak option in UI for Windows package.
+    6-2. Modify ini pack flag for command line.
+    6-3. Disable platform.ini pack option when secure image detected for DOS and Shell package.
+    6-4. Fix the parameter checking behavior for command line mode.
+7. It can base on BIOS settings from IHISI 11h to do version, model name and same version check.
+
+Version 1.2d
+------------
+1. Support -option command.
+2. platform.ini support case insensitive.
+3. Ignore shell flash command, when image is secure capsule.
+4. Add shell single package support.
+5. Add iFdPacker tool to generate single package file.
+6. Support to flash a secure capsule on a normal platform by normal flash method.
+
+Version 1.2c
+------------
+1. Fix the issue that BIOS return do nothing action in secure flash update but AP do reboot.
+2. Support common flash interface for ODM.
+
+Version 1.2b
+------------
+1. Fix the issue that AP will show not support when flash EC or EC+BIOS with /ecp or /ecbp command.
+2. Fix update BIOS address not correct issue.
+
+Version 1.2a
+------------
+1. Support specified size of flash rom. Such as 5M(1M+4M), 6M(2M+4M) flash rom.
+2. Support secure flash.
+3. Add platform.ini for security flash. (The platform.ini does not supported in shell flash now.)
+4. Add do nothing action for 48h. And add some command for secure flash action override. /r for reboot, /s for shutdown, /n for do nothing.
+5. Add EFI driver version check for secure BIOS flash.
+
+Version 1.1o
+------------
+1.Fix only region with error file name cannot stop to flash. 
+2.Add "vrt:" and "rt:" command.
+3.Add "ecp" and "ecbp" feature.
+4.Get SMI command port via ACPI table.
+5.Fix to flash bios with "mc" will show error.
+6.Support skip block flash feature.
+7.Fix the region may not be protected when start address + size equal to 0x100000000 which overflow of DWORD size.
+
+Version 1.1n
+------------
+1.Fix more than 4G memory cannot flash.
+2.Support 16M platform.
+3.Fix "/e" feature.
+
+Version 1.1m
+------------
+1.Fixed can not run shell flash on other platform which SMI common port is not 0xB2.
+2.Fixed can not get rom file when current volume is not fs0.
+3.Added tool and BIOS hand shaking feature. 
+    Tool send BIOS information that include tool and OS version by functoin 10h. 
+    Get the customer vendor ID in function 10h. 
+4.Added function 1Ch to check AT-p support by IHISI spec version 1.8.5.
+5.Modified the function 10h by IHISI spec version 1.8.5.
+6.Fixed when flash only BIOS region with only BIOS binary file will flash wrong address. 
+
+Version 1.1l
+------------
+1.Modify Me flash feature.
+  Support separate ME binary, and two type of Me:
+  1.FULL SKU.
+  2.Ignition SKU.
+  
+Version 1.1k
+------------
+1.Sort the help list.
+2.Fixed the tool can't get the file name in a folder.
+
+Version 1.1j
+------------
+1.Modify x64 to support 8M.
+
+Version 1.1i
+------------
+1.Modify to support 4M.
+2.Add function 17h,12h,19h,1Ah 11h
+

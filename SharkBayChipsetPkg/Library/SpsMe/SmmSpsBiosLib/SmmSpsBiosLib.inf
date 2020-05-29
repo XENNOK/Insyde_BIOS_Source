@@ -1,0 +1,45 @@
+## @file
+#
+#  Component description file for BIOS to use SPS ME Serivces
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmSpsBiosLib
+  FILE_GUID                      = B54852A4-11D9-42cd-9234-3F0C6D05D6E1
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SpsBiosLib | DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+
+[Sources]
+  SpsBiosLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  SmmServicesTableLib
+
+[Guids]
+
+[Protocols]
+  gSpsSmmMeUpgradeProtocolGuid
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdSpsMeSupported
+
+[BuildOptions]
+

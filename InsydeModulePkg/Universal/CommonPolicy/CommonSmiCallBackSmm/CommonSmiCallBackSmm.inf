@@ -1,0 +1,57 @@
+## @file
+#  Component description file for CommonSmiCallBackSmm module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CommonSmiCallBackSmm
+  FILE_GUID                      = 6069277B-246B-45d5-BD6D-81820E10C11F
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = CommonSmiInitialize
+
+[Sources]
+  CommonSmiCallBackSmm.c
+  CommonSmiCallBackSmm.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  UefiBootServicesTableLib
+  DebugLib
+  CmosLib
+  PrintLib
+  VariableLib
+  MemoryAllocationLib
+
+[Guids]
+  gEfiGlobalVariableGuid
+
+[Protocols]
+
+  gEfiSmmSxDispatchProtocolGuid
+  gEfiSmmSxDispatch2ProtocolGuid
+
+[Depex]
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmVariableProtocolGuid AND
+  gEfiSmmSxDispatchProtocolGuid OR
+  gEfiSmmSxDispatch2ProtocolGuid

@@ -1,0 +1,38 @@
+## @file
+#  Component description file for MultiConfigBaseLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MultiConfigBaseLib
+  FILE_GUID                      = 88E52B4E-CD14-4755-8101-C2461A80DA6D
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = MultiConfigBaseLib
+
+[Sources]
+  MultiConfigBaseLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  BaseMemoryLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMultiConfigBase
+  gInsydeTokenSpaceGuid.PcdFlashNvStorageMultiConfigSize
+

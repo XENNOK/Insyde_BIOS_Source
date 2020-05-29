@@ -1,0 +1,45 @@
+#/** @file
+#
+#;******************************************************************************
+#;* Copyright (c) 2012 - 2013, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AcpiPlatformLib
+  FILE_GUID                      = FE3542FE-C1D3-4EF8-657C-8048606FF671
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = AcpiPlatformLib
+
+[Sources]
+  AcpiPlatformCommon.c
+  FacpUpdateCommon.c
+  DsdtUpdateCommon.c
+  SlicUpdateCommon.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiLib
+  DebugLib
+  CommonPlatformGuidLib
+
+[Guids]
+  gEfiAcpiTableStorageGuid
+
+[Protocols]

@@ -1,0 +1,43 @@
+## @file
+#  Package declaration file for InsydeModulePkg
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = InsydeFrameworkModulePkg
+  PACKAGE_GUID                   = 2E5520DA-2EE9-46C8-954A-556CCE7C364B
+  PACKAGE_VERSION                = 0.91
+
+[Includes]
+  Include
+  Include/OemServices
+
+[LibraryClasses]
+
+[Guids]
+
+[Protocols]
+gEfiFaultTolerantWriteLiteProtocolGuid = { 0x3f557189, 0x8dae, 0x45ae, {0xa0, 0xb3, 0x2b, 0x99, 0xca, 0x7a, 0xa7, 0xa0} }
+gEfiSmmFwBlockServiceProtocolGuid      = { 0x2970687c, 0x618c, 0x4de5, {0xb8, 0xf9, 0x6c, 0x75, 0x76, 0xdc, 0xa8, 0x3d} }
+gEcpSmmVariableProtocolGuid            = { 0x5eb95b0a, 0xd085, 0x4a18, {0x9e, 0x41, 0x8e, 0xbd, 0xa7, 0x9f, 0x30, 0xc8} }
+gEfiUsbCoreProtocolGuid                = { 0xc965c76a, 0xd71e, 0x4e66, {0xab, 0x06, 0xc6, 0x23, 0x0d, 0x52, 0x84, 0x25} }
+gEfiChipsetLibServicesProtocolGuid     = { 0x7f98abb7, 0xcbe6, 0x4645, {0x91, 0x06, 0x8d, 0x70, 0xa1, 0x12, 0xc8, 0x1f} }
+gEfiSmmRuntimeProtocolGuid             = { 0xa56897a1, 0xa77f, 0x4600, {0x84, 0xdb, 0x22, 0xb0, 0xa8, 0x01, 0xfa, 0x9a} }
+gEfiSdPassThruProtocolGuid             = { 0x593ea8f0, 0x201b, 0x4ade, {0xb4, 0xff, 0x44, 0x70, 0x78, 0x57, 0x57, 0x19} }
+
+[PcdsFeatureFlag]
+
+[PcdsFixedAtBuild]
+
+[PcdsFixedAtBuild,PcdsPatchableInModule,PcdsDynamic]
+
+[PcdsDynamic]

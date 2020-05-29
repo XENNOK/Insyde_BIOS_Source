@@ -1,0 +1,57 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#; Module Name:
+#;
+#;   ChipsetLibServicesDxe.inf
+#;
+#; Abstract:
+#;
+#;   Driver module to install chipset lib interface.
+#;
+
+[defines]
+BASE_NAME            = ChipsetLibServicesDxe
+FILE_GUID            = EA6D974D-AD75-40ed-BCDD-FDA297AA8F8A
+COMPONENT_TYPE       = BS_DRIVER
+
+[sources.common]
+  ChipsetLibServicesDxe.c
+  ChipsetLibServicesDxe.h
+
+[libraries.common]
+  ProtocolLib
+  EdkProtocolLib
+  EfiProtocolLib
+  EdkGuidLib
+  ChipsetLib
+  EfiDriverLib  
+  EfiRuntimeLib
+
+[includes.common]
+  $(EDK_SOURCE)/Foundation/Framework
+  $(EDK_SOURCE)/Foundation/Efi
+  $(EFI_SOURCE)/Framework
+  $(EDK_SOURCE)/Foundation
+  $(EDK_SOURCE)/Foundation/Include
+  $(EDK_SOURCE)/Foundation/Efi/Include
+  $(EDK_SOURCE)/Foundation/Framework/Include
+  $(EFI_SOURCE)
+  $(EFI_SOURCE)/Include
+  $(EFI_SOURCE)/Library/Dxe/Include
+  $(EDK_SOURCE)/Foundation/Core/Dxe
+  $(EDK_SOURCE)/Foundation/Library/Dxe/Include
+  $(EFI_SOURCE)/Library/Include
+  $(EFI_SOURCE)/Chipset/Library/Include
+  $(DEST_DIR)
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=ChipsetLibServicesEntryPoint
+  DPX_SOURCE=ChipsetLibServicesDxe.dxs

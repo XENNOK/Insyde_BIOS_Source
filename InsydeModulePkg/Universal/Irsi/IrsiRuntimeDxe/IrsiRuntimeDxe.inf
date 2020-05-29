@@ -1,0 +1,53 @@
+## @file
+#  Component description file for IrsiRuntimeDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IrsiRuntimeDxe
+  FILE_GUID                      = BA118F88-5B65-4584-9C5A-C2D087F6ED1E
+  MODULE_TYPE                    = DXE_RUNTIME_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = IrsiRuntimeInit
+
+[Sources]
+  IrsiRuntimeDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiRuntimeLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  IrsiRegistrationLib
+
+  
+[Protocols]
+  gIrsiRegistrationProtocolGuid
+  
+[Guids]
+  gIrsiServicesGuid
+  gIrsaServicesGuid
+  gIsbServicesGuid
+  gIrsiBvdtImageGuid
+
+[Depex]
+  gIrsiRegistrationProtocolGuid

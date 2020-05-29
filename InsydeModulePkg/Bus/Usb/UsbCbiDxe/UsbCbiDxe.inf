@@ -1,0 +1,45 @@
+## @file
+#  Component description file for UsbCbi Dxe module
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = UsbCbiDxe
+  FILE_GUID                      = A3527D16-E6CC-42f5-BADB-BF3DE177742B
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UsbMassCbiDriverEntryPoint
+
+[Sources]
+  UsbMassCbi.c
+  UsbMassCbi.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  DebugLib
+
+[Protocols]
+  gEfiUsbCoreProtocolGuid
+
+[Depex]
+  <DXE_DEPEX>
+  gEfiUsbCoreProtocolGuid
+  
+  <SMM_DEPEX>
+  gUsbMassTransportProtocolGuid

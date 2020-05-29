@@ -1,0 +1,74 @@
+/** @file
+
+;******************************************************************************
+;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+//
+// Statements that include other files
+//
+
+#include <Slic.h>
+
+//
+// SLIC Table
+//
+
+EFI_ACPI_SOFTWARE_LICENSING_TABLE Slic = {
+
+  {
+    EFI_ACPI_SLIC_TABLE_SIGNATURE,
+    sizeof (EFI_ACPI_SOFTWARE_LICENSING_TABLE),
+    EFI_ACPI_SLIC_TABLE_REVISION,
+
+    //
+    // Checksum will be updated at runtime
+    //
+    0x00,
+
+    //
+    // It is expected that these values will be programmed at runtime
+    //
+    EFI_ACPI_OEM_ID,                    //'I', 'N', 'S', 'Y', 'D', 'E',
+
+    EFI_ACPI_OEM_TABLE_ID,              //((((((((((((('N' << 8) + 'a') << 8) + 'p') << 8) + 'a') << 8) + ' ') << 8) + ' ') << 8) + ' ') << 8) + ' ',
+
+    EFI_ACPI_OEM_REVISION,
+    EFI_ACPI_CREATOR_ID,                //((((('S' << 8) + 'L') << 8) + 'I') << 8) + 'C',
+    EFI_ACPI_CREATOR_REVISION           //1000000,// ASL compiler revision number
+  },
+    
+    //
+    // Oem public key fields
+    //
+  {  
+    0                         //The modulus of the public key.      
+  },                 
+                               
+  //                           
+  // Oem Slp Marker fields     
+  //                           
+  {
+    0                         //The SHA256 signature of the SLP marker 
+  }                             
+};                             
+                               
+VOID*
+ReferenceAcpiTable (
+  VOID
+  )
+{
+  //
+  // Reference the table being generated to prevent the optimizer from removing the
+  // data structure from the exeutable
+  //
+  return (VOID *)&Slic;
+}
+

@@ -1,0 +1,44 @@
+## @file
+#  Platform Package Declaration file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  DEC_VERSION                    = 0x00010005
+  PACKAGE_NAME                   = PlatformPkg
+  PACKAGE_GUID                   = 00804A41-A178-4bf3-A7E0-185528586E0D
+
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+#[-start-130531-IB05160452-remove]#
+##[-start-120816-IB10820105-modify]#
+##
+## Temporarily add it 
+##
+#  Override/InsydeModulePkg
+##[-end-120816-IB10820105-modify]#
+#[-end-130531-IB05160452-remove]#
+
+[Guids]
+
+[Ppis]
+
+[Protocols]
+
+[PcdsFeatureFlag]
+
+[PcdsFixedAtBuild]
+
+[PcdsDynamic]
+
+[LibraryClasses]

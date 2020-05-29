@@ -1,0 +1,52 @@
+## @file
+#  Component description file for Reset module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = LegacySpeakerPei
+  FILE_GUID                      = 6d3d1021-e7fc-42c2-b301-ece9db198287
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeimInitializeSpeakerInterfaceEntryPoint
+
+[Sources]
+  LegacySpeakerPei.c
+  LegacySpeakerPei.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  PerformancePkg/PerformancePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  IoLib
+  DebugLib
+  PeimEntryPoint
+  PeiServicesLib
+#[-start-130902-IB12360022-add]#
+  PeiServicesTablePointerLib
+#[-end-130902-IB12360022-add]#
+  
+[Ppis]
+  gPeiSpeakerInterfacePpiGuid
+#[-start-130902-IB12360022-add]#
+  gEfiPeiStallPpiGuid
+#[-end-130902-IB12360022-add]#
+
+[Pcd]
+  gPerformancePkgTokenSpaceGuid.PcdPerfPkgAcpiIoPortBaseAddress
+
+[Depex]
+  gEfiPeiStallPpiGuid AND
+  gEfiPeiCpuIoPpiInstalledGuid
+

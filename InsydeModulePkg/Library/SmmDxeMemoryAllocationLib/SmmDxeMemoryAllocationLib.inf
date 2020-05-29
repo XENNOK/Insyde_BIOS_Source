@@ -1,0 +1,57 @@
+## @file
+# Instance of Memory Allocation Library using EFI Boot Services if system is
+# in portected mode or using SMM Services Table if system is in SMM mode.
+#
+# Memory Allocation Library that uses EFI Boot Services or services from the
+# SMM Services Table to allocate and free memory.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#
+# Copyright (c) 2009 - 2010, Intel Corporation. All rights reserved.<BR>
+#
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License
+#  which accompanies this distribution. The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.php.
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmDxeMemoryAllocationLib
+  FILE_GUID                      = AE15C17B-2C51-48c0-B3F6-DC6C9CBB0084
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = MemoryAllocationLib|COMBINED_SMM_DXE
+  CONSTRUCTOR                    = SmmDxeMemoryAllocationLibConstructor
+  DESTRUCTOR                     = SmmDxeMemoryAllocationLibDestructor
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+[Sources]
+  MemoryAllocationLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  BaseLib
+  BaseMemoryLib
+  SmmServicesTableLib
+  UefiBootServicesTableLib
+
+[Protocols]
+  gEfiSmmAccess2ProtocolGuid    ## CONSUMES

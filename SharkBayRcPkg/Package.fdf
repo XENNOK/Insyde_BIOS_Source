@@ -1,0 +1,171 @@
+## @file
+#  Platform Package Flash Description File
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[FV.RECOVERYFV]
+INF APRIORI $(CHIPSET_REF_CODE_PKG)/Pch/Wdt/Pei/WdtPeim.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Reset/Pei/PchResetPeim.inf
+#INF $(CHIPSET_REF_CODE_PKG)/Pch/SmmControl/Pei/SmmControl.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/PchInit/Pei/PchInitPeim.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Smbus/Pei/PchSmbusArpDisabled.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Usb/Pei/PchUsb.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Spi/Pei/PchSpiPeim.inf
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/CpuInit/Pei/CpuInitPeim.inf
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/CpuS3Pei/CpuS3Pei.inf
+
+!if gChipsetPkgTokenSpaceGuid.PcdMeSupported
+INF $(CHIPSET_REF_CODE_PKG)/Me/ActiveManagement/StartWatchDog/Pei/StartWatchDog.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/Heci/Pei/HeciPei.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/PchMeUma/PchMeUma.inf
+!endif
+
+INF $(CHIPSET_REF_CODE_PKG)/SystemAgent/SaInit/Pei/SaInitPeim.inf
+INF $(CHIPSET_REF_CODE_PKG)/SystemAgent/MemoryInit/Pei/MemoryInit.inf  
+INF $(CHIPSET_REF_CODE_PKG)/SystemAgent/SmmAccess/Pei/SmmAccess.inf
+
+#
+# RapidStart reference code
+#
+!if $(RAPID_START_SUPPORT) == YES
+INF $(CHIPSET_REF_CODE_PKG)/RapidStart/Pei/RapidStartPei.inf
+INF $(CHIPSET_REF_CODE_PKG)/RapidStart/GfxDisplay/FfsGfxDriver/Pei/PeiGfxDriver.inf
+!endif
+
+#
+# TXT reference code 
+#
+!if $(TXT_SUPPORT) == YES
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/Txt/TxtInit/Pei/TxtPei.inf
+#[-start-130123-IB10930014-modify]#
+FILE RAW = 2d27c618-7dcd-41f5-bb10-21166be7e143 Fixed Align=4K{
+  $(CHIPSET_REF_CODE_PKG)/Cpu/Txt/BiosAcm/$(TXT_ACM_VERSION)/BiosAc.bin
+}
+#[-end-130123-IB10930014-modify]#
+#[-start-130911-IB10930055-modify]#
+#[-start-130801-IB10930041-modify]#
+#[-start-130304-IB10130031-modify]#
+FILE RAW = D1E59F50-E8C3-4545-BF61-11F002233C97 Fixed FixedDataAddress=0xFFFF0000 {
+  $(OUTPUT_DIRECTORY)/$(TARGET)_$(TOOL_CHAIN_TAG)/IA32/$(CHIPSET_REF_CODE_PKG)/Cpu/Txt/TxtInit/Pei/Ia32/TxtPeiAp/OUTPUT/TxtPeiAp.com
+}
+#[-end-130304-IB10130031-modify]#
+#[-end-130801-IB10930041-modify]#
+#[-end-130911-IB10930055-modify]#
+!endif
+
+!if gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+INF $(CHIPSET_REF_CODE_PKG)/Me/ActiveManagement/AlertStandardFormat/Heci/Pei/AlertStandardFormatPei.inf
+!endif
+  
+[FV.DXEFV]
+INF $(CHIPSET_REF_CODE_PKG)/SystemAgent/SmmAccess/Dxe/SmmAccess.inf
+INF $(CHIPSET_REF_CODE_PKG)/SystemAgent/PciHostBridge/Dxe/PciHostBridge.inf
+INF $(CHIPSET_REF_CODE_PKG)/SystemAgent/SaInit/Dxe/SaInit.inf
+#[-start-130517-IB10040025-add]#
+INF $(CHIPSET_REF_CODE_PKG)/SystemAgent/SmbiosMemory/Dxe/SmBiosMemory.inf  
+#[-end-130517-IB10040025-add]#
+INF $(CHIPSET_REF_CODE_PKG)/SystemAgent/BdatAccessHandler/Dxe/BdatAccessHandler.inf
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/CpuInit/Dxe/CpuInitDxe.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/ActiveBios/Dxe/ActiveBios.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Spi/RuntimeDxe/PchSpiRuntime.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Spi/Smm/PchSpiSmm.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/SerialGpio/Dxe/PchSerialGpio.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/SmartTimer/Dxe/SmartTimer.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/SmmControl/RuntimeDxe/SmmControl.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Smbus/Dxe/PchSmbusDxe.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Smbus/Smm/PchSmbusSmm.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/LegacyInterrupt/Dxe/LegacyInterrupt.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Reset/RuntimeDxe/PchResetRuntime.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/S3Support/Dxe/PchS3Support.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Wdt/Dxe/WdtDxe.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/S3BootScriptDispatchThunk/Dxe/S3BootScriptDispatchThunk.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/PchInit/Dxe/PchInitDxe.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/PchInit/Smm/PchLateInitSmm.inf
+INF USE=IA32 $(CHIPSET_REF_CODE_PKG)/Pch/S3Support/S3/PchS3Peim.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/Pcie/Smm/PchPcieSmm.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/IoTrap/Smm/IoTrap.inf
+
+INF $(CHIPSET_REF_CODE_PKG)/Pch/PchSmiDispatcher/Smm/PchSmiDispatcher.inf
+INF $(CHIPSET_REF_CODE_PKG)/Pch/SataController/Dxe/SataController.inf
+
+#
+# Rapidstart reference code
+#	
+!if $(RAPID_START_SUPPORT) == YES
+INF $(CHIPSET_REF_CODE_PKG)/RapidStart/Dxe/RapidStartDxe.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/RapidStart/AcpiTables/RapidStartAcpiTables.inf
+INF $(CHIPSET_REF_CODE_PKG)/RapidStart/Smm/RapidStartSmm.inf
+INF $(CHIPSET_REF_CODE_PKG)/RapidStart/GfxDisplay/FfsGfxDriver/Dxe/DxeFfsGfxDriver.inf
+!endif
+
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/PowerManagement/Dxe/PowerMgmtDxe.inf
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/PowerManagement/Smm/PowerMgmtS3.inf
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/Dts/Smm/DigitalThermalSensorSmm.inf
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/PfatServicesSmm/PfatServicesSmm.inf
+#[-start-121204-IB06720141-remove]#
+#INF $(CHIPSET_REF_CODE_PKG)/Platform/Insyde/Common/SmbiosMemoryDxe/SmbiosMemoryDxe.inf
+#[-end-121204-IB06720141-remove]#
+
+!if gChipsetPkgTokenSpaceGuid.PcdMeSupported
+INF $(CHIPSET_REF_CODE_PKG)/Me/Heci/Dxe/HeciDxe.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/ActiveManagement/AmtBootOptions/Dxe/ActiveManagement.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/BiosExtensionLoader/Dxe/BiosExtensionLoader.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/MeFwDowngrade/Dxe/MeFwDowngrade.inf
+!endif
+
+#
+# TXT reference code
+# 
+!if $(TXT_SUPPORT) == YES  
+INF $(CHIPSET_REF_CODE_PKG)/Cpu/Txt/TxtInit/Dxe/TxtDxe.inf 
+FILE RAW = cba7d52d-5386-495c-aac4-db3241fed766 Fixed Align=4K{
+  $(CHIPSET_REF_CODE_PKG)/Cpu/Txt/SinitAcm/$(TXT_ACM_VERSION)/SinitAc.bin
+}
+!endif
+#
+# Anti-Theft reference code
+#
+!if $(ANTI_THEFT_SUPPORT) == YES
+INF $(CHIPSET_REF_CODE_PKG)/Me/At/AtAm/Dxe/AtAm.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/At/AtBadging/AtBadging.inf
+!endif
+
+#
+# AcpiTables
+#
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/Cpu/PowerManagement/AcpiTables/PowerMgmtAcpiTables.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/SystemAgent/AcpiTables/SaAcpiTables_Edk.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/SystemAgent/AcpiTables/SaSsdt/SaSsdt_Edk.inf
+
+!if gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+INF $(CHIPSET_REF_CODE_PKG)/Me/ActiveManagement/AlertStandardFormat/Heci/Dxe/AlertStandardFormatDxe.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/EfiMEBx/$(MEBX_VERSION)/Mebx/Mebx.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/EfiMEBx/$(MEBX_VERSION)/MebxSetupBrowser/MebxSetupBrowser.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/ActiveManagement/IdeR/Dxe/IdeRController.inf
+INF $(CHIPSET_REF_CODE_PKG)/Me/ActiveManagement/Sol/Dxe/PciSerial.inf
+!endif
+
+#[-start-130812-IB05670190-modify]#
+!if gChipsetPkgTokenSpaceGuid.PcdPttSupport
+#[-end-130812-IB05670190-modify]#
+INF $(CHIPSET_REF_CODE_PKG)/Me/Ptt/Smm/PttHciSmm.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/Me/Ptt/AcpiTables/Tpm2AcpiTables.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/Me/AcpiTables/MeSsdt/MeSsdt.inf
+!endif
+
+#[-start-140218-IB10920078-add]#
+!if gChipsetPkgTokenSpaceGuid.PcdIntelSwitchableGraphicsSupported
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/SystemAgent/AcpiTables/SwitchableGraphics/Pch/SgAcpiTablesPch.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/SystemAgent/AcpiTables/SwitchableGraphics/Peg/SgAcpiTables.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/SystemAgent/AcpiTables/SwitchableGraphics/AmdPowerXpress/AmdPowerXpressSsdt.inf
+INF RuleOverride = ACPITABLE $(CHIPSET_REF_CODE_PKG)/SystemAgent/AcpiTables/SwitchableGraphics/NvidiaOptimus/NvidiaOptimusSsdt.inf
+!endif
+#[-end-140218-IB10920078-add]#

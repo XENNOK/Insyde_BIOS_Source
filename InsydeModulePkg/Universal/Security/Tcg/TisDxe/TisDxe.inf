@@ -1,0 +1,54 @@
+## @file
+#  Component description file for TisDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = TisDxe
+  FILE_GUID                      = 2892389C-FBE9-43d7-B9FC-6C5D90D18456
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = DriverEntry
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF
+#
+
+[Sources]
+  TisDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  SecurityPkg/SecurityPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  IoLib
+  TimerLib
+  DebugLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  Tpm2TisCommLib
+
+[Protocols]
+  gTpm2InterfaceGuid
+  gEfiSmmBase2ProtocolGuid
+
+[Depex]
+  <DXE_DEPEX>
+    TRUE
+  <SMM_DEPEX>
+    gEfiSmmBase2ProtocolGuid

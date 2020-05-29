@@ -1,0 +1,32 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AmdDiscreteSsdt
+  FILE_GUID                      = 50F6366B-0BF7-4aab-89A5-A17AF863806B
+  MODULE_TYPE                    = USER_DEFINED
+  VERSION_STRING                 = 1.0
+  EDK_RELEASE_VERSION            = 0x00020000
+  EFI_SPECIFICATION_VERSION      = 0x00020000
+
+[Sources.common]
+  AmdDiscrete/AmdDiscrete.asl
+
+[Packages]
+  MdePkg/MdePkg.dec
+  SharkBayChipsetPkg/SharkBayChipsetPkg.dec
+
+[Pcd]
+#[-start-130812-IB05670190-add]#
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+#[-end-130812-IB05670190-add]#

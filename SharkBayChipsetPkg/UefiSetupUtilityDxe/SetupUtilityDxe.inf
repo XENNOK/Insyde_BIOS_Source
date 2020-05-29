@@ -1,0 +1,310 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SetupUtility
+  FILE_GUID                      = FE3542FE-C1D3-4EF8-657C-8048606FF670
+  MODULE_TYPE                    = DXE_DRIVER
+  ENTRY_POINT                    = SetupUtilityInit
+  STRGATHER_RESERVE_SIZE         = 0x1000
+
+[Sources]
+  Advance/AdvanceVfr.vfr
+  Power/PowerVfr.vfr
+  SetupVfrStrings.uni
+  Images/SetupImage.idf
+  SetupUtility.c
+  SetupFuncs.c
+  GenericCallback.c
+  Advance/XtuItem.c
+  Advance/Advance.c
+  Advance/IdeConfig.c
+  Advance/SioConflict.c
+  Advance/IccConfig.c
+#[-start-110829-IB07370065-add]#
+  Advance/DisplaySelection.c
+#[-end-110829-IB07370065-add]#
+  Main/PlatformInfo.c
+  Main/GetVbiosVersion.c
+  Main/GetEcVersion.c
+  Main/GetPchReversionId.c
+  Main/GetSaReversionId.c
+  Main/GetMeVersion.c
+#[-start-130408-IB10310017-add]#
+  Main/GetSpsMeVersion.c
+#[-end-130408-IB10310017-add]#
+  Main/GetCpuMiscInfo.c
+#[-start-130422-IB05400398-remove]#
+##[-start-130220-IB10930022-add]#
+#  Main/GetBoardInfo.c
+##[-end-130220-IB10930022-add]#
+#[-end-130422-IB05400398-remove]#
+  Power/Power.c
+  Power/cTDPConfig.c
+#[-start-130225-IB10920016-add]#
+!IF "$(HARDWARE_MONITOR_SUPPORT)" == "YES"
+  Advance/HardwareMonitor/HardwareMonitor.uni
+  Advance/HardwareMonitor/HardwareMonitor.c
+  Advance/HardwareMonitor/HardwareMonitor.h
+  Advance/HardwareMonitor/HardwareMonitor.hfr
+!ENDIF
+#[-end-130225-IB10920016-add]#
+
+#[-start-130617-IB04560405-add]#
+#[-start-140318-IB08400253-modify]#
+#[-start-131122-IB08400219-modify]#
+!IF "$(H2O_EVENT_LOG_SUPPORT)" == "YES"
+  Advance/BiosEventLog.hfr
+  Advance/BiosEventLog.uni
+!ENDIF
+#[-end-131122-IB08400219-modify]#
+!IF "$(H2O_POST_MESSAGE)" == "YES"
+  Advance/PostMessage.hfr
+  Advance/PostMessage.uni
+!ENDIF
+#[-end-140318-IB08400253-modify]#
+#[-end-130617-IB04560405-add]#
+
+#[-start-130625-IB11120016-add]#
+  Advance/IpmiConfig/IpmiConfig.hfr
+  Advance/IpmiConfig/IpmiConfig.uni
+#[-end-130625-IB11120016-add]#
+
+#[-start-131225-IB08620313-add]#
+!IF "$(APEI_SUPPORT)" == "YES"
+  Advance/APEI/APEI.uni
+  Advance/APEI/APEI.hfr
+!ENDIF
+#[-end-131225-IB08620313-add]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeFrameworkModulePkg/InsydeFrameworkModulePkg.dec
+#[-start-121108-IB05280008-add]#
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+#[-end-121108-IB05280008-add]#
+#[-start-130110-IB10820219-add]#
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+#[-end-130110-IB10820219-add]#
+#[-start-130617-IB04560405-add]#
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+#[-end-130617-IB04560405-add]#
+#[-start-131203-IB09740048-add]#
+  InsydeCrPkg/InsydeCrPkg.dec
+#[-end-131203-IB09740048-add]#
+#[-start-131225-IB08620313-add]#
+#!IF "$(APEI_SUPPORT)" == "YES"
+  InsydeApeiPkg/InsydeApeiPkg.dec
+#!ENDIF
+#[-end-131225-IB08620313-add]#
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  SetupUtilityLib
+  BaseMemoryLib
+  OemGraphicsLib
+  HobLib
+  BaseLib
+  CmosLib
+  MeLib
+#[-start-130812-IB06720232-modify]#
+#  EcLib
+  BaseOemSvcChipsetLibDefault
+#[-end-130812-IB06720232-modify]#
+  RapidStartDxeLib
+  BaseSetupDefaultLib
+  PostCodeLib
+#[-start-121108-IB05280008-add]#
+  PcdLib
+  DxeOemSvcKernelLibDefault
+#[-end-121108-IB05280008-add]#
+#[-start-130110-IB10820219-add]#
+  PciExpressLib
+#[-end-130110-IB10820219-add]#
+#[-start-130422-IB05400398-add]#
+  DxeOemSvcChipsetLibDefault
+#[-end-130422-IB05400398-add]#
+#[-start-130205-IB03780481-add]#
+  TbtLib
+#[-end-130205-IB03780481-add]#
+#[-start-130611-IB11120016-add]#
+  DxeIpmiSetupUtilityLib
+#[-end-130611-IB11120016-add]#
+#[-start-130403-IB02950501-add]#
+  CpuPlatformLib
+#[-end-130403-IB02950501-add]#
+#[-start-130408-IB10310017-add]#
+  SpsBiosLib
+#[-end-130408-IB10310017-add]#
+#[-start-131203-IB09740048-add]#
+  CrVfrConfigLib
+  CrConfigDefaultLib
+#[-end-131203-IB09740048-add]#
+#[-start-131227-IB10920075-add]#
+  HiiExLib
+#[-end-131227-IB10920075-add]#
+#[-start-140320-IB06040445-add]#
+  MultiConfigBaseLib
+  VariableSupportLib
+#[-end-140320-IB06040445-add]#
+#[-start-140520-IB10300110-add]#
+  WatchDogLib
+#[-end-140520-IB10300110-add]#
+[Guids]
+  gEfiGenericVariableGuid
+  gEfiPowerOnPwSCUHobGuid
+  gSetupDefaultHobGuid
+  gDxePlatformICCPolicyGuid
+  gXTUInfoHobGuid
+  gEfiHobListGuid
+#[-start-120820-IB10820110-modify]#
+  gEfiDiskInfoIdeInterfaceGuid
+  gEfiDiskInfoAhciInterfaceGuid
+#[-start-120820-IB10820110-modify]#
+
+[Protocols]
+  gSetupMouseProtocolGuid
+#[-start-121108-IB05280008-remove]#
+#  gChipsetLibServicesProtocolGuid
+#[-end-121108-IB05280008-remove]#
+  gEfiCpuIo2ProtocolGuid
+  gEfiAlertStandardFormatProtocolGuid
+  gEfiSetupUtilityProtocolGuid
+  gEfiFormBrowser2ProtocolGuid
+  gEfiSetupUtilityBrowserProtocolGuid
+  gMeBiosPayloadDataProtocolGuid
+  gMemInfoProtocolGuid
+  gH2ODialogProtocolGuid
+  gEfiDataHubProtocolGuid
+  gIccOverClockingProtocolGuid
+  gRapidStartPlatformPolicyProtocolGuid
+#[-start-120808-IB10820098-add]#
+  gPlatformGopPolicyProtocolGuid
+#[-end-120808-IB10820098-add]#
+#[-start-120925-IB10820124-add]#
+  gPchResetProtocolGuid
+#[-end-120925-IB10820124-add]#
+  gEfiSetupUtilityApplicationProtocolGuid
+#[-start-130110-IB10820219-add]#
+  gOemServicesProtocolGuid
+  gEfiTcgProtocolGuid
+#[-start-130225-IB08520070-remove]#
+#  gEfiCheckRaidProtocolGuid
+#[-end-130225-IB08520070-remove]#
+  gEfiPlatformInfoProtocolGuid
+#[-end-130110-IB10820219-add]#
+#[-start-130425-IB05160441-add]#
+  gEfiPciRootBridgeIoProtocolGuid
+#[-end-130425-IB05160441-add]#
+!IF "$(HARDWARE_MONITOR_SUPPORT)" == "YES"
+  gEfiIsaVoltagleDeviceProtocolGuid
+  gEfiIsaTemperatureDeviceProtocolGuid
+  gEfiIsaFanSpeedDeviceProtocolGuid
+!ENDIF
+#[-start-130617-IB04560405-add]#
+  gH2OEventLogViewerProtocolGuid
+#[-end-130617-IB04560405-add]#
+#[-start-130618-IB10930032-add]#
+  gVariableEditProtocolGuid
+#[-end-130618-IB10930032-add]#
+#[-start-130625-IB11120016-add]#
+  gStartOfSetupUtilityProtocolGuid
+  gEndOfSetupUtilityProtocolGuid
+#[-end-130625-IB11120016-add]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLang
+  gChipsetPkgTokenSpaceGuid.PcdXtuSupported
+  gChipsetPkgTokenSpaceGuid.PcdTXTSupported
+  gChipsetPkgTokenSpaceGuid.PcdRapidStartSupported
+  gInsydeTokenSpaceGuid.PcdH2OTpmSupported
+  gInsydeTokenSpaceGuid.PcdPortNumberMapTable
+  gInsydeTokenSpaceGuid.PcdPlatformBootTimeOut
+#[-start-130118-IB11410043-add]#
+  gChipsetPkgTokenSpaceGuid.PcdRcbaBaseAddress
+#[-end-130118-IB11410043-add]#
+  gChipsetPkgTokenSpaceGuid.PcdGbePeiEPortSelect
+  gChipsetPkgTokenSpaceGuid.PcdMeSupported
+#[-start-130424-IB05160441-add]#
+  gChipsetPkgTokenSpaceGuid.PcdThunderBoltSupported
+#[-end-130424-IB05160441-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+#[-start-130812-IB05670190-add]#
+  gChipsetPkgTokenSpaceGuid.PcdMe5MbSupported
+  gInsydeTokenSpaceGuid.PcdH2OUsbSupported
+  gInsydeTokenSpaceGuid.PcdH2OConsoleRedirectionSupported
+  gChipsetPkgTokenSpaceGuid.PcdAntiTheftSupported
+  gChipsetPkgTokenSpaceGuid.PcdSwitchableGraphicsSupported
+  gChipsetPkgTokenSpaceGuid.PcdDdr3lvSupported
+  gChipsetPkgTokenSpaceGuid.PcdAmdPowerXpressSupported
+  gChipsetPkgTokenSpaceGuid.PcdPttSupport
+#[-end-130812-IB05670190-add]#
+#[-start-140224-IB10920078-add]#
+  gChipsetPkgTokenSpaceGuid.PcdIntelSwitchableGraphicsSupported
+#[-end-140224-IB10920078-add]#
+#[-start-140523-IB10300110-add]#
+  gChipsetPkgTokenSpaceGuid.PcdH2OWatchDogSupported
+#[-end-140523-IB10300110-add]#
+  gSetupConfigNameGuid
+  gSetupConfigOffsetSizeGuid
+
+#[-start-130110-IB11410040-add]#
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+#[-end-130110-IB11410040-add]#
+#[-start-130408-IB10310017-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSpsMeSupported
+#[-end-130408-IB10310017-add]#
+#[-start-140318-IB08400253-modify]#
+  gH2OEventLogPkgTokenSpaceGuid.PcdH2OEventLogSupport
+  gH2OEventLogPkgTokenSpaceGuid.PcdH2OPostMessageSupport
+  gH2OEventLogPkgTokenSpaceGuid.PcdH2OPostBeepSupport
+#[-end-140318-IB08400253-modify]#
+#[-start-140320-IB06040445-add]#
+  gInsydeTokenSpaceGuid.PcdMultiConfigSupported
+#[-end-140320-IB06040445-add]#
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserSupported
+  gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+#[-start-131031-IB08520089-add]#
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdHddPasswordMinLength
+  gInsydeTokenSpaceGuid.PcdHddPasswordMaxLength
+#[-end-131031-IB08520089-add]#
+
+[BuildOptions]
+  *_*_*_CC_FLAGS = -D __HOB__H__   # to avod efi_HOB_GENERIC_HERDER refdifine on XTUInfoHob.h
+  MSFT:*_*_*_VFRPP_FLAGS = -DSETUP_IMAGE_SUPPORT /FI$(MODULE_NAME)IdfDefs.h
+  GCC:*_*_*_VFRPP_FLAGS  = -DSETUP_IMAGE_SUPPORT --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)IdfDefs.h
+
+[Depex]
+#[-start-130829-IB05160485-remove]#
+#  gEfiChipsetLibServicesProtocolGuid AND
+#[-end-130829-IB05160485-remove]#
+  gMemInfoProtocolGuid               AND
+  gEfiVariableArchProtocolGuid       AND
+  gEfiVariableWriteArchProtocolGuid  AND
+#[-start-121121-IB11410023-modify]#
+  gEfiBdsArchProtocolGuid            AND
+  gEfiPlatformInfoProtocolGuid
+#[-end-121121-IB11410023-modify]#

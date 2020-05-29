@@ -1,0 +1,46 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+
+
+[defines]
+  BASE_NAME       = TrueTypeLib
+  COMPONENT_TYPE  = LIBRARY
+
+[sources.common]
+  freetype2\include\ft2build.h
+  freetype2\src\base\ftbase.c
+  freetype2\src\base\ftbitmap.c
+  freetype2\src\base\ftglyph.c
+  freetype2\src\base\ftinit.c
+  freetype2\src\base\ftsystem.c
+  freetype2\src\sfnt\sfnt.c
+  freetype2\src\truetype\truetype.c
+  freetype2\src\smooth\smooth.c
+  TrueTypeLib.c
+
+[includes.common]
+  .
+  .\freetype2\include
+  $(EFI_SOURCE)\Include
+  $(EFI_SOURCE)\Include\stdlib
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+
+[libraries.common]
+  StdLib
+
+[nmake.common]
+  C_STD_INCLUDE=
+  C_FLAGS = $(C_FLAGS)  /D FT2_BUILD_LIBRARY

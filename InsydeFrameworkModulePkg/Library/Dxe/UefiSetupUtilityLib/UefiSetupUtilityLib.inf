@@ -1,0 +1,87 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2011, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#  Module Name:
+#
+#    SetupUtilityLib.inf
+#
+#  Abstract:
+#
+#    Component description file.
+#
+
+
+[defines]
+  BASE_NAME              = UefiSetupUtilityLib
+  COMPONENT_TYPE         = LIBRARY
+  STRGATHER_RESERVE_SIZE = 0x1000
+
+[sources.common]
+
+  Main\MainVfr.vfr
+  Security\SecurityVfr.vfr
+  Boot\BootVfr.vfr
+  Exit\ExitVfr.vfr
+
+  CopyRightString.uni
+  SetupUtilityLibString.uni
+  Main\Main.c
+  Main\SystemInformation.c
+  Main\Language.c
+
+  Security\Password.c
+  Security\Security.c
+
+  Boot\BbsType.c
+  Boot\Boot.c
+  Boot\BootMenu.c
+
+  Exit\Exit.c
+  Exit\ExitFunc.c
+
+  SetupFuncs.c
+
+[includes.common]
+  $(EFI_SOURCE)
+  $(BUILD_DIR)
+  $(DEST_DIR)
+  .
+  $(EFI_SOURCE)\$(PROJECT_FAMILY)\$(PROJECT_NAME)\Dxe\MiscSubclass\Type00
+  $(EFI_SOURCE)\$(COMMON_PLATFORM_DIR)\Dxe\MiscSubclass\Type00
+  $(EDK_SOURCE)\Foundation\Library\Dxe\EfiIfrSupportLib
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Graphics\Unicode
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EFI_SOURCE)\Library\Dxe\Include
+  $(EFI_SOURCE)\Include\OemServices
+  $(EFI_SOURCE)\$(CHIPSET_ROOT)\Library\Include
+  $(EFI_SOURCE)\Library\Dxe\UefiEfiIfrSupportLib
+  .\Security
+  .\Boot
+  .\Main
+  .\Exit
+
+[libraries.common]
+  EdkProtocolLib
+  EfiDriverLib
+  ProtocolLib
+  GuidLib
+  BvdtLib
+  UefiEfiIfrSupportLib
+  OemGraphicsLite
+[nmake.common]
+  C_STD_INCLUDE=

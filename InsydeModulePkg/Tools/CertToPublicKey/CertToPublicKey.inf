@@ -1,0 +1,51 @@
+## @file
+# Extract Public Key from X509 Certificate
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CertToPublicKey
+  FILE_GUID                      = D66D24DA-6F0B-4E3B-9DA0-F8608BC65A9B
+  MODULE_TYPE                    = USER_DEFINED
+  VERSION_STRING                 = 1.0
+
+  MODULE_AUTORUN_TOOL            = "$(MODULE_DIR)/$(BASE_NAME)"
+  AUTORUN_PARAM                  = "$(WORKSPACE)/$(SECURE_FLASH_CERTIFICATE_FILE_PATH)" "$(BUILD_DIR)/IA32/SecureFlashPublicKey.bin"
+
+
+[Sources]
+  Dummy.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+
+[Ppis]
+
+
+[Protocols]
+
+[Guids]
+
+[Pcd]
+
+[BuildOptions]
+  MSFT:*_*_IA32_DLINK_FLAGS == /out:"$(BIN_DIR)\$(BASE_NAME).exe" /base:0x10000000 /NOLOGO /SUBSYSTEM:CONSOLE /NODEFAULTLIB /IGNORE:4086 /MAP /OPT:REF /MACHINE:I386 /LTCG Kernel32.lib LIBCMT.lib
+  MSFT:*_*_IA32_CC_FLAGS = /MT
+   GCC:*_*_IA32_DLINK_FLAGS == -o $(BIN_DIR)/$(BASE_NAME) -m elf_i386 -dynamic-linker /lib/ld-linux.so.2 $(LIB32_PATH)/crt1.o $(LIB32_PATH)/crti.o $(LIB32_PATH)/crtn.o
+   GCC:*_*_*_DLINK2_FLAGS == -lc
+   GCC:*_*_IA32_CC_FLAGS = -m32 -g -fshort-wchar -fno-strict-aliasing -Wno-unused-variable -malign-double -idirafter/usr/include -c -include $(DEST_DIR_DEBUG)/AutoGen.h -DSTRING_ARRAY_NAME=$(BASE_NAME)Strings
+   GCC:*_*_IA32_PP_FLAGS = -m32 -E -x assembler-with-cpp -include $(DEST_DIR_DEBUG)/AutoGen.h
+   GCC:*_*_IA32_ASM_FLAGS = -c -x assembler -imacros $(DEST_DIR_DEBUG)/AutoGen.h

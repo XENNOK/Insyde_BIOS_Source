@@ -1,0 +1,65 @@
+## @file
+#  Component description file for SmmAcpiCallbacks module
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AcpiCallbacksSmm
+  FILE_GUID                      = 4FB2CE1F-1A3A-42e3-BD0C-7B84F954189A
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SmmAcpiCallbacksEntryPoint
+
+[Sources]
+  AcpiCallbacksSmm.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  UefiDriverEntryPoint
+  SmmServicesTableLib
+  UefiBootServicesTableLib
+  PostCodeLib
+  SmmOemSvcKernelLibDefault
+  BaseOemSvcKernelLibDefault
+  
+[Protocols]
+  gEfiSmmSwDispatch2ProtocolGuid
+  gAcpiEnableCallbackDoneProtocolGuid  
+  gAcpiEnableCallbackStartProtocolGuid
+  gAcpiDisableCallbackDoneProtocolGuid 
+  gAcpiDisableCallbackStartProtocolGuid  
+  gAcpiRestoreCallbackDoneProtocolGuid   
+  gAcpiRestoreCallbackStartProtocolGuid
+  gEfiSmmRuntimeProtocolGuid
+  
+[Depex]
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmAccess2ProtocolGuid AND
+  gEfiSmmVariableProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid 
+
+#  EFI_SMM_BASE_PROTOCOL_GUID AND
+#  EFI_SMM_ACCESS_PROTOCOL_GUID AND
+#  EFI_SMM_SW_DISPATCH_PROTOCOL_GUID AND
+#  EFI_SMM_RUNTIME_PROTOCOL_GUID AND
+#  EFI_SMM_VARIABLE_PROTOCOL_GUID
+
+

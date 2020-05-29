@@ -1,0 +1,42 @@
+## @file
+#  Component description file for SeamlessRecoveryLib module
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SeamlessRecoveryLib
+  FILE_GUID                      = B50B613F-71FD-45A3-BD90-CD28C94834C9
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SeamlessRecoveryLib
+
+[Sources]
+  SeamlessRecoveryLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  PcdLib
+  BaseMemoryLib
+
+[Guids]
+
+[Protocols]
+
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdFlashNvStorageFtwSpareBase
+  gInsydeTokenSpaceGuid.PcdCrisisRecoverySupported
+  gInsydeTokenSpaceGuid.PcdSeamlessRecoverySignature

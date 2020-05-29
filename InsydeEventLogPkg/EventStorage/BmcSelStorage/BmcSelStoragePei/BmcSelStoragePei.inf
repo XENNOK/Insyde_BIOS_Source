@@ -1,0 +1,48 @@
+## @file
+#  Implement the PEIM of Bmc Sel Storage Pei
+#  
+#  ***************************************************************************
+#  * Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+#  *
+#  * You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#  * transmit, broadcast, present, recite, release, license or otherwise exploit
+#  * any part of this publication in any form, by any means, without the prior
+#  * written permission of Insyde Software Corporation.
+#  *
+#  ******************************************************************************
+#  
+##
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = BmcSelStoragePei
+  FILE_GUID                 = C6269C22-1307-47A7-814C-53DA61763FAD
+  MODULE_TYPE               = PEIM
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = BmcSelStoragePeiEntryPoint
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeIpmiPkg/InsydeIpmiPkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  
+[Sources]
+  BmcSelStoragePei.c
+  BmcSelStoragePei.h
+	
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  BaseLib
+
+[Ppis]
+  gH2OPeiBmcSelStoragePpiGuid                 #PRODUCED
+  gH2OIpmiInterfacePpiGuid                    #CONSUMED
+  
+[Guids]
+
+[Depex]
+  gH2OIpmiInterfacePpiGuid
+

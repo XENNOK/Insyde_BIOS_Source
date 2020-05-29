@@ -1,0 +1,69 @@
+## @file
+#  Component description file for CrVfrConfigLib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                     = 0x00010005
+  BASE_NAME                       = CrVfrConfigLib
+  FILE_GUID                       = 278334B4-A2DF-4674-AFAA-2D55F0A3F3E3
+  MODULE_TYPE                     = DXE_DRIVER
+  VERSION_STRING                  = 1.0
+  LIBRARY_CLASS                   = CrVfrConfigLib|DXE_DRIVER
+
+[Sources]
+  CrVfrString.uni
+  CrVfrConfigLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  IntelFrameworkModulePkg/IntelFrameworkModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  InsydeCrPkg/InsydeCrPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  BaseLib
+  BaseMemoryLib
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  DebugLib
+  MemoryAllocationLib
+  DxeOemSvcKernelLibDefault
+  DevicePathLib
+  KernelConfigLib
+  HiiLib
+  DevicePathLib
+  CrBdsLib
+  UefiHiiServicesLib
+  
+[Guids]
+  gEfiIfrTianoGuid
+  gEfiGenericVariableGuid
+  gCrConfigurationGuid
+
+[FeaturePcd]
+  gInsydeCrTokenSpaceGuid.PcdCROverUsbSupported
+  
+[Protocols]
+  gEfiPciIoProtocolGuid
+  gEfiIsaAcpiProtocolGuid
+  gEfiCRPolicyProtocolGuid
+  gUsbSerialControllerIoProtocolGuid
+  gEfiHiiConfigAccessProtocolGuid               ## PROTOCOL CONSUMES
+
+#[BuildOptions]
+#  DEBUG_*_X64_CC_FLAGS = /Od   

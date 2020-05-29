@@ -1,0 +1,210 @@
+#/** @file
+#
+#  Component description file for MemoryInit
+#  
+#;******************************************************************************
+#;* Copyright (c) 2012 - 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#
+#;******************************************************************************
+#;* Copyright (c)  1999 - 2012 Intel Corporation. All rights reserved
+#;*
+#;* This software and associated documentation (if any) is furnished
+#;* under a license and may only be used or copied in accordance
+#;* with the terms of the license. Except as permitted by such
+#;* license, no part of this software or documentation may be
+#;* reproduced, stored in a retrieval system, or transmitted in any
+#;* form or by any means without the express written consent of
+#;* Intel Corporation.
+#;******************************************************************************
+#
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = MemoryInit
+  FILE_GUID                      = B29344A1-96CB-476a-AD6B-9BFD30D4A385
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeimMemoryInit
+
+[Sources]
+  MrcSsaServices.c
+  MrcSsaServices.h
+  MemInfoHob.h
+  MemoryInit.c
+  MemoryInit.h
+  MrcDebugHook.h
+  MrcOemAddrDecode.c
+  MrcOemAddrDecode.h
+  MrcOemDebugPrint.c
+  MrcOemDebugPrint.h
+  MrcOemIo.c
+  MrcOemIo.h
+  MrcOemMemory.c
+  MrcOemMemory.h
+  MrcOemMmio.c
+  MrcOemMmio.h
+  MrcOemPlatform.c
+  MrcOemPlatform.h
+  MrcOemSmbus.c
+  MrcOemSmbus.h
+  MrcSpdDriver.c
+  MrcSpdDriver.h
+  Source/AddrDecode/MrcHswMcAddrDecode.c
+  Source/AddrDecode/MrcHswMcAddrDecode.h
+  Source/Api/MrcApi.h
+  Source/Api/MrcBdat.c
+  Source/Api/MrcBdat.h
+  Source/Api/MrcGeneral.c
+  Source/Api/MrcGeneral.h
+  Source/Api/MrcMemoryScrub.c
+  Source/Api/MrcMemoryScrub.h
+  Source/Api/MrcSaveRestore.c
+  Source/Api/MrcSaveRestore.h
+  Source/Api/MrcStartMemoryConfiguration.c
+  Source/Api/MrcStartMemoryConfiguration.h
+  Source/Include/McAddress.h
+  Source/Include/MrcCommandTraining.h
+  Source/Include/MrcCommon.h
+  Source/Include/MrcCrosser.h
+  Source/Include/MrcDdr3.h
+  Source/Include/MrcDdr3Registers.h
+  Source/Include/MrcIoControl.h
+  Source/Include/MrcMcConfiguration.h
+  Source/Include/MrcMemoryMap.h
+  Source/Include/MrcOem.h
+  Source/Include/MrcReset.h
+  Source/Include/MrcRmtData.h
+  Source/Include/MrcSpdData.h
+  Source/Include/MrcTypes.h
+  Source/Include/MrcVersion.h
+  Source/Include/MrcRegisters/McGdxcbar.h
+  Source/Include/MrcRegisters/McIoCkeCtl.h
+  Source/Include/MrcRegisters/McIoClk.h
+  Source/Include/MrcRegisters/McIoCmd.h
+  Source/Include/MrcRegisters/McIoComp.h
+  Source/Include/MrcRegisters/McIoData.h
+  Source/Include/MrcRegisters/McMain.h
+  Source/Include/MrcRegisters/McScramble.h
+  Source/Include/MrcRegisters/Pci000.h
+  Source/McConfiguration/MrcAddressDecodeConfiguration.c
+  Source/McConfiguration/MrcAddressDecodeConfiguration.h
+  Source/McConfiguration/MrcPowerModes.c
+  Source/McConfiguration/MrcPowerModes.h
+  Source/McConfiguration/MrcRefreshConfiguration.c
+  Source/McConfiguration/MrcRefreshConfiguration.h
+  Source/McConfiguration/MrcSchedulerParameters.c
+  Source/McConfiguration/MrcSchedulerParameters.h
+  Source/McConfiguration/MrcTimingConfiguration.c
+  Source/McConfiguration/MrcTimingConfiguration.h
+  Source/ReadTraining/MrcReadDqDqs.c
+  Source/ReadTraining/MrcReadDqDqs.h
+  Source/ReadTraining/MrcReadReceiveEnable.c
+  Source/ReadTraining/MrcReadReceiveEnable.h
+  Source/Services/MrcCommandTraining.c
+  Source/Services/MrcCommon.c
+  Source/Services/MrcCrosser.c
+  Source/Services/MrcDdr3.c
+  Source/Services/MrcIoControl.c
+  Source/Services/MrcMcConfiguration.c
+  Source/Services/MrcMemoryMap.c
+  Source/Services/MrcReset.c
+  Source/SpdProcessing/MrcSpdProcessing.c
+  Source/SpdProcessing/MrcSpdProcessing.h
+  Source/WriteTraining/MrcWriteDqDqs.c
+  Source/WriteTraining/MrcWriteDqDqs.h
+  Source/WriteTraining/MrcWriteLeveling.c
+  Source/WriteTraining/MrcWriteLeveling.h
+
+[Packages]
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  DebugLib
+  BaseLib
+  HobLib
+  IoLib
+  PeimEntryPoint
+  BaseMemoryLib
+  CpuPlatformLib
+  RapidStartPeiLib
+  CmosLib
+  SmbusLib
+  TxtLib
+  
+[Ppis]
+  gEfiPeiReadOnlyVariablePpiGuid
+  gEfiPeiStallPpiGuid
+  gPeiPlatformMemoryRangePpiGuid
+  gPeiPlatformMemorySizePpiGuid
+  gPeiBaseMemoryTestPpiGuid
+  gPchResetPpiGuid
+  gSaPlatformPolicyPpiGuid
+  gEfiPeiSmbus2PpiGuid
+  gRapidStartPpiGuid
+  gEmuPeiPpiGuid
+  gPchMeUmaPpiGuid
+  
+[Guids]
+  gEfiSmmPeiSmramMemoryReserveGuid
+  gEfiMemoryTypeInformationGuid
+  gSaDataHobGuid
+#[-start-130326-IB06720210-add]#
+  gOemSpdDataGuid
+  gSlotStatusGuid
+#[-end-130326-IB06720210-add]#
+  gDDR3LVoltageHobGuid
+  gDDR3LVoltageVariableGuid
+
+[Protocols]
+  
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  
+[Depex]
+!IF "$(TXT_SUPPORT)" == "YES"
+  gPeiTxtMemoryUnlockedPpiGuid     AND
+  gEfiPeiStallPpiGuid              AND
+!ENDIF  
+!IF "$(RAPID_START_SUPPORT)" == "YES"
+  gRapidStartPpiGuid               AND
+!ENDIF
+  gPeiPlatformMemoryRangePpiGuid   AND
+  gPeiBaseMemoryTestPpiGuid        AND
+  gEfiPeiReadOnlyVariablePpiGuid   AND
+  gPeiPlatformMemorySizePpiGuid    AND
+  gPchResetPpiGuid                 AND
+  gSaPlatformPolicyPpiGuid
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS = /Oi /GL- /Gs65536 /Zi /Gm
+
+!IF "$(RAPID_START_SUPPORT)" == "YES"
+  *_*_*_CC_FLAGS = -D RAPID_START_FLAG
+!ENDIF
+
+!IF "$(USE_FAST_CRISIS_RECOVERY)" == "YES"
+  *_*_*_CC_FLAGS = -D USE_FAST_CRISIS_RECOVERY
+!ENDIF
+  
+!IF "$(ULT_SUPPORT)" == "YES"
+  *_*_*_CC_FLAGS = -D ULT_FLAG  -D LPSS_FLAG -D ADSP_FLAG -D MEMORY_DOWN_SUPPORT
+!ELSE
+  *_*_*_CC_FLAGS = -D TRAD_FLAG -D PEG_FLAG -D DMI_FLAG
+!ENDIF
+
+!IF "$(DDR3LV_SUPPORT)" == "YES"
+    *_*_*_CC_FLAGS = -D DDR3LV_SUPPORT  
+!ENDIF

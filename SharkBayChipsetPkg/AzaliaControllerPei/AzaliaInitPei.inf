@@ -1,0 +1,79 @@
+## @file
+#  Azalia controller initialize in PEI phase.
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = AzaliaInitPei
+  FILE_GUID                      = 8C3CFB87-F7AE-4a36-AAFF-931FDC5F436E
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = AzaliaInitPeimEntry
+
+[Sources]
+  PeiAzalia.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  PeimEntryPoint
+  IoLib
+  S3BootScriptLib
+  PchPlatformLib
+#[-start-121031-IB10820146-add]#
+  PciExpressLib
+#[-end-121031-IB10820146-add]#
+#[-start-130709-IB05160465-add]#
+  MemoryAllocationLib
+#[-end-130709-IB05160465-add]#
+
+[Guids]
+  gSystemConfigurationGuid
+
+[Ppis]
+  gPeiInstallVerbTablePpiGuid
+  gEfiPeiReadOnlyVariable2PpiGuid
+  gAzaliaPolicyGuid
+#[-start-120808-IB10820098-add]#
+  gPchPlatformPolicyPpiGuid
+#[-end-120808-IB10820098-add]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+#[-start-121214-IB10820195-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchHdaBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdRcbaBaseAddress
+#[-end-121214-IB10820195-add]#
+#[-start-130709-IB05160465-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSetupConfigSize
+#[-end-130709-IB05160465-add]#
+
+#[-start-120731-IB10820094-add]#
+[FeaturePcd]
+#[-start-130118-IB11410043-add]#
+  gChipsetPkgTokenSpaceGuid.PcdSusWellRestore
+#[-end-130118-IB11410043-add]#
+#[-start-120904-IB10820115-remove]#
+#  gPlatformTokenSpaceGuid.PcdPchA0PwrOnSafeMode
+#[-end-120904-IB10820115-remove]#
+#[-end-120731-IB10820094-add]#
+
+[BuildOptions]
+  *_*_*_CC_FLAGS = -D __HOB__H__
+
+[Depex]
+  gAzaliaPolicyGuid        AND
+  gPeiInstallVerbTablePpiGuid

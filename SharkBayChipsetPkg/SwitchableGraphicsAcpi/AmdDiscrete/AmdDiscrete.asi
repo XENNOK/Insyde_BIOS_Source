@@ -1,0 +1,53 @@
+/** @file
+
+;******************************************************************************
+;* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+;*
+;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+;* transmit, broadcast, present, recite, release, license or otherwise exploit
+;* any part of this publication in any form, by any means, without the prior
+;* written permission of Insyde Software Corporation.
+;*
+;******************************************************************************
+*/
+
+#ifndef _AMD_DISCRETE_ASI_
+#define _AMD_DISCRETE_ASI_
+
+//
+// ASL code common define about device and bridge
+//
+//[-start-130523-IB05160449-modify]//
+#ifndef ULT_SUPPORT
+//[-end-130523-IB05160449-modify]//
+#define DGPU_BRIDGE_SCOPE                     \_SB.PCI0.PEG0
+#else
+#define DGPU_BRIDGE_SCOPE                     \_SB.PCI0.RP05
+#endif
+#define DGPU_DEVICE                           PEGP
+#define DGPU_SCOPE                            DGPU_BRIDGE_SCOPE.DGPU_DEVICE
+#define DGPU2_BRIDGE_SCOPE                    \_SB.PCI0.PEG1
+#define DGPU2_DEVICE                          PEGP
+#define DGPU2_SCOPE                           DGPU_BRIDGE_SCOPE.DGPU_DEVICE
+#define IGPU_SCOPE                            \_SB.PCI0.GFX0
+#define EC_SCOPE                              \_SB.PCI0.LPCB.EC0
+
+//
+// ACPI define in dGPU SCOPE _DOD method
+//
+#define ACPI_ID_LCD                           0x00000110
+#define ACPI_ID_CRT                           0x00000100
+#define ACPI_ID_HDMI                          0x00000210
+#define ACPI_ID_TMDS                          0x00000230
+#define ACPI_ID_DP_B                          0x00000220
+#define ACPI_ID_EDP                           0x00000240
+
+//
+// ATI GFX Interface function define
+//
+#define ATIF_VERIFY_INTERFACE                 0x0
+#define ATIF_GET_SYSTEM_PARAMETERS            0x1
+#define ATIF_GET_SBIOS_REQUESTS               0x2
+#define ATIF_SELECT_ACTIVE_DISPLAY            0x3
+
+#endif

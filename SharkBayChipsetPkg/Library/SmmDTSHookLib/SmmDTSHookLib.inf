@@ -1,0 +1,33 @@
+## @file
+#
+#   Digital Thermal Sensor (DTS) SMM Library.
+#   This SMM Library configures and supports the DigitalThermalSensor features
+#   for the platform.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SmmDTSHookLib
+  FILE_GUID                      = EB169B69-A37B-43a6-A40F-523FA7C98662
+  MODULE_TYPE                    = DXE_SMM_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = SmmDTSHookLib 
+
+[Sources]
+  SmmDTSHookLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  
+[LibraryClasses]
+  BaseLib
+  SmmKscLib

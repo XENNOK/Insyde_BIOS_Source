@@ -1,0 +1,56 @@
+## @file
+#
+#******************************************************************************
+#* Copyright (c) 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SwitchableGraphicsSmm
+  FILE_GUID                      = D684FB08-8B0E-4caf-8CFF-1EA386279809
+  MODULE_TYPE                    = COMBINED_SMM_DXE
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SwitchableGraphicsSmmInitEntry
+
+[Sources]
+  SwitchableGraphicsSmm.c
+  SwitchableGraphicsSmm.h
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  MdePkg/MdePkg.dec 
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+
+[Guids]
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmInt15ServiceProtocolGuid
+  gH2OSwitchableGraphicsInfoProtocolGuid
+
+[Pcd]
+
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdSwitchableGraphicsSupported
+  gChipsetPkgTokenSpaceGuid.PcdNvidiaOptimusSupported
+  gChipsetPkgTokenSpaceGuid.PcdAmdPowerXpressSupported
+
+#[BuildOptions]
+#  DEBUG_*_X64_CC_FLAGS = /Od
+
+[Depex]
+  gH2OSwitchableGraphicsInfoProtocolGuid AND
+  gEfiSmmInt15ServiceProtocolGuid
+

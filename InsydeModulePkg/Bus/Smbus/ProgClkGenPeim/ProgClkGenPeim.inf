@@ -1,0 +1,49 @@
+## @file
+#  Component description file for ProgClkGen driver.
+#
+#******************************************************************************
+#* Copyright (c) 2012 - 2013, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = ProgClkGenPeim
+  FILE_GUID                      = FDB3B9A7-1E82-4C77-9C6C-4305C851F253
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeimInitializeClkGen
+
+[Sources]
+   ProgClkGenPeim.c
+  
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  
+[LibraryClasses]
+  PeimEntryPoint
+  PeiServicesLib
+  DebugLib
+  BaseMemoryLib
+  PciCf8Lib
+  PcdLib
+  PeiOemSvcKernelLibDefault
+
+[Ppis]
+  gEfiPeiSmbus2PpiGuid
+
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdUmaDeviceNumber
+  gInsydeTokenSpaceGuid.PcdPegDeviceNumber
+  
+[Depex]
+  gEfiPeiSmbus2PpiGuid 
+

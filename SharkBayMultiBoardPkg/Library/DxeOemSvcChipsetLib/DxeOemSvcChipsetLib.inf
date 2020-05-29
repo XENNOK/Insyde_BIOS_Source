@@ -1,0 +1,64 @@
+## @file
+#  Component description file for DXE OEM Services Chipset Lib instance.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeOemSvcChipsetLib
+  FILE_GUID                      = 2113FC40-040C-4351-8CE7-E36BBAEEC228
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DxeOemSvcChipsetLib|DXE_CORE DXE_DRIVER DXE_RUNTIME_DRIVER DXE_SAL_DRIVER DXE_SMM_DRIVER UEFI_APPLICATION UEFI_DRIVER SMM_CORE
+
+[Sources]
+#[-start-121219-IB10820204-modify]#
+  OemSvcUpdateGlobalNvs.c
+#[-end-121219-IB10820204-modify]#
+#[-start-121108-IB10820155-add]#
+  OemSvcHookPlatformDxe.c
+#[-end-121108-IB10820155-add]#
+#[-start-130422-IB05400398-add]#
+  OemSvcUpdateBoardIdString.c
+  OemSvcUpdateDxePlatformSaPolicy.c
+  OemSvcUpdatDxePchPlatformPolicy.c
+  OemSvcUpdateSsdtStatus.c
+#[-end-130422-IB05400398-add]#
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(PROJECT_PKG)/Project.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+#[-start-130109-IB10820218-add]#
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+#[-end-130109-IB10820218-add]#
+
+#[-start-121108-IB10820155-add]#
+[LibraryClasses]
+#[-start-130812-IB06720232-modify]#
+#  EcLib
+  CommonEcLib
+#[-end-130812-IB06720232-modify]#
+#[-end-121108-IB10820155-add]#
+#[-start-130422-IB05400398-add]#
+  PcdLib
+#[-end-130422-IB05400398-add]#
+
+#[-start-130422-IB05400398-add]#
+[Pcd]
+  gChipsetPkgTokenSpaceGuid.PcdCurrentBoardId
+  gChipsetPkgTokenSpaceGuid.PcdUltFlag
+#[-start-130509-IB10310019-add]#
+  gChipsetPkgTokenSpaceGuid.PcdPchPchPlatformDataEcPresent
+#[-end-130509-IB10310019-add]#
+#[-end-130422-IB05400398-add]#

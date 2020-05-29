@@ -1,0 +1,56 @@
+## @file
+#
+#  SIO Package Declaration file
+#
+#******************************************************************************
+#* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = SioDummyPei
+  FILE_GUID                      = 22A8C2C1-9F75-4b9d-B037-22CC43E6929E
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  
+  ENTRY_POINT                    = SioInitPeim
+  
+[sources]
+  SioMainPei.c
+  SioInitPei.h 
+
+[Protocols]     
+
+[Packages]
+  MdePkg/MdePkg.dec 
+  MdeModulePkg/MdeModulePkg.dec
+  SioDummyPkg/SioDummyPkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec 
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[Guids]
+
+[LibraryClasses]
+  IoLib
+  SioLib
+  DebugLib
+  PostCodeLib
+  BaseMemoryLib
+  PeimEntryPoint
+  PeiOemSvcKernelLibDefault  
+  
+[Ppis]
+  gPeiSioInitializedPpiGuid
+
+[FixedPcd]
+  gSioGuid.PcdSioDummyCfg
+
+[Depex]
+  gPcdPpiGuid
+

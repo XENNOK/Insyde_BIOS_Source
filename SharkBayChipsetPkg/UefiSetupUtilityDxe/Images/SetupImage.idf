@@ -1,0 +1,29 @@
+//;******************************************************************************
+//;* Copyright (c) 2014, Insyde Software Corp. All Rights Reserved.
+//;*
+//;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+//;* transmit, broadcast, present, recite, release, license or otherwise exploit
+//;* any part of this publication in any form, by any means, without the prior
+//;* written permission of Insyde Software Corporation.
+//;*
+//;******************************************************************************
+//; 
+//; Module Name:
+//; 
+//;   SetupImage.idf
+//; 
+//; Abstract:
+//; 
+//;   Images for setup utility driver
+//; 
+
+!if gInsydeTokenSpaceGuid.PcdH2OFormBrowserLocalMetroDESupported
+#image IMAGE_ADVANCE            "ImageAdvance.png"
+#image IMAGE_POWER              "ImagePower.png"
+#image IMAGE_PERIPHERAL         "ImagePeripheral.png"
+#image IMAGE_SATA_CONFIG        "ImageSataConfig.png"
+#image IMAGE_VIDEO_CONFIG       "ImageVideoConfig.png"
+#image IMAGE_CHIPSET_CONFIG     "ImageChipsetConfig.png"
+#image IMAGE_ACPI_CONFIG        "AcpiConfig.png"
+#image IMAGE_CPU_CONTROL        "CpuControl.png"
+!endif

@@ -1,0 +1,57 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#;
+#  Module Name:
+#
+#    SensitiveVariableLib.inf
+#
+#  Abstract:
+#
+#    Component description file for Sensitive Variable library.
+#
+
+
+[defines]
+  BASE_NAME              = SensitiveVariableLib
+  COMPONENT_TYPE         = LIBRARY
+
+[sources.common]
+  SensitiveVariableLib.c
+
+[sources.ia32]
+  Ia32\CallSensitiveVariable.asm
+
+[sources.x64]
+  x64\CallSensitiveVariable.asm
+
+[includes.common]
+  $(EFI_SOURCE)
+  $(EDK_SOURCE)\Foundation\Framework
+  $(EDK_SOURCE)\Foundation
+  $(EDK_SOURCE)\Foundation\Efi
+  $(EDK_SOURCE)\Foundation\Include
+  $(EDK_SOURCE)\Foundation\Efi\Include
+  $(EDK_SOURCE)\Foundation\Framework\Include
+  $(EDK_SOURCE)\Foundation\Include\IndustryStandard
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Include
+  $(EDK_SOURCE)\Foundation\Library\Dxe\Graphics\Unicode
+  $(EDK_SOURCE)\Foundation\Core\Dxe
+  $(EFI_SOURCE)\Library\Dxe\Include
+  $(EFI_SOURCE)\Library\Include
+
+[libraries.common]
+  EdkProtocolLib
+  EfiDriverLib
+  ProtocolLib
+  GuidLib
+  VariableSupportLib
+
+[nmake.common]
+  C_STD_INCLUDE=

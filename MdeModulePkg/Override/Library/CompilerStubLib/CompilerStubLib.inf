@@ -1,0 +1,41 @@
+## @file
+#  Compiler Stub Library for MSVC tool chain
+#
+#******************************************************************************
+#* Copyright (c) 2013 - 2014, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = CompilerStubLib
+  FILE_GUID                      = 024259D3-EFCA-4BD8-8781-3FAD5E00A7E9
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = CompilerStubLib
+
+
+#
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC
+#
+
+
+[Sources]
+  memset.c
+  memcpy.c
+
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS = /GL- /Oi- /wd4244
+

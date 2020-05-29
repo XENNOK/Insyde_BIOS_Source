@@ -1,0 +1,34 @@
+## @file
+#
+#  Component description file for AMT Library functions for PEIMs
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeiAmtLib
+  FILE_GUID                      = BF96AA82-F15D-485d-A65E-864FADC6014B
+  MODULE_TYPE                    = BASE
+  LIBRARY_CLASS                  = PeiAmtLib|PEIM
+
+[Sources]
+  PeiAmtPolicyLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[Ppis]
+  gPeiAmtPlatformPolicyPpiGuid                ## CONSUMES
+
+[LibraryClasses]
+  PeiServicesLib

@@ -1,0 +1,79 @@
+#;******************************************************************************
+#;* Copyright (c) 1983-2014, Insyde Software Corp. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#  Module Name:
+#
+#    DhcpDummy.inf
+#
+#  Abstract:
+#
+#    This driver will install
+#      DHCP4_SERVICE_BINDING_PROTOCOL
+#      DHCP6_SERVICE_BINDING_PROTOCOL.
+#    When the real DHCP4 and DHCP6 not dispatch but has loaded.
+#
+#    In first phase, the dummy DHCP only support one PCI network card.
+#    The first binding LAN card will be use to BitLocker Network Unlock.
+#
+
+
+[defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DhcpDummyDxe
+  FILE_GUID                      = 9C7CCB02-9154-4864-9E4B-DC0487E37660
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = DhcpDummyEntryPoint
+
+
+[Sources]
+  DhcpDummy.c
+  DhcpDummy.h
+  Dhcp4DummyImpl.c
+  Dhcp6DummyImpl.c
+
+
+[Packages]
+  InsydeModulePkg/InsydeModulePkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DevicePathLib
+  DebugLib
+  MemoryAllocationLib
+  UefiLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  OemGraphicsLib
+
+
+[Guids]
+  gEfiNetworkStackDHCPSupportGuid
+  gEfiNetworkStackIPv6SupportGuid
+  gEfiNetworkStackIPv4SupportGuid
+  gEfiEventReadyToBootGuid
+
+[Pcd]
+  gInsydeTokenSpaceGuid.PcdDummyDhcpHintFunctionDisable
+  gInsydeTokenSpaceGuid.PcdDummyDhcpHintString
+
+[Protocols]
+  gEfiDhcp4ProtocolGuid
+  gEfiDhcp6ProtocolGuid
+  gEfiDhcp4ServiceBindingProtocolGuid
+  gEfiDhcp6ServiceBindingProtocolGuid
+  gEfiPciIoProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiSimpleNetworkProtocolGuid
+  gH2ODialogProtocolGuid
+  gNetworkLockerProtocolGuid

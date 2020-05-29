@@ -1,0 +1,55 @@
+#/** @file
+#
+#  Component description file for EventLog DXE driver.
+#
+#;******************************************************************************
+#;* Copyright (c) 2014, Insyde Software Corporation. All Rights Reserved.
+#;*
+#;* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#;* transmit, broadcast, present, recite, release, license or otherwise exploit
+#;* any part of this publication in any form, by any means, without the prior
+#;* written permission of Insyde Software Corporation.
+#;*
+#;******************************************************************************
+#*/
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = EventLogDxe
+  FILE_GUID                      = 9E039967-FB3B-4BE4-83AA-F72F309E481E
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = EventLogDxeEntryPoint
+
+[Sources]
+  EventLogDxe.c
+  EventLogDxe.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  $(INSYDE_EVENTLOG_PKG)/$(INSYDE_EVENTLOG_PKG).dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  
+[LibraryClasses]
+  BaseLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  HobLib
+  UefiLib
+  
+[Protocols]
+  gH2OEventStorageProtocolGuid                 # CONSUMED
+  gH2OEventLogProtocolGuid                     # PRODUCED
+
+[Guids]
+  gH2OPeiEventLogHobGuid                       # CONSUMED
+
+[Pcd]
+  gH2OEventLogPkgTokenSpaceGuid.PcdEventLogFullOption
+  
+[Depex]
+  TRUE

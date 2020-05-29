@@ -1,0 +1,58 @@
+## @file
+#  Component description file for IrsiRegistrationRuntimeDxe module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IrsiRegistrationRuntimeDxe
+  FILE_GUID                      = E8DDEB8B-82D7-4B6E-A2B4-D5EAEC2B8976
+  MODULE_TYPE                    = DXE_RUNTIME_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = InstallIrsiRegistrationRuntime
+
+[sources.common]
+  IrsiRegistrationRuntimeDxe.h
+  IrsiRegistrationRuntimeDxe.c
+  Crc32.h
+  Crc32.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  UefiRuntimeLib
+  UefiDriverEntryPoint
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+
+  
+[Protocols]
+  gEfiVariableArchProtocolGuid
+  gIrsiRegistrationProtocolGuid
+  
+[Guids]
+  gEfiEventVirtualAddressChangeGuid
+  gIrsiFeatureGuid
+  gEfiEventExitBootServicesGuid
+  
+[FixedPcd]
+  gInsydeTokenSpaceGuid.PcdIrsiRuntimeBufferSize
+
+[Depex]
+  TRUE

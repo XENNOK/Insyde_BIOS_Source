@@ -1,0 +1,36 @@
+## @file
+#  Component description file for IDE PEIM
+#
+#******************************************************************************
+#* Copyright (c) 2012-2014, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#;******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = IdeBusPei
+  FILE_GUID                      = B7A5041A-78BA-49e3-B73B-54C757811FB6
+  MODULE_TYPE                    = PEIM
+  BINARY_VERSION                 = 01.02.17.0429.00
+
+[Binaries.Ia32]
+  PE32|Ia32/IdeBusPei.efi|*
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+
+[Ppis]
+  gEfiPeiStallPpiGuid
+  gEfiPeiVirtualBlockIoPpiGuid
+  gPeiAtaControllerPpiGuid
+
+[Depex]
+  gPeiAtaControllerPpiGuid AND
+  gPeiBootInRecoveryModePpiGuid

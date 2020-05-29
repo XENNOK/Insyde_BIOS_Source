@@ -1,0 +1,56 @@
+## @file
+#  Flash Device Support Library Class
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeSpiAccessInitLib
+  FILE_GUID                      = 8A05BA40-0D9E-400F-8B8E-EFB175383EC4
+  MODULE_TYPE                    = DXE_DRIVER
+  LIBRARY_CLASS                  = SpiAccessInitLib
+
+[Sources]
+  DxeSpiAccessInitLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+  BaseLib
+  DxeServicesTableLib
+  UefiBootServicesTableLib
+#[-start-120419-IB10820037-add]#
+  IoLib
+#[-end-120419-IB10820037-add]#
+#[-start-120925-IB10820124-add]#
+  UefiBootServicesTableLib
+#[-end-120925-IB10820124-add]#
+
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress
+  gChipsetPkgTokenSpaceGuid.PcdRcbaBaseAddress
+
+[Guids]
+  gEfiEventExitBootServicesGuid
+
+#[-start-120925-IB10820124-add]#
+[FeaturePcd]
+  gChipsetPkgTokenSpaceGuid.PcdPfatSupport
+#[-end-120925-IB10820124-add]#
+
+[Protocols]
+  gEfiSmmBase2ProtocolGuid
+  gSmmPfatProtocolGuid
+

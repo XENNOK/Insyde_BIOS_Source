@@ -1,0 +1,73 @@
+## @file
+#  Component description file for the PCH late initialization SMM module.
+#
+#******************************************************************************
+#* Copyright (c) 2012, Insyde Software Corporation. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+#@copyright
+#  Copyright (c)  2012 Intel Corporation. All rights reserved
+#  This software and associated documentation (if any) is furnished
+#  under a license and may only be used or copied in accordance
+#  with the terms of the license. Except as permitted by such
+#  license, no part of this software or documentation may be
+#  reproduced, stored in a retrieval system, or transmitted in any
+#  form or by any means without the express written consent of
+#  Intel Corporation.
+#
+#  This file contains a 'Sample Driver' and is licensed as such
+#  under the terms of your license agreement with Intel or your
+#  vendor.  This file may be modified by the user, subject to
+#  the additional terms of the license agreement
+#
+
+[Defines]
+  INF_VERSION               = 0x00010005
+  BASE_NAME                 = PchLateInitSmm
+  FILE_GUID                 = D7B10D4E-67E6-4C74-83E9-F9AF0ACC33CC
+  MODULE_TYPE               = DXE_SMM_DRIVER
+  PI_SPECIFICATION_VERSION  = 0x0001000A
+  VERSION_STRING            = 1.0
+  ENTRY_POINT               = PchLateInitSmmEntryPoint
+
+
+[Sources]
+  PchLateInitSmm.c
+  PchLateInitSmm.h
+  ../Common/PchInitVar.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  #InsydeModulePkg/InsydeModulePkg.dec
+  $(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DxeServicesTableLib
+  PchPlatformLib
+  IoLib
+  PcdLib
+  DebugLib
+
+[Protocols]
+  gEfiSmmSxDispatchProtocolGuid
+  gEfiSmmIoTrapDispatchProtocolGuid
+  
+[Pcd]
+  gEfiMdePkgTokenSpaceGuid.PcdPciExpressBaseAddress  
+
+[Depex]
+  gEfiGlobalNvsAreaProtocolGuid     AND
+  gEfiSmmBaseProtocolGuid           AND
+  gEfiSmmIoTrapDispatchProtocolGuid AND
+  gEfiVariableArchProtocolGuid      AND
+  gEfiVariableWriteArchProtocolGuid
