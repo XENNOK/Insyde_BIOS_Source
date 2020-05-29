@@ -29,7 +29,7 @@ REM ----------------------------------------------------------------------------
 REM Project dependent parameters
 REM ---------------------------------------------------------------------------------------------
 set TOOL_CHAIN=DEVTLS_VC10
-set ASL_PATH=D:\DEVTLS\Asl\Acpi5.0
+set ASL_PATH=C:\DEVTLS\Asl\Acpi5.0
 set ARCH=IA32 X64
 set EFI_SOURCE_DIR=InsydeFrameworkModulePkg
 
