@@ -4448,3 +4448,421 @@ Image size = 0x800000 bytes
 Program terminated.
 -------------------
 
+
+-------------------------------------------------------
+ Flash Image Tool  -  6/1/2020  -  8:54:58 
+-------------------------------------------------------
+
+
+Command line: "/b ICBD_70K.xml"
+Environment variables:
+	$CurWorkDir 	= "."
+	$WorkingDir 	= "."
+	$SourceDir 	= "."
+	$DestDir 	= "."
+	$UserVar1 	= "."
+	$UserVar2 	= "."
+	$UserVar3 	= "."
+
+Using vsccommn.bin with timestamp 17:50:05 06/28/2013 GMT.
+Loading file "ICBD_70K.xml".
+USER ACTION: Changing Sku Type.
+Configuration
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.oem.secure.variables NVAR Not found.
+Configuration
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.oem.secure.variables NVAR Not found.
+Loading ICC Settings from XML
+Initializing Profile "WiMax" from "Standard"
+Initializing Profile "3G" from "Standard"
+Initializing Profile "Overclocking" from "Standard"
+Initializing Profile "Overclocking" from "Overclocking"
+File "ICBD_70K.xml" loaded.
+Configuration
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.oem.secure.variables NVAR Not found.
+Configuration
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.oem.secure.variables NVAR Not found.
+Building ROM image to save as ".\ICBD_70K.bin".
+
+----------- Building: 8:54:58 --- ".\ICBD_70K.bin" -----------
+
+
+Building full image...
+
+Building data...
+Descriptor Region
+Descriptor Map
+Component Section
+Region Map
+Master Access Section
+	CPU/BIOS
+	Manageability Engine (ME)
+	GbE LAN
+PCH Straps
+PCH Strap 0
+PCH Strap 1
+PCH Strap 2
+PCH Strap 3
+PCH Strap 4
+PCH Strap 5
+PCH Strap 6
+PCH Strap 7
+PCH Strap 8
+PCH Strap 9
+PCH Strap 10
+PCH Strap 11
+PCH Strap 12
+PCH Strap 13
+PCH Strap 14
+PCH Strap 15
+PCH Strap 16
+PCH Strap 17
+PCH Strap 18
+PCH Strap 19
+PCH Strap 20
+PROC Strap 0
+REGINIT Table
+	 1
+	 2
+	 3
+	 4
+	 5
+	 6
+	 7
+	 8
+	 9
+	 10
+	 11
+	 12
+	 13
+	 14
+	 15
+	 16
+	 17
+	 18
+	 19
+	 20
+	 21
+	 22
+	 23
+	 24
+	 25
+	 26
+	 27
+VSCC Table
+	Vscc Device 1
+		VendorId = 0x1F, DeviceId0 = 0x47, DeviceId1 = 0x01, VsccValue = 0x20152015
+	Vscc Device 2
+		VendorId = 0x1F, DeviceId0 = 0x47, DeviceId1 = 0x00, VsccValue = 0x20152015
+	Vscc Device 3
+		VendorId = 0xEF, DeviceId0 = 0x40, DeviceId1 = 0x17, VsccValue = 0x20252025
+	Vscc Device 4
+		VendorId = 0x1F, DeviceId0 = 0x48, DeviceId1 = 0x00, VsccValue = 0x20152015
+	Vscc Device 5
+		VendorId = 0xEF, DeviceId0 = 0x40, DeviceId1 = 0x15, VsccValue = 0x20252025
+	Vscc Device 6
+		VendorId = 0xEF, DeviceId0 = 0x40, DeviceId1 = 0x16, VsccValue = 0x20252025
+	Vscc Device 7
+		VendorId = 0xEF, DeviceId0 = 0x30, DeviceId1 = 0x16, VsccValue = 0x20052005
+	Vscc Device 8
+		VendorId = 0xBF, DeviceId0 = 0x25, DeviceId1 = 0x4A, VsccValue = 0x20092009
+	Vscc Device 9
+		VendorId = 0xEF, DeviceId0 = 0x30, DeviceId1 = 0x17, VsccValue = 0x20052005
+	Vscc Device 10
+		VendorId = 0xC2, DeviceId0 = 0x20, DeviceId1 = 0x16, VsccValue = 0x20452045
+	Vscc Device 11
+		VendorId = 0xC2, DeviceId0 = 0x20, DeviceId1 = 0x17, VsccValue = 0x20452045
+	Vscc Device 12
+		VendorId = 0x20, DeviceId0 = 0xBA, DeviceId1 = 0x16, VsccValue = 0x20052005
+	Vscc Device 13
+		VendorId = 0x20, DeviceId0 = 0x71, DeviceId1 = 0x16, VsccValue = 0x20052005
+	Vscc Device 14
+		VendorId = 0x1C, DeviceId0 = 0x30, DeviceId1 = 0x16, VsccValue = 0x20052005
+	Vscc Device 15
+		VendorId = 0xEF, DeviceId0 = 0x40, DeviceId1 = 0x16, VsccValue = 0x20252025
+	Vscc Device 16
+		VendorId = 0xEF, DeviceId0 = 0x50, DeviceId1 = 0x16, VsccValue = 0x20052005
+Upper Map
+OEM Section: ".\70K\Decomp\OEM Section.bin"
+GbE Region: ".\70K\Decomp\GbE Region.bin"
+ME Region: ".\70K\Decomp\ME Region.bin"
+BIOS Region: "..\..\..\..\BIOS\SHARKBAY.fd"
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.hwinv.asf.oem NVAR Not found.
+Adding MctpPcieEnabled NVAR.
+amt.oem.secure.variables NVAR Not found.
+Adding TdtFPOPNvar NVAR.
+Saving ICC NVAR Data
+
+Writing ROM image file ".\ICBD_70K.bin".
+Writing MAP file ".\ICBD_70K.map".
+
+Image size = 0x800000 bytes
+
+-- done --
+
+Program terminated.
+-------------------
+
+
+-------------------------------------------------------
+ Flash Image Tool  -  6/1/2020  -  9:34:09 
+-------------------------------------------------------
+
+
+Command line: "/b ICBD_70K.xml"
+Environment variables:
+	$CurWorkDir 	= "."
+	$WorkingDir 	= "."
+	$SourceDir 	= "."
+	$DestDir 	= "."
+	$UserVar1 	= "."
+	$UserVar2 	= "."
+	$UserVar3 	= "."
+
+Using vsccommn.bin with timestamp 17:50:05 06/28/2013 GMT.
+Loading file "ICBD_70K.xml".
+USER ACTION: Changing Sku Type.
+Configuration
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.oem.secure.variables NVAR Not found.
+Configuration
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.oem.secure.variables NVAR Not found.
+Loading ICC Settings from XML
+Initializing Profile "WiMax" from "Standard"
+Initializing Profile "3G" from "Standard"
+Initializing Profile "Overclocking" from "Standard"
+Initializing Profile "Overclocking" from "Overclocking"
+File "ICBD_70K.xml" loaded.
+Configuration
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.oem.secure.variables NVAR Not found.
+Configuration
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.oem.secure.variables NVAR Not found.
+Building ROM image to save as ".\ICBD_70K.bin".
+
+----------- Building: 9:34:10 --- ".\ICBD_70K.bin" -----------
+
+
+Building full image...
+
+Building data...
+Descriptor Region
+Descriptor Map
+Component Section
+Region Map
+Master Access Section
+	CPU/BIOS
+	Manageability Engine (ME)
+	GbE LAN
+PCH Straps
+PCH Strap 0
+PCH Strap 1
+PCH Strap 2
+PCH Strap 3
+PCH Strap 4
+PCH Strap 5
+PCH Strap 6
+PCH Strap 7
+PCH Strap 8
+PCH Strap 9
+PCH Strap 10
+PCH Strap 11
+PCH Strap 12
+PCH Strap 13
+PCH Strap 14
+PCH Strap 15
+PCH Strap 16
+PCH Strap 17
+PCH Strap 18
+PCH Strap 19
+PCH Strap 20
+PROC Strap 0
+REGINIT Table
+	 1
+	 2
+	 3
+	 4
+	 5
+	 6
+	 7
+	 8
+	 9
+	 10
+	 11
+	 12
+	 13
+	 14
+	 15
+	 16
+	 17
+	 18
+	 19
+	 20
+	 21
+	 22
+	 23
+	 24
+	 25
+	 26
+	 27
+VSCC Table
+	Vscc Device 1
+		VendorId = 0x1F, DeviceId0 = 0x47, DeviceId1 = 0x01, VsccValue = 0x20152015
+	Vscc Device 2
+		VendorId = 0x1F, DeviceId0 = 0x47, DeviceId1 = 0x00, VsccValue = 0x20152015
+	Vscc Device 3
+		VendorId = 0xEF, DeviceId0 = 0x40, DeviceId1 = 0x17, VsccValue = 0x20252025
+	Vscc Device 4
+		VendorId = 0x1F, DeviceId0 = 0x48, DeviceId1 = 0x00, VsccValue = 0x20152015
+	Vscc Device 5
+		VendorId = 0xEF, DeviceId0 = 0x40, DeviceId1 = 0x15, VsccValue = 0x20252025
+	Vscc Device 6
+		VendorId = 0xEF, DeviceId0 = 0x40, DeviceId1 = 0x16, VsccValue = 0x20252025
+	Vscc Device 7
+		VendorId = 0xEF, DeviceId0 = 0x30, DeviceId1 = 0x16, VsccValue = 0x20052005
+	Vscc Device 8
+		VendorId = 0xBF, DeviceId0 = 0x25, DeviceId1 = 0x4A, VsccValue = 0x20092009
+	Vscc Device 9
+		VendorId = 0xEF, DeviceId0 = 0x30, DeviceId1 = 0x17, VsccValue = 0x20052005
+	Vscc Device 10
+		VendorId = 0xC2, DeviceId0 = 0x20, DeviceId1 = 0x16, VsccValue = 0x20452045
+	Vscc Device 11
+		VendorId = 0xC2, DeviceId0 = 0x20, DeviceId1 = 0x17, VsccValue = 0x20452045
+	Vscc Device 12
+		VendorId = 0x20, DeviceId0 = 0xBA, DeviceId1 = 0x16, VsccValue = 0x20052005
+	Vscc Device 13
+		VendorId = 0x20, DeviceId0 = 0x71, DeviceId1 = 0x16, VsccValue = 0x20052005
+	Vscc Device 14
+		VendorId = 0x1C, DeviceId0 = 0x30, DeviceId1 = 0x16, VsccValue = 0x20052005
+	Vscc Device 15
+		VendorId = 0xEF, DeviceId0 = 0x40, DeviceId1 = 0x16, VsccValue = 0x20252025
+	Vscc Device 16
+		VendorId = 0xEF, DeviceId0 = 0x50, DeviceId1 = 0x16, VsccValue = 0x20052005
+Upper Map
+OEM Section: ".\70K\Decomp\OEM Section.bin"
+GbE Region: ".\70K\Decomp\GbE Region.bin"
+ME Region: ".\70K\Decomp\ME Region.bin"
+BIOS Region: "..\..\..\..\BIOS\SHARKBAY.fd"
+
+KR partition found    = 1
+TD partition found   = 1
+OS partition found   = 0
+CL partition found   = 1
+CM partition found   = 0
+SH partition found   = 1
+SP partition found   = 0
+QS partition found   = 0
+PL partition found   = 0
+The configuration parameters related to missing partition(s) will not be updated!
+amt.hwinv.asf.oem NVAR Not found.
+Adding MctpPcieEnabled NVAR.
+amt.oem.secure.variables NVAR Not found.
+Adding TdtFPOPNvar NVAR.
+Saving ICC NVAR Data
+
+Writing ROM image file ".\ICBD_70K.bin".
+Writing MAP file ".\ICBD_70K.map".
+
+Image size = 0x800000 bytes
+
+-- done --
+
+Program terminated.
+-------------------
+
