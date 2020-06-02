@@ -397,6 +397,8 @@
   NtEmulatorPkg/WinNtGopDxe/WinNtGopDxe.inf
   NtEmulatorPkg/WinNtSimpleFileSystemDxe/WinNtSimpleFileSystemDxe.inf
   MdeModulePkg/Application/HelloWorld/HelloWorld.inf
+  MdeModulePkg/Application/05_PCI/PCI_05.inf
+  MdeModulePkg/Application/PCI_HW_BT/PCI_HW_BT.inf
 
   #
   # Network stack drivers
