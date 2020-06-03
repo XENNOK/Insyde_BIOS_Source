@@ -34,7 +34,10 @@ UefiMain (
   UINT16                               DeviceNum;
   UINT16                               FuncNum;
   UINT16                               Counter;
+  UINT16                               ClassCounter;
   UINT8                                ID_Buffer[4];        // store vendor_ID & device_ID
+  UINT8                                Class_Buffer[3];     // store class_code
+  
   
   Status = gBS->LocateProtocol (&gEfiPciRootBridgeIoProtocolGuid, NULL, &PciRootBridgeIo);
   
@@ -60,8 +63,23 @@ UefiMain (
                                   );
           ID_Buffer[Counter] = PciData8;                                  
         }
+        for (ClassCounter = 9; ClassCounter <= 11; ClassCounter++) {                  // get class_code(interface、sub_class、base_class)
+          PciAddress = EFI_PCI_ADDRESS (BusNum, DeviceNum, FuncNum, ClassCounter);
+          Status = PciRootBridgeIo->Pci.Read (
+                                  PciRootBridgeIo,  // This
+                                  EfiPciWidthUint8, // Width
+                                  PciAddress,       // Address
+                                  1,                // Count
+                                  &PciData8         // *Buffer
+                                  );
+          Class_Buffer[ClassCounter-9] = PciData8;                                  
+        }
    
-        if (ID_Buffer[0] != 0xff && ID_Buffer[1] != 0xff) {
+        if (ID_Buffer[0] != 0xff && ID_Buffer[1] != 0xff&&
+            !(((Class_Buffer[2] == 0x06) && 
+              (Class_Buffer[1]<=0x04)) ||
+             ((Class_Buffer[2] == 0x08) &&
+              (Class_Buffer[1]<=0x03)))) {
     
           Print(L"|%7.2x%8.2x%8.2x%7.2x%.2x%6.2x%-6.2x|\n",
             BusNum, DeviceNum, FuncNum, ID_Buffer[1], ID_Buffer[0], ID_Buffer[3], ID_Buffer[2]

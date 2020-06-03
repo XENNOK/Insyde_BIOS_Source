@@ -14,7 +14,7 @@
 [Defines]
   INF_VERSION                    = 0x00010005
   BASE_NAME                      = PCI_HW_BT
-  FILE_GUID                      = 7c1a3ee6-4801-4a52-b13c-592c0e5694d5
+  FILE_GUID                      = 21B785A2-6479-475D-BBD4-6B7867D3C390
   MODULE_TYPE                    = UEFI_APPLICATION
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = UefiMain
