@@ -1,0 +1,49 @@
+## @file
+# 
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+INF_VERSION     = 0x00010006
+BASE_NAME       = ACPI_HW
+FILE_GUID       = d0de7225-19cc-4b01-8949-183618091724
+MODULE_TYPE     = UEFI_APPLICATION
+VERSION_STRING  = 1.0
+ENTRY_POINT     = H_BasePages
+
+[Sources]
+ACPI_HW.c
+ACPI_HW_Func.c
+ACPI_HW.h
+HugeConsole.c
+HugeHeader.h
+
+
+[Packages]
+_HomeWorkPkg/_HomeWorkPkg.dec
+MdePkg/MdePkg.dec
+IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+HydraLib
+UefiApplicationEntryPoint
+UefiBootServicesTableLib
+UefiLib
+
+[Guids]
+gEfiAcpi20TableGuid
+
+[Protocols]
+gEfiSimpleTextInputExProtocolGuid
+gEfiCpuIo2ProtocolGuid
+
+[BuildOptions]
+MSFT:*_*_*_CC_FLAGS = /Od

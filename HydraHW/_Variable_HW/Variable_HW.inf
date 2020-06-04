@@ -1,0 +1,60 @@
+## @file
+# 
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+INF_VERSION     = 0x00010006
+BASE_NAME       = Efi_Variable_HW
+FILE_GUID       = 3a3beb11-ca1f-4b2a-a819-290e11002fcf
+MODULE_TYPE     = UEFI_APPLICATION
+VERSION_STRING  = 1.0
+ENTRY_POINT     = H_BasePages
+
+[Sources]
+Variable_HW.h
+Variable_HW.c
+Variable_HW.c
+Variable_HW_Console.c
+Variable_HW_DataNormalization.c
+Variable_HW_event.c
+Variable_HW_Func.c
+Variable_HW_SearchFunc.c
+Variable_HW_CreateFunc.c
+Variable_HW_HOB.c
+
+
+[Packages]
+_HomeWorkPkg/_HomeWorkPkg.dec
+MdePkg/MdePkg.dec
+IntelFrameworkPkg/IntelFrameworkPkg.dec
+ShellPkg/ShellPkg.dec
+
+[LibraryClasses]
+HydraLib
+UefiApplicationEntryPoint
+UefiBootServicesTableLib
+UefiLib
+UefiRuntimeServicesTableLib
+MemoryAllocationLib
+ShellLib
+HandleParsingLib
+HobLib
+
+
+[Protocols]
+gEfiSimpleTextInputExProtocolGuid
+
+[Guids]
+  gEfiHydraVariGuid
+
+[BuildOptions]
+MSFT:*_*_*_CC_FLAGS = /w

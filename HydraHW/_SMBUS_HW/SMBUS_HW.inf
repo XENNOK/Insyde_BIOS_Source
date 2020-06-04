@@ -1,0 +1,50 @@
+## @file
+# 
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+INF_VERSION     = 0x00010006
+BASE_NAME       = Efi_SMBUS_HW
+FILE_GUID       = d0de7225-19cc-4b01-8949-1836fa9a1724
+MODULE_TYPE     = UEFI_APPLICATION
+VERSION_STRING  = 1.0
+ENTRY_POINT     = H_BasePages
+
+[Sources]
+SMBUS_HW.c
+SMBUS_HW.h
+HugeConsole.c
+HugeHeader.h
+
+[Packages]
+_HomeWorkPkg/_HomeWorkPkg.dec
+MdePkg/MdePkg.dec
+IntelFrameworkPkg/IntelFrameworkPkg.dec
+$(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+$(CHIPSET_REF_CODE_PKG)/$(CHIPSET_REF_CODE_PKG).dec
+
+[LibraryClasses]
+HydraLib
+UefiApplicationEntryPoint
+UefiBootServicesTableLib
+UefiLib
+BaseMemoryLib
+MemoryAllocationLib
+
+[Protocols]
+gEfiSimpleTextInputExProtocolGuid
+gDxePlatformSaPolicyGuid
+gMemInfoProtocolGuid
+gEfiSmbusHcProtocolGuid
+
+[BuildOptions]
+MSFT:*_*_*_CC_FLAGS = /Od

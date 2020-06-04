@@ -1,0 +1,50 @@
+## @file
+# 
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+INF_VERSION     = 0x00010006
+BASE_NAME       = Efi_ImageHandle_HW
+FILE_GUID       = 2e7f604e-2d0b-4ce2-827d-059a2fd61177
+MODULE_TYPE     = UEFI_APPLICATION
+VERSION_STRING  = 1.0
+ENTRY_POINT     = H_BasePages
+
+[Sources]
+ImageHandle_HW.c
+ImageHandle_HW_Event.c
+ImageHandle_HW_ListAllHandle.c
+ImageHandle_HW_SearchByGuid.c
+ImageHandle_HW_SearchByName.c
+ImageHandle_HW_Frame.c
+ImageHandle_HW.h
+
+
+[Packages]
+_HomeWorkPkg/_HomeWorkPkg.dec
+MdePkg/MdePkg.dec
+ShellPkg/ShellPkg.dec
+IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+HydraLib
+UefiApplicationEntryPoint
+UefiBootServicesTableLib
+UefiLib
+ShellLib
+HandleParsingLib
+
+[Protocols]
+gEfiSimpleTextInputExProtocolGuid
+
+[BuildOptions]
+MSFT:*_*_*_CC_FLAGS = /w

@@ -1,0 +1,41 @@
+[Defines]
+  INF_VERSION     = 0x00010005
+  VERSION_STRING  = 1.0
+  BASE_NAME       = PEIMPPI_HW
+  MODULE_TYPE     = PEIM
+  FILE_GUID       = 86863727-c3f6-401f-8494-df93566e1724
+  ENTRY_POINT     = HydraMain
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+  _HomeWorkPkg/_HomeWorkPkg.dec
+
+[LibraryClasses]
+  HobLib
+  BaseMemoryLib
+  PeiServicesLib
+  PeimEntryPoint
+  DebugLib
+  ReportStatusCodeLib
+
+
+[Sources]
+  PEIMPPI_HW.c
+  PEIMPPI_HW.h
+
+[Ppis]
+  gEfiPeiReadOnlyVariable2PpiGuid
+  gEfiHydraPpiGuid
+
+[Depex]
+  gEfiPeiReadOnlyVariable2PpiGuid
+
+[Protocols]
+
+[Guids]
+  gEfiHydraVariGuid
+
+[BuildOptions]
+  MSFT: *_*_*_CC_FLAGS = /Od 

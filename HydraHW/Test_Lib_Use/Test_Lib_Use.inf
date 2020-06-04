@@ -1,0 +1,27 @@
+[Defines]
+INF_VERSION     = 0x00010006
+BASE_NAME       = Test_Lib_Use
+FILE_GUID       = 19eeb32c-f731-4d56-ab08-6e61abe51170
+MODULE_TYPE     = UEFI_APPLICATION
+VERSION_STRING  = 1.0
+ENTRY_POINT     = H_BasePages
+
+[Sources]
+Test_Lib_Use.c
+Test_Lib_Use.h
+
+[Packages]
+MdePkg/MdePkg.dec
+_HomeWorkPkg/_HomeWorkPkg.dec
+
+[LibraryClasses]
+UefiApplicationEntryPoint
+UefiLib
+HydraLib
+
+[Protocols]
+gEfiSimpleTextInputExProtocolGuid
+gEfiPciRootBridgeIoProtocolGuid
+
+[BuildOptions]
+MSFT:*_*_*_CC_FLAGS = /w

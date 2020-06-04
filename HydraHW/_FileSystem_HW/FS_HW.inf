@@ -1,0 +1,57 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corp.
+#*
+#******************************************************************************
+
+
+[Defines]
+  INF_VERSION     = 0x00010005
+  VERSION_STRING  = 1.0
+  BASE_NAME       = Efi_FS_HW
+  MODULE_TYPE     = UEFI_APPLICATION
+  FILE_GUID       = a576fa0c-f42a-4a00-965b-0a595d8c71fc
+  ENTRY_POINT     = HydraMain
+
+[Packages]
+  _HomeWorkPkg/_HomeWorkPkg.dec
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+
+  
+[LibraryClasses]
+  HydraLib
+  UefiApplicationEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  ShellLib
+
+
+[Sources]
+  FS_HW.c
+  FS_HW_Info.c
+  FS_HW_RWD.c
+  FS_HW.h
+
+[Ppis]
+
+[Protocols]
+gEfiShellParametersProtocolGuid
+gEfiLoadedImageProtocolGuid
+
+[Guids]
+gEfiFileSystemInfoGuid
+gEfiFileInfoGuid
+
+
+[BuildOptions]
+  MSFT: *_*_*_CC_FLAGS = /Od 
+
+

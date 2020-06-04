@@ -1,0 +1,36 @@
+[Defines]
+INF_VERSION     = 0x00010006
+BASE_NAME       = NonDriver_HW
+FILE_GUID       = 09258a2c-a8fe-46af-bff9-13d99661c385
+MODULE_TYPE     = DXE_DRIVER
+VERSION_STRING  = 1.0
+ENTRY_POINT     = HydraMain
+UNLOAD_IMAGE    = ProtocolUnLoad
+
+[Sources]
+NonDriver_HW.c
+NonDriver_HW.h
+
+
+[Packages]
+	MdeModulePkg/MdeModulePkg.dec
+	MdePkg/MdePkg.dec
+	ShellPkg/ShellPkg.dec
+
+[LibraryClasses]
+	UefiDriverEntryPoint
+        UefiLib
+        PcdLib
+        UefiBootServicesTableLib
+
+[Protocols]
+gEfiHydraPciProtocolGuid
+gEfiLoadedImageProtocolGuid
+gEfiPciRootBridgeIoProtocolGuid
+gEfiPciIoProtocolGuid
+
+[Depex]
+  TRUE
+
+[BuildOptions]
+MSFT:*_*_*_CC_FLAGS = /w

@@ -1,0 +1,52 @@
+## @file
+# 
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+INF_VERSION     = 0x00010006
+BASE_NAME       = Efi_CPU_HW
+FILE_GUID       = 3a3beb11-ca1f-4b2a-a819-290e11003df3
+MODULE_TYPE     = UEFI_APPLICATION
+VERSION_STRING  = 1.0
+ENTRY_POINT     = H_BasePages
+
+[Sources]
+CPU_HW.h
+CPU_HW.c
+CPU_HW_event.c
+CPU_HW_Console.c
+CPU_HW_StdFunc.c
+CPU_HW_ExtFunc.c
+CPU_HW_GetData.c
+CPU_HW_RWMSR.c
+CPU_HW_DataNormalization.c
+
+
+
+
+[Packages]
+_HomeWorkPkg/_HomeWorkPkg.dec
+MdePkg/MdePkg.dec
+IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+HydraLib
+UefiApplicationEntryPoint
+UefiBootServicesTableLib
+UefiLib
+
+[Protocols]
+gEfiSimpleTextInputExProtocolGuid
+gEfiCpuIo2ProtocolGuid
+
+[BuildOptions]
+MSFT:*_*_*_CC_FLAGS = /w

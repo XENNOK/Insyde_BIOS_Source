@@ -1,0 +1,45 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2016, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corp.
+#*
+#******************************************************************************
+
+
+[Defines]
+  INF_VERSION     = 0x00010005
+  VERSION_STRING  = 1.0
+  BASE_NAME       = Efi_AppNonDriver
+  MODULE_TYPE     = UEFI_APPLICATION
+  FILE_GUID       = 028bc8b8-f118-4e0a-bfee-f3bb20c4670e
+  ENTRY_POINT     = HydraMain
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiBootServicesTableLib
+  MemoryAllocationLib
+  UefiLib
+
+[Sources]
+  AppNonDriver_HW.c
+  AppNonDriver_HW.h
+  AppNonDriver_HW_Console.c
+  AppNonDriver_HW_ListAll.c
+  AppNonDriver_HW_Table.c
+
+
+[Ppis]
+
+[Protocols]
+  gEfiSimpleTextInputExProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiHydraPciProtocolGuid

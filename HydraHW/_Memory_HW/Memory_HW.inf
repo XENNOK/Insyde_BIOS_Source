@@ -1,0 +1,51 @@
+## @file
+# 
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+INF_VERSION     = 0x00010006
+BASE_NAME       = Efi_Memory_HW
+FILE_GUID       = fa47f6ee-8046-44b4-8226-497e4544d742
+MODULE_TYPE     = UEFI_APPLICATION
+VERSION_STRING  = 1.0
+ENTRY_POINT     = H_BasePages
+
+[Sources]
+Memory_HW.c
+Memory_HW_Event.c
+Memory_HW_AllocatePool.c
+Memory_HW_AllocatePages.c
+Memory_HW_Frame.c
+Memory_HW_MemAlloMap.c
+Memory_HW.h
+
+
+[Packages]
+_HomeWorkPkg/_HomeWorkPkg.dec
+MdePkg/MdePkg.dec
+IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+HydraLib
+UefiApplicationEntryPoint
+UefiBootServicesTableLib
+UefiLib
+PcdLib
+BaseMemoryLib
+MemoryAllocationLib
+
+[Protocols]
+gEfiSimpleTextInputExProtocolGuid
+gEfiCpuIo2ProtocolGuid
+
+[BuildOptions]
+MSFT:*_*_*_CC_FLAGS = /w

@@ -75,20 +75,19 @@ UefiMain (
           Class_Buffer[ClassCounter-9] = PciData8;                                  
         }
    
-        if (ID_Buffer[0] != 0xff && ID_Buffer[1] != 0xff&&
-            !(((Class_Buffer[2] == 0x06) && 
-              (Class_Buffer[1]<=0x04)) ||
+        if (ID_Buffer[0] != 0xff && ID_Buffer[1] != 0xff&&  
+            !(((Class_Buffer[2] == 0x06) &&                 // spec P224
+              (Class_Buffer[1]<=0x04)) ||                   //濾掉不是device
              ((Class_Buffer[2] == 0x08) &&
               (Class_Buffer[1]<=0x03)))) {
     
           Print(L"|%7.2x%8.2x%8.2x%7.2x%.2x%6.2x%-6.2x|\n",
             BusNum, DeviceNum, FuncNum, ID_Buffer[1], ID_Buffer[0], ID_Buffer[3], ID_Buffer[2]
           );
+          Print(L"|--------------------------------------------|\n");
         }
       }
     }
   }
-  Print(L"|--------------------------------------------|\n");
-
-  return Status;
+   return Status;
 }

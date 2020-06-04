@@ -1,0 +1,61 @@
+## @file
+#  
+#
+#******************************************************************************
+#* Copyright (c) 2016, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corp.
+#*
+#******************************************************************************
+
+
+[Defines]
+  INF_VERSION     = 0x00010005
+  VERSION_STRING  = 1.0
+  BASE_NAME       = Efi_SMM_HW
+  MODULE_TYPE     = COMBINED_SMM_DXE
+  FILE_GUID       = 0596b3b2-2f2f-467d-8d74-1cb208391724
+  ENTRY_POINT     = HydraMain
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  IntelFrameworkPkg/IntelFrameworkPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DevicePathLib
+  UefiLib
+  IoLib
+  DebugLib
+
+[Sources]
+  SMM_HW.c
+  SMM_HW.h
+
+
+[Ppis]
+
+[Protocols]
+  gEfiDevicePathProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  gEfiSmmBase2ProtocolGuid
+  gEfiSmmSwDispatch2ProtocolGuid
+  gEfiCpuIo2ProtocolGuid
+  gEfiSmmPowerButtonDispatchProtocolGuid
+
+[Depex]
+  gEfiDevicePathProtocolGuid AND
+  gEfiLoadedImageProtocolGuid AND
+  gEfiSmmBase2ProtocolGuid AND
+  gEfiSmmSwDispatch2ProtocolGuid AND
+  gEfiCpuIo2ProtocolGuid AND
+  gEfiSmmPowerButtonDispatchProtocolGuid
+
+  [BuildOptions]
+  MSFT: *_*_*_CC_FLAGS = /Od 
+

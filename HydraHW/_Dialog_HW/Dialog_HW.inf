@@ -1,0 +1,55 @@
+## @file
+#  This is to description file for information.
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = HydraDialog
+  FILE_GUID                      = AEBB364B-A54F-490B-A2C4-4FD939C31724
+  MODULE_TYPE                    = DXE_DRIVER
+  PI_SPECIFICATION_VERSION       = 0x0001000A
+  ENTRY_POINT                    = DialogEntryPoint
+
+[Sources]
+  Dialog_HW.c
+  Dialog_HW.h
+
+[Packages]
+  _HomeWorkPkg/_HomeWorkPkg.dec
+  $(PROJECT_PKG)/Project.dec
+  $(CHIPSET_PKG)/$(CHIPSET_PKG).dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  InsydeModulePkg/InsydeModulePkg.dec
+  InsydeOemServicesPkg/InsydeOemServicesPkg.dec
+  SharkBayChipsetPkg/SharkBayChipsetPkg.dec
+
+[LibraryClasses]
+  UefiLib
+  BaseLib
+  DebugLib
+  VariableLib
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+
+[Guids]
+
+
+[Protocols]  
+gH2ODialogProtocolGuid
+
+[Depex]
+  gBiosFlashUIProtocolGuid
+
+[BuildOptions]
+  MSFT:DEBUG_*_*_CC_FLAGS = /Od
