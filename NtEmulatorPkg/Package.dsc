@@ -399,7 +399,7 @@
   MdeModulePkg/Application/HelloWorld/HelloWorld.inf
   MdeModulePkg/Application/05_PCI/PCI_05.inf
   MdeModulePkg/Application/PCI_HW_BT/PCI_HW_BT.inf
-
+  MdeModulePkg/Application/06_PciUtility/PciUtility_06.inf
   #
   # Network stack drivers
   # To test network drivers, need network Io driver(SnpNtEmulatorIo.dll), please refer to NETWORK-IO Subproject.
