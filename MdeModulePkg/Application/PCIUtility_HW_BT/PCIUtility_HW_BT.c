@@ -12,7 +12,7 @@
 ;******************************************************************************
 */
 
-#include "PciUtility_06.h"
+#include "PCIUtility_HW_BT.h"
 
 EFI_STATUS
 EFIAPI
@@ -66,7 +66,7 @@ UefiMain (
       case SCAN_UP:
         CursorPosition.row--;
         if (CursorPosition.row < MainPage_ResetPosition.row) {
-          CursorPosition.row = MainPage_ResetPosition.row;
+          CursorPosition.row = (AllBranchPage + MainPage_ResetPosition.row - 1);
         }
         gST->ConOut->SetCursorPosition(gST->ConOut, CursorPosition.column, CursorPosition.row);    
         continue;
@@ -74,7 +74,7 @@ UefiMain (
       case SCAN_DOWN:
         CursorPosition.row++;
         if (CursorPosition.row > (AllBranchPage + MainPage_ResetPosition.row - 1)) {
-          CursorPosition.row = (AllBranchPage + MainPage_ResetPosition.row - 1);
+          CursorPosition.row = MainPage_ResetPosition.row;
         }
         gST->ConOut->SetCursorPosition(gST->ConOut, CursorPosition.column, CursorPosition.row);
         continue;
@@ -103,7 +103,7 @@ UefiMain (
       case SCAN_UP:
         CursorPosition.row--;
         if (CursorPosition.row < ReadMode1_ResetPosition.row) {
-          CursorPosition.row = ReadMode1_ResetPosition.row;
+          CursorPosition.row = (ReadMode1_ResetPosition.row + 15);;
         }     
 
         DisplayPosition(ReadMode, &CursorPosition);
@@ -114,7 +114,7 @@ UefiMain (
       case SCAN_DOWN:
         CursorPosition.row++;
         if (CursorPosition.row > (ReadMode1_ResetPosition.row + 15)) {
-          CursorPosition.row = (ReadMode1_ResetPosition.row + 15);
+          CursorPosition.row = ReadMode1_ResetPosition.row;
         }
 
         DisplayPosition(ReadMode, &CursorPosition);
@@ -125,7 +125,7 @@ UefiMain (
       case SCAN_RIGHT:
         CursorPosition.column = CursorPosition.column + (ReadMode * 3);
         if (CursorPosition.column > (52 - 2 * ReadMode)) {
-          CursorPosition.column = (52 - 2 * ReadMode);
+          CursorPosition.column = (ReadMode + 4);
         }
 
         DisplayPosition(ReadMode, &CursorPosition);
@@ -136,7 +136,7 @@ UefiMain (
       case SCAN_LEFT:
         CursorPosition.column = CursorPosition.column - (ReadMode * 3);
         if (CursorPosition.column < (ReadMode + 4)) {
-          CursorPosition.column = (ReadMode + 4);
+          CursorPosition.column = (52 - 2 * ReadMode);
         }
 
         DisplayPosition(ReadMode, &CursorPosition);
