@@ -1,0 +1,33 @@
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = testt
+  FILE_GUID                      = 1562dcc5-f919-4fc7-bf54-2ade06792fe5
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PciAudioDriverBindingEntryPoint
+  UNLOAD_IMAGE                   = PciAudioUnload
+
+[Sources]
+  ComponentName.c
+  _test.c
+  _test.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  UefiLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  
+  DebugLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  ReportStatusCodeLib
+
+[Protocols]
+  gEfiPciAudioProtocolGuid
+  gEfiPciIoProtocolGuid
+  #gEfiPciRootBridgeIoProtocolGuid
+  gEfiDevicePathProtocolGuid    

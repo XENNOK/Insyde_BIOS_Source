@@ -401,6 +401,8 @@
   MdeModulePkg/Application/PCI_HW_BT/PCI_HW_BT.inf
   MdeModulePkg/Application/06_PciUtility/PciUtility_06.inf
   MdeModulePkg/Application/PCIUtility_HW_BT/PCIUtility_HW_BT.inf
+  MdeModulePkg/Application/HW/08_BdaCmos/BdaCmos_08.inf
+  MdeModulePkg/Application/Cmos_HW_BT/Cmos_HW_BT.inf
   #
   # Network stack drivers
   # To test network drivers, need network Io driver(SnpNtEmulatorIo.dll), please refer to NETWORK-IO Subproject.

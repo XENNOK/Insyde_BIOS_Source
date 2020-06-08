@@ -1,0 +1,7 @@
+﻿1.SharkBayChipsetPkg\Package.fdf -> [FV.DXEFV] 加入.inf
+
+2.SharkBayChipsetPkg\Package.dsc -> [Components.X64] 加入.inf
+
+3.SharkBayChipsetPkg\PlatformSmm\Platform.c 將 PowerButtonContext 相關代碼註解掉
+
+// Search "my homework"

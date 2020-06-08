@@ -1,0 +1,40 @@
+## @file
+#  PeimB_20 INF File
+#
+#******************************************************************************
+#* Copyright (c) 2018, Insyde Software Corp. All Rights Reserved.
+#*
+#* You may not reproduce, distribute, publish, display, perform, modify, adapt,
+#* transmit, broadcast, present, recite, release, license or otherwise exploit
+#* any part of this publication in any form, by any means, without the prior
+#* written permission of Insyde Software Corporation.
+#*
+#******************************************************************************
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = PeimB_20
+  FILE_GUID                      = c5066d36-22cc-4840-bdd1-4dc6a935af93
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = PeimMainB
+
+[Sources]
+  PeimB_20.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  NtEmulatorPkg/NtEmulatorPkg.dec
+
+[LibraryClasses]
+  PeimEntryPoint
+  DebugLib
+  PeiServicesLib
+
+[Ppis]
+  gPeimPpiGuid
+  gEfiPeiReadOnlyVariable2PpiGuid
+
+[Depex]
+  gEfiPeiMemoryDiscoveredPpiGuid
