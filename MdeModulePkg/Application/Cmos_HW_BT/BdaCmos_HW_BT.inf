@@ -1,5 +1,5 @@
 ## @file
-#  Cmos_HW_BT INF File
+#  BdaCmos_HW_BT INF File
 #
 #******************************************************************************
 #* Copyright (c) 2020, Insyde Software Corp. All Rights Reserved.
@@ -13,14 +13,14 @@
 
 [Defines]
   INF_VERSION                    = 0x00010005
-  BASE_NAME                      = Cmos_HW_BT
+  BASE_NAME                      = BdaCmos_HW_BT
   FILE_GUID                      = 6DDA564A-500E-4CAF-86CA-E6B8065C9AA6
   MODULE_TYPE                    = UEFI_APPLICATION
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = UefiMain
 
 [Sources]
-  Cmos_HW_BT.c
+  BdaCmos_HW_BT.c
 
 [Packages]
   MdePkg/MdePkg.dec

@@ -1,5 +1,5 @@
 /** @file
-  Cmos_HW_BT C Source File
+  BdaCmos_HW_BT C Source File
 
 ;******************************************************************************
 ;* Copyright (c) 2020, Insyde Software Corp. All Rights Reserved.
@@ -12,7 +12,7 @@
 ;******************************************************************************
 **/
 
-#include "Cmos_HW_BT.h"
+#include "BdaCmos_HW_BT.h"
 
 EFI_STATUS
 EFIAPI
