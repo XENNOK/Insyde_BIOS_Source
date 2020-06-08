@@ -1,5 +1,5 @@
 /** @file
-  Cmos_HW_BT H Source File
+  BdaCmos_HW_BT H Source File
 
 ;******************************************************************************
 ;* Copyright (c) 2020, Insyde Software Corp. All Rights Reserved.
@@ -12,8 +12,8 @@
 ;******************************************************************************
 */
 
-#ifndef _CMOS_HW_BT_H_
-#define _CMOS_HW_BT_H_
+#ifndef _BdaCMOS_HW_BT_H_
+#define _BdaCMOS_HW_BT_H_
 
 #include <Uefi.h>
 #include <Library/UefiLib.h>
